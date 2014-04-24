@@ -1,0 +1,67 @@
+
+\documentclass{article}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{caption}
+\usepackage{verbatim}
+\usepackage{tkz-graph}
+\usepackage[lined,commentsnumbered]{algorithm2e}
+\usepackage{amssymb}
+\usepackage{amsmath,amsthm}
+\usepackage{amsfonts}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{qtree}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage[latin1]{inputenc}
+\usepackage{bm}
+
+\begin{document}
+
+\section{Game Description}
+    
+\subsection{Enviornment}
+\begin{itemize}
+	\item Enviornment with finitely many states
+	\item Where there exist a group of people locally  
+	\item Each state has a unique goal value for each player
+	\item Randomness 	
+\end{itemize}
+\subsection{Players}
+\begin{itemize}
+	\item Capacity of players
+	\item Each with finitely many moves
+\end{itemize}
+\subsection{Dynamics}
+\begin{itemize}
+	\item Finitely many steps
+	\item All Players move on all steps(some no Ops)
+	\item Enviornment changes only in response of moves
+
+\end{itemize}
+            
+\section{Multiple Player Games}
+\begin{itemize}
+	\item changes depend on action of others and those actions cannot be controlled, So the player must consider all possible action of others.
+	\item Games can be a Fixed Sum game Vs. Variable Sum Games\\
+		\begin{itemize}
+			\item For the Fixed Sum Game: 
+			\begin{itemize}
+				\item Total reward in all states is the same
+				\item For one player to get more, the others must get less
+				\item Many common game is zero sum for example Chess - winner or loser
+			\end{itemize}
+			\item For the Variable Sum Game:
+				\begin{itemize}
+					\item Possible for one player to get more without 	other player get less
+
+				\end{itemize}	
+
+		\end{itemize}
+
+\end{itemize}
+
+\end{document}
