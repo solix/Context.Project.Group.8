@@ -1,0 +1,143 @@
+\documentclass{article}
+\usepackage{xcolor}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{caption}
+\usepackage{verbatim}
+\usepackage{amssymb}
+\usepackage{amsmath,amsthm}
+\usepackage{amsfonts}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{qtree}
+\usepackage{tikz}
+\usepackage{bm}
+\usepackage{frame,color}
+\usepackage{datetime}
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+\makeatother
+\definecolor{shadecolor}{rgb}{184,184,184}
+\lstset{language=Matlab,
+        frame = single,
+        breaklines=true
+}
+\usetikzlibrary{calc,positioning}
+\usetikzlibrary{arrows,automata}
+\renewcommand{\familydefault}{\sfdefault}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%TITLE PAGE%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}
+
+    \begin{minipage}[H]{0.33\textwidth}
+		\vspace{0.3cm}
+		\includegraphics[scale=0.8]{images/TUDelftLogo.eps}
+	\end{minipage}
+	\begin{minipage}[H]{0.66\textwidth}
+			\begin{flushright}
+				\small{Rob van Bekkum \qquad 4210816}\\
+				\small{Thijs Brands \qquad 4247132}\\
+				\small{Soheil Jahanshahi \qquad 4127617}\\
+				\small{Aidan Mauricio \qquad 4195175}\\
+				\small{Joost van Oorschot \qquad  4220471}
+
+			\end{flushright}
+			
+	\end{minipage}
+\end{figure}
+
+\begin{minipage}[H]{\textwidth}
+\vspace{0.3cm}
+		\begin{center}
+		
+		\vspace{0.3cm}
+			\Huge{\textbf{Game Concepts}}\\
+				\vspace{0.3 cm}
+			\small{\itshape Context Project Group 8}\\
+		
+			
+		\vspace{0.3cm}	
+		
+		\vspace{0.7cm}	
+			
+
+			
+		\end{center}
+	\end{minipage}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%END OF TITLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Circle Siege}
+Each player has a castle. Each player gains a certain amount of gold per second. Player have to invest their gold to try and defeat their opponents. \\\\
+Players can spend their money on:
+ \begin{itemize}
+ 	\item \textbf{Military} to grow their army
+ 	\item \textbf{Treasury} to increase their gold income
+ 	\item \textbf{Expedition} o gain artifacts(power-ups)
+ \end{itemize}
+Expeditions can gain:
+\begin{itemize}
+	\item A (temporary) boost in \textbf{Military, Treasury or Expedition.}
+	\item Spies (optional) can be send to other castles to gain knowledge about the stats of this castle.
+	\item Favor of the gods (optional), this could be the temporary decrease of Military, treasury or expedition of other players.
+\end{itemize}
+\subsection*{Combat}
+Combat starts when a player sends a number of soldiers to another castle. These soldiers are following the shortest path towards the targeted castle. Other players will get a notification of approaching soldiers, even when said soldiers are merely passing through. This player can see to which castle the soldiers are heading. \\\\
+A player that sees an army passing by their castle has a choice. This player may: 
+\begin{itemize}
+	\item Send soldiers along to help the army, increasing the success of the attack
+	\item Do nothing
+	\item Warn the player the army is heading for. This is not done through the game, but by verbal communication. All players are in the same room, so the attacker knows who ratted him out, and, more importantly, other players now know that the attacker has send out a certain number of soldiers, so his defense is weakened.
+\end{itemize}
+\vspace{0.2 cm}
+This last mentioned mechanic, the verbal communication, can be exploited:
+\begin{itemize}
+	\item 	People can lie about armies marching towards some other player, about the size of the army, etc.
+	\item People can say what their spies have uncovered about other players, or lie about it.
+\end{itemize}
+\vspace{0.2 cm}
+Optional features:
+\begin{itemize}
+	\item \textbf{Technology}, to climb the tech tree?
+    \item Give players the possibility to become allies by bumping their phones against each other (NFC). Other players that notice the bump will know that they are allies. Players that are allied will share their findings through the game. for instance, if one player of an alliance spots an approaching army, all other persons with an alliance with this person will get this notification as well. This way, people in an alliance cannot lie to each other, which makes it easier to make pacts.
+
+\end{itemize}
+\subsection*{Time}
+The game could take a varying amount of time, depending on the skill of the players. Theoretical, it could go on forever. However, this is highly unlikely and can be prevented in numerous ways. A game probably takes around 5-15 minutes.
+\subsection*{Context}
+The players are in the same room and each possesses a medium that can run the game (i.e smart-phone). This could be in trains, on festivals, or in a gate lounge at an airport. The possibility of being able to see and talk to each other is vital for the game-play mechanics.
+\section{Sabotage}
+All players start on an airplane. Within seconds of the start of the game, one of the engines catches fire (CPU generated event). The players have to work together to fix the engine. For example, 2 players have to go and fetch the fire extinguisher (mini-game), another player has to take the engine off-line to prevent more damage to the plane (other mini-game). Players have to decide who takes what jobs, and some jobs have a (higher) risk to get hurt or die, other jobs could be more difficult. If all jobs are completed in time, the players will advance to the next level. The next level could be set in a jungle, where the plane of the players had to land after the engine fire.\\\\
+The group of players exists of 2 classes: normal players and spies. Normal players have to work together and complete mini-games to survive the events in the game for as long as possible. The goal of the spies is to eliminate/sabotage all normal players before they are eliminated by the other players. Normal players do not know which players are spies. 
+\subsection*{Spies} 
+Spies can sabotage the plane in various ways. For example, the player that had to go to shut down the burning engine can `fail' the mini-game to do so and cause the engine to explode.\\\\
+Spies can also take players out during mini-games that have multiple people involved, like the two people that have to fetch a fire extinguisher. The spy will see a `tweaked'  version of the mini-game in which he will have an alternative goal that, if achieved eliminates the other (normal) player. The other players will get a notification that the targeted player was hurt/killed in an accident. This will of course lead to suspicion of other players.
+
+
+% subsection spies (end)
+\subsection*{Mini-Game} 
+The mini-games should be designed in such a way that players can watch other players playing the game (either through the game or face to face). This way people can watch each other to try and find out who is the spy.
+
+% subsection spies (end)
+\subsection*{Time} 
+The length of the game depends heavily on the amount of players. With 5 players, a game would probably take around 10-12 minutes. With 8 players, this would be 15-20 minutes. If needed we could design the game to be faster every `level'.
+
+% subsection spies (end)
+\subsection*{Context}
+ All the players are at the same location. Every player should have a moderate amount of freedom of movement so that gestures with a phone can be made (for the mini-games). The location could be a lunchroom, a train station, or a garden. The possibility of being able to see and talk to each other is vital for the game play mechanics.   
+
+ \section{Taxi Trouble}
+ \subsection*{Context}
+Two or four people are sitting together, which could be at a waiting room, in a train, or at a party. All players have a mobile phone on which they play the game. Having all players in the same room allows for verbal communication, so that interaction is natural and a feeling of community is formed.
+
+\subsection*{The premise}
+A taxi driver has to get around town as quickly as possible, avoiding other traffic and accumulating as much revenue as possible. At the same time, the taxi driver is competing with another taxi driver. The taxi driver that ends with the most money wins the game.
+
+\subsection*{Gameplay}
+The game can be played with either one or two teams. Each team is composed of 2 players. One of the players is the taxi driver, and the other is the navigator. The taxi driver is responsible for navigating the car: dodging traffic, making sharp turns and stopping next to customers. It is the navigators job to look at the map and to determine the optimal route for picking up passengers and to tell the taxi driver when to make a turn. Because of the fast paced nature of the game both roles are very hectic, and require good communication between both players.
+
+One round of the game will last two minutes, with a countdown timer visible on the screen. Players can choose between one round, three rounds and five rounds per game. The team with the most rounds won win the game.
+   
+\end{document}
