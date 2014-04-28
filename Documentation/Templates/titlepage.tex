@@ -17,6 +17,8 @@
 \usepackage{frame,color}
 \usepackage{datetime}
 \usepackage{etoolbox}
+\usepackage{emerald}
+\usepackage[T1]{fontenc}
 \makeatletter
 \patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
 \makeatother
@@ -32,12 +34,21 @@
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%TITLE PAGE%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}
-\framebox{
     \begin{minipage}[H]{0.33\textwidth}
 		\vspace{0.3cm}
 		\includegraphics[scale=0.8]{images/TUDelftLogo.eps}
 	\end{minipage}
-	\begin{minipage}[H]{0.66\textwidth}
+	\begin{minipage}[H]{0.33\textwidth}
+		\begin{center}
+			\ECFJD{Context Project Group 8}
+		\end{center}
+		
+		\begin{center}
+			\includegraphics[scale=0.8]{images/Lg.eps}	
+		
+		\end{center}
+	\end{minipage}
+	\begin{minipage}[H]{0.33\textwidth}
 			\begin{flushright}
 				\small{Rob van Bekkum \qquad 4210816}\\
 				\small{Thijs Brands \qquad 4247132}\\
@@ -47,7 +58,7 @@
 
 			\end{flushright}
 			
-	\end{minipage}}
+	\end{minipage}
 \end{figure}
 
 \begin{minipage}[H]{\textwidth}
@@ -55,9 +66,9 @@
 		\begin{center}
 		
 		\vspace{0.3cm}
-			\Huge{\textbf{Game Concepts}}\\
-				\vspace{0.3 cm}
-			\small{\itshape Context Project Group 8}\\
+			\Huge{\textbf{Title}}\\
+			
+			
 		
 			
 		\vspace{0.3cm}	
