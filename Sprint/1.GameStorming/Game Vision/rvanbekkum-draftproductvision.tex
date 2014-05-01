@@ -1,0 +1,97 @@
+\documentclass[11pt]{article}
+\usepackage{xcolor}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{caption}
+\usepackage{verbatim}
+\usepackage{amssymb}
+\usepackage{amsmath,amsthm}
+\usepackage{amsfonts}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{qtree}
+\usepackage{tikz}
+\usepackage{bm}
+\usepackage{frame,color}
+\usepackage{datetime}
+\usepackage{etoolbox}
+\usepackage{emerald}
+\usepackage[T1]{fontenc}
+\makeatletter
+\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+\makeatother
+\definecolor{shadecolor}{rgb}{184,184,184}
+\lstset{language=Matlab,
+        frame = single,
+        breaklines=true
+}
+\usetikzlibrary{calc,positioning}
+\usetikzlibrary{arrows,automata}
+\renewcommand{\familydefault}{\sfdefault}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%TITLE PAGE%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}
+    \begin{minipage}[H]{0.33\textwidth}
+		\vspace{0.3cm}
+		\includegraphics[scale=0.8]{images/TUDelftLogo.eps}
+	\end{minipage}
+	\begin{minipage}[H]{0.33\textwidth}
+		\begin{center}
+			
+		\end{center}
+		
+		\begin{center}
+			
+		
+		\end{center}
+	\end{minipage}
+	\begin{minipage}[H]{0.33\textwidth}
+			\begin{flushright}
+				\small{Rob van Bekkum \qquad 4210816}\\
+				\small{Thijs Brands \qquad 4247132}\\
+				\small{Soheil Jahanshahi \qquad 4127617}\\
+				\small{Aidan Mauricio \qquad 4195175}\\
+				\small{Joost van Oorschot \qquad  4220471}
+
+			\end{flushright}
+			
+	\end{minipage}
+\end{figure}
+
+\begin{minipage}[H]{\textwidth}
+\vspace{0.3cm}
+		\begin{center}
+		\vspace{0.3cm}
+			\Huge{\textbf{Draft Design: Taxi Trouble}}\\
+			\vspace{0.3cm}
+			\large Rob van Bekkum - Draft Product Vision \\
+			\textit{Note: still needs some adjustments and extensions}
+		\vspace{0.3cm}	
+		\vspace{0.7cm}	
+		\end{center}
+	\end{minipage}
+	
+\section{Introduction}
+For each project that follows the Scrum methodology it is essential to have a clear vision of the purpose of the project. This document will provide a draft of the overall goals and requirements for the game \textbf{Taxi Trouble} that is created for the Computer Games project. This is essential as it helps the project team members to stay focussed on the most important aspects of the project, even while the details keep changing continously during the development. It will do so by assessing who will be the target customers for the project and for which of their needs the product will be developed. Also what will be the most crucial elements of the project to serve the customers needs as well as possible will be defined. With these and other points it will be described how the final product will distinguish itself from the other (already existing) competing products. Finally a concise description will be given with which budget and in what timeframe the project will be developed.
+
+\section{Target customer}
+First of all an analysis will be given of the target market of the game. The game Taxi Trouble is focussed on entertaining large groups of people waiting together on large events like festivals. Players of the game are supposed to form pairs each competing against all other pairs that are joining the game. In the game verbal communication and the ability to see each other is essential as teamplay is the key to winning the game. Further the game is targeted on players equipped with a smart device such as a smartphone or tablet-pc with \textit{Android} as operating system.\\
+The target audience of the game consists of relatively young people with a well-developed responsiveness and insight. This means that in a game the pair of persons for which these skills are developed the best will have the best chances of winning the game. The age category for people that are most suited to like the game the most is therefore estimated to consist of people between the age of 12 and 40 years.
+
+\section{Customer Needs}
+In this section the needs of the customers that the product addresses are identified. The project mainly addresses the need of large group of people to have a form of entertainment while waiting. This should be accomplished while making the people that are present communicate with each other as much as possible. The product does this by making people interact and cooperate with each other, but as well compete against each other at the same time. Further the product ensures that the users can start playing the game without a time-consuming setup or a long time to learn the rules of the game. It as well does not require more than a smart device that most people own nowadays. Finally the game should not consume to much time from the customer, which means it should be easy to get to know the rules of the game and as well each game should finish in several minutes.
+
+\section{Essential elements}
+This next section describes the elements of the game that are essential for fullfilling the user needs by giving a description of the most vital elements of the game. The game should be played by a group consisting of an even amount of people of at least 4 players from which collaboratings pairs are formed. One of the players of each pair controls the pair's taxi and has a limited view of the city while the other player of the pair has a complete view of the citymap. As a consequence each pair is forced to communicate as well as possible to win from the pairs they are competing with. While one player of a pair is controlling the taxi the other player (the navigator), which has an overview of the city and potential customers, sends the other player in the right direction. At the same time the taxi should compete against the other pairs for customers while minding the rest of all traffic in the city as well. As a passenger has been picked up by a pair they should get it to the right destination. For each successfully transported passenger a pair will get a fixed amount of points added to his score. The navigators can as well lead their partners to power-ups on the map for the taxi-driver to gain a special ability. Examples of such special abilities are the taxi temporarily changing to a ghost taxi which can drive to all obstacles or reduce speed of the opponents' taxis temporarily.\\
+At the same time the players with a complete overview of the city can sabotage the opponents' plans by placing (a limited available amount of) obstacles on the roads such as roadblocks which will force other players' taxis to go back and adapt their routes. This all together makes the game very interactive as good communication between pairs is necessary, but as well requires each player to carefully pay attention to the opponents' actions.
+
+\section{Primary differentiation}
+... To discuss with project group
+
+\section{Timeframe and budget}
+...
+
+\end{document}
