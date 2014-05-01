@@ -1,0 +1,57 @@
+\documentclass[11pt,twoside,a4paper]{article}
+\usepackage[english]{babel} %English hyphenation
+\usepackage{amsmath} %Mathematical stuff
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+%Hyperreferences in the document. (e.g. \ref is clickable)
+\usepackage{hyperref}
+
+%Pseudocode
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+%You can also use the pseudocode package. http://cacr.uwaterloo.ca/~dstinson/papers/pseudocode.pdf
+%\usepackage{pseudocode}
+
+\usepackage{a4wide,times}
+\title{Game Concept: Taxi Trouble} %The title, e.g. Algoritmiek Assignment 1
+\author{
+        Joost van Oorschot, jjevanoorschot, 4220471
+}
+
+\begin{document}
+\maketitle
+\section*{Gameplay}
+\begin{enumerate}
+\item One round of the game will last two minutes, with a countdown timer visible on the screen. Players can choose between one round, three rounds and five rounds per game. The team with the most rounds won win the game.
+
+\item The player can set the amount of passengers that have to be delivered to win a round. The player can also set the amount of rounds that take place.
+
+\item The map will be sufficiently large to hold 4 Taxi's, but small enough so that Taxi's will frequently meet. 
+
+\item Taxi's will be able to drive freely through the map, crashing into each other to steal each other's customers.
+
+\item To pick up a customer, a Taxi simply drives over the customer, and he will hop in the car. 
+
+\item Pedestrians will walk around the map, but the player will not be able to driver on the curb.
+
+\item Traffic will spawn randomly throughout the city, and the Taxi driver has to avoid the incoming traffic.
+
+\item The navigator has an overview of the map, with possible passengers and the other Taxi cars lighting up.
+
+\item Players will be able to select the appearance of their car. They can also place decorative items on the car.
+\end{enumerate}
+\section*{Product vision}
+\begin{enumerate}
+\item Our target audience is smartphone owners between $10$ and $25$ years old.
+\item Customer needs:
+\begin{enumerate}
+\item To be entertained for a short period of time.
+\item To easily pick up the game.
+\item To be able to play the game with a large group.
+\end{enumerate}
+\item Crucial to the needs is a selection of fun gameplay mechanics, and at least 4 player multiplayer, but preferably with more players.
+\item The game "Taxi Driver 2", available in the Play Store is somewhat similar.
+\item The timeframe is $10$ weeks. If we wish to publish the game to Google Play, then we will need to pay $25$ euro's. That is our total budget.
+\end{enumerate}
+\end{document}
