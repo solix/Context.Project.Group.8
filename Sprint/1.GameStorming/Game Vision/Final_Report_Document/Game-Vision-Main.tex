@@ -19,6 +19,7 @@
 \usepackage{etoolbox}
 \usepackage{emerald}
 \usepackage[T1]{fontenc}
+\usepackage{bookmark}
 \makeatletter
 \patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
 \makeatother
@@ -28,6 +29,7 @@
 \renewcommand{\familydefault}{\sfdefault}
 
 \begin{document}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%TITLE PAGE%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}
     \begin{minipage}[H]{0.33\textwidth}
@@ -64,15 +66,20 @@
 		\end{center}
 	\end{minipage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Document Starts Here%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+\tableofcontents
+\newpage
 	\section{Introduction}
 	\input{./tex/1.Intro.tex}
 	 \section{Target Customer}
+	 \input{./tex/2.TargetCustomer.tex}
 	 \section{Customer Needs}
 	 \input{./tex/3.CustomerNeeds.tex}
 	 \section{Essential Elements} 
 	 \input{./tex/4.EssentialElements.tex}
 	 \section{Primary Deifferentiation} 
 	 \input{./tex/5.PrimaryDifferentiation.tex}
+	 \newpage
 	 \section{Timeframe \& Budget} % (fold)
+	 \input{./tex/6.TimeframeBudget.tex}
 	           
 	\end{document}
