@@ -23,10 +23,6 @@
 \patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
 \makeatother
 \definecolor{shadecolor}{rgb}{184,184,184}
-\lstset{language=Matlab,
-        frame = single,
-        breaklines=true
-}
 \usetikzlibrary{calc,positioning}
 \usetikzlibrary{arrows,automata}
 \renewcommand{\familydefault}{\sfdefault}
@@ -42,7 +38,6 @@
 		\begin{center}
 			\ECFJD{Context Project Group 8}
 		\end{center}
-		
 		\begin{center}
 			\includegraphics[scale=0.8]{images/Lg.eps}	
 		
@@ -55,37 +50,27 @@
 				\small{Soheil Jahanshahi \qquad 4127617}\\
 				\small{Aidan Mauricio \qquad 4195175}\\
 				\small{Joost van Oorschot \qquad  4220471}
-
 			\end{flushright}
-			
 	\end{minipage}
 \end{figure}
 
 \begin{minipage}[H]{\textwidth}
 \vspace{0.3cm}
 		\begin{center}
-		
-		\vspace{0.3cm}
-			\Huge{\textbf{Title}}\\
-			
-			
-		
-			
-		\vspace{0.3cm}	
-		
-		\vspace{0.7cm}	
-			
-
-			
+		  \vspace{0.3cm}
+		  \Huge{\textbf{Title}}\\
+	      \vspace{0.3cm}	
+   		  \vspace{0.7cm}	
 		\end{center}
 	\end{minipage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Document Starts Here%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
-
 	\section{Introduction}
 	\input{./tex/1.examplechapter.tex}
 	 \section{Target Customer}
 	 \section{Customer Needs}
+	 \input{./tex/3.CustomerNeeds.tex}
 	 \section{Essential Elements} 
+	  \input{./tex/3.EssentialElements.tex}
 	 \section{Primary Deifferentiation} 
 	 \section{Timeframe \& Budget} % (fold)
 	           

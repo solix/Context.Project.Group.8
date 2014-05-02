@@ -1,39 +1,4 @@
-\documentclass[11pt]{article}
-\usepackage{xcolor}
-\usepackage{fullpage}
-\usepackage{graphicx}
-\usepackage{epstopdf}
-\usepackage{caption}
-\usepackage{verbatim}
-\usepackage{amssymb}
-\usepackage{amsmath,amsthm}
-\usepackage{amsfonts}
-\usepackage{enumerate}
-\usepackage{enumitem}
-\usepackage{listings}
-\usepackage{qtree}
-\usepackage{tikz}
-\usepackage{bm}
-\usepackage{frame,color}
-\usepackage{datetime}
-\usepackage{etoolbox}
-\usepackage{emerald}
-\usepackage[T1]{fontenc}
-\makeatletter
-\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
-\makeatother
-\definecolor{shadecolor}{rgb}{184,184,184}
-\lstset{language=Matlab,
-        frame = single,
-        breaklines=true
-}
-\usetikzlibrary{calc,positioning}
-\usetikzlibrary{arrows,automata}
-\renewcommand{\familydefault}{\sfdefault}
 
-\begin{document}
-
-\section{Essential elements}
 
 This next section describes the elements of the game that are essential for fulfilling the user needs by giving a description of the most vital elements of the game. The Game takes place in a city. Because of the low amount of people using a taxi, this city has a lot of rivaling taxi companies. The situation has gone so bad, that taxi's actually chase each other to steal passengers. The game is played in teams. Every team has one taxi. The goal of each team is to serve as many passengers as possible.
 
@@ -49,4 +14,3 @@ Allong the way of chasing and being chased, taxis can collect power-ups on the r
 The game fulfils the customers' need for co-operation through the emphasis on communication in the teams. Each team consists of two players: one Driver and one Navigator. The Driver controlls the taxi. It is his job to manouvre through the traffic to bring passengers to their destination. The Driver can only see the direct vicinity of the taxi. This means he can travel down roads, but he has no way of knowing where he is going. This is where the Navigator comes in. The Navigator has a live map of the city that displays the current location of the taxi, the location of power-ups and the location (or destination) of the passenger. It is the Navigator's job to guide the Driver to the right locations. This leads to a need to communicate. The Navigator is also the only player in the team that can activate power-ups. For a power-up like a speed boost, for which the time of activation can be crucial, it is essential that the Navigator and the Driver are co-operating. As a consequence of the aforementioned game mechanics, each pair is forced to communicate as well as possible to win from the pairs they are competing with.
 
 
-\end{document}
