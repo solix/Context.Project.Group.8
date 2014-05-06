@@ -7,6 +7,9 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -48,6 +51,9 @@ public class TopDownCar implements ApplicationListener, InputProcessor {
 	private static int PIXELS_PER_METER = 15; // how many pixels in a meter
 
 	Car car;
+	
+	private TiledMap tileMap;
+	private OrthogonalTiledMapRenderer tm_renderer;
 
 	@Override
 	public void create() {
@@ -89,6 +95,10 @@ public class TopDownCar implements ApplicationListener, InputProcessor {
 				worldWidth - 0.5f, worldHeight / 2)); // right
 
 		Gdx.input.setInputProcessor(this);
+		
+		//load the map
+		tileMap = new TmxMapLoader().load("maps/test_map.tmx");
+		tm_renderer = new OrthogonalTiledMapRenderer(tileMap);
 	}
 
 	@Override
@@ -131,6 +141,10 @@ public class TopDownCar implements ApplicationListener, InputProcessor {
 		world.step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
 
 		world.clearForces();
+		
+		// draw the map
+		tm_renderer.setView(camera);
+		tm_renderer.render();
 
 		/**
 		 * Draw this last, so we can see the collision boundaries on top of the
