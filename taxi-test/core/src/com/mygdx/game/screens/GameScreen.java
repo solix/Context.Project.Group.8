@@ -87,7 +87,30 @@ public class GameScreen extends BasicScreen implements Screen {
 		
 		// set the camera to follow the taxi
 		camera.position.set(car.body.getPosition().x * PIXELS_PER_METER, car.body.getPosition().y * PIXELS_PER_METER,0);
-
+		
+		/**Ensure the camera only shows the contents of the map and nothing outside it.
+		 * 
+		 */
+		int mapPixelWidth = tileMap.getProperties().get("width", Integer.class)*tileMap.getProperties().get("tilewidth", Integer.class);
+		int mapPixelHeight = tileMap.getProperties().get("height", Integer.class)*tileMap.getProperties().get("tileheight", Integer.class);
+		
+		//Check if the camera is near the left border of the map
+		if(camera.position.x < Gdx.graphics.getWidth()/2) {
+			camera.position.x = Gdx.graphics.getWidth()/2;
+		}
+		//Check if the camera is near the right border of the map
+		if(camera.position.x >= mapPixelWidth - Gdx.graphics.getWidth()/2) {
+			camera.position.x = mapPixelWidth - Gdx.graphics.getWidth()/2;
+		}
+		//Check if the camera is near the bottom border of the map
+		if(camera.position.y < Gdx.graphics.getHeight()/2) {
+			camera.position.y = Gdx.graphics.getHeight()/2;
+		}
+		//Check if the camera is near the top border of the map
+		if(camera.position.y >= mapPixelHeight - Gdx.graphics.getHeight()/2) {
+			camera.position.y = mapPixelHeight - Gdx.graphics.getHeight()/2;
+		}
+		
 		// tell the camera to update its matrices.
 		camera.update();
 

@@ -1,29 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="100" height="20" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="65" height="25" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="example_tileset" tilewidth="32" tileheight="32">
   <image source="example_tileset.png" width="480" height="736"/>
  </tileset>
- <tileset firstgid="346" name="tiles" tilewidth="32" tileheight="32">
-  <image source="tiles.png" width="1024" height="1024"/>
+ <tileset firstgid="346" name="Road-Aidan" tilewidth="32" tileheight="32">
+  <image source="Tilesets/Road-Aidan.png" width="1024" height="1024"/>
  </tileset>
- <layer name="Road" width="100" height="20">
+ <layer name="Road" width="65" height="25">
   <data encoding="base64" compression="zlib">
-   eJztmMEKgCAQBXfP/qH1JX6KX1vQJYREbKUXTDDQoYszsKbJzFKH6mbbye7Xe+9biKd96EEPoIca1Z+593jL1+v8C9nXQ49xiq+HHuNEzCLmVWyPFfs2/wNa3uih5Y0eWt7ooeWNHlre6KHljR7z3jh/6NB6i7gfyfQI6xFxP1LoEdaDeQVgdgB7PtmG
+   eJztmGsKwjAQhDf92yv4OIEXlKr38CjFxz2k6kXqYwsGwxITyW5ooil80B92mA52d9oaAOqCl50C2CMH5IgsBaCaY9+jjw49npELshVEa14zyKBHjzfkjrSCaM1HBhlMKoAV+lwjczw/KT6NemtuMsgght/UM6BHyaBk8G8ZmDub7nLtN6Qf2PoFzSCVXuHqAdqvZD9IsVf0xr3SXd68kOwHocR8hsz/p7nLh34wRWZVWD+Q7Bex5wjVX1ig19h+Q5H0HTpHvp0nuWUQY57klgF3ntjeU3LLYNDiziaffqw5M6aW7/qSQclggNuJXfvI1OVkINHbXV46xd87n9C63H4r4dHlJdY3s1bJfTeT8Ojywu3Ern1k6nIykOjtUl5+iSeNscfa
   </data>
  </layer>
- <objectgroup name="Powerups" width="100" height="20" visible="0">
-  <object x="562" y="201" width="29" height="28"/>
-  <object x="93" y="123" width="30" height="28"/>
-  <object x="199" y="215" width="29" height="29"/>
- </objectgroup>
- <layer name="Solid" width="100" height="20">
+ <layer name="Solid" width="65" height="25">
   <data encoding="base64" compression="zlib">
-   eJztzsEJgDAMQNF0kVb3v+kEOpk5iIj0XqjvwT8EEkgEM9qyffQTPI7sHP0EAAAAAL+xloiW1bul9Hfqq/aZezcAALO7ACVbBKc=
+   eJztzjEKgDAMQNH0Iq3ef7Mn0JPZwUGka4nDe/CHQAKJAIA1jlHPfiLZObqynwAAYLm9RLRRfdrKfKe+ap95dgMA/NsNfosEpw==
   </data>
  </layer>
- <layer name="Buildings" width="100" height="20">
+ <layer name="Buildings" width="65" height="25">
   <data encoding="base64" compression="zlib">
-   eJztzqcVAgAUxdC3/wKUAehIOpKOpDMNsSzAR+SeE5/k24CGNKJxVG1BS1rRuvhFyYGOdKJz8YuSBz3pRe/iF0mSJOmXGtSkFrWLX5R0qEs96he/KJnQlGY0L35RsqEt7Whf/KLkQle60b34RZIk6V99AKERGmM=
+   eJztzrsRglAABdHXfwMiBYCAhqAiIahA6J9q3ArImEtwd+bkG4Jzzrm5chTY4yB+UXVGjQsa8YuqO3oMGMUvqj744odJ/OKcc2tugwhbxOIXVQlS7JCJX1SVqHDESfyiqkWHK27iF1UPPPHCW/zinHPOuWX6A/5YGmM=
   </data>
  </layer>
 </map>
