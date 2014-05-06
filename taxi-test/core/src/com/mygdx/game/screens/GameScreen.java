@@ -7,9 +7,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -24,23 +21,9 @@ public class GameScreen extends BasicScreen implements Screen {
 	private OrthographicCamera camera;
 	private SpriteBatch spriteBatch;
 	private Box2DDebugRenderer debugRenderer;
-<<<<<<< HEAD:taxi-test/core/src/com/mygdx/game/TopDownCar.java
-
-	private int screenWidth;
-	private int screenHeight;
-	private float worldWidth;
-	private float worldHeight;
-	private static int PIXELS_PER_METER = 15; // how many pixels in a meter
-
-	Car car;
-	
-	private TiledMap tileMap;
-	private OrthogonalTiledMapRenderer tm_renderer;
-=======
 	private Stage stage;
 	private InputMultiplexer multiplexer;
 	private TouchInputProcessor touchInput;
->>>>>>> 7a7d4d483423e38aa8facf063ef546a08bbcc1d9:taxi-test/core/src/com/mygdx/game/screens/GameScreen.java
 
 	@Override
 	public void show() {
@@ -82,20 +65,6 @@ public class GameScreen extends BasicScreen implements Screen {
 				worldWidth / 2, worldHeight - 0.5f));// top
 		BoxProp wall4 = new BoxProp(world, 1, worldHeight - 2, new Vector2(
 				worldWidth - 0.5f, worldHeight / 2)); // right
-<<<<<<< HEAD:taxi-test/core/src/com/mygdx/game/TopDownCar.java
-
-		Gdx.input.setInputProcessor(this);
-		
-		//load the map
-		tileMap = new TmxMapLoader().load("maps/test_map.tmx");
-		tm_renderer = new OrthogonalTiledMapRenderer(tileMap);
-	}
-
-	@Override
-	public void dispose() {
-		spriteBatch.dispose();
-=======
->>>>>>> 7a7d4d483423e38aa8facf063ef546a08bbcc1d9:taxi-test/core/src/com/mygdx/game/screens/GameScreen.java
 	}
 
 	@Override
@@ -133,10 +102,6 @@ public class GameScreen extends BasicScreen implements Screen {
 		world.step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
 
 		world.clearForces();
-		
-		// draw the map
-		tm_renderer.setView(camera);
-		tm_renderer.render();
 
 		/**
 		 * Draw this last, so we can see the collision boundaries on top of the
