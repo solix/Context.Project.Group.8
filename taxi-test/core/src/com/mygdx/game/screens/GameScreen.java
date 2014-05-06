@@ -2,6 +2,7 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -21,9 +22,18 @@ public class GameScreen extends BasicScreen implements Screen {
 	private SpriteBatch spriteBatch;
 	private Box2DDebugRenderer debugRenderer;
 	private Stage stage;
+	private InputMultiplexer multiplexer;
+	private TouchInputProcessor touchInput;
 
 	@Override
 	public void show() {
+		multiplexer = new InputMultiplexer();
+		touchInput = new TouchInputProcessor();
+		stage = new Stage();
+		multiplexer.addProcessor(stage);
+		multiplexer.addProcessor(touchInput);
+		Gdx.input.setInputProcessor(multiplexer);
+
 		// Box2d World init
 		world = new World(new Vector2(0.0f, 0.0f), true);
 
@@ -55,8 +65,6 @@ public class GameScreen extends BasicScreen implements Screen {
 				worldWidth / 2, worldHeight - 0.5f));// top
 		BoxProp wall4 = new BoxProp(world, 1, worldHeight - 2, new Vector2(
 				worldWidth - 0.5f, worldHeight / 2)); // right
-
-		Gdx.input.setInputProcessor(new TouchInputProcessor());
 	}
 
 	@Override
