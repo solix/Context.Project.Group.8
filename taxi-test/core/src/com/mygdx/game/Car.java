@@ -3,6 +3,8 @@ package com.mygdx.game;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -25,6 +27,8 @@ public class Car {
 	public static final int ACC_NONE = 0;
 	public static final int ACC_ACCELERATE = 1;
 	public static final int ACC_BRAKE = 2;
+	
+	private Sprite sprite;
 
 	public Car(World world, float width, float length, Vector2 position,
 			float angle, float power, float maxSteerAngle, float maxSpeed) {
@@ -71,6 +75,12 @@ public class Car {
 				false)); // back left
 		this.wheels.add(new Wheel(world, this, 1f, 1.2f, 0.4f, 0.8f, false,
 				false)); // back right
+		
+		// set the sprite of the car
+		sprite = new Sprite(new Texture("sprites/taxi_frame.png"));
+		sprite.setSize(this.width, this.length);
+		sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
+		this.body.setUserData(sprite);
 	}
 
 	public List<Wheel> getPoweredWheels() {

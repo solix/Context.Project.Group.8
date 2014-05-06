@@ -6,14 +6,18 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.BoxProp;
 import com.mygdx.game.Car;
 import com.mygdx.game.input.TouchInputProcessor;
@@ -118,20 +122,40 @@ public class GameScreen extends BasicScreen implements Screen {
 		//draw the map
 		tmrenderer.setView(camera);
 		tmrenderer.render();
+		
+		//draw the sprites
+		drawSprites();
 
 		/**
 		 * Draw this last, so we can see the collision boundaries on top of the
 		 * sprites and map.
 		 */
-		debugRenderer.render(world, camera.combined.scale(PIXELS_PER_METER,
-				PIXELS_PER_METER, PIXELS_PER_METER));
+		//debugRenderer.render(world, camera.combined.scale(PIXELS_PER_METER,
+		//		PIXELS_PER_METER, PIXELS_PER_METER));
 
+	}
+	
+	public void drawSprites() {
+		spriteBatch.begin();
+		Array<Body> tmpBodies = new Array<Body>();
+		world.getBodies(tmpBodies);
+		for(Body body : tmpBodies) {
+			if(body.getUserData() != null && body.getUserData() instanceof Sprite) {
+				Sprite sprite = (Sprite) body.getUserData();
+				sprite.setPosition(body.getPosition().x*PIXELS_PER_METER, body.getPosition().y*PIXELS_PER_METER);
+				sprite.setRotation(body.getAngle() * MathUtils.radiansToDegrees);
+				sprite.setScale(PIXELS_PER_METER);
+				sprite.draw(spriteBatch);
+			}
+		}
+		spriteBatch.end();
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-
+		camera.viewportWidth = screenWidth;
+		camera.viewportHeight = screenHeight;
+		camera.update();
 	}
 
 	@Override
