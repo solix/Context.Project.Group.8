@@ -1,6 +1,6 @@
 package com.mygdx.game.screens;
 
-import properties.GameProperties;
+import com.mygdx.game.properties.GameProperties;
 
 public class BasicScreen {
 	protected int screenWidth = GameProperties.screenWidth;

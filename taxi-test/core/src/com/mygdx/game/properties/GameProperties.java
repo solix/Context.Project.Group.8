@@ -1,4 +1,4 @@
-package properties;
+package com.mygdx.game.properties;
 
 import com.badlogic.gdx.Gdx;
 
