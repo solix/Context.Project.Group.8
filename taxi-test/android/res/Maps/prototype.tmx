@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="City" tilewidth="32" tileheight="32">
+  <image source="../../../../Program Files (x86)/Tiled/examples/City.png" width="480" height="1216"/>
+ </tileset>
+ <tileset firstgid="571" name="Road-Aidan" tilewidth="32" tileheight="32">
+  <image source="../../../../Program Files (x86)/Tiled/examples/Road-Aidan.png" width="1024" height="1024"/>
+ </tileset>
+ <layer name="Buildings" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt0TEKwwAQA0GT/7/CL02tIoXBWDKZg2mv0J6f4zgv+nVX/3APPbbosUWPLXps0eP5bd9w7e30yGtvp0deezs98trb6ZHX3k6PvPZ2K57eR4+tffTY2kePrX302NpHj6199NjaR4+tffTY2kePrX302NpHj6199Nja5596vPna2+mR195Oj7z2dnrktbfTI6+9nR557e0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIB7fQFelyNK
+  </data>
+ </layer>
+ <layer name="Road" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2ktqw0AQBFAx1wxOcg8fJVgXCfHZoo1gooXJtD8Uw3tQaNe9KIQNrWWpObVled/yseWzFYfwMPrIoo8s+siijyz6yKKP53hrtVy2rN2zOmdk375rnbj/c6vlZ8u1e1bnjOzbd10n7uOr1XJ8P6pzRvZduk5m9d1qOb4f1Tkj+/p3hL9e/Xvu/8Nt+siijyz6yKKPLPrIoo8s+siijyz6yKKPLPrIoo8s+siij+e45366dqnOGdnX32xnVb2fHu+D1Tn/zX6Lmr2Pe++nr77Xzv49w6Pup9U5o/tm/54BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgxS/pFwql
+  </data>
+ </layer>
+ <layer name="Pavement" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2L0KwyAYQNHQ93/jLKV0DaE/Ua7hHHBxUPAOH7ht39sfn+0xhx4terTo0aJHix7jvN7xl3XVOf8sOvRo0aNFj5a79lhlnh/dx9vs99HjnB4terTo0aJHix4terTo0aJHix4terTo0aLHOP53uYIeLXq06NFy1x6j5/DMGQ8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKztCZFB7TE=
+  </data>
+ </layer>
+</map>

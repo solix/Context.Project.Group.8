@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="Road-Aidan" tilewidth="32" tileheight="32">
+  <image source="Tilesets/Road-Aidan.png" width="1024" height="1024"/>
+ </tileset>
+ <layer name="Buildings" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt3N1NxDAQReG0EvHTB6XwShd0g6iSvKDNWgmQYGfO2MfSFQhQNHM/AloWmKdpmpd8HMjeOXINs51Zj/TRgxU9WNGDFT2u7zbDie5Oj/sT3Z0e9ye6u5r5ftyR+UR3WNvD+4OR9ePxzCe6xxoO5c9G3k5k73w2yt6J7rPWPaFHfPTg5Kef3+rBsdCDZaEHy0IPloUeLAs9WBZ66DGKxxkLPeobnPl9HT0490OZzCfaYH1P1Lpe5tOTgx7/s2h17cynNws9WBZ6sCzM3xy0iI8OnGjBiA6c6MCJ9wUnOjDiPcHoocZzFD0mog8dfu/myo60OG7T8vrRe2ZLi8504PTnfcHoUAeGiQ7tXVp8rGlvogfDw69RLBMtOCZacDy0iM9cvDTx0YIT7w9O5p3XTazF+m26MCyOvN9cZ6EHy0ITpocmLAtNeBaatLGo0acmvA414XWnybnOWvamCa8rTXgdacLrRpPtTqL//iO6A0ooXVDmiO6A1ANtnqt3j54h42yj7pthxtH2zDTrKDv2/D0l8169ufSyS/Y9evu8ym6Sefbe9so4c6/7ZZq19z0zzDjKvuTZRtubONOo+5Nmie4h+rkcLRid6MCJFpxowYkWrOgRn4j/M2lueVjyuORpyfOSlyLR842W0uO1SPR8o6X0eC8SPd9o2fKInmnklB7R84yeL0u/HsY=
+  </data>
+ </layer>
+ <layer name="Road" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2kFqAkEQBVCvItHcI0cJzkVED552MdCZRUiXjnya9+Djrgr8DAo1h0PNR8up5dzyWZzB6+gjiz6y6COLPrLoI4s+9nEs5tKydJ/VOSP71l3LLt9Ehq9ibi337rM6Z2Tfuuu+yzeR4buY7fNRnTOy75G1k1ldi9k+H9U5I/v6Z4Tf3v177v/D3/SRRR9Z9JFFH1n0kUUfWfSRRR9Z9JFFH1n0kUUfWfSRRR/7eOZ+unSpzhnZ199sZ1W9n27vg9U5/816i5q9j2fvp+++187+PsOr7qfVOaP7Zn+fAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIMUPTcaRpg==
+  </data>
+ </layer>
+ <layer name="Pavement" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2DEKxCAUQMHc/1beLMW2y5Jko7yEGbCxUPAVH9y288bBPdbQo0WPFj1a9GjRY55xcd11zj+LDj1a9GjRo+WtPZ4yz7/dx8fq99HjNz1a9GjRo0WPFj1a9GjRo0WPFj1a9GjRo0WPefzvcgc9WvRo0aPlrT1mz+GVMx4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHi2HeAntPE=
+  </data>
+ </layer>
+</map>
