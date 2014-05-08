@@ -1,8 +1,17 @@
 package com.mygdx.game.input;
 
-import com.badlogic.gdx.InputProcessor;
+import java.util.List;
 
-public class TouchInputProcessor implements InputProcessor {
+import com.badlogic.gdx.InputProcessor;
+import com.mygdx.game.properties.GameProperties;
+import com.mygdx.game.ui.VirtualButton;
+
+public class VirtualButtonInputProcessor implements InputProcessor {
+	private List<VirtualButton> buttons;
+
+	public VirtualButtonInputProcessor(List<VirtualButton> buttons) {
+		this.buttons = buttons;
+	}
 
 	@Override
 	public boolean keyDown(int keycode) {
@@ -23,8 +32,12 @@ public class TouchInputProcessor implements InputProcessor {
 	}
 
 	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
+	public boolean touchDown(int screenX, int screenY, int pointer,
+			int mouseButton) {
+		screenY = GameProperties.screenHeight - screenY;
+		for (VirtualButton button : buttons) {
+			return button.touchDown(screenX, screenY, mouseButton);
+		}
 		return false;
 	}
 
@@ -51,5 +64,4 @@ public class TouchInputProcessor implements InputProcessor {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 }
