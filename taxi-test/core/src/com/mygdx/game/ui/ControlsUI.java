@@ -28,14 +28,14 @@ public class ControlsUI extends InputAdapter {
 		this.active = new HashMap<Integer, Action>();
 		this.car = car;
 
-		buttons.put("throttle", new VirtualButton(
-				new Rectangle(GameProperties.screenWidth - 110, 10,
-						100 * scale, 200 * scale), new Sprite(new Texture(
-						SpriteProperties.throttleSprite)), Action.ACCELERATE));
-		buttons.put("brake", new VirtualButton(
-				new Rectangle(GameProperties.screenWidth - 210, 10,
-						100 * scale, 200 * scale), new Sprite(new Texture(
-						SpriteProperties.breakSprite)), Action.BREAK));
+		buttons.put("throttle", new VirtualButton(new Rectangle(
+				GameProperties.screenWidth - 110 * scale, 10, 100 * scale,
+				120 * scale), new Sprite(new Texture(
+				SpriteProperties.throttleSprite)), Action.ACCELERATE));
+		buttons.put("brake", new VirtualButton(new Rectangle(
+				GameProperties.screenWidth - 210 * scale, 10, 100 * scale,
+				120 * scale), new Sprite(new Texture(
+				SpriteProperties.breakSprite)), Action.BREAK));
 
 		buttons.put("dpad", new VirtualDPad(new Rectangle(10, 50, 184 * scale,
 				80 * scale), new Sprite(

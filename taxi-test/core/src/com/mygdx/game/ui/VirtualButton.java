@@ -16,7 +16,7 @@ public class VirtualButton {
 		this.body = body;
 		this.sprite = sprite;
 		sprite.setPosition(body.x, body.y);
-		sprite.setSize(body.width * scale, body.height * scale);
+		sprite.setSize(body.width, body.height);
 		this.ACTION = action;
 		// sprite.setOrigin(body.width / 2, body.height / 2);
 	}
