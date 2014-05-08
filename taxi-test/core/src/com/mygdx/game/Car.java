@@ -67,13 +67,13 @@ public class Car {
 
 		// initialize wheels
 		this.wheels = new ArrayList<Wheel>();
-		this.wheels.add(new Wheel(world, this, -1f, -1.2f, 0.4f, 0.8f, true,
+		this.wheels.add(new Wheel(world, this, -1f, -1.4f, 0.4f, 0.6f, true,
 				true)); // top left
-		this.wheels.add(new Wheel(world, this, 1f, -1.2f, 0.4f, 0.8f, true,
+		this.wheels.add(new Wheel(world, this, 1f, -1.4f, 0.4f, 0.6f, true,
 				true)); // top right
-		this.wheels.add(new Wheel(world, this, -1f, 1.2f, 0.4f, 0.8f, false,
+		this.wheels.add(new Wheel(world, this, -1f, 1.2f, 0.4f, 0.6f, false,
 				false)); // back left
-		this.wheels.add(new Wheel(world, this, 1f, 1.2f, 0.4f, 0.8f, false,
+		this.wheels.add(new Wheel(world, this, 1f, 1.2f, 0.4f, 0.6f, false,
 				false)); // back right
 		
 		// set the sprite of the car
