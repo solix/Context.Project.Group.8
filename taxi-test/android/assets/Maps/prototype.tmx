@@ -19,26 +19,25 @@
   </data>
  </layer>
  <objectgroup name="box2D" width="80" height="101">
-  <object x="3" y="0" width="2555" height="33"/>
-  <object x="2179" y="36" width="379" height="797"/>
-  <object x="2467" y="833" width="97" height="1052"/>
-  <object x="2467" y="1885" width="94" height="1348"/>
-  <object x="3" y="3203" width="2467" height="97"/>
-  <object x="0" y="1664" width="61" height="1539"/>
-  <object x="-3" y="33" width="64" height="1055"/>
-  <object x="-3" y="1088" width="385" height="576"/>
-  <object x="321" y="706" width="1600" height="124"/>
-  <object x="318" y="285" width="867" height="161"/>
-  <object x="1442" y="291" width="476" height="155"/>
-  <object x="1218" y="1091" width="991" height="188"/>
-  <object x="642" y="1088" width="318" height="576"/>
-  <object x="961" y="1533" width="1245" height="130"/>
-  <object x="321" y="1915" width="448" height="324"/>
-  <object x="1024" y="1918" width="412" height="736"/>
-  <object x="1697" y="1918" width="509" height="321"/>
-  <object x="1697" y="2494" width="512" height="448"/>
-  <object x="1379" y="2912" width="321" height="30"/>
-  <object x="321" y="2494" width="442" height="452"/>
-  <object x="767" y="2909" width="352" height="33"/>
+  <object x="0" y="32" width="64" height="1056"/>
+  <object x="0" y="1088" width="384" height="576"/>
+  <object x="640" y="1088" width="320" height="576"/>
+  <object x="960" y="1536" width="1248" height="128"/>
+  <object x="1216" y="1088" width="992" height="192"/>
+  <object x="320" y="704" width="1600" height="128"/>
+  <object x="1440" y="288" width="480" height="160"/>
+  <object x="320" y="288" width="864" height="160"/>
+  <object x="2176" y="32" width="384" height="800"/>
+  <object x="0" y="0" width="2560" height="32"/>
+  <object x="2464" y="832" width="96" height="2368"/>
+  <object x="320" y="1920" width="448" height="320"/>
+  <object x="1024" y="1920" width="416" height="736"/>
+  <object x="1696" y="1920" width="512" height="320"/>
+  <object x="1696" y="2496" width="512" height="416"/>
+  <object x="320" y="2496" width="448" height="448"/>
+  <object x="768" y="2912" width="352" height="32"/>
+  <object x="1376" y="2912" width="832" height="32"/>
+  <object x="0" y="1664" width="64" height="1568"/>
+  <object x="64" y="3200" width="2496" height="32"/>
  </objectgroup>
 </map>
