@@ -3,7 +3,6 @@ package com.mygdx.game.screens;
 import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -34,7 +33,6 @@ public class GameScreen extends BasicScreen {
 	private SpriteBatch spriteBatch;
 	private Box2DDebugRenderer debugRenderer;
 	private ControlsUI controlsUI;
-	private InputMultiplexer multiplexer;
 	private TiledMap tileMap;
 	private OrthogonalTiledMapRenderer tmrenderer;
 
@@ -47,12 +45,7 @@ public class GameScreen extends BasicScreen {
 		// Box2d World init
 		world = new World(new Vector2(0.0f, 0.0f), true);
 
-		carCamera = new OrthographicCamera();
-		carCamera.setToOrtho(false, screenWidth, screenHeight);
-
-		// Box2d World init
-		world = new World(new Vector2(0.0f, 0.0f), true);
-
+		// Initialize the taxi
 		this.car = new Car(world, 2, 4, new Vector2(10, 10), (float) Math.PI,
 				60, 20, 60);
 
@@ -64,8 +57,6 @@ public class GameScreen extends BasicScreen {
 		spriteBatch = new SpriteBatch();
 
 		debugRenderer = new Box2DDebugRenderer();
-
-		Vector2 center = new Vector2(worldWidth / 2, worldHeight / 2);
 
 		// load the map
 		tileMap = new TmxMapLoader().load("maps/test_map2.tmx");
@@ -225,6 +216,5 @@ public class GameScreen extends BasicScreen {
 	@Override
 	public void dispose() {
 		spriteBatch.dispose();
-
 	}
 }
