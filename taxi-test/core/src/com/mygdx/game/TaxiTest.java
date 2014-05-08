@@ -3,16 +3,19 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.screens.StageTestScreen;
+import com.mygdx.game.screens.VirtualButtonScreen;
 
 public class TaxiTest extends Game {
 	private GameScreen gameScreen;
 	private StageTestScreen stScreen;
+	private VirtualButtonScreen vbs;
 
 	@Override
 	public void create() {
 		gameScreen = new GameScreen();
 		stScreen = new StageTestScreen();
-		setScreen(stScreen);
+		vbs = new VirtualButtonScreen();
+		setScreen(gameScreen);
 	}
 
 	@Override

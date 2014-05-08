@@ -1,7 +1,6 @@
 package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.BoxProp;
 import com.mygdx.game.Car;
+import com.mygdx.game.ui.ControlsUI;
 
 public class GameScreen extends BasicScreen {
 	private Car car;
@@ -17,19 +17,22 @@ public class GameScreen extends BasicScreen {
 	private OrthographicCamera camera;
 	private SpriteBatch spriteBatch;
 	private Box2DDebugRenderer debugRenderer;
+	private ControlsUI controlsUI;
 
 	@Override
 	public void show() {
+		spriteBatch = new SpriteBatch();
 
 		// Box2d World init
 		world = new World(new Vector2(0.0f, 0.0f), true);
 
 		this.car = new Car(world, 2, 4, new Vector2(10, 10), (float) Math.PI,
 				60, 20, 60);
+		this.controlsUI = new ControlsUI(car);
+		Gdx.input.setInputProcessor(controlsUI);
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, screenWidth, screenHeight);
-		spriteBatch = new SpriteBatch();
 
 		debugRenderer = new Box2DDebugRenderer();
 
@@ -64,19 +67,19 @@ public class GameScreen extends BasicScreen {
 
 		spriteBatch.setProjectionMatrix(camera.combined);
 
-		if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP))
-			car.accelerate = Car.ACC_ACCELERATE;
-		else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN))
-			car.accelerate = Car.ACC_BRAKE;
-		else
-			car.accelerate = Car.ACC_NONE;
-
-		if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT))
-			car.steer = Car.STEER_LEFT;
-		else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT))
-			car.steer = Car.STEER_RIGHT;
-		else
-			car.steer = Car.STEER_NONE;
+		// if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP))
+		// car.accelerate = Car.ACC_ACCELERATE;
+		// else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN))
+		// car.accelerate = Car.ACC_BRAKE;
+		// else
+		// car.accelerate = Car.ACC_NONE;
+		//
+		// if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT))
+		// car.steer = Car.STEER_LEFT;
+		// else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT))
+		// car.steer = Car.STEER_RIGHT;
+		// else
+		// car.steer = Car.STEER_NONE;
 
 		car.update(Gdx.app.getGraphics().getDeltaTime());
 
@@ -96,7 +99,7 @@ public class GameScreen extends BasicScreen {
 		 */
 		debugRenderer.render(world, camera.combined.scale(PIXELS_PER_METER,
 				PIXELS_PER_METER, PIXELS_PER_METER));
-
+		controlsUI.render(spriteBatch);
 	}
 
 	@Override
