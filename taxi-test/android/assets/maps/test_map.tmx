@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="12" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="example_tileset" tilewidth="32" tileheight="32">
+  <image source="example_tileset.png" width="480" height="736"/>
+ </tileset>
+ <tileset firstgid="346" name="tiles" tilewidth="32" tileheight="32">
+  <image source="tiles.png" width="1024" height="1024"/>
+ </tileset>
+ <layer name="Road" width="100" height="12">
+  <data encoding="base64" compression="zlib">
+   eJzt1VEKgCAMxvGNHr1hdZKO0mkNIhjqBpqwRV/wgx724v6giYiS4WSi7bLz/W/N9lqgUu6o/NADPf4MPWKR74RG9njL+7zRPT1W1sl9WnOtefQY63GwTu7TmmvNo8dYjxl3Ee6reT08eJ89IvQAgK/IyfFR7A==
+  </data>
+ </layer>
+ <layer name="Buildings" width="100" height="12">
+  <data encoding="base64" compression="zlib">
+   eJztzjkRgFAUxdDrXwqLAPgIYBHAooa0CGBekzOTPslXRz0NNEbVJpqp0VL8omSljXY6il+UnHTRTU/xiyRJkiTpPy8rbAwh
+  </data>
+ </layer>
+ <objectgroup name="Powerups" width="100" height="12" visible="0">
+  <object x="562" y="201" width="29" height="28"/>
+  <object x="93" y="123" width="30" height="28"/>
+  <object x="199" y="215" width="29" height="29"/>
+ </objectgroup>
+ <layer name="Solid" width="100" height="12">
+  <data encoding="base64" compression="zlib">
+   eJzt1bENACAMA8HsPw5MAJORigFoguBO+t6dI3hRy3r1CLaRzeoRAAf8yV38CQDwqwU+HQXR
+  </data>
+ </layer>
+</map>
