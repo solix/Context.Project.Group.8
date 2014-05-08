@@ -66,7 +66,7 @@ public class GameScreen extends BasicScreen implements Screen {
 		Vector2 center = new Vector2(worldWidth / 2, worldHeight / 2);
 		
 		// load the map
-		tileMap = new TmxMapLoader().load("maps/test_map2.tmx");
+		tileMap = new TmxMapLoader().load("maps/prototype.tmx");
 		tmrenderer = new OrthogonalTiledMapRenderer(tileMap);
 		
 		// load the map objects
