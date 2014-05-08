@@ -11,24 +11,25 @@
  </tileset>
  <layer name="Road" width="65" height="25">
   <data encoding="base64" compression="zlib">
-   eJztmGsKwjAQhDf92yv4OIEXlKr38CjFxz2k6kXqYwsGwxITyW5ooil80B92mA52d9oaAOqCl50C2CMH5IgsBaCaY9+jjw49npELshVEa14zyKBHjzfkjrSCaM1HBhlMKoAV+lwjczw/KT6NemtuMsgght/UM6BHyaBk8G8ZmDub7nLtN6Qf2PoFzSCVXuHqAdqvZD9IsVf0xr3SXd68kOwHocR8hsz/p7nLh34wRWZVWD+Q7Bex5wjVX1ig19h+Q5H0HTpHvp0nuWUQY57klgF3ntjeU3LLYNDiziaffqw5M6aW7/qSQclggNuJXfvI1OVkINHbXV46xd87n9C63H4r4dHlJdY3s1bJfTeT8Ojywu3Ern1k6nIykOjtUl5+iSeNscfa
+   eJztVkEOwjAMK4ee9hY+VDgBAmkw+P8NdkAqUbqmjQMr2yRrEqOu53pJOudctyKLs3fuYIiL//075rB7aQyG2DfmwRV8b9GDpefgGOnuFQiEb44e0IvmQKsZzfdND1DnhuZbc4BFag6g329I/E8KJB96trCu/y30FOs5wIIPnSGuB6KA5kTwcRnivgXNHNAn9kbz1WZoyoO4Z203n6Br6HMK676qyZAkB0gPprzX1u3aDP1LDkr4JGu5M9NoHvnmNF9J1lrMsK3nYMS7l558XQ/mapJm7uM0SrXV1IMYQ+J9SmtxDrlz5TSWapPmgPbUIfE7ek6UeqDRJskBB20OpCjxQKuN2+vu0731NvEMiUfGA05jrbbcXkvCE+tLZ+k=
   </data>
  </layer>
  <layer name="Solid" width="65" height="25">
   <data encoding="base64" compression="zlib">
-   eJztzjEKgDAMQNH0Iq3ef7Mn0JPZwUGka4nDe/CHQAKJAIA1jlHPfiLZObqynwAAYLm9RLRRfdrKfKe+ap95dgMA/NsNfosEpw==
+   eJztzrENgDAMAEFnkQT272ACmAyXKdKCKe6klyzZhSMA4B1HdlY/UezK7uonAAD4xN4iRtazra33fWpM8+oeAPi/B5WrBGk=
   </data>
  </layer>
  <layer name="Buildings" width="65" height="25">
   <data encoding="base64" compression="zlib">
-   eJztzrkRQQEABuHXIBVQF14BbqHnDN1Ct2psBSIzK/h35su3KFJKKX1riBHGmMgvVgssscJafrE64IgTzvKL1QNPvPCWX1JK6Z9roY0OSvnFqose+hjIL1ZTVJhhLr9YbbDFDnv5xeqCK264yy8ppZR+Xw11e0KugaY9IfcB8oYbtw==
+   eJzt1jkOgmAURWH2vwGHBSgglg4gJQhCqeCwGs4KrP7kQnJP8rUvt3xR5Jxz7l8pDshwFG9RlaPADaV4i6oWD3ToxVtUvfHBFz/xFuecm3MrrLHBVrxF1Q57xEjEW1SdcMYF10A3l/aXVqhxRxPo5tL+0ideGDAGuum/1H+pc865eTUB9gcmgw==
   </data>
  </layer>
  <objectgroup name="box2D" width="65" height="25">
   <object x="160" y="175" width="127" height="112"/>
   <object x="384" y="416" width="128" height="160"/>
-  <object x="224" y="544" width="160" height="32"/>
-  <object x="512" y="544" width="288" height="32"/>
+  <object x="256" y="544" width="128" height="32"/>
+  <object x="512" y="544" width="256" height="32"/>
   <object x="608" y="192" width="64" height="64"/>
+  <object x="1056" y="495" width="126" height="113"/>
  </objectgroup>
 </map>
