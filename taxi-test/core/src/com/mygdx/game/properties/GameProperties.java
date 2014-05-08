@@ -13,7 +13,7 @@ public class GameProperties {
 	private static int getPPM() {
 		switch (Gdx.app.getType()) {
 		case Android:
-			return 40;
+			return 15;
 		case Desktop:
 			return 15;
 		default:
