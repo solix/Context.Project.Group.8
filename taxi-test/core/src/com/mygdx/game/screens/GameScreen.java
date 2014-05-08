@@ -2,52 +2,24 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.BoxProp;
 import com.mygdx.game.Car;
-import com.mygdx.game.input.TouchInputProcessor;
 
-public class GameScreen extends BasicScreen implements Screen {
+public class GameScreen extends BasicScreen {
 	private Car car;
 	private World world;
 	private OrthographicCamera camera;
 	private SpriteBatch spriteBatch;
 	private Box2DDebugRenderer debugRenderer;
-	private Stage stage;
-	private InputMultiplexer multiplexer;
-	private TouchInputProcessor touchInput;
 
 	@Override
 	public void show() {
-		multiplexer = new InputMultiplexer();
-		touchInput = new TouchInputProcessor();
-		stage = new Stage();
-
-		ButtonStyle style = new ButtonStyle();
-		style.up = new TextureRegionDrawable(new TextureRegion(new Texture(
-				"throttle.png")));
-		style.down = style.up;
-		Button button = new Button(style);
-		button.setSize(10, 10);
-
-		stage.addActor(button);
-		multiplexer.addProcessor(stage);
-		multiplexer.addProcessor(touchInput);
-		Gdx.input.setInputProcessor(multiplexer);
 
 		// Box2d World init
 		world = new World(new Vector2(0.0f, 0.0f), true);
@@ -86,8 +58,6 @@ public class GameScreen extends BasicScreen implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
 		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
-		stage.act(Gdx.graphics.getDeltaTime());
-		stage.draw();
 
 		// tell the camera to update its matrices.
 		camera.update();
@@ -131,7 +101,6 @@ public class GameScreen extends BasicScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		stage.setViewport(new FitViewport(width, height));
 	}
 
 	@Override
@@ -155,6 +124,6 @@ public class GameScreen extends BasicScreen implements Screen {
 	@Override
 	public void dispose() {
 		spriteBatch.dispose();
-		stage.dispose();
+
 	}
 }
