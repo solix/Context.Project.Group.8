@@ -1,40 +1,33 @@
 package com.mygdx.game.screens;
 
-import java.util.Iterator;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.BoxProp;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Car;
-import com.mygdx.game.ui.ControlsUI;
+import com.mygdx.game.input.ControlsUI;
+import com.mygdx.game.world.CarCamera;
+import com.mygdx.game.world.WorldMap;
+import com.mygdx.game.properties.ResourceManager;
 
 public class GameScreen extends BasicScreen {
 	private Car car;
 	private World world;
-	private OrthographicCamera carCamera;
+	private CarCamera carCamera;
 	private OrthographicCamera virtualButtonsCamera;
 	private SpriteBatch spriteBatch;
-	private Box2DDebugRenderer debugRenderer;
 	private ControlsUI controlsUI;
-	private TiledMap tileMap;
-	private OrthogonalTiledMapRenderer tmrenderer;
+	private WorldMap map;
+	private Box2DDebugRenderer debugRenderer;
+	private Viewport viewport;
 
 	@Override
 	public void show() {
@@ -49,36 +42,17 @@ public class GameScreen extends BasicScreen {
 		this.car = new Car(world, 2, 4, new Vector2(10, 10), (float) Math.PI,
 				60, 20, 60);
 
+		// Load the UI for player input
 		this.controlsUI = new ControlsUI(car);
 		Gdx.input.setInputProcessor(controlsUI);
 
-		carCamera = new OrthographicCamera();
-		carCamera.setToOrtho(false, screenWidth, screenHeight);
+		carCamera = new CarCamera(car);
 		spriteBatch = new SpriteBatch();
 
 		debugRenderer = new Box2DDebugRenderer();
 
-		// load the map
-		tileMap = new TmxMapLoader().load("maps/test_map2.tmx");
-		tmrenderer = new OrthogonalTiledMapRenderer(tileMap);
-
-		// load the map objects
-		MapLayer layer = tileMap.getLayers().get("box2D");
-		MapObjects objects = layer.getObjects();
-
-		Iterator<MapObject> obj_iterator = objects.iterator();
-		while (obj_iterator.hasNext()) {
-			MapObject obj = obj_iterator.next();
-			if (obj instanceof RectangleMapObject) {
-				Rectangle r = ((RectangleMapObject) obj).getRectangle();
-				BoxProp solid = new BoxProp(world, (r.getWidth())
-						/ PIXELS_PER_METER, (r.getHeight()) / PIXELS_PER_METER,
-						new Vector2(r.getX() / PIXELS_PER_METER + r.getWidth()
-								/ (2 * PIXELS_PER_METER), r.getY()
-								/ PIXELS_PER_METER + r.getHeight()
-								/ (2 * PIXELS_PER_METER)));
-			}
-		}
+		// Load the map of the game
+		map = new WorldMap(ResourceManager.mapFile, world);
 	}
 
 	@Override
@@ -86,42 +60,8 @@ public class GameScreen extends BasicScreen {
 		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
 		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
-		// set the camera to follow the taxi
-		carCamera.position.set(car.body.getPosition().x * PIXELS_PER_METER,
-				car.body.getPosition().y * PIXELS_PER_METER, 0);
-
-		/**
-		 * Ensure the camera only shows the contents of the map and nothing
-		 * outside it.
-		 * 
-		 */
-		int mapPixelWidth = tileMap.getProperties().get("width", Integer.class)
-				* tileMap.getProperties().get("tilewidth", Integer.class);
-		int mapPixelHeight = tileMap.getProperties().get("height",
-				Integer.class)
-				* tileMap.getProperties().get("tileheight", Integer.class);
-
-		// Check if the camera is near the left border of the map
-		if (carCamera.position.x < Gdx.graphics.getWidth() / 2) {
-			carCamera.position.x = Gdx.graphics.getWidth() / 2;
-		}
-		// Check if the camera is near the right border of the map
-		if (carCamera.position.x >= mapPixelWidth - Gdx.graphics.getWidth() / 2) {
-			carCamera.position.x = mapPixelWidth - Gdx.graphics.getWidth() / 2;
-		}
-		// Check if the camera is near the bottom border of the map
-		if (carCamera.position.y < Gdx.graphics.getHeight() / 2) {
-			carCamera.position.y = Gdx.graphics.getHeight() / 2;
-		}
-		// Check if the camera is near the top border of the map
-		if (carCamera.position.y >= mapPixelHeight - Gdx.graphics.getHeight()
-				/ 2) {
-			carCamera.position.y = mapPixelHeight - Gdx.graphics.getHeight()
-					/ 2;
-		}
-
-		// tell the camera to update its matrices.
-		carCamera.update();
+		// Tell the camera to update its matrices.
+		carCamera.update(map);
 
 		spriteBatch.setProjectionMatrix(carCamera.combined);
 
@@ -150,20 +90,17 @@ public class GameScreen extends BasicScreen {
 		world.step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
 
 		world.clearForces();
+		map.render(carCamera);
 
-		// draw the map
-		tmrenderer.setView(carCamera);
-		tmrenderer.render();
-
-		// draw the sprites
+		// Draw the sprites
 		drawSprites();
 
 		/**
 		 * Draw this last, so we can see the collision boundaries on top of the
 		 * sprites and map.
 		 */
-		debugRenderer.render(world, carCamera.combined.scale(PIXELS_PER_METER,
-				PIXELS_PER_METER, PIXELS_PER_METER));
+		//debugRenderer.render(world, carCamera.combined.scale(PIXELS_PER_METER,
+		//		PIXELS_PER_METER, PIXELS_PER_METER));
 
 		virtualButtonsCamera.update();
 		spriteBatch.setProjectionMatrix(virtualButtonsCamera.combined);
@@ -190,9 +127,7 @@ public class GameScreen extends BasicScreen {
 
 	@Override
 	public void resize(int width, int height) {
-		carCamera.viewportWidth = screenWidth;
-		carCamera.viewportHeight = screenHeight;
-		carCamera.update();
+		carCamera.updateViewPort(width,height);
 	}
 
 	@Override
