@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.properties.ResourceManager;
 
 public class Car {
 	public Body body;
@@ -77,7 +78,7 @@ public class Car {
 				false)); // back right
 		
 		// set the sprite of the car
-		sprite = new Sprite(new Texture("sprites/taxi_frame.png"));
+		sprite = new Sprite(new Texture(ResourceManager.carSprite));
 		sprite.setSize(this.width, this.length);
 		sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
 		this.body.setUserData(sprite);
