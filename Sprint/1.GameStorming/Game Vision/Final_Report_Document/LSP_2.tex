@@ -1,0 +1,133 @@
+\documentclass{article}
+\usepackage{xcolor}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{caption}
+\usepackage{verbatim}
+\usepackage{amssymb}
+\usepackage{amsmath,amsthm}
+\usepackage{amsfonts}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{qtree}
+\usepackage{tikz}
+\usepackage{bm}
+\usepackage{frame,color}
+\usepackage{datetime}
+\usepackage{etoolbox}
+\usepackage{emerald}
+\usepackage[T1]{fontenc}
+\makeatletter
+\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+\makeatother
+\definecolor{shadecolor}{rgb}{184,184,184}
+\lstset{language=Matlab,
+        frame = single,
+        breaklines=true
+}
+\usetikzlibrary{calc,positioning}
+\usetikzlibrary{arrows,automata}
+\renewcommand{\familydefault}{\sfdefault}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%TITLE PAGE%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}
+    \begin{minipage}[H]{0.33\textwidth}
+		\vspace{0.3cm}
+		\includegraphics[scale=0.8]{images/TUDelftLogo.eps}
+	\end{minipage}
+	\begin{minipage}[H]{0.33\textwidth}
+		\begin{center}
+			\ECFJD{Context Project Group 8}
+		\end{center}
+		
+		\begin{center}
+			\includegraphics[scale=0.8]{images/Lg.eps}	
+		
+		\end{center}
+	\end{minipage}
+	\begin{minipage}[H]{0.33\textwidth}
+			\begin{flushright}
+				\small{Rob van Bekkum \qquad 4210816}\\
+				\small{Thijs Brands \qquad 4247132}\\
+				\small{Soheil Jahanshahi \qquad 4127617}\\
+				\small{Aidan Mauricio \qquad 4195175}\\
+				\small{Joost van Oorschot \qquad  4220471}
+			\end{flushright}
+			
+	\end{minipage}
+\end{figure}
+
+\begin{minipage}[H]{\textwidth}
+\vspace{0.3cm}
+		\begin{center}
+		\vspace{0.3cm}
+			\Huge{\textbf{Lightweight Scrum Planning 2}}\\
+		\vspace{0.3cm}	
+		\vspace{0.7cm}		
+		\end{center}
+	\end{minipage}
+
+\section*{Set of Backlog items}
+The selected items of the backlog that we will be working on this comming week  are (ordered by importance):
+\begin{itemize}
+	\item Implement Navigator View
+	\item Refactor Existing Code
+	\item Setup Continuous Integration
+	\item Setup Initial Sound Design
+\end{itemize}
+
+\section*{User stories}
+\textbf{Implement Navigator View} \\
+As a user playing the game I want to be able to have a navigator view where i can view the complete map as navigator so that I can direct my partner to a customer. \\
+\newline
+\textbf{Refactor Existing Code} \\
+The code of the implementation of the game should be clear and structured. \\
+\newline
+\textbf{Setup Continuous Integration} \\
+- \\
+\newline
+\textbf{Setup Initial Sound Design} \\
+As a user playing the game given I'm a taxi driver in the game I want to hear sound effects from the car so that I experience the feeling of the sounds I would hear when driving a taxi.
+
+\section*{List of tasks, assigned group members and estimation of effort}
+\textbf{Implement Navigator View} \\
+\begin{tabular}{ | l | l | l | }
+\hline
+\textbf{Task} & \textbf{Assigned to} & \textbf{estimated effort} \\ \hline
+Implement map-like game screen & Joost van Oorschot/ Rob van Bekkum & 4 hour \\ \hline
+Research Multiplayer API/Serverside & Joost van Oorschot & 4 hours \\ \hline
+Setup connection between Driver and Navigator & Rob van Bekkum/ Aidan Mauricio & 4 hours \\ \hline
+Synchronize location updates between devices & Thijs Brands/ Aidan Mauricio & 2 hours \\ \hline
+\end{tabular} \newline
+\newline
+\textbf{Refactor Existing Code} \\
+\begin{tabular}{ | l | l | l | }
+\hline
+\textbf{Task} & \textbf{Assigned to} & \textbf{estimated effort} \\ \hline
+Adding javadoc comments & Rob van Bekkum/ Aidan Mauricio & 1 hours \\ \hline
+Resolve checkstyle violations & Aidan Mauricio & 2 hours \\ \hline
+Refactor code & Rob van Bekkum/ Aidan Mauricio& 3 hours \\ \hline
+\end{tabular} \newline
+\newline
+\textbf{Setup Continuous Integration} \\
+\begin{tabular}{ | l | l | l | }
+\hline
+\textbf{Task} & \textbf{Assigned to} & \textbf{estimated effort} \\ \hline
+Set up Jenkins & Soheil Jahanshahi & 6 hours \\ \hline
+Write basic tests & Thijs Brands and Soheil Jahanshahi & 12 hours \\ \hline
+\end{tabular} \newline
+\newline
+\textbf{Setup Initial Sound Design} \\
+\begin{tabular}{ | l | l | l | }
+\hline
+\textbf{Task} & \textbf{Assigned to} & \textbf{estimated effort} \\ \hline
+Create sound effects for taxis & Soheil Jahanshahi & 12 hours \\ \hline
+Integrate sound effects into the game & Soheil Jahanshahi & 3 hours \\ \hline
+\end{tabular} \newline
+\newline
+
+
+\end{document}
