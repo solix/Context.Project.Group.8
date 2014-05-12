@@ -1,4 +1,4 @@
-package com.taxitrouble.game.input;
+package com.taxi_trouble.game.input;
 
 import java.util.ArrayList;
 import java.util.List;

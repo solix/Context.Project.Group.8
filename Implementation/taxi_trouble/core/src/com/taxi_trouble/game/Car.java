@@ -1,4 +1,4 @@
-package com.taxitrouble.game;
+package com.taxi_trouble.game;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.taxitrouble.game.properties.ResourceManager;
+import com.taxi_trouble.game.properties.ResourceManager;
 
 public class Car {
 	public Body body;

@@ -3,7 +3,7 @@ package com.mygdx.game.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.taxitrouble.game.TaxiTest;
+import com.taxi_trouble.game.TaxiTest;
 
 public class HtmlLauncher extends GwtApplication {
 

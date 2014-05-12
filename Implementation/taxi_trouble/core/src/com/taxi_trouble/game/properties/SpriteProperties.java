@@ -1,4 +1,4 @@
-package com.taxitrouble.game.properties;
+package com.taxi_trouble.game.properties;
 
 public class SpriteProperties {
 	public static String throttleSprite = "sprites/throttle.png";

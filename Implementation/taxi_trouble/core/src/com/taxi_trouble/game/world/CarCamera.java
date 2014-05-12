@@ -1,15 +1,15 @@
-package com.taxitrouble.game.world;
+package com.taxi_trouble.game.world;
 
-import static com.taxitrouble.game.properties.GameProperties.PIXELS_PER_METER;
-import static com.taxitrouble.game.properties.GameProperties.VIRTUAL_HEIGHT;
-import static com.taxitrouble.game.properties.GameProperties.VIRTUAL_WIDTH;
-import static com.taxitrouble.game.properties.GameProperties.screenHeight;
-import static com.taxitrouble.game.properties.GameProperties.screenWidth;
+import static com.taxi_trouble.game.properties.GameProperties.PIXELS_PER_METER;
+import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_HEIGHT;
+import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_WIDTH;
+import static com.taxi_trouble.game.properties.GameProperties.screenHeight;
+import static com.taxi_trouble.game.properties.GameProperties.screenWidth;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.taxitrouble.game.Car;
+import com.taxi_trouble.game.Car;
 
 
 public class CarCamera extends OrthographicCamera {

@@ -1,4 +1,4 @@
-package com.taxitrouble.game.screens;
+package com.taxi_trouble.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
@@ -12,11 +12,11 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.taxitrouble.game.Car;
-import com.taxitrouble.game.input.ControlsUI;
-import com.taxitrouble.game.properties.ResourceManager;
-import com.taxitrouble.game.world.CarCamera;
-import com.taxitrouble.game.world.WorldMap;
+import com.taxi_trouble.game.Car;
+import com.taxi_trouble.game.input.ControlsUI;
+import com.taxi_trouble.game.properties.ResourceManager;
+import com.taxi_trouble.game.world.CarCamera;
+import com.taxi_trouble.game.world.WorldMap;
 
 public class GameScreen extends BasicScreen {
 	private Car car;

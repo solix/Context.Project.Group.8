@@ -1,9 +1,9 @@
-package com.taxitrouble.game.input;
+package com.taxi_trouble.game.input;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.taxitrouble.game.properties.GameProperties;
+import com.taxi_trouble.game.properties.GameProperties;
 
 public class VirtualButton {
 	protected Rectangle body;

@@ -1,4 +1,4 @@
-package com.taxitrouble.game.world;
+package com.taxi_trouble.game.world;
 
 import java.util.Iterator;
 
@@ -13,9 +13,9 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.taxitrouble.game.BoxProp;
+import com.taxi_trouble.game.BoxProp;
 
-import static com.taxitrouble.game.properties.GameProperties.*;
+import static com.taxi_trouble.game.properties.GameProperties.*;
 
 public class WorldMap {
 	private TiledMap map;

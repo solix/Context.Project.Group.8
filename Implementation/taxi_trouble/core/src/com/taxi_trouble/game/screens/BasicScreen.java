@@ -1,7 +1,7 @@
-package com.taxitrouble.game.screens;
+package com.taxi_trouble.game.screens;
 
 import com.badlogic.gdx.Screen;
-import com.taxitrouble.game.properties.GameProperties;
+import com.taxi_trouble.game.properties.GameProperties;
 
 public class BasicScreen implements Screen {
 	protected int screenWidth = GameProperties.screenWidth;

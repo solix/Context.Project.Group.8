@@ -1,7 +1,7 @@
-package com.taxitrouble.game;
+package com.taxi_trouble.game;
 
 import com.badlogic.gdx.Game;
-import com.taxitrouble.game.screens.GameScreen;
+import com.taxi_trouble.game.screens.GameScreen;
 
 public class TaxiTest extends Game {
 	private GameScreen gameScreen;
