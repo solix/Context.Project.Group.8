@@ -1,4 +1,4 @@
-package com.taxi_trouble.game.world;
+package com.taxi_trouble.game.screens;
 
 import static com.taxi_trouble.game.properties.GameProperties.PIXELS_PER_METER;
 import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_HEIGHT;
@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.taxi_trouble.game.Car;
+import com.taxi_trouble.game.model.WorldMap;
 
 
 public class CarCamera extends OrthographicCamera {

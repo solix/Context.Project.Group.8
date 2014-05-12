@@ -1,4 +1,4 @@
-package com.taxi_trouble.game.world;
+package com.taxi_trouble.game.model;
 
 import java.util.Iterator;
 

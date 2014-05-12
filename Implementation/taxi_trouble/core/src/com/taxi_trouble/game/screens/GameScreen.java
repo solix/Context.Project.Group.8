@@ -14,9 +14,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.taxi_trouble.game.Car;
 import com.taxi_trouble.game.input.ControlsUI;
+import com.taxi_trouble.game.model.WorldMap;
 import com.taxi_trouble.game.properties.ResourceManager;
-import com.taxi_trouble.game.world.CarCamera;
-import com.taxi_trouble.game.world.WorldMap;
 
 public class GameScreen extends BasicScreen {
 	private Car car;

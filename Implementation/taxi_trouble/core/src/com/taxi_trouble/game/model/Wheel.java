@@ -1,4 +1,4 @@
-package com.taxi_trouble.game;
+package com.taxi_trouble.game.model;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
+import com.taxi_trouble.game.Car;
 
 public class Wheel {	
 	/**

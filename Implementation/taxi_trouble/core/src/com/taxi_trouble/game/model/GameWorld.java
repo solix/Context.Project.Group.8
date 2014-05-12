@@ -1,4 +1,4 @@
-package com.taxi_trouble.model;
+package com.taxi_trouble.game.model;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.Car;
 import com.taxi_trouble.game.properties.ResourceManager;
-import com.taxi_trouble.game.world.WorldMap;
 
 
 // the rendering has to be done in this class.
