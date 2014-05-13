@@ -202,4 +202,23 @@ public class Car {
 		// if going very slow, stop - to prevent endless sliding
 
 	}
+	
+	public void steer(SteerDirection direction, float deltaTime) {
+        float incr = (this.maxSteerAngle) * deltaTime * 5;
+        switch(direction) {
+           case STEER_LEFT:
+               this.wheelAngle = Math.min(Math.max(this.wheelAngle, 0) + incr, this.maxSteerAngle);
+               break;
+           case STEER_RIGHT:
+               this.wheelAngle = Math.max(Math.min(this.wheelAngle, 0) - incr, -this.maxSteerAngle);
+               break;
+           default:
+               this.wheelAngle = 0;
+               break;
+        }
+        // update revolving wheels
+        for (Wheel wheel : this.getRevolvingWheels()) {
+            wheel.setAngle(this.wheelAngle);
+        }
+    }
 }

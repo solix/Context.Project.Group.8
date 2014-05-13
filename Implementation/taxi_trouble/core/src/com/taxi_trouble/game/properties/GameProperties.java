@@ -8,8 +8,6 @@ public class GameProperties {
 	public static int screenHeight = Gdx.graphics.getHeight();
 	public static int PIXELS_PER_METER = getPPM();
 	public static float scale = getScale();
-//	public static float worldWidth = screenWidth / PIXELS_PER_METER;
-//	public static float worldHeight = screenHeight / PIXELS_PER_METER;
 	public static int VIRTUAL_WIDTH = 480;
 	public static int VIRTUAL_HEIGHT = 320;
 

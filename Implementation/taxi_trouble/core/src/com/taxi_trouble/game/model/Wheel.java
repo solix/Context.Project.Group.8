@@ -1,5 +1,7 @@
 package com.taxi_trouble.game.model;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -9,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.taxi_trouble.game.Car;
+import com.taxi_trouble.game.properties.ResourceManager;
 
 public class Wheel {	
 	/**
@@ -25,6 +28,7 @@ public class Wheel {
 	public boolean revolving; // does this wheel revolve when steering?
 	public boolean powered; // is this wheel powered?
 	public Body body;
+	private Sprite sprite;
 
 	public Wheel(World world, Car car, float posX, float posY, float width, float length,
 			boolean revolving, boolean powered) {
@@ -65,6 +69,11 @@ public class Wheel {
 	        jointdef.lowerTranslation=jointdef.upperTranslation=0;
 		    world.createJoint(jointdef);
 	    }
+	    
+	    sprite = new Sprite(new Texture(ResourceManager.wheelSprite));
+        sprite.setSize(this.width, this.length);
+        sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
+        this.body.setUserData(sprite);
 	}
 	
 	public void setAngle (float angle){
