@@ -16,9 +16,8 @@ public class VirtualDPad extends VirtualButton {
 		this.buttons = new ArrayList<VirtualButton>();
 		System.out.println(sprite.getWidth());
 		System.out.println(sprite.getHeight());
-		TextureRegion[][] splits = sprite.split(
-				(int) (sprite.getWidth() / (2 * scale)),
-				(int) (sprite.getHeight() / scale));
+		TextureRegion[][] splits = sprite.split((int) (sprite.getWidth() / 2),
+				(int) (sprite.getHeight()));
 
 		buttons.add(new VirtualButton(new Rectangle(this.body.x, this.body.y,
 				this.body.width / 2, this.body.height),

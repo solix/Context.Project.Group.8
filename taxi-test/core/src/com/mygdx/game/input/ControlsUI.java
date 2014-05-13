@@ -14,7 +14,6 @@ import com.mygdx.game.properties.SpriteProperties;
 public class ControlsUI {
 	private Map<String, VirtualButton> buttons;
 	private Map<Integer, Action> active;
-	private float scale = GameProperties.scale;
 
 	public enum Action {
 		ACCELERATE, BREAK, LEFT, RIGHT, DPAD_DEFAULT, NOT_ACTIVE
@@ -25,18 +24,18 @@ public class ControlsUI {
 		this.active = new HashMap<Integer, Action>();
 
 		buttons.put("throttle", new VirtualButton(new Rectangle(
-				GameProperties.screenWidth - 110 * scale, 10, 100 * scale,
-				120 * scale), new Sprite(new Texture(
-				SpriteProperties.throttleSprite)), Action.ACCELERATE));
+				GameProperties.BUTTON_CAM_WIDTH - 110, 10, 100, 120),
+				new Sprite(new Texture(SpriteProperties.throttleSprite)),
+				Action.ACCELERATE));
 
 		buttons.put("brake", new VirtualButton(new Rectangle(
-				GameProperties.screenWidth - 210 * scale, 10, 100 * scale,
-				120 * scale), new Sprite(new Texture(
-				SpriteProperties.breakSprite)), Action.BREAK));
+				GameProperties.BUTTON_CAM_WIDTH - 210, 10, 100, 120),
+				new Sprite(new Texture(SpriteProperties.breakSprite)),
+				Action.BREAK));
 
-		buttons.put("dpad", new VirtualDPad(new Rectangle(10, 50, 184 * scale,
-				80 * scale), new Sprite(
-				new Texture(SpriteProperties.dPadSprite)), Action.DPAD_DEFAULT));
+		buttons.put("dpad", new VirtualDPad(new Rectangle(10, 10, 184, 80),
+				new Sprite(new Texture(SpriteProperties.dPadSprite)),
+				Action.DPAD_DEFAULT));
 	}
 
 	public boolean steering() {

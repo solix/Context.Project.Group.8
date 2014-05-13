@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Car;
 import com.mygdx.game.input.ControlsUI;
 import com.mygdx.game.input.DriverControl;
+import com.mygdx.game.properties.GameProperties;
 import com.mygdx.game.properties.ResourceManager;
 import com.mygdx.game.world.CarCamera;
 import com.mygdx.game.world.WorldMap;
@@ -32,7 +33,11 @@ public class GameScreen extends BasicScreen {
 	@Override
 	public void show() {
 		this.virtualButtonsCamera = new OrthographicCamera();
-		virtualButtonsCamera.setToOrtho(false, screenWidth, screenHeight);
+
+		this.virtualButtonsCamera.setToOrtho(false,
+				GameProperties.BUTTON_CAM_WIDTH,
+				GameProperties.BUTTON_CAM_HEIGHT);
+
 		spriteBatch = new SpriteBatch();
 
 		// Box2d World init
