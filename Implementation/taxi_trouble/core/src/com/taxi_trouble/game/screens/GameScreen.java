@@ -20,7 +20,7 @@ import com.taxi_trouble.game.properties.ResourceManager;
 public class GameScreen extends BasicScreen {
 	private Car car;
 	private World world;
-	private CarCamera carCamera;
+	private TaxiCamera taxiCamera;
 	private OrthographicCamera virtualButtonsCamera;
 	private SpriteBatch spriteBatch;
 	private ControlsUI controlsUI;
@@ -45,7 +45,7 @@ public class GameScreen extends BasicScreen {
 		this.controlsUI = new ControlsUI(car);
 		Gdx.input.setInputProcessor(controlsUI);
 
-		carCamera = new CarCamera(car);
+		taxiCamera = new TaxiCamera(car);
 		spriteBatch = new SpriteBatch();
 
 		debugRenderer = new Box2DDebugRenderer();
@@ -60,9 +60,9 @@ public class GameScreen extends BasicScreen {
 		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
 		// Tell the camera to update its matrices.
-		carCamera.update(map);
+		taxiCamera.update(map);
 
-		spriteBatch.setProjectionMatrix(carCamera.combined);
+		spriteBatch.setProjectionMatrix(taxiCamera.combined);
 
 		// if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP))
 		// car.accelerate = Car.ACC_ACCELERATE;
@@ -89,7 +89,7 @@ public class GameScreen extends BasicScreen {
 		world.step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
 
 		world.clearForces();
-		map.render(carCamera);
+		map.render(taxiCamera);
 
 		// Draw the sprites
 		drawSprites();
@@ -126,7 +126,7 @@ public class GameScreen extends BasicScreen {
 
 	@Override
 	public void resize(int width, int height) {
-		carCamera.updateViewPort(width,height);
+		taxiCamera.updateViewPort(width,height);
 	}
 
 	@Override

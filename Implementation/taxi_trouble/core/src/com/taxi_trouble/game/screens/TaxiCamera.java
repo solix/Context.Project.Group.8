@@ -13,11 +13,11 @@ import com.taxi_trouble.game.Car;
 import com.taxi_trouble.game.model.WorldMap;
 
 
-public class CarCamera extends OrthographicCamera {
+public class TaxiCamera extends OrthographicCamera {
 	private Viewport viewport;
 	private Car car;
 	
-	public CarCamera(Car car) {
+	public TaxiCamera(Car car) {
 		this.car = car;
 		this.setToOrtho(false, screenWidth, screenHeight);
 		this.viewport = new StretchViewport(VIRTUAL_WIDTH,VIRTUAL_HEIGHT,this);
