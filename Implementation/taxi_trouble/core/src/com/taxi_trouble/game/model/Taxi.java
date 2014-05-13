@@ -11,7 +11,6 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.Acceleration;
-import com.taxi_trouble.game.Car;
 import com.taxi_trouble.game.SteerDirection;
 
 /**A controllable taxi which can be steered and for which certain properties hold.
@@ -67,15 +66,14 @@ public class Taxi {
         bodyDef.position.set(position);
         bodyDef.angle = angle;
         this.taxiBody = world.createBody(bodyDef);
-        this.createFixture(taxiBody);
+        this.createFixture();
         this.initializeWheels(world);
     }
 
     /**Creates a fixture for the body of this taxi.
      * 
-     * @param body : the body for which the fixture should be created
      */
-    private void createFixture(Body body) {
+    private void createFixture() {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.density = 1.0f;
         fixtureDef.friction = 0.6f;
@@ -83,7 +81,7 @@ public class Taxi {
         PolygonShape carShape = new PolygonShape();
         carShape.setAsBox(this.getWidth()/2, this.getLength()/2);
         fixtureDef.shape = carShape;
-        body.createFixture(fixtureDef);
+        this.getBody().createFixture(fixtureDef);
     }
 
     /**Retrieves the body of the taxi.
@@ -233,6 +231,16 @@ public class Taxi {
         this.getBody().setUserData(sprite);
     }
     
+    /**Changes the sprite of the taxi's wheels to the given sprite.
+     * 
+     * @param sprite : the sprite to be set as the wheels' sprite
+     */
+    public void setWheelSprite(Sprite sprite) {
+        for(Wheel wheel : this.getWheels()) {
+            wheel.setSprite(sprite);
+        }
+    }
+    
     /**Retrieves the wheels of the taxi.
      * 
      * @return wheels of the taxi
@@ -248,7 +256,7 @@ public class Taxi {
     public List<Wheel> getRevolvingWheels() {
         List<Wheel> revolvingWheels = new ArrayList<Wheel>();
         for (Wheel wheel : this.wheels) {
-            if (wheel.revolving)
+            if (wheel.getRevolving())
                 revolvingWheels.add(wheel);
         }
         return revolvingWheels;
@@ -261,7 +269,7 @@ public class Taxi {
     public List<Wheel> getPoweredWheels() {
         List<Wheel> poweredWheels = new ArrayList<Wheel>();
         for (Wheel wheel : this.wheels) {
-            if (wheel.powered)
+            if (wheel.getPowered())
                 poweredWheels.add(wheel);
         }
         return poweredWheels;
@@ -382,8 +390,8 @@ public class Taxi {
      */
     private void updatePoweredWheelsForce(Vector2 forceVector) {
         for (Wheel wheel : this.getPoweredWheels()) {
-            Vector2 position = wheel.body.getWorldCenter();
-            wheel.body.applyForce(wheel.body.getWorldVector(new Vector2(
+            Vector2 position = wheel.getBody().getWorldCenter();
+            wheel.getBody().applyForce(wheel.getBody().getWorldVector(new Vector2(
                     forceVector.x, forceVector.y)), position, true);
         }
     }

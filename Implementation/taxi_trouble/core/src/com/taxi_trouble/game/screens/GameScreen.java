@@ -1,8 +1,5 @@
 package com.taxi_trouble.game.screens;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL30;
@@ -16,9 +13,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.taxi_trouble.game.Acceleration;
-import com.taxi_trouble.game.Car;
 import com.taxi_trouble.game.SteerDirection;
 import com.taxi_trouble.game.input.ControlsUI;
 import com.taxi_trouble.game.model.Taxi;
@@ -35,7 +30,6 @@ public class GameScreen extends BasicScreen {
 	private ControlsUI controlsUI;
 	private WorldMap map;
 	private Box2DDebugRenderer debugRenderer;
-	private Viewport viewport;
 
 	@Override
 	public void show() {
@@ -51,11 +45,11 @@ public class GameScreen extends BasicScreen {
 		taxi.createBody(world, new Vector2(10,10), (float) Math.PI);
 		Sprite taxiSprite = new Sprite(new Texture(ResourceManager.taxiSprite));
 		taxi.setSprite(taxiSprite);
-		//taxiSprite.draw(spriteBatch);
+		taxi.setWheelSprite(new Sprite(new Texture(ResourceManager.wheelSprite)));
 
 		// Load the UI for player input
-		//this.controlsUI = new ControlsUI(taxi);
-		//Gdx.input.setInputProcessor(controlsUI);
+		this.controlsUI = new ControlsUI(taxi);
+		Gdx.input.setInputProcessor(controlsUI);
 
 		taxiCamera = new TaxiCamera(taxi);
 		spriteBatch = new SpriteBatch();
@@ -117,7 +111,7 @@ public class GameScreen extends BasicScreen {
 
 		virtualButtonsCamera.update();
 		spriteBatch.setProjectionMatrix(virtualButtonsCamera.combined);
-		//controlsUI.render(spriteBatch);
+		controlsUI.render(spriteBatch);
 	}
 
     public void drawTaxi() {

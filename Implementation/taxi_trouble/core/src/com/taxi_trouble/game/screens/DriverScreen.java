@@ -76,9 +76,8 @@ public class DriverScreen extends ViewObserver {
 		// Box2d World init
 		world = new World(new Vector2(0.0f, 0.0f), true);
 
-		// Initialize the taxi
-		this.taxi = new Taxi(world, 2, 4, new Vector2(10, 10), (float) Math.PI,
-				60, 20, 60);
+		// Initialize the taxi    //TODO: Please change/remove this (belongs to model)
+		this.taxi = new Taxi(2, 4, 20, 60, 60);
 
 		// Load the UI for player input
 		this.controlsUI = new ControlsUI(taxi);
