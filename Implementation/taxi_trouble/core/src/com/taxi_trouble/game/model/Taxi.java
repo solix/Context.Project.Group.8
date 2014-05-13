@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.Acceleration;
+import com.taxi_trouble.game.Car;
 import com.taxi_trouble.game.SteerDirection;
 
 /**A controllable taxi which can be steered and for which certain properties hold.
@@ -48,6 +49,8 @@ public class Taxi {
         this.power = power;
         this.wheels = new ArrayList<Wheel>();
         this.wheelAngle = 0;
+        this.steer = SteerDirection.STEER_NONE;
+        this.acceleration = Acceleration.ACC_NONE;
     }
 
     /**Creates a body for this taxi in a world on a given position
@@ -65,6 +68,7 @@ public class Taxi {
         bodyDef.angle = angle;
         this.taxiBody = world.createBody(bodyDef);
         this.createFixture(taxiBody);
+        this.initializeWheels(world);
     }
 
     /**Creates a fixture for the body of this taxi.
@@ -103,10 +107,10 @@ public class Taxi {
      * @param world : world used to create the bodies of the taxi wheels
      */
     private void initializeWheels(World world) {
-        //this.wheels.add(new Wheel(world, this, -1f, -1.4f, 0.4f, 0.6f, true, true)); // top left
-        //this.wheels.add(new Wheel(world, this, 1f, -1.4f, 0.4f, 0.6f, true, true)); // top right
-        //this.wheels.add(new Wheel(world, this, -1f, 1.2f, 0.4f, 0.6f, false, false)); // back left
-        //this.wheels.add(new Wheel(world, this, 1f, 1.2f, 0.4f, 0.6f, false, false)); // back right
+        this.wheels.add(new Wheel(world, this, -0.875f, -1.45f, 0.2f, 0.6f, true, true)); // top right
+        this.wheels.add(new Wheel(world, this, 0.9f, -1.4f, 0.2f, 0.6f, true, true)); // top left
+        this.wheels.add(new Wheel(world, this, -0.875f, 1.1f, 0.2f, 0.6f, false, false)); // back right
+        this.wheels.add(new Wheel(world, this, 0.9f, 1.2f, 0.2f, 0.6f, false, false)); // back left
     }
 
     /**Retrieves the width of the taxi.
@@ -216,7 +220,7 @@ public class Taxi {
      * @return
      */
     public Vector2 getLocalVelocity() {
-        return this.getBody().getLinearVelocityFromLocalPoint(new Vector2(0,0));
+        return this.getBody().getLocalVector(this.getBody().getLinearVelocityFromLocalPoint(new Vector2(0, 0)));
     }
 
     /**Changes the sprite of the taxi to the given sprite.
@@ -227,6 +231,14 @@ public class Taxi {
         sprite.setSize(this.getWidth(), this.getLength());
         sprite.setOrigin(this.getWidth()/2, this.getLength()/2);
         this.getBody().setUserData(sprite);
+    }
+    
+    /**Retrieves the wheels of the taxi.
+     * 
+     * @return wheels of the taxi
+     */
+    public List<Wheel> getWheels() {
+        return this.wheels;
     }
 
     /**Retrieves the revolving wheels of the taxi.
@@ -287,16 +299,24 @@ public class Taxi {
         this.acceleration = acceleration;
     }
 
+    /**Updates the taxi's steer angle and acceleration.
+     * 
+     * @param deltaTime
+     */
     public void update(float deltaTime) {
         updateSteerAngle(deltaTime);
         updateAcceleration(deltaTime);
     }
 
-    /**Updates the direction in which the cars  
+    /**Updates the direction in which the taxi's wheels should be pointed.
      * 
      * @param deltaTime : difference in time in which the wheel angle updates
      */
-    public void updateSteerAngle(float deltaTime) {
+    private void updateSteerAngle(float deltaTime) {
+        for (Wheel wheel : wheels) {
+            wheel.killSidewaysVelocity();
+        }
+        
         float incr = (this.getMaxSteerAngle()) * deltaTime * 5;
         switch(this.getSteer()) {
            case STEER_LEFT:
@@ -315,45 +335,56 @@ public class Taxi {
     /**Updates the angle of the wheels.
      * 
      */
-    public void updateRevolvingWheelsAngle() {
-        for(Wheel wheel : wheels) {
+    private void updateRevolvingWheelsAngle() {
+        for(Wheel wheel : this.getRevolvingWheels()) {
             wheel.setAngle(wheelAngle);
         }
     }
     
-    public void updateAcceleration(float deltaTime) {
+    /**Updates the acceleration of the taxi.
+     * 
+     * @param deltaTime
+     */
+    private void updateAcceleration(float deltaTime) {
+        //Vector pointing in the direction the force will be applied to the wheels
         Vector2 baseVector = new Vector2(0, 0);
         switch(this.getAccelerate()) {
         case ACC_ACCELERATE:
             if(this.getSpeedKMH() < this.getMaxSpeed())
                 baseVector = new Vector2(0, -1);
             break;
-        case ACC_BREAK:
+        case ACC_BRAKE:
             if (this.getLocalVelocity().y < 0)
                 baseVector = new Vector2(0f, 1.3f);
             else
                 baseVector = new Vector2(0f, 0.7f);
             break;
         default:
-            if (this.getSpeedKMH() < 7)
+            if (this.getSpeedKMH() < 7) {
                 this.setSpeedKMH(0);
-            else if (this.getLocalVelocity().y < 0)
+            }
+            else if (this.getLocalVelocity().y < 0) {
                 baseVector = new Vector2(0, 0.7f);
-            else if (this.getLocalVelocity().y > 0)
+            }
+            else if (this.getLocalVelocity().y > 0) {
                 baseVector = new Vector2(0, -0.7f);
+            }
             break;
         }
+        
         Vector2 forceVector = new Vector2(this.power * baseVector.x, this.power * baseVector.y);
         updatePoweredWheelsForce(forceVector);
     }
     
-    public void updatePoweredWheelsForce(Vector2 forceVector) {
+    /**Applies the force specified by a vector to the wheels of the taxi.
+     * 
+     * @param forceVector
+     */
+    private void updatePoweredWheelsForce(Vector2 forceVector) {
         for (Wheel wheel : this.getPoweredWheels()) {
             Vector2 position = wheel.body.getWorldCenter();
             wheel.body.applyForce(wheel.body.getWorldVector(new Vector2(
                     forceVector.x, forceVector.y)), position, true);
         }
     }
-    
-    //TODO: Refactoring of update method and wheels
 }

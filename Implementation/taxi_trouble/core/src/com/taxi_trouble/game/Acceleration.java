@@ -14,7 +14,7 @@ public enum Acceleration {
     /**
      * Steering right
      */
-    ACC_BREAK,
+    ACC_BRAKE,
     
     /**
      * Steering in no direction

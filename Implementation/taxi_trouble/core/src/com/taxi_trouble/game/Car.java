@@ -180,9 +180,9 @@ public class Car {
 			if (this.getSpeedKMH() < 7)
 				this.setSpeed(0);
 			else if (this.getLocalVelocity().y < 0)
-				baseVector = new Vector2(0, 0.7f);
-			else if (this.getLocalVelocity().y > 0)
 				baseVector = new Vector2(0, -0.7f);
+			else if (this.getLocalVelocity().y > 0)
+				baseVector = new Vector2(0, 0.7f);
 		} else
 			baseVector = new Vector2(0, 0);
 

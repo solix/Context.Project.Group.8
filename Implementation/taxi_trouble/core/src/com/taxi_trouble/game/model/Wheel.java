@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
-import com.taxi_trouble.game.Car;
+import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.properties.ResourceManager;
 
 public class Wheel {	
@@ -22,7 +22,7 @@ public class Wheel {
 	 */
 	public static final float PIXELS_PER_METER = 60.0f;
 	
-	public Car car;//car this wheel belongs to	
+	public Taxi taxi;//taxi this wheel belongs to	
 	private float width; // width in meters
 	private float length; // length in meters
 	public boolean revolving; // does this wheel revolve when steering?
@@ -30,10 +30,10 @@ public class Wheel {
 	public Body body;
 	private Sprite sprite;
 
-	public Wheel(World world, Car car, float posX, float posY, float width, float length,
+	public Wheel(World world, Taxi taxi, float posX, float posY, float width, float length,
 			boolean revolving, boolean powered) {
 		super();
-		this.car = car;
+		this.taxi = taxi;
 		this.width = width;
 		this.length = length;
 		this.revolving = revolving;
@@ -42,8 +42,8 @@ public class Wheel {
 		//init body 
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyDef.BodyType.DynamicBody;
-		bodyDef.position.set(car.body.getWorldPoint(new Vector2(posX, posY)));
-		bodyDef.angle = car.body.getAngle();
+		bodyDef.position.set(taxi.getBody().getWorldPoint(new Vector2(posX, posY)));
+		bodyDef.angle = taxi.getBody().getAngle();
 		this.body = world.createBody(bodyDef);
 
 		//init shape
@@ -59,12 +59,12 @@ public class Wheel {
 	    //create joint to connect wheel to body
 	    if(this.revolving){
 	    	RevoluteJointDef jointdef=new RevoluteJointDef();
-	        jointdef.initialize(this.car.body, this.body, this.body.getWorldCenter());
+	        jointdef.initialize(this.taxi.getBody(), this.body, this.body.getWorldCenter());
 	        jointdef.enableMotor=false; //we'll be controlling the wheel's angle manually
 		    world.createJoint(jointdef);
 	    }else{
 	    	PrismaticJointDef jointdef=new PrismaticJointDef();
-	        jointdef.initialize(this.car.body, this.body, this.body.getWorldCenter(), new Vector2(1, 0));
+	        jointdef.initialize(this.taxi.getBody(), this.body, this.body.getWorldCenter(), new Vector2(1, 0));
 	        jointdef.enableLimit=true;
 	        jointdef.lowerTranslation=jointdef.upperTranslation=0;
 		    world.createJoint(jointdef);
@@ -76,27 +76,48 @@ public class Wheel {
         this.body.setUserData(sprite);
 	}
 	
+	/**Retrieves the box2d body of this wheel.
+	 * 
+	 * @return
+	 */
+	public Body getBody() {
+	    return this.body;
+	}
+	
+	/**Changes the angle relative to the taxi it belongs to.
+	 * 
+	 * @param angle : angle of the wheel relative to the taxi
+	 */
 	public void setAngle (float angle){
 	    /*
-	    angle - wheel angle relative to car, in degrees
+	    angle - wheel angle relative to taxi, in degrees
 	    */
-		this.body.setTransform(body.getPosition(), this.car.body.getAngle() + (float) Math.toRadians(angle));
+		this.body.setTransform(body.getPosition(), this.taxi.getBody().getAngle() + (float) Math.toRadians(angle));
 	};
 
+	/**Retrieves the velocity vector relative to the taxi it belongs to
+	 * 
+	 * @return
+	 */
 	public Vector2 getLocalVelocity () {
-	    /*returns get velocity vector relative to car
+	    /*returns get velocity vector relative to taxi
 	    */
-	    return this.car.body.getLocalVector(this.car.body.getLinearVelocityFromLocalPoint(this.body.getPosition()));
+	    return this.taxi.getBody().getLocalVector(this.taxi.getBody().getLinearVelocityFromLocalPoint(this.body.getPosition()));
 	};
 
-	public Vector2 getDirectionVector () {
-	    /*
-	    returns a world unit vector pointing in the direction this wheel is moving
-	    */
-		Vector2 directionVector;
-		if (this.getLocalVelocity().y > 0)
-			directionVector = new Vector2(0,1);
-		else
+    /**Retrieves a world unit vector which is pointing in the direction the
+     * wheel is moving.
+     * 
+     * @return direction vector
+     */
+    public Vector2 getDirectionVector () {
+        /*
+        returns a world unit vector pointing in the direction this wheel is moving
+        */
+    	Vector2 directionVector;
+    	if (this.getLocalVelocity().y > 0)
+    		directionVector = new Vector2(0,1);
+    	else
 			directionVector = new Vector2(0,-1);
 			
 		return directionVector.rotate((float) Math.toDegrees(this.body.getAngle()));	    

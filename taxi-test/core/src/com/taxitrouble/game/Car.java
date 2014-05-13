@@ -178,10 +178,14 @@ public class Car {
 			baseVector = new Vector2(0, 0);
 			if (this.getSpeedKMH() < 7)
 				this.setSpeed(0);
-			else if (this.getLocalVelocity().y < 0)
+			else if (this.getLocalVelocity().y < 0) {
+			    System.out.println("HOera");
 				baseVector = new Vector2(0, 0.7f);
-			else if (this.getLocalVelocity().y > 0)
+			}
+			else if (this.getLocalVelocity().y > 0) {
+			    System.out.println("ewgewgw");
 				baseVector = new Vector2(0, -0.7f);
+			}
 		} else
 			baseVector = new Vector2(0, 0);
 

@@ -9,29 +9,28 @@ import static com.taxi_trouble.game.properties.GameProperties.screenWidth;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.taxi_trouble.game.Car;
+import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.WorldMap;
 
 
 public class TaxiCamera extends OrthographicCamera {
 	private Viewport viewport;
-	private Car car;
+	private Taxi taxi;
 	
-	public TaxiCamera(Car car) {
-		this.car = car;
+	public TaxiCamera(Taxi taxi) {
+		this.taxi = taxi;
 		this.setToOrtho(false, screenWidth, screenHeight);
 		this.viewport = new StretchViewport(VIRTUAL_WIDTH,VIRTUAL_HEIGHT,this);
 	}
 	
 	public void update(WorldMap map) {
-		this.followCar();
+		this.followtaxi();
 		this.stayInBounds(map);
 		super.update();
 	}
 	
-	public void followCar() {
-		this.position.set(car.body.getPosition().x * PIXELS_PER_METER,
-				car.body.getPosition().y * PIXELS_PER_METER, 0);
+	public void followtaxi() {
+		this.position.set(taxi.getXPosition() * PIXELS_PER_METER, taxi.getYPosition() * PIXELS_PER_METER, 0);
 	}
 	
 	/**

@@ -9,24 +9,26 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.taxi_trouble.game.Car;
+import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.properties.GameProperties;
 import com.taxi_trouble.game.properties.SpriteProperties;
+import com.taxi_trouble.game.Acceleration;
+import com.taxi_trouble.game.SteerDirection;
 
 public class ControlsUI extends InputAdapter {
 	private Map<String, VirtualButton> buttons;
 	private Map<Integer, Action> active;
-	private Car car;
+	private Taxi taxi;
 	private float scale = GameProperties.scale;
 
 	public enum Action {
-		ACCELERATE, BREAK, LEFT, RIGHT, DPAD_DEFAULT, NOT_ACTIVE
+		ACCELERATE, BRAKE, LEFT, RIGHT, DPAD_DEFAULT, NOT_ACTIVE
 	}
 
-	public ControlsUI(Car car) {
+	public ControlsUI(Taxi taxi) {
 		this.buttons = new HashMap<String, VirtualButton>();
 		this.active = new HashMap<Integer, Action>();
-		this.car = car;
+		this.taxi = taxi;
 
 		buttons.put("throttle", new VirtualButton(new Rectangle(
 				GameProperties.screenWidth - 110 * scale, 10, 100 * scale,
@@ -35,7 +37,7 @@ public class ControlsUI extends InputAdapter {
 		buttons.put("brake", new VirtualButton(new Rectangle(
 				GameProperties.screenWidth - 210 * scale, 10, 100 * scale,
 				120 * scale), new Sprite(new Texture(
-				SpriteProperties.breakSprite)), Action.BREAK));
+				SpriteProperties.breakSprite)), Action.BRAKE));
 
 		buttons.put("dpad", new VirtualDPad(new Rectangle(10, 50, 184 * scale,
 				80 * scale), new Sprite(
@@ -64,7 +66,7 @@ public class ControlsUI extends InputAdapter {
 			System.out.println("DEBUG3: " + e.getKey() + ", " + e.getValue());
 			if (e.getValue() != null) {
 				switch (e.getValue()) {
-				case BREAK:
+				case BRAKE:
 				case ACCELERATE:
 					return true;
 				default:
@@ -97,25 +99,27 @@ public class ControlsUI extends InputAdapter {
 				active.put(pointer, button.ACTION);
 				switch (button.ACTION) {
 				case ACCELERATE:
-					car.accelerate = Car.ACC_ACCELERATE;
+					taxi.setAccelerate(Acceleration.ACC_ACCELERATE);
 					break;
-				case BREAK:
-					car.accelerate = Car.ACC_BRAKE;
+				case BRAKE:
+					taxi.setAccelerate(Acceleration.ACC_BRAKE);
 					break;
 				default:
+				    taxi.setAccelerate(Acceleration.ACC_NONE);
 					break;
 				}
 
 				switch (button.ACTION) {
 				case LEFT:
 					System.out.println("Left");
-					car.steer = Car.STEER_LEFT;
+					taxi.setSteer(SteerDirection.STEER_LEFT);
 					break;
 				case RIGHT:
 					System.out.println("Right");
-					car.steer = Car.STEER_RIGHT;
+					taxi.setSteer(SteerDirection.STEER_RIGHT);
 					break;
 				default:
+				    taxi.setSteer(SteerDirection.STEER_NONE);
 					break;
 				}
 			}
@@ -127,16 +131,16 @@ public class ControlsUI extends InputAdapter {
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		active.put(pointer, Action.NOT_ACTIVE);
 		if (steering() && !driving()) {
-			car.accelerate = Car.ACC_NONE;
+		    taxi.setAccelerate(Acceleration.ACC_NONE);
 			return true;
 		}
 		if (!steering() && driving()) {
-			car.steer = Car.STEER_NONE;
+		    taxi.setSteer(SteerDirection.STEER_NONE);
 			return true;
 		}
 		if (!steering() && !driving()) {
-			car.accelerate = Car.ACC_NONE;
-			car.steer = Car.STEER_NONE;
+		    taxi.setAccelerate(Acceleration.ACC_NONE);
+		    taxi.setSteer(SteerDirection.STEER_NONE);
 			return true;
 		}
 		return false;
