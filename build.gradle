@@ -43,7 +43,8 @@ project(":desktop") {
 
 project(":android") {
     apply plugin: "android"
-
+    compileSdkVersion 17
+    buildToolsVersion "17.0.0"
     configurations { natives }
 
     dependencies {
