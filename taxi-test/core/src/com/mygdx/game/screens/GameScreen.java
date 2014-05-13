@@ -11,12 +11,12 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Car;
 import com.mygdx.game.input.ControlsUI;
+import com.mygdx.game.input.DriverControl;
+import com.mygdx.game.properties.ResourceManager;
 import com.mygdx.game.world.CarCamera;
 import com.mygdx.game.world.WorldMap;
-import com.mygdx.game.properties.ResourceManager;
 
 public class GameScreen extends BasicScreen {
 	private Car car;
@@ -27,7 +27,7 @@ public class GameScreen extends BasicScreen {
 	private ControlsUI controlsUI;
 	private WorldMap map;
 	private Box2DDebugRenderer debugRenderer;
-	private Viewport viewport;
+	private DriverControl driverControl;
 
 	@Override
 	public void show() {
@@ -43,8 +43,9 @@ public class GameScreen extends BasicScreen {
 				60, 20, 60);
 
 		// Load the UI for player input
-		this.controlsUI = new ControlsUI(car);
-		Gdx.input.setInputProcessor(controlsUI);
+		this.controlsUI = new ControlsUI();
+		this.driverControl = new DriverControl(car, controlsUI);
+		Gdx.input.setInputProcessor(driverControl);
 
 		carCamera = new CarCamera(car);
 		spriteBatch = new SpriteBatch();
@@ -99,8 +100,9 @@ public class GameScreen extends BasicScreen {
 		 * Draw this last, so we can see the collision boundaries on top of the
 		 * sprites and map.
 		 */
-		//debugRenderer.render(world, carCamera.combined.scale(PIXELS_PER_METER,
-		//		PIXELS_PER_METER, PIXELS_PER_METER));
+		// debugRenderer.render(world,
+		// carCamera.combined.scale(PIXELS_PER_METER,
+		// PIXELS_PER_METER, PIXELS_PER_METER));
 
 		virtualButtonsCamera.update();
 		spriteBatch.setProjectionMatrix(virtualButtonsCamera.combined);
@@ -127,7 +129,7 @@ public class GameScreen extends BasicScreen {
 
 	@Override
 	public void resize(int width, int height) {
-		carCamera.updateViewPort(width,height);
+		carCamera.updateViewPort(width, height);
 	}
 
 	@Override
