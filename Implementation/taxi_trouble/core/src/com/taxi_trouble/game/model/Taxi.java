@@ -105,10 +105,14 @@ public class Taxi {
      * @param world : world used to create the bodies of the taxi wheels
      */
     private void initializeWheels(World world) {
-        this.wheels.add(new Wheel(world, this, -0.875f, -1.45f, 0.2f, 0.6f, true, true)); // top right
-        this.wheels.add(new Wheel(world, this, 0.9f, -1.4f, 0.2f, 0.6f, true, true)); // top left
-        this.wheels.add(new Wheel(world, this, -0.875f, 1.1f, 0.2f, 0.6f, false, false)); // back right
-        this.wheels.add(new Wheel(world, this, 0.9f, 1.2f, 0.2f, 0.6f, false, false)); // back left
+        this.wheels.add(new Wheel(world, this, -1f, -1.4f, 0.35f, 0.45f, true,
+                true)); // top left
+        this.wheels.add(new Wheel(world, this, 1f, -1.4f, 0.35f, 0.45f, true,
+                true)); // top right
+        this.wheels.add(new Wheel(world, this, -1f, 1.2f, 0.35f, 0.45f, false,
+                false)); // back left
+        this.wheels.add(new Wheel(world, this, 1f, 1.2f, 0.35f, 0.45f, false,
+                false)); // back right    
     }
 
     /**Retrieves the width of the taxi.
@@ -213,7 +217,7 @@ public class Taxi {
         return this.getBody().getPosition().y;
     }
 
-    /**Retrieves the velocity vector relative to the taxi
+    /**Retrieves the velocity vector relative to the taxi.
      * 
      * @return
      */
@@ -255,20 +259,20 @@ public class Taxi {
      */
     public List<Wheel> getRevolvingWheels() {
         List<Wheel> revolvingWheels = new ArrayList<Wheel>();
-        for (Wheel wheel : this.wheels) {
+        for (Wheel wheel : this.getWheels()) {
             if (wheel.getRevolving())
                 revolvingWheels.add(wheel);
         }
         return revolvingWheels;
     }
     
-    /** Retrieves the powered wheels of the taxi
+    /** Retrieves the powered wheels of the taxi.
      * 
      * @return powered wheels
      */
     public List<Wheel> getPoweredWheels() {
         List<Wheel> poweredWheels = new ArrayList<Wheel>();
-        for (Wheel wheel : this.wheels) {
+        for (Wheel wheel : this.getWheels()) {
             if (wheel.getPowered())
                 poweredWheels.add(wheel);
         }
@@ -364,18 +368,18 @@ public class Taxi {
         case ACC_BRAKE:
             if (this.getLocalVelocity().y < 0)
                 baseVector = new Vector2(0f, 1.3f);
-            else
-                baseVector = new Vector2(0f, 0.7f);
+            else if (this.getSpeedKMH() < this.getMaxSpeed())
+                baseVector = new Vector2(0f, 0.5f);
             break;
         default:
             if (this.getSpeedKMH() < 7) {
                 this.setSpeedKMH(0);
             }
             else if (this.getLocalVelocity().y < 0) {
-                baseVector = new Vector2(0, 0.7f);
+                baseVector = new Vector2(0, 1.1f);
             }
             else if (this.getLocalVelocity().y > 0) {
-                baseVector = new Vector2(0, -0.7f);
+                baseVector = new Vector2(0, -1.1f);
             }
             break;
         }

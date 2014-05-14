@@ -22,9 +22,9 @@ import com.taxi_trouble.game.model.WorldMap;
 import com.taxi_trouble.game.properties.ResourceManager;
 
 public class DriverScreen extends ViewObserver {
-	Taxi taxi;
-	World world;
+	GameWorld game;
 	TaxiCamera taxiCamera;
+	Taxi taxi;
 	OrthographicCamera virtualButtonsCamera;
 	SpriteBatch spriteBatch;
 	ControlsUI controlsUI;
@@ -39,10 +39,28 @@ public class DriverScreen extends ViewObserver {
 	 */
 	public DriverScreen(GameWorld game) {
 		super(game);
-		this.taxiCamera = new TaxiCamera(taxi);
-		spriteBatch = new SpriteBatch();
-		debugRenderer = new Box2DDebugRenderer();
+		this.game = game;
 	}
+	
+    @Override
+    public void show() {
+        this.virtualButtonsCamera = new OrthographicCamera();
+        virtualButtonsCamera.setToOrtho(false, screenWidth, screenHeight);
+        spriteBatch = new SpriteBatch();
+        debugRenderer = new Box2DDebugRenderer();
+
+        // Initialize the taxi
+        this.taxi = game.taxi;
+        
+        this.taxiCamera = new TaxiCamera(taxi);
+
+        // Load the UI for player input
+        this.controlsUI = new ControlsUI(taxi);
+        Gdx.input.setInputProcessor(controlsUI);
+        // Load the map of the game
+        cityMap = new WorldMap(ResourceManager.mapFile, game.world);
+
+    }
 
 	@Override
 	public void render(float delta) {
@@ -58,33 +76,16 @@ public class DriverScreen extends ViewObserver {
 		 * iterations of velocity and position tests to perform -- higher is
 		 * more accurate but is also slower.
 		 */
-		world.step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
+		game.world.step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
 
-		world.clearForces();
+		game.world.clearForces();
 		cityMap.render(taxiCamera);
 
 		// Draw the sprites
 		drawSprites();
-	}
-
-	@Override
-	public void show() {
-		this.virtualButtonsCamera = new OrthographicCamera();
-		virtualButtonsCamera.setToOrtho(false, screenWidth, screenHeight);
-		spriteBatch = new SpriteBatch();
-
-		// Box2d World init
-		world = new World(new Vector2(0.0f, 0.0f), true);
-
-		// Initialize the taxi    //TODO: Please change/remove this (belongs to model)
-		this.taxi = new Taxi(2, 4, 20, 60, 60);
-
-		// Load the UI for player input
-		this.controlsUI = new ControlsUI(taxi);
-		Gdx.input.setInputProcessor(controlsUI);
-		// Load the map of the game
-		cityMap = new WorldMap(ResourceManager.mapFile, world);
-
+		
+		debugRenderer.render(game.world, taxiCamera.combined.scale(PIXELS_PER_METER,
+		      PIXELS_PER_METER, PIXELS_PER_METER));
 	}
 
 	@Override
@@ -120,7 +121,7 @@ public class DriverScreen extends ViewObserver {
 	public void drawSprites() {
 		spriteBatch.begin();
 		Array<Body> tmpBodies = new Array<Body>();
-		world.getBodies(tmpBodies);
+		game.world.getBodies(tmpBodies);
 		for (Body body : tmpBodies) {
 			if (body.getUserData() != null
 					&& body.getUserData() instanceof Sprite) {
