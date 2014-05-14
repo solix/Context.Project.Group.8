@@ -1,0 +1,43 @@
+\documentclass{Article}
+\usepackage{graphicx}
+
+\begin{document}
+
+\title{Emergent architecture design}
+\author{TODO}
+\maketitle
+
+\section{Introduction}
+
+This document has been written with the goal of providing insight in the architecture design of our software solution. The architecture design will be subjected to change frequently due to the need for additional features or problems encountered with the current design. This document will be updated accordingly when these changes are made. 
+\subsection{Design Goal: Loose Coupling}
+
+We have divided our classes mostly over two categories: model and view. All classes that represent the game world or objects of the game world are part of the model. All classes that construct a way to view a part of the game world are part of the view category. One of our design goals was to keep coupling between these two categories as loose as possible. This way we can easily make changes to the game world our implement a new view without having to adjust a lot of classes.
+
+\subsection{Design goal: ???}
+
+
+\section{Software architecture views}
+
+\subsection{Subsystem decomposition}
+
+(sub-systems and dependencies between them)
+
+\subsection{Hardware/software mapping}
+
+(mapping of sub-systems to processes and computers, communication between computers)
+
+\subsection{Persistent data management}
+
+(file/ database, database design)
+
+\subsection{Concurrency}
+
+(processes, shared resources, communication between processes, deadlocks prevention) 
+
+
+\section{Glossary}
+
+More text.
+
+\end{document}
