@@ -1,0 +1,93 @@
+\documentclass{article}
+\usepackage{xcolor}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{caption}
+\usepackage{verbatim}
+\usepackage{amssymb}
+\usepackage{amsmath,amsthm}
+\usepackage{amsfonts}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{qtree}
+\usepackage{tikz}
+\usepackage{bm}
+\usepackage{frame,color}
+\usepackage{datetime}
+\usepackage{etoolbox}
+\usepackage{emerald}
+\usepackage[T1]{fontenc}
+\usepackage{bookmark}
+\usepackage{multirow}
+\usepackage{todonotes}
+\makeatletter
+\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+\makeatother
+\definecolor{shadecolor}{rgb}{184,184,184}
+\usetikzlibrary{calc,positioning}
+\usetikzlibrary{arrows,automata}
+\renewcommand{\familydefault}{\sfdefault}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%TITLE PAGE%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}
+    \begin{minipage}[H]{0.33\textwidth}
+		\vspace{0.3cm}
+		\includegraphics[scale=0.8]{images/TUDelftLogo.eps}
+	\end{minipage}
+	\begin{minipage}[H]{0.33\textwidth}
+		\begin{center}
+			\ECFJD{Context Project Group 8}
+		\end{center}
+		\begin{center}
+			\includegraphics[scale=0.8]{images/Lg.eps}	
+		
+		\end{center}
+		\begin{center}
+			\small{\today}
+		\end{center}
+	\end{minipage}
+	\begin{minipage}[H]{0.45\textwidth}
+			\begin{flushright}
+				\small{Rob van Bekkum(rvanbekkum)\qquad 4210816}\\
+				\small{Thijs Brands(tlmbrands)\qquad 4247132}\\
+				\small{Soheil Jahanshahi(sjahanshahi)\qquad 4127617}\\
+				\small{Aidan Mauricio(amauricio)\qquad 4195175}\\
+				\small{Joost van Oorschot(jjevanoorschot)\qquad  4220471}\\
+			\end{flushright}
+	\end{minipage}
+\end{figure}
+
+\begin{minipage}[H]{\textwidth}
+\vspace{0.3cm}
+		\begin{center}
+		  \vspace{0.3cm}
+		  \Huge{\textbf{Draft Design}}\\
+	      \vspace{0.3cm}	
+   		  \vspace{0.7cm}	
+		\end{center}
+	\end{minipage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Document Starts Here%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+\tableofcontents
+\newpage
+	\section{Introduction}
+	\input{./sections/1.Introduction.tex}
+	 \subsection{Design goals}
+	 \input{./sections/1.1.DesignGoals.tex}
+	 \section{Software Architecture Views}
+	 %\input{./sections/2.SoftwareArchitectureViews.tex}
+	 \subsection{Subsystem Decomposition} 
+	 \input{./sections/2.1.Decomposition.tex}
+	 \subsection{Hardware/Software Mapping} 
+	 \input{./sections/2.2.HardSoft.tex}
+	 \subsection{Persistent data management} 
+	 \input{./sections/2.3.DataManagement.tex}
+	 \section{Concurrency} 
+
+	 \input{./sections/2.4.Concurrency.tex}
+	
+        
+	\end{document}
