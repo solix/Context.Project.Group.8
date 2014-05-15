@@ -91,8 +91,8 @@ public class MapControlsUI implements InputProcessor {
 	public boolean touchDragged(int x, int y, int pointer) {
 		//		lowest = lowestTouch();
 		if(Gdx.input.isTouched(0) && pointer == 0){
-			float delta_x =  ((old_x - (x * ZOOM) * -1) * ZOOM);
-			float delta_y = (old_y - y);
+			float delta_x =  (old_x - x) * -1 * ZOOM;
+			float delta_y = (old_y - y) * ZOOM;
 			System.out.println("ZOOM = " + ZOOM);
 			Vector3 newCamPos = mapCamera.position.sub(delta_x, delta_y, 0);
 			mapCamera.position.set(newCamPos);
