@@ -71,18 +71,26 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Document Starts Here%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 \tableofcontents
 \newpage
-	\section*{Introduction}
-	\input{./tex/1.Intro.tex}
+	 \section*{Introduction}
+	 \input{./tex/0.Intro.tex}
+	 \addcontentsline{toc}{section}{\protect\numberline{}Introduction}
+	 \section{Game description}
+	 \input{./tex/1.GameDescription.tex}
+	 \section{Context}
+	 \input{./tex/2.Context.tex}
 	 \section{Target customer}
-	 \input{./tex/2.TargetCustomer.tex}
+	 \input{./tex/3.TargetCustomer.tex}
 	 \section{Customer needs}
-	 \input{./tex/3.CustomerNeeds.tex}
+	 \input{./tex/4.CustomerNeeds.tex}
 	 \section{Essential elements} 
-	 \input{./tex/4.EssentialElements.tex}
+	 \input{./tex/5.EssentialElements.tex}
 	 \section{Primary dfferentiation} 
-	 \input{./tex/5.PrimaryDifferentiation.tex}
+	 \input{./tex/6.PrimaryDifferentiation.tex}
 	 \newpage
 	 \section{Timeframe and budget} % (fold)
-	 \input{./tex/6.TimeframeBudget.tex}
+	 \input{./tex/7.TimeframeBudget.tex}
+	 \section*{References}
+	 \input{./tex/8.References.tex}
+	 \addcontentsline{toc}{section}{\protect\numberline{}References}
 	           
 	\end{document}
