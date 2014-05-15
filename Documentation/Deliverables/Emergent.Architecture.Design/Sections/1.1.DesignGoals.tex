@@ -1,13 +1,27 @@
-\subsection{Loose Coupling}
+This section will contain the goals we keep in mind while making decissions about our architecture design. We believe that these goals are needed to create a product we can be proud of.
+
+
+
+
+\begin{description}
+
+\item[Loose Coupling]  \hfill \\
+
 
 We have divided our classes mostly over two categories: model and view. All classes that represent the game world or objects of the game world are part of the model. All classes that construct a way to view a part of the game world are part of the view category. One of our design goals was to keep coupling between these two categories as loose as possible. This way we can easily make changes to the game world our implement a new view without having to adjust a lot of classes.
 
-\subsection{High cohesion}
+\item[High Cohesion]  \hfill \\
+
 It is very common that the strive for loose coupling is accompanied with the desire for high cohesion. We are no exception and want to keep cohesion as high as possible to ensure robustness and understandabillity of the code. This is why we always discuss  where in the software we should add new pieces of functionality, before actually implementing.
 
-\subsection{Quality Code}
+\item[Quality Code]  \hfill \\
 
-We strive for our code to have a certain level of quality. Writing good code makes it easier to expand the working prototype without having to fix emerging errors in the existing code. We want our code to approach the Exemplary Source Code Quality criteria as described in the Software Engineering Rubrics (2014).
-\subsection{Working Prototype}
+
+We strive for our code to have a certain level of quality. Writing good code makes it easier to expand the working prototype without having to fix emerging errors in the existing code. We want our code to approach the Exemplary Source Code Quality criteria as described in the Software Engineering Rubrics (2014).  This implies proper use of design patterns, very few design flaws and proper use of all software engineering principles. 
+
+
+\item[Working Prototype]  \hfill \\
 
 We want to have a new working prototype at the end of every week. This will ensure that the features implemented in that week actually work when they are all integrated in one prototype. It also gives us the oppertunity to show our client early versions of our work on which we can get feedback. This feedback loop helps us make the product the client actually wants. The  working prototype also gives an indication of our current development stage and can give our client a feeling of progress.
+
+\end{description}
