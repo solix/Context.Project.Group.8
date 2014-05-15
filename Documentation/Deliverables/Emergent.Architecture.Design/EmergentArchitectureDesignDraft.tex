@@ -22,6 +22,12 @@
 \usepackage{bookmark}
 \usepackage{multirow}
 \usepackage{todonotes}
+\usepackage[utf8]{inputenc}
+\usepackage{glossaries}
+
+\makeglossaries
+
+
 \makeatletter
 \patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
 \makeatother
@@ -29,7 +35,12 @@
 \usetikzlibrary{calc,positioning}
 \usetikzlibrary{arrows,automata}
 \renewcommand{\familydefault}{\sfdefault}
-
+\newglossaryentry{maths}
+{
+        name=mathematics,
+            description={Mathematics is what mathematicians do}
+}
+ 
 \begin{document}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%TITLE PAGE%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -83,11 +94,17 @@
 	 \input{./sections/2.1.Decomposition.tex}
 	 \subsection{Hardware/Software Mapping} 
 	 \input{./sections/2.2.HardSoft.tex}
-	 \subsection{Persistent data management} 
+	 \subsection{Persistent Data Management} 
 	 \input{./sections/2.3.DataManagement.tex}
-	 \section{Concurrency} 
+	 %\section{Concurrency} 
 
-	 \input{./sections/2.4.Concurrency.tex}
+	 %\input{./sections/2.4.Concurrency.tex}
+	\section{Glassory}
+
+
 	
-        
+ 
+	\printglossaries
+
+
 	\end{document}
