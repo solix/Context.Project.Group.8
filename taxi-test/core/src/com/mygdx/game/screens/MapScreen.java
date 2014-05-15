@@ -40,8 +40,7 @@ public class MapScreen extends BasicScreen{
 	private Viewport viewport;
 	private OrthographicCamera mapCamera;
 	private MapControlsUI mapControl;
-	final static int SCALE = 4;
-	final static int INBOUND = SCALE / 2 + 1;
+	public float SCALE = 4;
 
 	@Override
 	public void show() {
@@ -52,7 +51,7 @@ public class MapScreen extends BasicScreen{
 		this.viewport = new StretchViewport(VIRTUAL_WIDTH * SCALE,VIRTUAL_HEIGHT * SCALE, mapCamera);
 		world = new World(new Vector2(0.0f, 0.0f), true);
 		map = new WorldMap(ResourceManager.mapFile, world);
-		mapControl = new MapControlsUI(mapCamera, SCALE, map);
+		mapControl = new MapControlsUI(mapCamera, viewport, this);
 		
 		Gdx.input.setInputProcessor(mapControl);
 		
@@ -95,6 +94,8 @@ public class MapScreen extends BasicScreen{
 
 		// Draw the sprites
 		drawSprites();
+		
+		//resize((int)(viewport.getWorldWidth() * 0.5), (int)(viewport.getWorldHeight() * 0.5));
 
 	//	virtualButtonsCamera.update();
 	//	spriteBatch.setProjectionMatrix(virtualButtonsCamera.combined);
@@ -121,6 +122,7 @@ public class MapScreen extends BasicScreen{
 
 	@Override
 	public void resize(int width, int height) {
+		//viewport.update((int)(viewport.getWorldWidth() / 2), (int)(viewport.getWorldHeight() / 2));
 		viewport.update(width, height);
 	}
 
@@ -168,6 +170,10 @@ public class MapScreen extends BasicScreen{
 		if (mapCamera.position.y >= mapPixelHeight - VIRTUAL_HEIGHT * SCALE / 2) {
 			mapCamera.position.y = mapPixelHeight - VIRTUAL_HEIGHT * SCALE / 2;
 		}
+	}
+	
+	public void setScale(float sc){
+		SCALE = sc;
 	}
 
 }
