@@ -13,7 +13,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.taxi_trouble.game.BoxProp;
 
 import static com.taxi_trouble.game.properties.GameProperties.*;
 
@@ -40,7 +39,7 @@ public class WorldMap {
 			MapObject obj = obj_iterator.next();
 			if (obj instanceof RectangleMapObject) {
 				Rectangle r = ((RectangleMapObject) obj).getRectangle();
-				new BoxProp(world, (r.getWidth())
+				new SolidBox(world, (r.getWidth())
 						/ PIXELS_PER_METER, (r.getHeight()) / PIXELS_PER_METER,
 						new Vector2(r.getX() / PIXELS_PER_METER + r.getWidth()
 								/ (2 * PIXELS_PER_METER), r.getY()
