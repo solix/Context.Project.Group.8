@@ -5,7 +5,6 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.screens.MapScreen;
 
 /**
@@ -16,15 +15,13 @@ import com.mygdx.game.screens.MapScreen;
  */
 public class MapControlsUI implements InputProcessor {
 
-    Vector3 last_touch_down = new Vector3();
     private OrthographicCamera mapCamera;
-    int old_x;
-    int old_y;
-    float last_dist;
-    Viewport viewport;
-    MapScreen mapscreen;
-    float old_factor = 1;
-    float ZOOM = 1;
+    private int old_x;
+    private int old_y;
+    private float last_dist;
+    private MapScreen mapscreen;
+    private float old_factor = 1;
+    private float ZOOM = 1;
     private static final double ZERO_POINT_FIVE = 0.5;
     private static final double ZERO_POINT_EIGHT = 0.8;
     private static final double ONE_POINT_FIVE = 1.5;
@@ -36,10 +33,8 @@ public class MapControlsUI implements InputProcessor {
      * @param port
      * @param mapscreen
      */
-    public MapControlsUI(OrthographicCamera cam, Viewport port,
-            MapScreen mapscreen) {
+    public MapControlsUI(OrthographicCamera cam, MapScreen mapscreen) {
         this.mapCamera = cam;
-        this.viewport = port;
         this.mapscreen = mapscreen;
         // this.map = map;
     }

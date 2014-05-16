@@ -50,7 +50,7 @@ public class MapScreen extends BasicScreen {
                 VIRTUAL_HEIGHT * SCALE, mapCamera);
         world = new World(new Vector2(0.0f, 0.0f), true);
         map = new WorldMap(ResourceManager.mapFile, world);
-        mapControl = new MapControlsUI(mapCamera, viewport, this);
+        mapControl = new MapControlsUI(mapCamera, this);
         Gdx.input.setInputProcessor(mapControl);
         spriteBatch = new SpriteBatch();
     }
@@ -135,7 +135,7 @@ public class MapScreen extends BasicScreen {
      * map.
      * 
      * @param map
-     * Worldmap map is needed so that we can stay in bounds.
+     *            Worldmap map is needed so that we can stay in bounds.
      */
     public void stayInBounds(WorldMap map) {
         int mapPixelHeight = map.getHeight();
@@ -163,7 +163,7 @@ public class MapScreen extends BasicScreen {
      * This method changes the SCALE value.
      * 
      * @param sc
-     * sc is the new SCALE to be set.
+     *            sc is the new SCALE to be set.
      */
     public void setScale(float sc) {
         SCALE = sc;
