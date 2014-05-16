@@ -17,7 +17,7 @@ public class ResourceManager {
 	 * Loads the sprites needed for the rendering of the taxi. 
 	 * This method has to be called before using the sprites.
 	 */
-	public static void loadTaxiAndWheel(){
+	public static void loadTaxiAndWheelSprites(){
 		Texture taxiTexture = new Texture("sprites/taxi_frame.png");
 		taxiSprite = new Sprite(taxiTexture);
 		Texture wheelTexture = new Texture("sprites/wheel.png");
@@ -28,6 +28,6 @@ public class ResourceManager {
 	 * Loads the map. Call his method before using the mapFile.
 	 */
 	public static void loadMap(){
-		mapFile = new TmxMapLoader().load("maps/test_map2.tmx");
+		mapFile = new TmxMapLoader().load("maps/prototype.tmx");
 	}
 }

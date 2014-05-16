@@ -42,9 +42,10 @@ public class GameScreen extends BasicScreen {
 		// Initialize the taxi
 		this.taxi = new Taxi(2, 4, 20, 60, 60);
 		taxi.createBody(world, new Vector2(10, 10), (float) Math.PI);
-		Sprite taxiSprite = new Sprite(new Texture(ResourceManager.taxiSprite));
-		taxi.setSprite(taxiSprite);
-		taxi.setWheelSprite(new Sprite(new Texture(ResourceManager.wheelSprite)));
+		
+		//Load the Sprites
+        ResourceManager.loadTaxiAndWheelSprites();
+        taxi.setSprite(ResourceManager.taxiSprite,ResourceManager.wheelSprite);
 
 		// Load the UI for player input
 		this.controlsUI = new ControlsUI(taxi);
@@ -56,6 +57,7 @@ public class GameScreen extends BasicScreen {
 		debugRenderer = new Box2DDebugRenderer();
 
 		// Load the map of the game
+		ResourceManager.loadMap();
 		map = new WorldMap(ResourceManager.mapFile, world);
 	}
 
@@ -87,12 +89,6 @@ public class GameScreen extends BasicScreen {
 
 		taxi.update(Gdx.app.getGraphics().getDeltaTime());
 
-		/**
-		 * Have box2d update the positions and velocities (and etc) of all
-		 * tracked objects. The second and third argument specify the number of
-		 * iterations of velocity and position tests to perform -- higher is
-		 * more accurate but is also slower.
-		 */
 		world.step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
 
 		world.clearForces();

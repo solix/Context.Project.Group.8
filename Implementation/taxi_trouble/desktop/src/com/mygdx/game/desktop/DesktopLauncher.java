@@ -8,6 +8,6 @@ import com.taxi_trouble.game.model.GameWorld;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new TaxiTest(), config);
+		new LwjglApplication(new GameWorld(), config);
 	}
 }

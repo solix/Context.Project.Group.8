@@ -32,9 +32,9 @@ public class WorldMap {
      * @param mapFile : location/directory of the map (tmx-file)
      * @param world : the world for which the map is created
      */
-    public WorldMap(String mapFile, World world) {
+    public WorldMap(TiledMap map, World world) {
         this.world = world;
-        this.map = new TmxMapLoader().load(mapFile);
+        this.map = map;
         this.renderer = new OrthogonalTiledMapRenderer(map);
 
         this.loadMapObjects();
@@ -52,7 +52,7 @@ public class WorldMap {
      * @param type
      */
     private void loadMapObjectsOfType(String type) {
-        MapLayer layer = map.getLayers().get(type);
+        MapLayer layer = map.getLayers().get("box2D");
         MapObjects objects = layer.getObjects();
 
         Iterator<MapObject> obj_iterator = objects.iterator();

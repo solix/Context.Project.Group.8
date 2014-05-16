@@ -467,7 +467,11 @@ public class Taxi {
 					position, true);
 		}
 	}
-
+	
+	/**Render the sprites of the taxi using a given SpriteBatch.
+	 * 
+	 * @param spriteBatch
+	 */
 	public void render(SpriteBatch spriteBatch) {
 		for (Wheel wheel : getWheels()) {
 			wheel.render(spriteBatch);
