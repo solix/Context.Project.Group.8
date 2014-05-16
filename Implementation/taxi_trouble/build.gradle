@@ -14,11 +14,10 @@ buildscript {
 allprojects {
     apply plugin: "eclipse"
     apply plugin: "idea"
-    apply plugin: "maven"
 
     version = '1.0'
     ext {
-        appName = 'taxi_trouble'
+        appName = 'taxi-test'
         gdxVersion = '1.0.0'
         roboVMVersion = '0.0.11'
     }
