@@ -1,0 +1,120 @@
+\documentclass{article}
+\usepackage{xcolor}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{caption}
+\usepackage{verbatim}
+\usepackage{amssymb}
+\usepackage{amsmath,amsthm}
+\usepackage{amsfonts}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{qtree}
+\usepackage{tikz}
+\usepackage{bm}
+\usepackage{frame,color}
+\usepackage{datetime}
+\usepackage{etoolbox}
+\usepackage{emerald}
+\usepackage[T1]{fontenc}
+\makeatletter
+\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+\makeatother
+\definecolor{shadecolor}{rgb}{184,184,184}
+\lstset{language=Matlab,
+        frame = single,
+        breaklines=true
+}
+\usetikzlibrary{calc,positioning}
+\usetikzlibrary{arrows,automata}
+\renewcommand{\familydefault}{\sfdefault}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%TITLE PAGE%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}
+    \begin{minipage}[H]{0.33\textwidth}
+		\vspace{0.3cm}
+		\includegraphics[scale=0.8]{images/TUDelftLogo.eps}
+	\end{minipage}
+	\begin{minipage}[H]{0.33\textwidth}
+		\begin{center}
+			\ECFJD{Context Project Group 8}
+		\end{center}
+		
+		\begin{center}
+			\includegraphics[scale=0.8]{images/Lg.eps}	
+		
+		\end{center}
+	\end{minipage}
+	\begin{minipage}[H]{0.33\textwidth}
+			\begin{flushright}
+				\small{Rob van Bekkum \qquad 4210816}\\
+				\small{Thijs Brands \qquad 4247132}\\
+				\small{Soheil Jahanshahi \qquad 4127617}\\
+				\small{Aidan Mauricio \qquad 4195175}\\
+				\small{Joost van Oorschot \qquad  4220471}
+			\end{flushright}
+			
+	\end{minipage}
+\end{figure}
+
+\begin{minipage}[H]{\textwidth}
+\vspace{0.3cm}
+		\begin{center}
+		\vspace{0.3cm}
+			\Huge{\textbf{Lightweight Scrum Planning 3}}\\
+		\vspace{0.3cm}	
+		\vspace{0.7cm}		
+		\end{center}
+	\end{minipage}
+
+\section*{Set of Backlog items}
+The selected items of the backlog that we will be working on this comming week  are (ordered by importance):
+\begin{itemize}
+	\item Implement real time multiplayer with Google's Game Service API.
+	\item Implement passenger pickup and drop-off.
+\end{itemize}
+
+\section*{User stories}
+\subsection*{Multiplayer}
+As a user\\
+Given that I have installed the app\\
+And I have started the app\\
+Then I can create a new game lobby\\\\
+As a user\\
+Given that I have created a new game lobby\\
+Then other users can join my game lobby\\\\
+As a  user\\
+Given that I am in a game lobby\\
+And there is at least one other user in the lobby\\
+Then I can team up with that user
+\subsection*{Passenger pickup}
+As a driver\\
+Given that I stop next to a passenger\\
+Then the passenger will enter my car\\\\
+As a driver\\
+Given that I drop off the passenger at the correct location\\
+Then I will receive a point
+\section*{List of tasks, assigned group members and estimation of effort}
+\textbf{Implement Multiplayer} \\
+\begin{tabular}{ | l | l | l | }
+\hline
+\textbf{Task} & \textbf{Assigned to} & \textbf{estimated effort} \\ \hline
+Authorize app with Google API &  & 1 point\\ \hline
+Setup host logic &  & 4 points\\ \hline
+Setup connection between Driver and Navigator &  & 4 points \\ \hline
+Synchronize location updates between all devices (not only within team) & & 4 points \\ \hline
+\end{tabular} \newline
+\newline
+\textbf{Implement passenger pickup and drop-off} \\
+\begin{tabular}{ | l | l | l | }
+\hline
+\textbf{Task} & \textbf{Assigned to} & \textbf{estimated effort} \\ \hline
+Create passenger artwork & & 1 point\\ \hline
+Passenger spawning logic & & 3 points\\ \hline
+Actual pickup / drop-off & & 2 points\\ \hline
+Points when passenger is dropped off & & 1 points\\ \hline
+\end{tabular}
+\end{document}
