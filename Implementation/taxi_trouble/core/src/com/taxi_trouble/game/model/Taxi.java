@@ -399,4 +399,10 @@ public class Taxi {
                     forceVector.x, forceVector.y)), position, true);
         }
     }
+    public void drawTaxi() {
+        for(Wheel wheel : taxi.getWheels()) {
+            draw(wheel.getBody());
+        }
+        draw(taxi.getBody());
+    }
 }
