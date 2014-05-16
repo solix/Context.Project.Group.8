@@ -1,11 +1,11 @@
-package com.mygdx.game.input;
+package com.taxitrouble.game.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.mygdx.game.screens.MapScreen;
+import com.taxitrouble.game.screens.MapScreen;
 
 /**
  * This is the controller class for MapScreen.

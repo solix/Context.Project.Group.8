@@ -1,7 +1,7 @@
-package com.mygdx.game.screens;
+package com.taxitrouble.game.screens;
 
-import static com.mygdx.game.properties.GameProperties.VIRTUAL_HEIGHT;
-import static com.mygdx.game.properties.GameProperties.VIRTUAL_WIDTH;
+import static com.taxitrouble.game.properties.GameProperties.VIRTUAL_HEIGHT;
+import static com.taxitrouble.game.properties.GameProperties.VIRTUAL_WIDTH;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
@@ -15,9 +15,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.input.MapControlsUI;
-import com.mygdx.game.properties.ResourceManager;
-import com.mygdx.game.world.WorldMap;
+import com.taxitrouble.game.properties.ResourceManager;
+import com.taxitrouble.game.world.WorldMap;
+import com.taxitrouble.game.input.MapControlsUI;
 
 /**
  * This is the Navigator view class.

@@ -1,8 +1,8 @@
-package com.mygdx.game.input;
+package com.taxitrouble.game.input;
 
 import com.badlogic.gdx.InputProcessor;
-import com.mygdx.game.Car;
-import com.mygdx.game.properties.GameProperties;
+import com.taxitrouble.game.Car;
+import com.taxitrouble.game.properties.GameProperties;
 
 /**
  * InputProcessor for controlling the taxi using the virtual buttons.

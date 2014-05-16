@@ -8,14 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-<<<<<<< HEAD:taxi-test/core/src/com/mygdx/game/input/ControlsUI.java
-import com.mygdx.game.properties.GameProperties;
-import com.mygdx.game.properties.SpriteProperties;
-=======
-import com.taxitrouble.game.Car;
 import com.taxitrouble.game.properties.GameProperties;
 import com.taxitrouble.game.properties.SpriteProperties;
->>>>>>> sprint2_refactor:taxi-test/core/src/com/taxitrouble/game/input/ControlsUI.java
 
 public class ControlsUI {
 	private Map<String, VirtualButton> buttons;

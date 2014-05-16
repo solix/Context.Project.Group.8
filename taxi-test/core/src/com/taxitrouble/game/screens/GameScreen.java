@@ -11,22 +11,13 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-<<<<<<< HEAD:taxi-test/core/src/com/mygdx/game/screens/GameScreen.java
-import com.mygdx.game.Car;
-import com.mygdx.game.input.ControlsUI;
-import com.mygdx.game.input.DriverControl;
-import com.mygdx.game.properties.GameProperties;
-import com.mygdx.game.properties.ResourceManager;
-import com.mygdx.game.world.CarCamera;
-import com.mygdx.game.world.WorldMap;
-=======
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.taxitrouble.game.Car;
 import com.taxitrouble.game.input.ControlsUI;
+import com.taxitrouble.game.input.DriverControl;
+import com.taxitrouble.game.properties.GameProperties;
 import com.taxitrouble.game.properties.ResourceManager;
 import com.taxitrouble.game.world.CarCamera;
 import com.taxitrouble.game.world.WorldMap;
->>>>>>> sprint2_refactor:taxi-test/core/src/com/taxitrouble/game/screens/GameScreen.java
 
 public class GameScreen extends BasicScreen {
 	private Car car;
