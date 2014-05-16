@@ -75,6 +75,8 @@ The selected items of the backlog that we will be working on this comming week  
 \begin{itemize}
 	\item Implement real time multiplayer with Google's Game Service API.
 	\item Implement passenger pickup and drop-off.
+	\item Initial game menu
+	\item Show current scores on screen
 \end{itemize}
 
 \section*{User stories}
@@ -97,24 +99,50 @@ Then the passenger will enter my car\\\\
 As a driver\\
 Given that I drop off the passenger at the correct location\\
 Then I will receive a point
+\subsection*{Initial game menu}
+As a user\\
+Given that I have installed the game\\
+And I have started the app\\
+Then I can choose a game to join via the menu.
+\subsection*{Show current scores on screen}
+As a user\\
+Given that I am playing the game (either as navigator or driver)\\
+Then I want to see my current game score
 \section*{List of tasks, assigned group members and estimation of effort}
 \textbf{Implement Multiplayer} \\
 \begin{tabular}{ | l | l | l | }
 \hline
 \textbf{Task} & \textbf{Assigned to} & \textbf{estimated effort} \\ \hline
-Authorize app with Google API &  & 1 point\\ \hline
-Setup host logic &  & 4 points\\ \hline
-Setup connection between Driver and Navigator &  & 4 points \\ \hline
-Synchronize location updates between all devices (not only within team) & & 4 points \\ \hline
+Authorize app with Google API & Joost & 1 point\\ \hline
+Setup host logic & Thijs \& Joost & 4 points\\ \hline
+Setup connection between Driver and Navigator & Aidan \& Soheil & 4 points \\ \hline
+Synchronize location updates between all devices (not only within team) & Rob \& Thijs & 4 points \\ \hline
 \end{tabular} \newline
 \newline
 \textbf{Implement passenger pickup and drop-off} \\
 \begin{tabular}{ | l | l | l | }
 \hline
 \textbf{Task} & \textbf{Assigned to} & \textbf{estimated effort} \\ \hline
-Create passenger artwork & & 1 point\\ \hline
-Passenger spawning logic & & 3 points\\ \hline
-Actual pickup / drop-off & & 2 points\\ \hline
-Points when passenger is dropped off & & 1 points\\ \hline
+Create passenger artwork & Rob & 1 point\\ \hline
+Passenger spawning logic & Aidan \& Rob & 3 points\\ \hline
+Actual pickup / drop-off & Joost \& Thijs \& Rob& 2 points\\ \hline
+Points when passenger is dropped off & Soheil & 1 points\\ \hline
+\end{tabular}
+\newline
+\textbf{Initial game menu} \\
+\begin{tabular}{ | l | l | l | }
+\hline
+\textbf{Task} & \textbf{Assigned to} & \textbf{estimated effort} \\ \hline
+Create main menu (simple for now) & Aidan \& Thijs & 2 points\\ \hline
+Create a menu for joining a game and teaming up & Aidan \& Thijs & 3 points\\ \hline
+\end{tabular}
+\newline
+\textbf{Show current scores on screen} \\
+\begin{tabular}{ | l | l | l | }
+\hline
+\textbf{Task} & \textbf{Assigned to} & \textbf{estimated effort} \\ \hline
+Create bitmap font for game scores & Soheil & 1 point\\ \hline
+For each team make the current score show on their screens & Soheil & 2 points\\ \hline
+For each team make the number of succesfully dropped off passengers on screen & Soheil & 2 points\\ \hline
 \end{tabular}
 \end{document}
