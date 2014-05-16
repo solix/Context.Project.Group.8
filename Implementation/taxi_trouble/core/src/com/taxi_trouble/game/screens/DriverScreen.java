@@ -22,24 +22,22 @@ import com.taxi_trouble.game.model.WorldMap;
 import com.taxi_trouble.game.properties.ResourceManager;
 
 public class DriverScreen extends ViewObserver {
-	GameWorld game;
-	TaxiCamera taxiCamera;
-	Taxi taxi;
-	OrthographicCamera virtualButtonsCamera;
-	SpriteBatch spriteBatch;
-	ControlsUI controlsUI;
-	WorldMap cityMap;
-	Box2DDebugRenderer debugRenderer;
-	Viewport viewport;
-
-	/**
+	private TaxiCamera taxiCamera;
+	private Taxi taxi;
+	private OrthographicCamera virtualButtonsCamera;
+	private SpriteBatch spriteBatch;
+	private ControlsUI controlsUI;
+	private WorldMap cityMap;
+	private Box2DDebugRenderer debugRenderer;
+	
+		/**
 	 * Constructor creates game screen and adds camera to follow taxi.
 	 * 
 	 * @param game
 	 */
 	public DriverScreen(GameWorld game) {
 		super(game);
-		this.game = game;
+		
 	}
 	
     @Override
@@ -50,15 +48,20 @@ public class DriverScreen extends ViewObserver {
         debugRenderer = new Box2DDebugRenderer();
 
         // Initialize the taxi
-        this.taxi = game.taxi;
-        
+        taxi=taxigame.getTaxi();
         this.taxiCamera = new TaxiCamera(taxi);
 
         // Load the UI for player input
         this.controlsUI = new ControlsUI(taxi);
         Gdx.input.setInputProcessor(controlsUI);
         // Load the map of the game
-        cityMap = new WorldMap(ResourceManager.mapFile, game.world);
+        cityMap = taxigame.getMap();
+        
+        //Load the Sprites
+         ResourceManager.loadTaxiAndWheel();
+         taxi.setSprite(ResourceManager.taxiSprite,ResourceManager.wheelSprite);
+         
+       
 
     }
 

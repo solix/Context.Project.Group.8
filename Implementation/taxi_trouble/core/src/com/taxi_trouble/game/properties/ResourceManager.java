@@ -17,7 +17,7 @@ public class ResourceManager {
 	 * Loads the sprites needed for the rendering of the taxi. 
 	 * This method has to be called before using the sprites.
 	 */
-	public static void loadTaxi(){
+	public static void loadTaxiAndWheel(){
 		Texture taxiTexture = new Texture("sprites/taxi_frame.png");
 		taxiSprite = new Sprite(taxiTexture);
 		Texture wheelTexture = new Texture("sprites/wheel.png");

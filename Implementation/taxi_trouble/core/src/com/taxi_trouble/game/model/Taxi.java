@@ -268,15 +268,18 @@ public class Taxi {
 	}
 
 	/**
-	 * Changes the sprite of the taxi to the given sprite.
+	 * Changes the sprite of the taxi and the wheels for the given sprites.
 	 * 
-	 * @param sprite
+	 * @param taxisprite
 	 *            : the sprite to be set as the taxi's sprite
+	 * @param wheelsprite 
+	 * 			  : the sprite to be set as wheel's sprite	
 	 */
-	public void setSprite(Sprite sprite) {
-		sprite.setSize(this.getWidth(), this.getLength());
-		sprite.setOrigin(this.getWidth() / 2, this.getLength() / 2);
-		this.getBody().setUserData(sprite);
+	public void setSprite(Sprite taxisprite,Sprite wheelsprite) {
+		taxisprite.setSize(this.getWidth(), this.getLength());
+		taxisprite.setOrigin(this.getWidth() / 2, this.getLength() / 2);
+		this.getBody().setUserData(taxisprite);
+		setWheelSprite(wheelsprite);
 	}
 
 	/**
@@ -285,7 +288,7 @@ public class Taxi {
 	 * @param sprite
 	 *            : the sprite to be set as the wheels' sprite
 	 */
-	public void setWheelSprite(Sprite sprite) {
+	private void setWheelSprite(Sprite sprite) {
 		for (Wheel wheel : this.getWheels()) {
 			wheel.setSprite(sprite);
 		}

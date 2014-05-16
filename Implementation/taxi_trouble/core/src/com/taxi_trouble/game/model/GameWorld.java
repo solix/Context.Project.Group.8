@@ -35,4 +35,16 @@ public class GameWorld extends Game {
     public void render() {
         super.render();
     }
+
+    public WorldMap getMap(){
+        return map;
+    }
+    
+    public Taxi getTaxi(){
+    	return taxi;
+    }
+    
+    public World getWorld(){
+    	return world;
+    }
 }
