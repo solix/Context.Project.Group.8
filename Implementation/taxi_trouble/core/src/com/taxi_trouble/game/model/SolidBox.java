@@ -40,22 +40,24 @@ public class SolidBox {
         bodyDef.angle = 0;
         bodyDef.fixedRotation = true;
         this.body = world.createBody(bodyDef);
-        this.body.createFixture(getFixtureDef());
+        InitFixtureDef();
+        
     }
 
     /**Retrieves the fixture for the body of the solid box.
      * 
-     * @return fixtureDef
+     * 
      */
-    private FixtureDef getFixtureDef() {
+    private void InitFixtureDef() {
         FixtureDef fixtureDef = new FixtureDef();
+
         PolygonShape boxShape = new PolygonShape();
         boxShape.setAsBox(this.width / 2, this.height / 2);
         fixtureDef.shape=boxShape;
         fixtureDef.restitution=0f;
+        this.body.createFixture(fixtureDef);
         boxShape.dispose();
-        return fixtureDef;
-    }
+       }
 
     /**Retrieves the width of the solid box.
      * 
