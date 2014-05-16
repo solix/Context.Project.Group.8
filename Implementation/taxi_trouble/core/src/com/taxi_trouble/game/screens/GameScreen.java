@@ -17,7 +17,6 @@ import com.taxi_trouble.game.Acceleration;
 import com.taxi_trouble.game.SteerDirection;
 import com.taxi_trouble.game.input.ControlsUI;
 import com.taxi_trouble.game.model.Taxi;
-import com.taxi_trouble.game.model.Wheel;
 import com.taxi_trouble.game.model.WorldMap;
 import com.taxi_trouble.game.properties.ResourceManager;
 
@@ -42,7 +41,7 @@ public class GameScreen extends BasicScreen {
 
 		// Initialize the taxi
 		this.taxi = new Taxi(2, 4, 20, 60, 60);
-		taxi.createBody(world, new Vector2(10,10), (float) Math.PI);
+		taxi.createBody(world, new Vector2(10, 10), (float) Math.PI);
 		Sprite taxiSprite = new Sprite(new Texture(ResourceManager.taxiSprite));
 		taxi.setSprite(taxiSprite);
 		taxi.setWheelSprite(new Sprite(new Texture(ResourceManager.wheelSprite)));
@@ -69,22 +68,22 @@ public class GameScreen extends BasicScreen {
 		taxiCamera.update(map);
 
 		spriteBatch.setProjectionMatrix(taxiCamera.combined);
-		
-		//System.out.println(taxi.getAccelerate());
 
-		 if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP))
-		     taxi.setAccelerate(Acceleration.ACC_ACCELERATE);
-		 else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN))
-		     taxi.setAccelerate(Acceleration.ACC_BRAKE);
-		 else
-		     taxi.setAccelerate(Acceleration.ACC_NONE);
-		
-		 if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT))
-		     taxi.setSteer(SteerDirection.STEER_LEFT);
-		 else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT))
-		     taxi.setSteer(SteerDirection.STEER_RIGHT);
-		 else
-		 taxi.setSteer(SteerDirection.STEER_NONE);
+		// System.out.println(taxi.getAccelerate());
+
+		if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP))
+			taxi.setAccelerate(Acceleration.ACC_ACCELERATE);
+		else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN))
+			taxi.setAccelerate(Acceleration.ACC_BRAKE);
+		else
+			taxi.setAccelerate(Acceleration.ACC_NONE);
+
+		if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT))
+			taxi.setSteer(SteerDirection.STEER_LEFT);
+		else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT))
+			taxi.setSteer(SteerDirection.STEER_RIGHT);
+		else
+			taxi.setSteer(SteerDirection.STEER_NONE);
 
 		taxi.update(Gdx.app.getGraphics().getDeltaTime());
 
@@ -100,43 +99,21 @@ public class GameScreen extends BasicScreen {
 		map.render(taxiCamera);
 
 		// Draw the sprites
-		drawTaxi();
+		taxi.render(spriteBatch);
 
 		/**
 		 * Draw this last, so we can see the collision boundaries on top of the
 		 * sprites and map.
 		 */
-		//debugRenderer.render(world, taxiCamera.combined.scale(PIXELS_PER_METER,
-		//		PIXELS_PER_METER, PIXELS_PER_METER));
+		// debugRenderer.render(world,
+		// taxiCamera.combined.scale(PIXELS_PER_METER,
+		// PIXELS_PER_METER, PIXELS_PER_METER));
 
 		virtualButtonsCamera.update();
 		spriteBatch.setProjectionMatrix(virtualButtonsCamera.combined);
 		controlsUI.render(spriteBatch);
 	}
 
-    public void drawTaxi() {
-        for(Wheel wheel : taxi.getWheels()) {
-            draw(wheel.getBody());
-        }
-        draw(taxi.getBody());
-    }
-	
-	/**Draws the sprite of the specified body.
-	 * 
-	 * @param body
-	 */
-	public void draw(Body body) {
-	    if(body.getUserData() != null && body.getUserData() instanceof Sprite) {
-	        spriteBatch.begin();
-	        Sprite sprite = (Sprite) body.getUserData();
-	        sprite.setPosition(body.getPosition().x * PIXELS_PER_METER, body.getPosition().y * PIXELS_PER_METER);
-	        sprite.setRotation(body.getAngle() * MathUtils.radiansToDegrees);
-	        sprite.setScale(PIXELS_PER_METER);
-	        sprite.draw(spriteBatch);
-	        spriteBatch.end();
-	    }
-	}
-	
 	public void drawSprites() {
 		spriteBatch.begin();
 		Array<Body> tmpBodies = new Array<Body>();
@@ -157,7 +134,7 @@ public class GameScreen extends BasicScreen {
 
 	@Override
 	public void resize(int width, int height) {
-		taxiCamera.updateViewPort(width,height);
+		taxiCamera.updateViewPort(width, height);
 	}
 
 	@Override
