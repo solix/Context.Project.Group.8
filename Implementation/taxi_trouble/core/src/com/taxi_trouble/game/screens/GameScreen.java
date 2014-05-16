@@ -1,10 +1,12 @@
 package com.taxi_trouble.game.screens;
 
+import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_HEIGHT;
+import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_WIDTH;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -16,6 +18,7 @@ import com.badlogic.gdx.utils.Array;
 import com.taxi_trouble.game.Acceleration;
 import com.taxi_trouble.game.SteerDirection;
 import com.taxi_trouble.game.input.ControlsUI;
+import com.taxi_trouble.game.input.DriverControl;
 import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.WorldMap;
 import com.taxi_trouble.game.properties.ResourceManager;
@@ -28,12 +31,13 @@ public class GameScreen extends BasicScreen {
 	private SpriteBatch spriteBatch;
 	private ControlsUI controlsUI;
 	private WorldMap map;
+	private DriverControl driverControl;
 	private Box2DDebugRenderer debugRenderer;
 
 	@Override
 	public void show() {
 		this.virtualButtonsCamera = new OrthographicCamera();
-		virtualButtonsCamera.setToOrtho(false, screenWidth, screenHeight);
+		this.virtualButtonsCamera.setToOrtho(false, BUTTON_CAM_WIDTH, BUTTON_CAM_HEIGHT);
 		spriteBatch = new SpriteBatch();
 
 		// Box2d World init
@@ -47,9 +51,10 @@ public class GameScreen extends BasicScreen {
         ResourceManager.loadTaxiAndWheelSprites();
         taxi.setSprite(ResourceManager.taxiSprite,ResourceManager.wheelSprite);
 
-		// Load the UI for player input
-		this.controlsUI = new ControlsUI(taxi);
-		Gdx.input.setInputProcessor(controlsUI);
+        // Load the UI for player input
+        this.controlsUI = new ControlsUI();
+        this.driverControl = new DriverControl(taxi, controlsUI);
+        Gdx.input.setInputProcessor(driverControl);
 
 		taxiCamera = new TaxiCamera(taxi);
 		spriteBatch = new SpriteBatch();
@@ -70,8 +75,6 @@ public class GameScreen extends BasicScreen {
 		taxiCamera.update(map);
 
 		spriteBatch.setProjectionMatrix(taxiCamera.combined);
-
-		// System.out.println(taxi.getAccelerate());
 
 		if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP))
 			taxi.setAccelerate(Acceleration.ACC_ACCELERATE);

@@ -10,6 +10,8 @@ public class GameProperties {
 	public static float scale = getScale();
 	public static int VIRTUAL_WIDTH = 480;
 	public static int VIRTUAL_HEIGHT = 320;
+	public static int BUTTON_CAM_HEIGHT = 480;
+	public static int BUTTON_CAM_WIDTH = 800;
 
 	private static int getPPM() {
 		switch (Gdx.app.getType()) {

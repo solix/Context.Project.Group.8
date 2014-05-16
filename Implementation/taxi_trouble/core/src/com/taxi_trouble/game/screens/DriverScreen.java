@@ -6,10 +6,12 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.taxi_trouble.game.input.ControlsUI;
+import com.taxi_trouble.game.input.DriverControl;
 import com.taxi_trouble.game.model.GameWorld;
 import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.WorldMap;
 import com.taxi_trouble.game.properties.ResourceManager;
+import static com.taxi_trouble.game.properties.GameProperties.*;
 
 /**Provides the view of the game for the driver of a taxi.
  *
@@ -23,6 +25,7 @@ public class DriverScreen extends ViewObserver {
     private SpriteBatch spriteBatch;
     private ControlsUI controlsUI;
     private WorldMap cityMap;
+    private DriverControl driverControl;
     private Box2DDebugRenderer debugRenderer;
 
     /**
@@ -37,17 +40,19 @@ public class DriverScreen extends ViewObserver {
     @Override
     public void show() {
         this.virtualButtonsCamera = new OrthographicCamera();
-        virtualButtonsCamera.setToOrtho(false, screenWidth, screenHeight);
+        this.virtualButtonsCamera.setToOrtho(false, BUTTON_CAM_WIDTH, BUTTON_CAM_HEIGHT);
         spriteBatch = new SpriteBatch();
         debugRenderer = new Box2DDebugRenderer();
 
         // Initialize the taxi
         this.taxi = taxigame.getTaxi();
         this.taxiCamera = new TaxiCamera(taxi);
-
+        
         // Load the UI for player input
-        this.controlsUI = new ControlsUI(taxi);
-        Gdx.input.setInputProcessor(controlsUI);
+        this.controlsUI = new ControlsUI();
+        this.driverControl = new DriverControl(taxi, controlsUI);
+        Gdx.input.setInputProcessor(driverControl);
+        
         // Load the map of the game
         cityMap = taxigame.getMap();
         
