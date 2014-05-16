@@ -1,8 +1,5 @@
 package com.mygdx.game.input;
 
-import static com.mygdx.game.properties.GameProperties.VIRTUAL_HEIGHT;
-import static com.mygdx.game.properties.GameProperties.VIRTUAL_WIDTH;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -10,163 +7,200 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.screens.MapScreen;
-import com.mygdx.game.world.WorldMap;
 
+/**
+ * This is the controller class for MapScreen.
+ * 
+ * @author Aidan
+ * 
+ */
 public class MapControlsUI implements InputProcessor {
 
-	//private int tapSquareSize = 14, touchDownX = -1, touchDownY = -1;
-	Vector3 last_touch_down = new Vector3();
-	private OrthographicCamera mapCamera;
-	int old_x;
-	int old_y;
-	float last_dist;
-	Viewport viewport;
-	MapScreen mapscreen;
-	float old_factor = 1;
-	float ZOOM = 1;
-	//WorldMap map;
+    Vector3 last_touch_down = new Vector3();
+    private OrthographicCamera mapCamera;
+    int old_x;
+    int old_y;
+    float last_dist;
+    Viewport viewport;
+    MapScreen mapscreen;
+    float old_factor = 1;
+    float ZOOM = 1;
+    private static final double ZERO_POINT_FIVE = 0.5;
+    private static final double ZERO_POINT_EIGHT = 0.8;
+    private static final double ONE_POINT_FIVE = 1.5;
 
-	public MapControlsUI(OrthographicCamera cam, Viewport port, MapScreen mapscreen){
-		this.mapCamera = cam;
-		this.viewport = port;
-		this.mapscreen = mapscreen;
-		//	this.map = map;
-	}
+    /**
+     * Constructor method for MapControlsUI.
+     * 
+     * @param cam
+     * @param port
+     * @param mapscreen
+     */
+    public MapControlsUI(OrthographicCamera cam, Viewport port,
+            MapScreen mapscreen) {
+        this.mapCamera = cam;
+        this.viewport = port;
+        this.mapscreen = mapscreen;
+        // this.map = map;
+    }
 
-	@Override
-	public boolean keyDown(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean keyDown(int keycode) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean keyUp(int keycode) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean keyTyped(char character) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		if(pointer == 0){
-			old_x = screenX;
-			old_y = screenY;
-		}
-		if(Gdx.input.isTouched(1) && Gdx.input.isTouched(0)){
-			Vector2 pointA = new Vector2(Gdx.input.getX(0), Gdx.input.getY(0));
-			Vector2 pointB = new Vector2(Gdx.input.getX(1), Gdx.input.getY(1));
-			last_dist = pyth(pointA, pointB);
+    /**
+     * This method is called every time the screen is touched.
+     */
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        // If the index of the touch is 0 then initialize/ modify the value of
+        // old_x and old_y.
+        if (pointer == 0) {
+            old_x = screenX;
+            old_y = screenY;
+        }
+        // If there are 2 touches then initialize/ modify last_dist.
+        if (Gdx.input.isTouched(1) && Gdx.input.isTouched(0)) {
+            Vector2 pointA = new Vector2(Gdx.input.getX(0), Gdx.input.getY(0));
+            Vector2 pointB = new Vector2(Gdx.input.getX(1), Gdx.input.getY(1));
+            last_dist = pyth(pointA, pointB);
 
-		}
-		if(Gdx.input.isTouched(1) && !Gdx.input.isTouched(0)){
-			mapCamera.position.set(0,0,0);
-		}
-		//System.out.println("posX = " + Gdx.input.getX(0) + " posY = " + Gdx.input.getY(0) );
-		return false;
-	}
+        }
+        if (Gdx.input.isTouched(1) && !Gdx.input.isTouched(0)) {
+            mapCamera.position.set(0, 0, 0);
+        }
+        return true;
+    }
 
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		return false;
-	}
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
 
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public boolean scrolled(int amount) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean scrolled(int amount) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public boolean touchDragged(int x, int y, int pointer) {
-		//		lowest = lowestTouch();
-		if(Gdx.input.isTouched(0) && pointer == 0){
-			float delta_x =  (old_x - x) * -1 * ZOOM;
-			float delta_y = (old_y - y) * ZOOM;
-			System.out.println("ZOOM = " + ZOOM);
-			Vector3 newCamPos = mapCamera.position.sub(delta_x, delta_y, 0);
-			mapCamera.position.set(newCamPos);
-			old_x = x;
-			old_y = y;
-			return true;
-		}
-		else if(Gdx.input.isTouched(1) && Gdx.input.isTouched(0)){
-			Vector2 pointA = new Vector2(Gdx.input.getX(0), Gdx.input.getY(0));
-			Vector2 pointB = new Vector2(Gdx.input.getX(1), Gdx.input.getY(1));
-			float dist = pyth(pointA, pointB);
-			//float factor = last_dist / dist;
-			//System.out.println("last_dist = " + last_dist + " dist = " + dist);
-			float factor = last_dist / dist;
-			last_dist = dist;
-			//old_factor = factor;
-			System.out.println("factor = "  + factor);
-			zoom(mapCamera, factor);
-			old_factor = factor;
-			return true;
-		}
-		/*else if(Gdx.input.isTouched(1) && Gdx.input.isTouched(0)){
-			Vector2 pointA = new Vector2(Gdx.input.getX(0), Gdx.input.getY(0));
-			Vector2 pointB = new Vector2(Gdx.input.getX(0), Gdx.input.getY(0));
-			float dist_AB = pointA.dst(pointB);
-			float factor = last_dist / dist_AB;
-			this.viewport.setWorldSize(viewport.getWorldHeight() * factor, viewport.getWorldWidth() * factor);
-			last_dist = dist_AB;
-			return true;
-		}
-		 */
-		else{
-			return false;
-		}
+    /**
+     * This method is called every time you drag your finger on the screen. For
+     * one finger it scrolls through the map and for two fingers it starts
+     * zooming in and out.
+     * 
+     * @param x
+     *            This is the x-coordinate of the finger touching the map.
+     * @param y
+     *            This is the y coordinate of the finger touching the map.
+     * @param pointer
+     *            This is the index no. of the finger touching the map.
+     */
+    @Override
+    public boolean touchDragged(int x, int y, int pointer) {
+        // If the pointer == 0 then scroll through the map.
+        if (Gdx.input.isTouched(0) && pointer == 0) {
+            // Calculate the difference between the old and the new coordinate *
+            // ZOOM for scaling purposes.
+            float deltaX = (old_x - x) * -1 * ZOOM;
+            float deltaY = (old_y - y) * ZOOM;
+            // Get the coordinates of the new position for the camera.
+            Vector3 newCamPos = mapCamera.position.sub(deltaX, deltaY, 0);
+            // Set the camera position to the new position.
+            mapCamera.position.set(newCamPos);
+            // Replace the old x and y coordinates.
+            old_x = x;
+            old_y = y;
+            return true;
+            // Else if 2 fingers are touching we start scaling/zooming through
+            // the map.
+        } else if (Gdx.input.isTouched(1) && Gdx.input.isTouched(0)) {
+            Vector2 pointA = new Vector2(Gdx.input.getX(0), Gdx.input.getY(0));
+            Vector2 pointB = new Vector2(Gdx.input.getX(1), Gdx.input.getY(1));
+            // Calculate the distance between the 2 touches.
+            float dist = pyth(pointA, pointB);
+            // Calculate the factor between the old touch and the new touch.
+            float factor = last_dist / dist;
+            last_dist = dist;
+            // Call the zoom method.
+            zoom(mapCamera, factor);
+            old_factor = factor;
+            return true;
+        } else {
+            return false;
+        }
 
-	}
+    }
 
-	public int lowestTouch(){
-		int i = 0;
-		return i;
-	}
+    /**
+     * This method returns the distance between 2 points on the map using the
+     * pythagoras method.
+     * 
+     * @param v1
+     *            This is the first vector provided.
+     * @param v2
+     *            This is the second vector provided.
+     * @return
+     */
+    public float pyth(Vector2 v1, Vector2 v2) {
+        float x = Math.abs(v1.x - v2.x);
+        float y = Math.abs(v1.y - v2.y);
+        x = x * x;
+        y = y * y;
+        return (float) Math.sqrt(x + y);
+    }
 
-	public float pyth(Vector2 v1, Vector2 v2){
-		float x = Math.abs(v1.x - v2.x);
-		float y = Math.abs(v1.y - v2.y);
-		x = x * x;
-		y = y * y;
-		System.out.println("x + y = " + x + " " + y);
-		System.out.println((float) Math.sqrt(x + y));
-		return (float) Math.sqrt(x + y);
-	}
-	
-	public void zoom(OrthographicCamera cam, float factor){
-		float factor_thresh = Math.abs(factor -1);
-		float factor_old_tresh = Math.abs(old_factor - 1);
-		float dif = Math.abs(factor_old_tresh - factor_thresh);
-		
-		
-		if(dif == 0){
-			return;
-		}
-		if(factor > 1){
-			factor = (float) (1 + factor_thresh * 0.8);
-		}
-		else if (factor < 1) {
-			factor = (float) (1 - factor_thresh * 0.8);
-		}
-		if(cam.zoom * factor > 1.5 || cam.zoom * factor < 0.5){
-			return;
-		}
-		cam.zoom = cam.zoom * factor;
-		ZOOM = cam.zoom;
-		mapscreen.setScale(factor * mapscreen.SCALE);
-		System.out.println("zoom = " + cam.zoom);
-		
-	}
+    /**
+     * This method alters the camera.zoom value to zoom in and out of the map.
+     * 
+     * @param cam
+     *            The camera to be zoomed.
+     * @param factor
+     *            The factor at which the camera needs to be zoomed.
+     */
+    public void zoom(OrthographicCamera cam, float factor) {
+        float factorThresh = Math.abs(factor - 1);
+        float factorOldTresh = Math.abs(old_factor - 1);
+        float dif = Math.abs(factorOldTresh - factorThresh);
+
+        // If the distance between the 2 finger hasn't changed then do nothing.
+        if (dif == 0) {
+            return;
+        }
+        if (factor > 1) {
+            factor = (float) (1 + factorThresh * ZERO_POINT_EIGHT);
+        } else if (factor < 1) {
+            factor = (float) (1 - factorThresh * ZERO_POINT_EIGHT);
+        }
+        // If after the zoom * factor camera.zoom < 0.5 or > 1.5 then do
+        // nothing.
+        if (cam.zoom * factor > ONE_POINT_FIVE
+                || cam.zoom * factor < ZERO_POINT_FIVE) {
+            return;
+        }
+        cam.zoom = cam.zoom * factor;
+        ZOOM = cam.zoom;
+        mapscreen.setScale(factor * mapscreen.getScale());
+        System.out.println("zoom = " + cam.zoom);
+
+    }
 }
