@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.taxitrouble.game.TaxiTest;
+import com.taxi_trouble.game.TaxiTest;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override

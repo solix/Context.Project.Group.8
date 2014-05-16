@@ -6,7 +6,7 @@ import org.junit.Test;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.taxitrouble.game.Car;
+import com.mygdx.game.Car;
 
 public class CarTest extends Game {
 	Car car;

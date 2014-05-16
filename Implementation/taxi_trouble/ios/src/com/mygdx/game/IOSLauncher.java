@@ -5,7 +5,7 @@ import org.robovm.apple.uikit.UIApplication;
 
 import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
-import com.taxitrouble.game.TaxiTest;
+import com.taxi_trouble.game.TaxiTest;
 
 public class IOSLauncher extends IOSApplication.Delegate {
     @Override
