@@ -43,7 +43,7 @@ public class TaxiJukebox {
 	}
 	
 	public static void loopSound(String name){
-		sounds.get(name).play();
+		sounds.get(name).loop();
 	}
 	
 	public static void stopSound(String name){
@@ -55,7 +55,7 @@ public class TaxiJukebox {
 	}
 	
 	public static void loopMusic(String name){
-		musics.get(name).play();
+		musics.get(name).setLooping(true);
 	}
 	
 	public static void stopMusic(String name){
@@ -85,10 +85,10 @@ public class TaxiJukebox {
 		musics.get(name).setVolume(volume);
 	}
 	public static boolean isPlaying(String musicname){
-		for(int i=0; i <20;i++){
+		
 			
 			System.out.println("The music is playing");
-		}
+		
 		return musics.get(musicname).isPlaying();	
 		
 	}
