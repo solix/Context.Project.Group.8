@@ -35,13 +35,14 @@ public class GameWorld extends Game {
         taxi = new Taxi(2, 4, 20, 60, 60);
         taxi.createBody(world, new Vector2(10,10), (float) Math.PI);
         setScreen(new DriverScreen(this));
-        TaxiJukebox.loadMusic("sound/s.ogg", "sampleMusic");
+        TaxiJukebox.loadMusic("sound/s.wav", "sampleMusic");
        
     }
 
     @Override
     public void render() {
         super.render();
+        
     }
 
     /**Retrieves the game world map.

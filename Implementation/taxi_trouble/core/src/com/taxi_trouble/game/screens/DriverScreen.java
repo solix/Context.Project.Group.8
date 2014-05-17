@@ -63,8 +63,7 @@ public class DriverScreen extends ViewObserver {
         ResourceManager.loadTaxiAndWheelSprites();
         taxi.setSprite(ResourceManager.taxiSprite,ResourceManager.wheelSprite);
        
-        TaxiJukebox.playMusic("sampleMusic");
-        TaxiJukebox.isPlaying("sampleMusic");
+        
     
     }
 
@@ -89,7 +88,8 @@ public class DriverScreen extends ViewObserver {
         spriteBatch.setProjectionMatrix(virtualButtonsCamera.combined);
         controlsUI.render(spriteBatch);
        
-        
+        TaxiJukebox.playMusic("sampleMusic");
+        TaxiJukebox.isPlaying("sampleMusic");
        
         
     }
@@ -106,12 +106,13 @@ public class DriverScreen extends ViewObserver {
 
     @Override
     public void resume() {
-        // TODO Auto-generated method stub
+    	
     }
 
     @Override
     public void dispose() {
         spriteBatch.dispose();
+        
     }
 
     @Override
