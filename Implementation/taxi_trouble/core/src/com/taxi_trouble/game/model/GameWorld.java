@@ -3,6 +3,7 @@ package com.taxi_trouble.game.model;
 import java.util.List;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.screens.DriverScreen;
+import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**Provides the main model for all the elements of a game that is played.
  * (Please note: implementation will change when implementing multiplayer)
@@ -33,6 +35,8 @@ public class GameWorld extends Game {
         taxi = new Taxi(2, 4, 20, 60, 60);
         taxi.createBody(world, new Vector2(10,10), (float) Math.PI);
         setScreen(new DriverScreen(this));
+        TaxiJukebox.loadMusic("sound/s.ogg", "sampleMusic");
+       
     }
 
     @Override

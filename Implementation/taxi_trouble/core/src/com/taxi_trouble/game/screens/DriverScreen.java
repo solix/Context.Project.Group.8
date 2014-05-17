@@ -1,6 +1,7 @@
 package com.taxi_trouble.game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,6 +12,8 @@ import com.taxi_trouble.game.model.GameWorld;
 import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.WorldMap;
 import com.taxi_trouble.game.properties.ResourceManager;
+import com.taxi_trouble.game.sound.TaxiJukebox;
+
 import static com.taxi_trouble.game.properties.GameProperties.*;
 
 /**Provides the view of the game for the driver of a taxi.
@@ -59,6 +62,7 @@ public class DriverScreen extends ViewObserver {
         //Load the Sprites
         ResourceManager.loadTaxiAndWheelSprites();
         taxi.setSprite(ResourceManager.taxiSprite,ResourceManager.wheelSprite);
+    
     }
 
     @Override
@@ -81,6 +85,16 @@ public class DriverScreen extends ViewObserver {
 
         spriteBatch.setProjectionMatrix(virtualButtonsCamera.combined);
         controlsUI.render(spriteBatch);
+        //Try Outs must be deleted afterwards
+        
+        //End of tryouts 
+        //original code
+        TaxiJukebox.playMusic("sampleMusic");
+        TaxiJukebox.isPlaying("sampleMusic");
+        TaxiJukebox.dispose("sampleMusic");
+        //TaxiJukebox.setMusicVolume("sampleMusic", 0.4f);
+
+        
     }
 
     @Override
