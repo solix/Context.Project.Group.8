@@ -76,7 +76,7 @@ public class GameScreen extends BasicScreen {
 
 		spriteBatch.setProjectionMatrix(taxiCamera.combined);
 
-		if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP))
+		/*if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP))
 			taxi.setAccelerate(Acceleration.ACC_ACCELERATE);
 		else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN))
 			taxi.setAccelerate(Acceleration.ACC_BRAKE);
@@ -88,7 +88,7 @@ public class GameScreen extends BasicScreen {
 		else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT))
 			taxi.setSteer(SteerDirection.STEER_RIGHT);
 		else
-			taxi.setSteer(SteerDirection.STEER_NONE);
+			taxi.setSteer(SteerDirection.STEER_NONE);*/
 
 		taxi.update(Gdx.app.getGraphics().getDeltaTime());
 

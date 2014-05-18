@@ -16,6 +16,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.Acceleration;
 import com.taxi_trouble.game.SteerDirection;
+import com.taxi_trouble.game.model.Wheel;
 
 /**
  * A controllable taxi which can be steered and for which certain properties
@@ -127,7 +128,7 @@ public class Taxi {
 	 *            : world used to create the bodies of the taxi wheels
 	 */
 	private void initializeWheels(World world) {
-		this.wheels.add(new Wheel(world, this, -1f, -1.4f, 0.35f, 0.45f, true,
+		/*this.wheels.add(new Wheel(world, this, -1f, -1.4f, 0.35f, 0.45f, true,
 				true)); // top left
 		this.wheels.add(new Wheel(world, this, 1f, -1.4f, 0.35f, 0.45f, true,
 				true)); // top right
@@ -135,6 +136,15 @@ public class Taxi {
 				false)); // back left
 		this.wheels.add(new Wheel(world, this, 1f, 1.2f, 0.35f, 0.45f, false,
 				false)); // back right
+*/	
+	    this.wheels.add(new Wheel(world, this, -1f, -1.4f, 0.4f, 0.6f, true,
+                true)); // top left
+        this.wheels.add(new Wheel(world, this, 1f, -1.4f, 0.4f, 0.6f, true,
+                true)); // top right
+        this.wheels.add(new Wheel(world, this, -1f, 1.2f, 0.4f, 0.6f, false,
+                false)); // back left
+        this.wheels.add(new Wheel(world, this, 1f, 1.2f, 0.4f, 0.6f, false,
+                false));    
 	}
 
 	/**
