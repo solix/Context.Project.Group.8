@@ -1,7 +1,9 @@
 package com.taxi_trouble.game.screens;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.taxi_trouble.game.model.GameWorld;
+import com.taxi_trouble.game.model.Passenger;
 import com.taxi_trouble.game.properties.GameProperties;
 
 /**
@@ -21,7 +23,15 @@ public abstract class ViewObserver implements Screen {
 	 */
 	public ViewObserver(GameWorld taxigame) {
 		this.taxigame = taxigame;
-
 	}
+	
+	@Override
+	public void render(float delta) {
+        for (Passenger passtest : taxigame.getPassengers()) {
+            passtest.render(getSpriteBatch());
+        }
+	}
+	
+	public abstract SpriteBatch getSpriteBatch();
 
 }

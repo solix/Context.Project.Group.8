@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.taxi_trouble.game.input.MapControls;
 import com.taxi_trouble.game.model.GameWorld;
 import com.taxi_trouble.game.model.Passenger;
+import com.taxi_trouble.game.model.Spawner;
 import com.taxi_trouble.game.model.WorldMap;
 import com.taxi_trouble.game.properties.ResourceManager;
 
@@ -37,9 +38,7 @@ public class NavigatorScreen extends ViewObserver {
     private MapControls mapControl;
     private float SCALE = 4;
     private final static float ZERO_TWO_F = 0.2f;
-    private final static int THREE = 3;
-    private Passenger passtest;
-    
+    private final static int THREE = 3;    
     
     /**
      * Constructor, creates the game screen.
@@ -57,7 +56,7 @@ public class NavigatorScreen extends ViewObserver {
      */
     @Override
     public void show() {
-
+        this.world = taxigame.getWorld();
         this.mapCamera = new OrthographicCamera();
         mapCamera.setToOrtho(false, screenWidth, screenHeight);
         this.viewport = new StretchViewport(VIRTUAL_WIDTH * SCALE,
@@ -67,8 +66,6 @@ public class NavigatorScreen extends ViewObserver {
         mapControl = new MapControls(mapCamera, this);
         Gdx.input.setInputProcessor(mapControl);
         spriteBatch = new SpriteBatch();
-        Passenger passtest = new Passenger(world, 32, 32, new Vector2(10,20));
-        passtest.setSprite(new Sprite(new Texture("sprites/characters/character-1-standing.png")));
     }
 
     /**
@@ -85,12 +82,13 @@ public class NavigatorScreen extends ViewObserver {
         
         //tell the camera to update its matrices.
         spriteBatch.setProjectionMatrix(mapCamera.combined);
-        
+
         // what does this do? should it happen here?
         taxigame.getWorld().step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
         taxigame.getWorld().clearForces();
         cityMap.render(mapCamera);
-        passtest.render(spriteBatch);
+        
+        super.render(delta);
 
         // Draw the sprites
      //   drawSprites();
@@ -211,6 +209,11 @@ public class NavigatorScreen extends ViewObserver {
 
     public WorldMap getMap(){
     	return this.cityMap;
+    }
+
+    @Override
+    public SpriteBatch getSpriteBatch() {
+        return this.spriteBatch;
     }
     
 

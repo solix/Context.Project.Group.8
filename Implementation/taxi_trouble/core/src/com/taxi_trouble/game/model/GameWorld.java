@@ -1,5 +1,6 @@
 package com.taxi_trouble.game.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Game;
@@ -27,8 +28,7 @@ public class GameWorld extends Game {
     private List<Taxi> taxis;
     //Temporary (may change when implementing multiplayer)
     private Taxi taxi;
-    Passenger passtest;
-    SpriteBatch spriteBatch;
+    private List<Passenger> passengers;
 
     @Override
 	public void create() {
@@ -37,13 +37,19 @@ public class GameWorld extends Game {
         map = new WorldMap(ResourceManager.mapFile, world);
         taxi = new Taxi(2, 4, 20, 60, 60);
         taxi.createBody(world, new Vector2(10,10), (float) Math.PI);
-        setScreen(new DriverScreen(this));
+        setScreen(new NavigatorScreen(this));
         TaxiJukebox.loadMusic("sound/s.ogg", "sampleMusic");
+        passengers = new ArrayList<Passenger>();
     }
 
     @Override
     public void render() {
         super.render();
+        if(passengers.size() < 3) {
+            Passenger pas = map.getSpawner().spawnPass(world);
+            passengers.add(pas);
+        }
+        
     }
 
     /**Retrieves the game world map.
@@ -68,5 +74,9 @@ public class GameWorld extends Game {
      */
     public World getWorld(){
     	return this.world;
+    }
+    
+    public List<Passenger> getPassengers() {
+        return this.passengers;
     }
 }

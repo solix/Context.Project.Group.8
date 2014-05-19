@@ -34,7 +34,6 @@ public class DriverScreen extends ViewObserver {
     private WorldMap cityMap;
     private DriverControl driverControl;
     private Box2DDebugRenderer debugRenderer;
-    private Passenger pass;
 
     /**
      * Constructor creates game screen and adds camera to follow taxi.
@@ -54,8 +53,6 @@ public class DriverScreen extends ViewObserver {
 
         // Initialize the taxi
         this.taxi = taxigame.getTaxi();
-        this.pass = new Passenger(taxigame.getWorld(), 32, 32, new Vector2(10,20));
-        pass.setSprite(new Sprite(new Texture("sprites/characters/character-1-standing.png")));
         this.taxiCamera = new TaxiCamera(taxi);
         
         // Load the UI for player input
@@ -90,10 +87,11 @@ public class DriverScreen extends ViewObserver {
         
         cityMap.render(taxiCamera);
         taxi.render(spriteBatch);
-        pass.render(spriteBatch);
 
         spriteBatch.setProjectionMatrix(virtualButtonsCamera.combined);
         controlsUI.render(spriteBatch);
+        
+        super.render(delta);
         
         //Try Outs must be deleted afterwards
         //Temporarily disabled
@@ -127,5 +125,11 @@ public class DriverScreen extends ViewObserver {
     @Override
     public void resize(int width, int height) {
         taxiCamera.updateViewPort(width, height);
+    }
+
+    @Override
+    public SpriteBatch getSpriteBatch() {
+        // TODO Auto-generated method stub
+        return this.spriteBatch;
     }
 }

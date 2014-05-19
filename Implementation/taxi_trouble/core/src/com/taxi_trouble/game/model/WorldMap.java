@@ -24,6 +24,7 @@ public class WorldMap {
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private World world;
+    private Spawner spawner;
 
     /**Initializes a new WorldMap for a specified world using the specified
      * directory of the map file.
@@ -35,7 +36,7 @@ public class WorldMap {
         this.world = world;
         this.map = map;
         this.renderer = new OrthogonalTiledMapRenderer(map);
-
+        this.spawner = new Spawner();
         this.loadMapObjects();
     }
 
@@ -44,6 +45,8 @@ public class WorldMap {
      */
     private void loadMapObjects() {
         loadMapObjectsOfType("box2D");
+        loadMapObjectsOfType("spawn-passenger");
+        loadMapObjectsOfType("spawn-taxi");
 	}
     
     /**Loads the objects of the world map of a specified type.
@@ -51,15 +54,27 @@ public class WorldMap {
      * @param type
      */
     private void loadMapObjectsOfType(String type) {
-        MapLayer layer = map.getLayers().get("box2D");
+        MapLayer layer = map.getLayers().get(type);
         MapObjects objects = layer.getObjects();
 
         Iterator<MapObject> obj_iterator = objects.iterator();
         while (obj_iterator.hasNext()) {
             MapObject obj = obj_iterator.next();
-            if (obj instanceof RectangleMapObject) {
+            if (obj instanceof RectangleMapObject && type.equals("box2D")) {
                 Rectangle rect = ((RectangleMapObject) obj).getRectangle();
                 createSolidBox(rect);
+            }
+            else if(type.equals("spawn-passenger")) {
+                Vector2 temp = new Vector2(obj.getProperties().get("x", Float.class)/15, obj.getProperties().get("y", Float.class)/15);
+                spawner.addPassenger(temp);
+            }
+            else if(type.equals("spawn-taxi")) {
+                Vector2 temp = new Vector2(obj.getProperties().get("x", Float.class), obj.getProperties().get("y", Float.class));
+                spawner.addTaxi(temp);
+            }
+            else if(type.equals("destination-point")) {
+                Vector2 temp = new Vector2(obj.getProperties().get("x", Float.class), obj.getProperties().get("y", Float.class));
+                spawner.addDestination(temp);
             }
         }
     }
@@ -113,5 +128,9 @@ public class WorldMap {
 	 */
     private int getTileWidth() {
         return map.getProperties().get("tilewidth", Integer.class);
+    }
+    
+    public Spawner getSpawner(){
+        return this.spawner;
     }
 }
