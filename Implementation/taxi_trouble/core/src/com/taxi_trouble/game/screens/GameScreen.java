@@ -4,7 +4,6 @@ import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_HEIGHT;
 import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_WIDTH;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -15,14 +14,13 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.taxi_trouble.game.Acceleration;
-import com.taxi_trouble.game.SteerDirection;
 import com.taxi_trouble.game.input.ControlsUI;
 import com.taxi_trouble.game.input.DriverControl;
 import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.WorldMap;
 import com.taxi_trouble.game.properties.ResourceManager;
 
+//THIS CLASS IS NO LONGER USED BUT IS KEPT FOR REFERENCE
 public class GameScreen extends BasicScreen {
 	private Taxi taxi;
 	private World world;

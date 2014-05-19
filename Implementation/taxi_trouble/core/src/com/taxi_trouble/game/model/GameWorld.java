@@ -46,7 +46,7 @@ public class GameWorld extends Game {
     public void render() {
         super.render();
         if(passengers.size() < 3) {
-            Passenger pas = map.getSpawner().spawnPass(world);
+            Passenger pas = map.getSpawner().spawnPassenger(world);
             passengers.add(pas);
         }
         

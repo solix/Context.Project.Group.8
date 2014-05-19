@@ -1,13 +1,14 @@
 package com.taxi_trouble.game.screens;
 
+import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_HEIGHT;
+import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_WIDTH;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
@@ -15,12 +16,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.taxi_trouble.game.input.MapControls;
 import com.taxi_trouble.game.model.GameWorld;
-import com.taxi_trouble.game.model.Passenger;
-import com.taxi_trouble.game.model.Spawner;
 import com.taxi_trouble.game.model.WorldMap;
-import com.taxi_trouble.game.properties.ResourceManager;
-
-import static com.taxi_trouble.game.properties.GameProperties.*;
 
 /**
  * This is the Navigator view class.
@@ -37,8 +33,7 @@ public class NavigatorScreen extends ViewObserver {
     private OrthographicCamera mapCamera;
     private MapControls mapControl;
     private float SCALE = 4;
-    private final static float ZERO_TWO_F = 0.2f;
-    private final static int THREE = 3;    
+    private final static float ZERO_TWO_F = 0.2f;   
     
     /**
      * Constructor, creates the game screen.

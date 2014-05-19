@@ -1,24 +1,19 @@
 package com.taxi_trouble.game.screens;
 
+import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_HEIGHT;
+import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_WIDTH;
+
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.taxi_trouble.game.input.ControlsUI;
 import com.taxi_trouble.game.input.DriverControl;
 import com.taxi_trouble.game.model.GameWorld;
-import com.taxi_trouble.game.model.Passenger;
 import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.WorldMap;
 import com.taxi_trouble.game.properties.ResourceManager;
-import com.taxi_trouble.game.sound.TaxiJukebox;
-
-import static com.taxi_trouble.game.properties.GameProperties.*;
 
 /**Provides the view of the game for the driver of a taxi.
  *
@@ -33,7 +28,6 @@ public class DriverScreen extends ViewObserver {
     private ControlsUI controlsUI;
     private WorldMap cityMap;
     private DriverControl driverControl;
-    private Box2DDebugRenderer debugRenderer;
 
     /**
      * Constructor creates game screen and adds camera to follow taxi.
@@ -49,7 +43,6 @@ public class DriverScreen extends ViewObserver {
         this.virtualButtonsCamera = new OrthographicCamera();
         this.virtualButtonsCamera.setToOrtho(false, BUTTON_CAM_WIDTH, BUTTON_CAM_HEIGHT);
         spriteBatch = new SpriteBatch();
-        debugRenderer = new Box2DDebugRenderer();
 
         // Initialize the taxi
         this.taxi = taxigame.getTaxi();
@@ -87,11 +80,10 @@ public class DriverScreen extends ViewObserver {
         
         cityMap.render(taxiCamera);
         taxi.render(spriteBatch);
+        super.render(delta);
 
         spriteBatch.setProjectionMatrix(virtualButtonsCamera.combined);
         controlsUI.render(spriteBatch);
-        
-        super.render(delta);
         
         //Try Outs must be deleted afterwards
         //Temporarily disabled
