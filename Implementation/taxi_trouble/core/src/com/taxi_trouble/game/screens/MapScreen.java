@@ -1,4 +1,7 @@
-package com.taxi_trouble.game.screens;
+package com.mygdx.game.screens;
+
+import static com.mygdx.game.properties.GameProperties.VIRTUAL_HEIGHT;
+import static com.mygdx.game.properties.GameProperties.VIRTUAL_WIDTH;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
@@ -12,10 +15,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.taxi_trouble.game.input.MapControlsUI;
-import com.taxi_trouble.game.model.WorldMap;
-import com.taxi_trouble.game.properties.ResourceManager;
-import static com.taxi_trouble.game.properties.GameProperties.*;
+import com.mygdx.game.input.MapControlsUI;
+import com.mygdx.game.properties.ResourceManager;
+import com.mygdx.game.world.WorldMap;
 
 /**
  * This is the Navigator view class.
@@ -164,6 +166,16 @@ public class MapScreen extends BasicScreen {
      *            sc is the new SCALE to be set.
      */
     public void setScale(float sc) {
+    	
+    	int mapPixelHeight = map.getHeight();
+        int mapPixelWidth = map.getWidth();
+        
+    	if( mapCamera.position.x < VIRTUAL_WIDTH * sc / 2
+    		|| mapCamera.position.x >= mapPixelWidth - VIRTUAL_WIDTH * sc / 2
+    		|| mapCamera.position.y < VIRTUAL_HEIGHT * sc / 2
+    		|| mapCamera.position.y >= mapPixelHeight - VIRTUAL_HEIGHT * sc / 2) {
+    		return;
+    	}
         SCALE = sc;
     }
 
@@ -176,4 +188,7 @@ public class MapScreen extends BasicScreen {
         return SCALE;
     }
 
+    public WorldMap getMap(){
+    	return this.map;
+    }
 }

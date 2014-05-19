@@ -1,11 +1,14 @@
-package com.taxi_trouble.game.input;
+package com.mygdx.game.input;
+
+import static com.mygdx.game.properties.GameProperties.VIRTUAL_HEIGHT;
+import static com.mygdx.game.properties.GameProperties.VIRTUAL_WIDTH;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.taxi_trouble.game.screens.MapScreen;
+import com.mygdx.game.screens.MapScreen;
 
 /**
  * This is the controller class for MapScreen.
@@ -176,6 +179,10 @@ public class MapControlsUI implements InputProcessor {
         float factorThresh = Math.abs(factor - 1);
         float factorOldTresh = Math.abs(old_factor - 1);
         float dif = Math.abs(factorOldTresh - factorThresh);
+        
+        int mapPixelHeight = mapscreen.getMap().getHeight();
+        int mapPixelWidth = mapscreen.getMap().getWidth();
+        
 
         // If the distance between the 2 finger hasn't changed then do nothing.
         if (dif == 0) {
@@ -189,7 +196,15 @@ public class MapControlsUI implements InputProcessor {
         // If after the zoom * factor camera.zoom < 0.5 or > 1.5 then do
         // nothing.
         if (cam.zoom * factor > ONE_POINT_FIVE
-                || cam.zoom * factor < ZERO_POINT_FIVE) {
+        		|| (
+        				(mapCamera.position.x < VIRTUAL_WIDTH * mapscreen.getScale() / 2
+        				|| mapCamera.position.x >= mapPixelWidth - VIRTUAL_WIDTH * mapscreen.getScale() / 2
+        				|| mapCamera.position.y < VIRTUAL_HEIGHT * mapscreen.getScale() / 2
+        				|| mapCamera.position.y >= mapPixelHeight - VIRTUAL_HEIGHT * mapscreen.getScale() / 2
+        				)
+        				&& factor > 1
+        			) 
+                || cam.zoom * factor < ZERO_POINT_FIVE ) {
             return;
         }
         cam.zoom = cam.zoom * factor;
