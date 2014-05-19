@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.taxi_trouble.game.input.MapControlsUI;
+import com.taxi_trouble.game.input.MapControls;
 import com.taxi_trouble.game.model.GameWorld;
 import com.taxi_trouble.game.model.WorldMap;
 import com.taxi_trouble.game.properties.ResourceManager;
@@ -32,7 +32,7 @@ public class NavigatorScreen extends ViewObserver {
     private WorldMap cityMap;
     private Viewport viewport;
     private OrthographicCamera mapCamera;
-    private MapControlsUI mapControl;
+    private MapControls mapControl;
     private float SCALE = 4;
     private final static float ZERO_TWO_F = 0.2f;
     private final static int THREE = 3;
@@ -62,7 +62,7 @@ public class NavigatorScreen extends ViewObserver {
                 VIRTUAL_HEIGHT * SCALE, mapCamera);
        
         cityMap = taxigame.getMap();
-        mapControl = new MapControlsUI(mapCamera, this);
+        mapControl = new MapControls(mapCamera, this);
         Gdx.input.setInputProcessor(mapControl);
         spriteBatch = new SpriteBatch();
     }
@@ -182,6 +182,16 @@ public class NavigatorScreen extends ViewObserver {
      *            sc is the new SCALE to be set.
      */
     public void setScale(float sc) {
+    	
+    	int mapPixelHeight = cityMap.getHeight();
+        int mapPixelWidth = cityMap.getWidth();
+        
+    	if( mapCamera.position.x < VIRTUAL_WIDTH * sc / 2
+    		|| mapCamera.position.x >= mapPixelWidth - VIRTUAL_WIDTH * sc / 2
+    		|| mapCamera.position.y < VIRTUAL_HEIGHT * sc / 2
+    		|| mapCamera.position.y >= mapPixelHeight - VIRTUAL_HEIGHT * sc / 2) {
+    		return;
+    	}
         SCALE = sc;
     }
 
@@ -193,5 +203,10 @@ public class NavigatorScreen extends ViewObserver {
     public float getScale() {
         return SCALE;
     }
+
+    public WorldMap getMap(){
+    	return this.cityMap;
+    }
+    
 
 }

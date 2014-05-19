@@ -1,14 +1,14 @@
-package com.mygdx.game.input;
+package com.taxi_trouble.game.input;
 
-import static com.mygdx.game.properties.GameProperties.VIRTUAL_HEIGHT;
-import static com.mygdx.game.properties.GameProperties.VIRTUAL_WIDTH;
+import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_HEIGHT;
+import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_WIDTH;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.mygdx.game.screens.MapScreen;
+import com.taxi_trouble.game.screens.NavigatorScreen;
 
 /**
  * This is the controller class for MapScreen.
@@ -16,13 +16,13 @@ import com.mygdx.game.screens.MapScreen;
  * @author Aidan
  * 
  */
-public class MapControlsUI implements InputProcessor {
+public class MapControls implements InputProcessor {
 
     private OrthographicCamera mapCamera;
     private int old_x;
     private int old_y;
     private float last_dist;
-    private MapScreen mapscreen;
+    private NavigatorScreen mapscreen;
     private float old_factor = 1;
     private float ZOOM = 1;
     private static final double ZERO_POINT_FIVE = 0.5;
@@ -36,7 +36,7 @@ public class MapControlsUI implements InputProcessor {
      * @param port
      * @param mapscreen
      */
-    public MapControlsUI(OrthographicCamera cam, MapScreen mapscreen) {
+    public MapControls(OrthographicCamera cam, NavigatorScreen mapscreen) {
         this.mapCamera = cam;
         this.mapscreen = mapscreen;
         // this.map = map;
