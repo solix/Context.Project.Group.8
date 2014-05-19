@@ -5,25 +5,25 @@
  </tileset>
  <layer name="Road" width="80" height="101">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
- <layer name="Pavement" width="80" height="101">
+ <layer name="Pavement" width="80" height="101" visible="0">
   <data encoding="base64" compression="zlib">
    eJzt11GqwjAUBuG6Ffe/SPFJEIkmc/4mpjOQp4uH5KPcpsdhFd1urucifldPP5Z+LP1Y+rH0Y6X8VrpHpGen/M4suRf91pytn34zZ+vn+3fV9+9V0o+lH0s/ln4s/Vg73V9m3Y1SfrukH0s/ln6sWX47LXrOavsrpR9LP5Z+LP1Y+rFafme9/6vnnH3HIVXNTu6Rph9LP5Z+LP1Y+rF28Ju9Ks44cu6KOSunH0s/ln4s/Vj6sVbyW3lVnLH39//6TL2nH0s/ln6skTNW/W/dZY342ff0Y+nH0o+lH0s/1ohf8i6w0szU/YU8m4m5qb2S+fqx+fqx+fqx+fqx+fqx+fqx+fqx+fqx+fqx+clvopF9tvq377dUCb90+rH0Y+nH0o+lH6vldz8+L3oXaM0dPUNqr6N79v7M5uvH5uvH5uvH5uvH5s/yO+v7vnLPVb+he0mkH0s/ln4s/Vj6sXb0q7qX0Bk9e+79W/pO9Usr7GF0H6l77oznL72PXj97pR9LP5Z+LP1Y+rFafi52t7H+HiTqDDU=
   </data>
  </layer>
- <layer name="Buildings" width="80" height="101">
+ <layer name="Buildings" width="80" height="101" visible="0">
   <data encoding="base64" compression="zlib">
    eJzt1zGOwlAQBFH7ehyD+x+CwAHZDPxywxiqpJ+OmqcNvLdt224+/OxIP5Z+LP1Y+rH0Y+nH0o+V8qPfl1O2pG4nN0/akrqd3DxpS+p2cvOkLanbyc2TtqRu25F+LP1Y+rH0Y+nH0o+lH2vad+W0p59++l33fcvPnunH0o+lH0s/ln4s/Vj6sSZ8fyY3Tv3G1o9vO+t2cqN++umnX2LbWbevnH4s/Vj6sfRj6cfSj6Ufa4Lf5Kff3N+o39zbU97Kb7TX04+lH0s/ln4s/Vj6sd7123f2fq0Vv9Vv0c5v4jf8yv0q/fr7Vfr196v06+9X6dffr9Kvv1+lX3+/Sr/+fpV+/f0q/fr7Vcn/3xK/L92kTfqdv0U/tkU/tkU/tkU/tkU/tuWKfvfmrfzO1N3UVnJ/xfyMv5UpN+n91KbE3dRW/dhW/djWK/ol0o+lH0s/ln4s/Vj6sfRj/ZJfeveUHfZ6+rH0Y+nH0o+lH0s/ln6sT32H/sN7AOHceUY=
   </data>
  </layer>
- <layer name="Crosswalk" width="80" height="101">
+ <layer name="Crosswalk" width="80" height="101" visible="0">
   <data encoding="base64" compression="zlib">
    eJzt3FtqAzEMheHMa7fRK11Kl9KldildRQcmJRCYYFuyLtb/gZ89Fkmro5i5XIB1/VxX1f2lfq+r6v5ST9uxqu4v9bkdq+r+Ul/bsaruL/W9Havq/oCV5/1z/rKv13297et9Xx9On/1Iz9Iq0jPPfJZI58yI+gH9Zmb57HOCFjOzfPY5QYuZWT77nKDFzCyffU7QYmaWzz4naDEzyzMnQHVVcs2sc1I/APc0smmFfHtGI5tWyLdnNLJphXx7RiObVsi3ZzSyaYV8e0Yjm5JvAbQi48lkqF+GZ5xB69zUr9a5AYnKMxwNlWc4GirPcDRUnuFoiDLDydq/RJnhZK0fkAXfMRnqh1X05EbNjGmRVy326MmNmhnTIq9a7NGTGzUzpkVetdijJzdqZkyLvGqxR09u1MyYFnnVYo+e3KiZMS3yapRMDHpuKep3Qy1kVq/f6uebrVL9Kp11BuoHAPi3yl0mr3OscpfJ6xyr3GXyOscqd5m8zhHlLpOU1zlWmduucg5gFuYHMtQPQHRef6e87sdp86qf1/24RzL9z/O6H/dIpvp53Y9bhdf9uFV43Y8DAInRfjbKOym9+/HRfjbKOym9f0cc7WejvJPS+3fE0X42yjspvfvx0X42yjspvfvx0X42yjsp6ceR2R/8w4Jv
   </data>
  </layer>
- <objectgroup name="box2D" width="80" height="101">
+ <objectgroup name="box2D" width="80" height="101" visible="0">
   <object x="0" y="32" width="64" height="1056"/>
   <object x="0" y="1088" width="384" height="576"/>
   <object x="640" y="1088" width="320" height="576"/>
@@ -45,85 +45,365 @@
   <object x="0" y="1664" width="64" height="1568"/>
   <object x="64" y="3200" width="2496" height="32"/>
  </objectgroup>
- <objectgroup name="spawn-passenger" width="80" height="101">
-  <object x="352" y="2944" width="32" height="32"/>
-  <object x="896" y="3168" width="32" height="32"/>
-  <object x="1344" y="2912" width="32" height="32"/>
-  <object x="768" y="2720" width="32" height="32"/>
-  <object x="1632" y="2944" width="32" height="32"/>
-  <object x="2080" y="3168" width="32" height="32"/>
-  <object x="2208" y="2688" width="32" height="32"/>
-  <object x="1664" y="2624" width="32" height="32"/>
-  <object x="1824" y="2464" width="32" height="32"/>
-  <object x="1440" y="2528" width="32" height="32"/>
-  <object x="1088" y="2656" width="32" height="32"/>
-  <object x="2432" y="2848" width="32" height="32"/>
-  <object x="2432" y="2432" width="32" height="32"/>
-  <object x="2112" y="2240" width="32" height="32"/>
-  <object x="2208" y="2080" width="32" height="32"/>
-  <object x="1888" y="2240" width="32" height="32"/>
-  <object x="1664" y="2080" width="32" height="32"/>
-  <object x="1792" y="1888" width="32" height="32"/>
-  <object x="1440" y="1984" width="32" height="32"/>
-  <object x="1440" y="2368" width="32" height="32"/>
-  <object x="1216" y="1888" width="32" height="32"/>
-  <object x="2432" y="1856" width="32" height="32"/>
-  <object x="2144" y="1664" width="32" height="32"/>
-  <object x="2208" y="1568" width="32" height="32"/>
-  <object x="1696" y="1504" width="32" height="32"/>
-  <object x="1440" y="1664" width="32" height="32"/>
-  <object x="1120" y="1504" width="32" height="32"/>
-  <object x="1216" y="1280" width="32" height="32"/>
-  <object x="1568" y="1280" width="32" height="32"/>
-  <object x="2112" y="1280" width="32" height="32"/>
-  <object x="2208" y="1088" width="32" height="32"/>
-  <object x="2432" y="896" width="32" height="32"/>
-  <object x="1984" y="1056" width="32" height="32"/>
-  <object x="1728" y="1056" width="32" height="32"/>
-  <object x="1312" y="1056" width="32" height="32"/>
-  <object x="1312" y="832" width="32" height="32"/>
-  <object x="2144" y="832" width="32" height="32"/>
-  <object x="1920" y="736" width="32" height="32"/>
-  <object x="1696" y="672" width="32" height="32"/>
-  <object x="1696" y="448" width="32" height="32"/>
-  <object x="1408" y="384" width="32" height="32"/>
-  <object x="1120" y="448" width="32" height="32"/>
-  <object x="2144" y="448" width="32" height="32"/>
-  <object x="2144" y="128" width="32" height="32"/>
-  <object x="1792" y="32" width="32" height="32"/>
-  <object x="1280" y="32" width="32" height="32"/>
-  <object x="928" y="256" width="32" height="32"/>
-  <object x="544" y="448" width="32" height="32"/>
-  <object x="576" y="32" width="32" height="32"/>
-  <object x="64" y="192" width="32" height="32"/>
-  <object x="64" y="480" width="32" height="32"/>
-  <object x="288" y="320" width="32" height="32"/>
-  <object x="64" y="704" width="32" height="32"/>
-  <object x="608" y="832" width="32" height="32"/>
-  <object x="224" y="1056" width="32" height="32"/>
-  <object x="768" y="1056" width="32" height="32"/>
-  <object x="608" y="1312" width="32" height="32"/>
-  <object x="384" y="1536" width="32" height="32"/>
-  <object x="128" y="1664" width="32" height="32"/>
-  <object x="480" y="1888" width="32" height="32"/>
-  <object x="960" y="672" width="32" height="32"/>
-  <object x="768" y="2048" width="32" height="32"/>
-  <object x="576" y="2240" width="32" height="32"/>
-  <object x="288" y="2112" width="32" height="32"/>
-  <object x="64" y="2144" width="32" height="32"/>
-  <object x="64" y="2720" width="32" height="32"/>
-  <object x="416" y="2464" width="32" height="32"/>
-  <object x="672" y="2464" width="32" height="32"/>
-  <object x="960" y="2880" width="32" height="32"/>
-  <object x="992" y="2272" width="32" height="32"/>
+ <objectgroup color="#ff0000" name="spawn-passenger" width="80" height="101">
+  <object x="352" y="2944" width="32" height="32">
+   <properties>
+    <property name="facing" value="down"/>
+   </properties>
+  </object>
+  <object x="896" y="3168" width="32" height="32">
+   <properties>
+    <property name="facing" value="up"/>
+   </properties>
+  </object>
+  <object x="1344" y="2912" width="32" height="32">
+   <properties>
+    <property name="facing" value="left"/>
+   </properties>
+  </object>
+  <object x="768" y="2720" width="32" height="32">
+   <properties>
+    <property name="facing" value="right"/>
+   </properties>
+  </object>
+  <object x="1632" y="2944" width="32" height="32">
+   <properties>
+    <property name="facing" value="down"/>
+   </properties>
+  </object>
+  <object x="2080" y="3168" width="32" height="32">
+   <properties>
+    <property name="facing" value="up"/>
+   </properties>
+  </object>
+  <object x="2208" y="2688" width="32" height="32">
+   <properties>
+    <property name="facing" value="right"/>
+   </properties>
+  </object>
+  <object x="1664" y="2624" width="32" height="32">
+   <properties>
+    <property name="facing" value="left"/>
+   </properties>
+  </object>
+  <object x="1824" y="2464" width="32" height="32">
+   <properties>
+    <property name="facing" value="up"/>
+   </properties>
+  </object>
+  <object x="1440" y="2528" width="32" height="32">
+   <properties>
+    <property name="facing" value="right"/>
+   </properties>
+  </object>
+  <object x="1088" y="2656" width="32" height="32">
+   <properties>
+    <property name="facing" value="down"/>
+   </properties>
+  </object>
+  <object x="2432" y="2848" width="32" height="32">
+   <properties>
+    <property name="facing" value="left"/>
+   </properties>
+  </object>
+  <object x="2432" y="2432" width="32" height="32">
+   <properties>
+    <property name="facing" value="left"/>
+   </properties>
+  </object>
+  <object x="2112" y="2240" width="32" height="32">
+   <properties>
+    <property name="facing" value="down"/>
+   </properties>
+  </object>
+  <object x="2208" y="2080" width="32" height="32">
+   <properties>
+    <property name="facing" value="right"/>
+   </properties>
+  </object>
+  <object x="1888" y="2240" width="32" height="32">
+   <properties>
+    <property name="facing" value="down"/>
+   </properties>
+  </object>
+  <object x="1664" y="2080" width="32" height="32">
+   <properties>
+    <property name="facing" value="left"/>
+   </properties>
+  </object>
+  <object x="1792" y="1888" width="32" height="32">
+   <properties>
+    <property name="facing" value="up"/>
+   </properties>
+  </object>
+  <object x="1440" y="1984" width="32" height="32">
+   <properties>
+    <property name="facing" value="right"/>
+   </properties>
+  </object>
+  <object x="1440" y="2368" width="32" height="32">
+   <properties>
+    <property name="facing" value="right"/>
+   </properties>
+  </object>
+  <object x="1216" y="1888" width="32" height="32">
+   <properties>
+    <property name="facing" value="up"/>
+   </properties>
+  </object>
+  <object x="2432" y="1856" width="32" height="32">
+   <properties>
+    <property name="facing" value="left"/>
+   </properties>
+  </object>
+  <object x="2144" y="1664" width="32" height="32">
+   <properties>
+    <property name="facing" value="down"/>
+   </properties>
+  </object>
+  <object x="2208" y="1568" width="32" height="32">
+   <properties>
+    <property name="facing" value="right"/>
+   </properties>
+  </object>
+  <object x="1696" y="1504" width="32" height="32">
+   <properties>
+    <property name="facing" value="up"/>
+   </properties>
+  </object>
+  <object x="1440" y="1664" width="32" height="32">
+   <properties>
+    <property name="facing" value="down"/>
+   </properties>
+  </object>
+  <object x="1120" y="1504" width="32" height="32">
+   <properties>
+    <property name="facing" value="up"/>
+   </properties>
+  </object>
+  <object x="1216" y="1280" width="32" height="32">
+   <properties>
+    <property name="facing" value="down"/>
+   </properties>
+  </object>
+  <object x="1568" y="1280" width="32" height="32">
+   <properties>
+    <property name="facing" value="down"/>
+   </properties>
+  </object>
+  <object x="2112" y="1280" width="32" height="32">
+   <properties>
+    <property name="facing" value="down"/>
+   </properties>
+  </object>
+  <object x="2208" y="1088" width="32" height="32">
+   <properties>
+    <property name="facing" value="right"/>
+   </properties>
+  </object>
+  <object x="2432" y="896" width="32" height="32">
+   <properties>
+    <property name="facing" value="left"/>
+   </properties>
+  </object>
+  <object x="1984" y="1056" width="32" height="32">
+   <properties>
+    <property name="facing" value="up"/>
+   </properties>
+  </object>
+  <object x="1728" y="1056" width="32" height="32">
+   <properties>
+    <property name="facing" value="up"/>
+   </properties>
+  </object>
+  <object x="1312" y="1056" width="32" height="32">
+   <properties>
+    <property name="facing" value="up"/>
+   </properties>
+  </object>
+  <object x="1312" y="832" width="32" height="32">
+   <properties>
+    <property name="facing" value="down"/>
+   </properties>
+  </object>
+  <object x="2144" y="832" width="32" height="32">
+   <properties>
+    <property name="facing" value="down"/>
+   </properties>
+  </object>
+  <object x="1920" y="736" width="32" height="32">
+   <properties>
+    <property name="facing" value="right"/>
+   </properties>
+  </object>
+  <object x="1696" y="672" width="32" height="32">
+   <properties>
+    <property name="facing" value="up"/>
+   </properties>
+  </object>
+  <object x="1696" y="448" width="32" height="32">
+   <properties>
+    <property name="facing" value="down"/>
+   </properties>
+  </object>
+  <object x="1408" y="384" width="32" height="32">
+   <properties>
+    <property name="facing" value="left"/>
+   </properties>
+  </object>
+  <object x="1120" y="448" width="32" height="32">
+   <properties>
+    <property name="facing" value="down"/>
+   </properties>
+  </object>
+  <object x="2144" y="448" width="32" height="32">
+   <properties>
+    <property name="facing" value="left"/>
+   </properties>
+  </object>
+  <object x="2144" y="128" width="32" height="32">
+   <properties>
+    <property name="facing" value="left"/>
+   </properties>
+  </object>
+  <object x="1792" y="32" width="32" height="32">
+   <properties>
+    <property name="facing" value="down"/>
+   </properties>
+  </object>
+  <object x="1280" y="32" width="32" height="32">
+   <properties>
+    <property name="facing" value="down"/>
+   </properties>
+  </object>
+  <object x="928" y="256" width="32" height="32">
+   <properties>
+    <property name="facing" value="up"/>
+   </properties>
+  </object>
+  <object x="544" y="448" width="32" height="32">
+   <properties>
+    <property name="facing" value="down"/>
+   </properties>
+  </object>
+  <object x="576" y="32" width="32" height="32">
+   <properties>
+    <property name="facing" value="down"/>
+   </properties>
+  </object>
+  <object x="64" y="192" width="32" height="32">
+   <properties>
+    <property name="facing" value="right"/>
+   </properties>
+  </object>
+  <object x="64" y="480" width="32" height="32">
+   <properties>
+    <property name="facing" value="right"/>
+   </properties>
+  </object>
+  <object x="288" y="320" width="32" height="32">
+   <properties>
+    <property name="facing" value="left"/>
+   </properties>
+  </object>
+  <object x="64" y="704" width="32" height="32">
+   <properties>
+    <property name="facing" value="right"/>
+   </properties>
+  </object>
+  <object x="608" y="832" width="32" height="32">
+   <properties>
+    <property name="facing" value="down"/>
+   </properties>
+  </object>
+  <object x="224" y="1056" width="32" height="32">
+   <properties>
+    <property name="facing" value="up"/>
+   </properties>
+  </object>
+  <object x="768" y="1056" width="32" height="32">
+   <properties>
+    <property name="facing" value="up"/>
+   </properties>
+  </object>
+  <object x="608" y="1312" width="32" height="32">
+   <properties>
+    <property name="facing" value="left"/>
+   </properties>
+  </object>
+  <object x="384" y="1536" width="32" height="32">
+   <properties>
+    <property name="facing" value="right"/>
+   </properties>
+  </object>
+  <object x="128" y="1664" width="32" height="32">
+   <properties>
+    <property name="facing" value="down"/>
+   </properties>
+  </object>
+  <object x="480" y="1888" width="32" height="32">
+   <properties>
+    <property name="facing" value="up"/>
+   </properties>
+  </object>
+  <object x="960" y="672" width="32" height="32">
+   <properties>
+    <property name="facing" value="up"/>
+   </properties>
+  </object>
+  <object x="768" y="2048" width="32" height="32">
+   <properties>
+    <property name="facing" value="right"/>
+   </properties>
+  </object>
+  <object x="576" y="2240" width="32" height="32">
+   <properties>
+    <property name="facing" value="down"/>
+   </properties>
+  </object>
+  <object x="288" y="2112" width="32" height="32">
+   <properties>
+    <property name="facing" value="left"/>
+   </properties>
+  </object>
+  <object x="64" y="2144" width="32" height="32">
+   <properties>
+    <property name="facing" value="right"/>
+   </properties>
+  </object>
+  <object x="64" y="2720" width="32" height="32">
+   <properties>
+    <property name="facing" value="right"/>
+   </properties>
+  </object>
+  <object x="416" y="2464" width="32" height="32">
+   <properties>
+    <property name="facing" value="up"/>
+   </properties>
+  </object>
+  <object x="672" y="2464" width="32" height="32">
+   <properties>
+    <property name="facing" value="up"/>
+   </properties>
+  </object>
+  <object x="960" y="2880" width="32" height="32">
+   <properties>
+    <property name="facing" value="up"/>
+   </properties>
+  </object>
+  <object x="992" y="2272" width="32" height="32">
+   <properties>
+    <property name="facing" value="left"/>
+   </properties>
+  </object>
  </objectgroup>
- <objectgroup name="spawn-taxi" width="80" height="101">
+ <objectgroup name="spawn-taxi" width="80" height="101" visible="0">
   <object x="160" y="3104" width="32" height="32"/>
   <object x="160" y="96" width="32" height="32"/>
   <object x="2048" y="128" width="32" height="32"/>
   <object x="2336" y="3040" width="32" height="32"/>
  </objectgroup>
- <objectgroup name="destination-point" width="80" height="101">
+ <objectgroup name="destination-point" width="80" height="101" visible="0">
   <object x="352" y="2976" width="96" height="64"/>
   <object x="1600" y="1984" width="64" height="96"/>
   <object x="544" y="2272" width="96" height="64"/>
