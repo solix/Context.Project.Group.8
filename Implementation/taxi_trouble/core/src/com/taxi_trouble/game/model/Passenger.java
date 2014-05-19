@@ -13,7 +13,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 /**A passenger.
- * 
+ *
  * @author Computer Games Project Group 8
  *
  */
@@ -22,7 +22,7 @@ public class Passenger {
     public Body body;
 
     /**Initializes a new passenger.
-     * 
+     *
      * @param world : the world in which the passenger is placed
      * @param width : the width of the passenger
      * @param height : the height of the passenger
@@ -35,7 +35,7 @@ public class Passenger {
     }
 
     /**Initialize the body of the solid passenger.
-     * 
+     *
      * @param world : the world in which the solid passenger is placed
      * @param position : the position at which the solid passenger is placed
      */
@@ -50,8 +50,8 @@ public class Passenger {
     }
 
     /**Retrieves the fixture for the body of the solid passenger.
-     * 
-     * 
+     *
+     *
      */
     private void InitFixtureDef() {
         FixtureDef fixtureDef = new FixtureDef();
@@ -65,7 +65,7 @@ public class Passenger {
        }
 
     /**Retrieves the width of the passenger.
-     * 
+     *
      * @return width
      */
     public float getWidth() {
@@ -73,7 +73,7 @@ public class Passenger {
     }
 
     /**Retrieves the height of the passenger.
-     * 
+     *
      * @return height
      */
     public float getHeight() {
@@ -81,7 +81,7 @@ public class Passenger {
     }
 
     /**Retrieves the body of the passenger.
-     * 
+     *
      * @return body
      */
     public Body getBody() {
@@ -89,7 +89,7 @@ public class Passenger {
     }
     
     /**Changes the body of the passenger to the specified body.
-     * 
+     *
      * @param body
      */
     public void setBody(Body body) {
@@ -97,7 +97,7 @@ public class Passenger {
     }
 
     /**Retrieves the x-position of the passenger.
-     * 
+     *
      * @return x-position
      */
     public float getXPosition() {
@@ -105,19 +105,27 @@ public class Passenger {
     }
 
     /**Retrieves the y-position of the passenger.
-     * 
+     *
      * @return
      */
     public float getYPosition() {
         return this.getBody().getPosition().y;
     }
     
-    public void setSprite(Sprite pass_sprite) {
-        pass_sprite.setSize(this.getWidth(), this.getHeight());
-        pass_sprite.setOrigin(this.getWidth() / 2, this.getHeight() / 2);
-        this.getBody().setUserData(pass_sprite);
+    /**Sets the (initial) sprite of the passenger.
+     *
+     * @param passSprite
+     */
+    public void setSprite(Sprite passSprite) {
+        passSprite.setSize(this.getWidth(), this.getHeight());
+        passSprite.setOrigin(this.getWidth() / 2, this.getHeight() / 2);
+        this.getBody().setUserData(passSprite);
     }
     
+    /**Renders the sprite(s) of the passenger.
+     *
+     * @param spriteBatch
+     */
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.begin();
         Sprite sprite = (Sprite) this.body.getUserData();

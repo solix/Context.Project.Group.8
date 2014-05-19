@@ -15,10 +15,11 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import static com.taxi_trouble.game.properties.GameProperties.*;
 
-/**The map for the world in which a game can take place and its objects.
- *
+/**
+ * The map for the world in which a game can take place and its objects.
+ * 
  * @author Computer Games Project Group 8
- *
+ * 
  */
 public class WorldMap {
     private TiledMap map;
@@ -26,11 +27,14 @@ public class WorldMap {
     private World world;
     private Spawner spawner;
 
-    /**Initializes a new WorldMap for a specified world using the specified
+    /**
+     * Initializes a new WorldMap for a specified world using the specified
      * directory of the map file.
-     *
-     * @param mapFile : location/directory of the map (tmx-file)
-     * @param world : the world for which the map is created
+     * 
+     * @param mapFile
+     *            : location/directory of the map (tmx-file)
+     * @param world
+     *            : the world for which the map is created
      */
     public WorldMap(TiledMap map, World world) {
         this.world = world;
@@ -40,17 +44,20 @@ public class WorldMap {
         this.loadMapObjects();
     }
 
-    /**Loads the objects of this world map in the world.
-     *
+    /**
+     * Loads the objects of this world map in the world.
+     * 
      */
     private void loadMapObjects() {
         loadMapObjectsOfType("box2D");
         loadMapObjectsOfType("spawn-passenger");
         loadMapObjectsOfType("spawn-taxi");
-	}
-    
-    /**Loads the objects of the world map of a specified type.
-     *
+        loadMapObjectsOfType("destination-point");
+    }
+
+    /**
+     * Loads the objects of the world map of a specified type.
+     * 
      * @param type
      */
     private void loadMapObjectsOfType(String type) {
@@ -63,39 +70,45 @@ public class WorldMap {
             if (obj instanceof RectangleMapObject && type.equals("box2D")) {
                 Rectangle rect = ((RectangleMapObject) obj).getRectangle();
                 createSolidBox(rect);
-            }
-            else if(type.equals("spawn-passenger")) {
-                Vector2 temp = new Vector2(obj.getProperties().get("x", Float.class)/15, obj.getProperties().get("y", Float.class)/15);
-                spawner.addPassenger(temp);
-            }
-            else if(type.equals("spawn-taxi")) {
-                Vector2 temp = new Vector2(obj.getProperties().get("x", Float.class), obj.getProperties().get("y", Float.class));
-                spawner.addTaxi(temp);
-            }
-            else if(type.equals("destination-point")) {
-                Vector2 temp = new Vector2(obj.getProperties().get("x", Float.class), obj.getProperties().get("y", Float.class));
-                spawner.addDestination(temp);
+            } else if (type.equals("spawn-passenger")) {
+                Vector2 location = getPositionVector(obj);
+                spawner.addPassengerPoint(location);
+            } else if (type.equals("spawn-taxi")) {
+                Vector2 location = getPositionVector(obj);
+                spawner.addTaxiPoint(location);
+            } else if (type.equals("destination-point")) {
+                Vector2 location = getPositionVector(obj);
+                spawner.addDestination(location);
             }
         }
     }
     
-    /**Creates a solid box in the map's world given a Rectangle
-     * specifying the 
+    /**
+     * Returns the position of a given MapObject as a two-dimensional vector.
      *
-     * @param r : rectangle specifying width, height and position
+     * @param obj : the map object for which the position should be retrieved
+     * @return position of the object : Vector2
      */
-    private void createSolidBox(Rectangle r) {
-        new SolidBox(
-                world,
-                (r.getWidth())/ PIXELS_PER_METER,
-                (r.getHeight()) / PIXELS_PER_METER,
-                new Vector2(r.getX() / PIXELS_PER_METER + r.getWidth()
-                        / (2 * PIXELS_PER_METER), 
-                        r.getY() / PIXELS_PER_METER + r.getHeight()
-                        / (2 * PIXELS_PER_METER)));
+    private Vector2 getPositionVector(MapObject obj) {
+        return new Vector2(obj.getProperties().get("x", Float.class) / PIXELS_PER_METER, 
+                obj.getProperties().get("y", Float.class) / PIXELS_PER_METER);
     }
 
-    /**Renders the world map.
+    /**
+     * Creates a solid box in the map's world given a Rectangle specifying the
+     *
+     * @param r
+     *            : rectangle specifying width, height and position
+     */
+    private void createSolidBox(Rectangle r) {
+        new SolidBox(world, (r.getWidth()) / PIXELS_PER_METER, (r.getHeight())
+                / PIXELS_PER_METER, new Vector2(r.getX() / PIXELS_PER_METER
+                + r.getWidth() / (2 * PIXELS_PER_METER), r.getY()
+                / PIXELS_PER_METER + r.getHeight() / (2 * PIXELS_PER_METER)));
+    }
+
+    /**
+     * Renders the world map.
      *
      * @param camera
      */
@@ -104,33 +117,45 @@ public class WorldMap {
         renderer.render();
     }
 
-	/**Retrieves the width of the world map in the world.
-	 *
-	 * @return
-	 */
-	public int getWidth() {
-	    //As TiledMap width is the number of tiles in width, multiply by tilewidth.
-		return map.getProperties().get("width", Integer.class) * getTileWidth();
-	}
-	
-	/**Retrieves the height of the world map in the world.
-	 *
-	 * @return height
-	 */
-	public int getHeight() {
-	  //As TiledMap height is the number of tiles in height, multiply by tilewidth.
-		return map.getProperties().get("height", Integer.class) * getTileWidth();
-	}
+    /**
+     * Retrieves the width of the world map in the world.
+     *
+     * @return
+     */
+    public int getWidth() {
+        // As TiledMap width is the number of tiles in width, multiply by
+        // tilewidth.
+        return map.getProperties().get("width", Integer.class) * getTileWidth();
+    }
 
-	/**Retrieves the tilewidth of the tiles of the map.
-	 *
-	 * @return tilewidth
-	 */
+    /**
+     * Retrieves the height of the world map in the world.
+     *
+     * @return height
+     */
+    public int getHeight() {
+        // As TiledMap height is the number of tiles in height, multiply by
+        // tilewidth.
+        return map.getProperties().get("height", Integer.class)
+                * getTileWidth();
+    }
+
+    /**
+     * Retrieves the tilewidth of the tiles of the map.
+     *
+     * @return tilewidth
+     */
     private int getTileWidth() {
         return map.getProperties().get("tilewidth", Integer.class);
     }
-    
-    public Spawner getSpawner(){
+
+    /**
+     * Retrieves the Spawner of the WorldMap. The Spawner can be used to spawn
+     * new objects in the world.
+     *
+     * @return spawner : the spawner of this map
+     */
+    public Spawner getSpawner() {
         return this.spawner;
     }
 }
