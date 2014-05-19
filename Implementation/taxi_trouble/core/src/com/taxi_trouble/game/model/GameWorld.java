@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.taxi_trouble.game.gdxGooglePlay.GooglePlayInterface;
 import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.screens.DriverScreen;
 import com.taxi_trouble.game.screens.GameScreen;
@@ -27,6 +28,12 @@ public class GameWorld extends Game {
     private List<Taxi> taxis;
     //Temporary (may change when implementing multiplayer)
     private Taxi taxi;
+    private GooglePlayInterface platformInterface;
+    
+    public GameWorld(GooglePlayInterface aInterface){
+    	platformInterface = aInterface;
+    	platformInterface.Login();
+    }
 
     @Override
 	public void create() {
