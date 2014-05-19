@@ -3,6 +3,7 @@ package com.taxi_trouble.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.taxi_trouble.game.input.MapControls;
 import com.taxi_trouble.game.model.GameWorld;
+import com.taxi_trouble.game.model.Passenger;
 import com.taxi_trouble.game.model.WorldMap;
 import com.taxi_trouble.game.properties.ResourceManager;
 
@@ -36,7 +38,7 @@ public class NavigatorScreen extends ViewObserver {
     private float SCALE = 4;
     private final static float ZERO_TWO_F = 0.2f;
     private final static int THREE = 3;
-    
+    private Passenger passtest;
     
     
     /**
@@ -65,6 +67,8 @@ public class NavigatorScreen extends ViewObserver {
         mapControl = new MapControls(mapCamera, this);
         Gdx.input.setInputProcessor(mapControl);
         spriteBatch = new SpriteBatch();
+        Passenger passtest = new Passenger(world, 32, 32, new Vector2(10,20));
+        passtest.setSprite(new Sprite(new Texture("sprites/characters/character-1-standing.png")));
     }
 
     /**
@@ -86,6 +90,7 @@ public class NavigatorScreen extends ViewObserver {
         taxigame.getWorld().step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
         taxigame.getWorld().clearForces();
         cityMap.render(mapCamera);
+        passtest.render(spriteBatch);
 
         // Draw the sprites
      //   drawSprites();

@@ -27,6 +27,8 @@ public class GameWorld extends Game {
     private List<Taxi> taxis;
     //Temporary (may change when implementing multiplayer)
     private Taxi taxi;
+    Passenger passtest;
+    SpriteBatch spriteBatch;
 
     @Override
 	public void create() {
@@ -35,9 +37,8 @@ public class GameWorld extends Game {
         map = new WorldMap(ResourceManager.mapFile, world);
         taxi = new Taxi(2, 4, 20, 60, 60);
         taxi.createBody(world, new Vector2(10,10), (float) Math.PI);
-        setScreen(new NavigatorScreen(this));
+        setScreen(new DriverScreen(this));
         TaxiJukebox.loadMusic("sound/s.ogg", "sampleMusic");
-       
     }
 
     @Override

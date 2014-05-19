@@ -4,11 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.taxi_trouble.game.input.ControlsUI;
 import com.taxi_trouble.game.input.DriverControl;
 import com.taxi_trouble.game.model.GameWorld;
+import com.taxi_trouble.game.model.Passenger;
 import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.WorldMap;
 import com.taxi_trouble.game.properties.ResourceManager;
@@ -30,6 +34,7 @@ public class DriverScreen extends ViewObserver {
     private WorldMap cityMap;
     private DriverControl driverControl;
     private Box2DDebugRenderer debugRenderer;
+    private Passenger pass;
 
     /**
      * Constructor creates game screen and adds camera to follow taxi.
@@ -49,6 +54,8 @@ public class DriverScreen extends ViewObserver {
 
         // Initialize the taxi
         this.taxi = taxigame.getTaxi();
+        this.pass = new Passenger(taxigame.getWorld(), 32, 32, new Vector2(10,20));
+        pass.setSprite(new Sprite(new Texture("sprites/characters/character-1-standing.png")));
         this.taxiCamera = new TaxiCamera(taxi);
         
         // Load the UI for player input
@@ -62,8 +69,8 @@ public class DriverScreen extends ViewObserver {
         //Load the Sprites
         ResourceManager.loadTaxiAndWheelSprites();
         taxi.setSprite(ResourceManager.taxiSprite,ResourceManager.wheelSprite);
-        TaxiJukebox.playMusic("sampleMusic");
-        TaxiJukebox.setMusicVolume("sampleMusic", 0.4f);
+        //TaxiJukebox.playMusic("sampleMusic");
+        //TaxiJukebox.setMusicVolume("sampleMusic", 0.4f);
     }
 
     @Override
@@ -83,6 +90,7 @@ public class DriverScreen extends ViewObserver {
         
         cityMap.render(taxiCamera);
         taxi.render(spriteBatch);
+        pass.render(spriteBatch);
 
         spriteBatch.setProjectionMatrix(virtualButtonsCamera.combined);
         controlsUI.render(spriteBatch);
