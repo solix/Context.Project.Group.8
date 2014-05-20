@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.screens.DriverScreen;
 import com.taxi_trouble.game.screens.NavigatorScreen;
+import com.taxi_trouble.game.screens.PassangerAnimation;
 import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**
@@ -25,12 +26,15 @@ public class GameWorld extends Game {
     // Temporary (may change when implementing multiplayer)
     private Taxi taxi;
     private List<Passenger> passengers;
+    PassangerAnimation animation;
 
     @Override
     public void create() {
         world = new World(new Vector2(0.0f, 0.0f), true);
         ResourceManager.loadMap();
         map = new WorldMap(ResourceManager.mapFile, world);
+        animation=new PassangerAnimation();
+        animation.create();
         TaxiJukebox.loadMusic("sound/s.ogg", "sampleMusic");
         
         ResourceManager.loadCharSprites();
