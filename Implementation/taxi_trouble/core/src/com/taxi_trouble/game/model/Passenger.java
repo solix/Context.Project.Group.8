@@ -28,10 +28,10 @@ public class Passenger {
      * @param height : the height of the passenger
      * @param position : the position where the passenger should be placed
      */
-    public Passenger(World world, float width, float height, Vector2 position) {
+    public Passenger(World world, float width, float height, Vector2 position, float angle) {
         this.width = width;
         this.height = height;
-        initializeBody(world, position);
+        initializeBody(world, position, angle);
     }
 
     /**Initialize the body of the solid passenger.
@@ -39,10 +39,10 @@ public class Passenger {
      * @param world : the world in which the solid passenger is placed
      * @param position : the position at which the solid passenger is placed
      */
-    private void initializeBody(World world, Vector2 position) {
+    private void initializeBody(World world, Vector2 position, float angle) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(position);
-        bodyDef.angle = 0;
+        bodyDef.angle = angle;
         bodyDef.fixedRotation = true;
         this.body = world.createBody(bodyDef);
         InitFixtureDef();
@@ -50,7 +50,6 @@ public class Passenger {
     }
 
     /**Retrieves the fixture for the body of the solid passenger.
-     *
      *
      */
     private void InitFixtureDef() {

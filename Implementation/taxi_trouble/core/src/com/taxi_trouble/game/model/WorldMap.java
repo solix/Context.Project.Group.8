@@ -17,7 +17,7 @@ import static com.taxi_trouble.game.properties.GameProperties.*;
 
 /**
  * The map for the world in which a game can take place and its objects.
- * 
+ *
  * @author Computer Games Project Group 8
  * 
  */
@@ -30,7 +30,7 @@ public class WorldMap {
     /**
      * Initializes a new WorldMap for a specified world using the specified
      * directory of the map file.
-     * 
+     *
      * @param mapFile
      *            : location/directory of the map (tmx-file)
      * @param world
@@ -46,7 +46,7 @@ public class WorldMap {
 
     /**
      * Loads the objects of this world map in the world.
-     * 
+     *
      */
     private void loadMapObjects() {
         loadMapObjectsOfType("box2D");
@@ -57,7 +57,7 @@ public class WorldMap {
 
     /**
      * Loads the objects of the world map of a specified type.
-     * 
+     *
      * @param type
      */
     private void loadMapObjectsOfType(String type) {
@@ -71,27 +71,56 @@ public class WorldMap {
                 Rectangle rect = ((RectangleMapObject) obj).getRectangle();
                 createSolidBox(rect);
             } else if (type.equals("spawn-passenger")) {
-                Vector2 location = getPositionVector(obj);
-                spawner.addPassengerPoint(location);
+                SpawnPoint spawn = new SpawnPoint(getXPosition(obj),
+                        getYPosition(obj), getAngle(obj));
+                spawner.addPassengerPoint(spawn);
             } else if (type.equals("spawn-taxi")) {
-                Vector2 location = getPositionVector(obj);
-                spawner.addTaxiPoint(location);
+                SpawnPoint spawn = new SpawnPoint(getXPosition(obj),
+                        getYPosition(obj), getAngle(obj));
+                spawner.addTaxiPoint(spawn);
             } else if (type.equals("destination-point")) {
-                Vector2 location = getPositionVector(obj);
-                spawner.addDestination(location);
+                SpawnPoint spawn = new SpawnPoint(getXPosition(obj),
+                        getYPosition(obj), getAngle(obj));
+                spawner.addDestination(spawn);
             }
         }
     }
-    
+
     /**
-     * Returns the position of a given MapObject as a two-dimensional vector.
+     * Returns the x-position of a given MapObject.
      *
-     * @param obj : the map object for which the position should be retrieved
-     * @return position of the object : Vector2
+     * @param obj
+     *            : the map object for which the x-position should be retrieved
+     * @return x-position of the mapobject
      */
-    private Vector2 getPositionVector(MapObject obj) {
-        return new Vector2(obj.getProperties().get("x", Float.class) / PIXELS_PER_METER, 
-                obj.getProperties().get("y", Float.class) / PIXELS_PER_METER);
+    private float getXPosition(MapObject obj) {
+        return obj.getProperties().get("x", Float.class)/PIXELS_PER_METER;
+    }
+
+    /**
+     * Returns the y-position of a given MapObject.
+     * 
+     * @param obj
+     *            : the map object for which the y-position should be retrieved
+     * @return y-position of the mapobject
+     */
+    private float getYPosition(MapObject obj) {
+        return obj.getProperties().get("y", Float.class)/PIXELS_PER_METER;
+    }
+
+    /**
+     * Return the (spawning) angle of a given MapObject (default is zero).
+     *
+     * @param obj
+     *            : the map object for which the angle should be retrieved
+     * @return
+     */
+    private float getAngle(MapObject obj) {
+        if (obj.getProperties().get("angle") != null) {
+            return obj.getProperties().get("angle", Float.class);
+        }
+        // Default angle is zero
+        return 0;
     }
 
     /**
