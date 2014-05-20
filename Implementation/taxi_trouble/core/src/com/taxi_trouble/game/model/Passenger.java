@@ -23,6 +23,7 @@ public class Passenger {
     private float width, height;
     private Body body;
     private Character character;
+    private SpawnPoint spawnPoint;
 
     /**
      * Initializes a new passenger.
@@ -37,10 +38,11 @@ public class Passenger {
      *            : the position where the passenger should be placed
      */
     public Passenger(World world, float width, float height, Vector2 position,
-            float angle, Character character) {
+            float angle, Character character, SpawnPoint spawnPoint) {
         this.width = width;
         this.height = height;
         this.character = character;
+        this.spawnPoint = spawnPoint;
         initializeBody(world, position, angle);
         setSprite(character.getStanding());
     }
@@ -141,6 +143,13 @@ public class Passenger {
         passSprite.setSize(this.getWidth(), this.getHeight());
         passSprite.setOrigin(this.getWidth() / 2, this.getHeight() / 2);
         this.getBody().setUserData(passSprite);
+    }
+    
+    /**
+     * Resets the spawn point of the passenger.
+     */
+    public void resetSpawnPoint() {
+        spawnPoint.setActive(false);
     }
 
     /**
