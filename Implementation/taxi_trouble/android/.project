@@ -3,6 +3,8 @@
 	<name>Taxi-Trouble-android</name>
 	<comment></comment>
 	<projects>
+		<project>base-game-utils</project>
+		<project>google-play-services_lib</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -2,5 +2,9 @@
 <resources>
 
     <string name="app_name">Taxi Trouble</string>
+    <string name="title_activity_login">Login to Google Play</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_game">GameActivity</string>
 
 </resources>
