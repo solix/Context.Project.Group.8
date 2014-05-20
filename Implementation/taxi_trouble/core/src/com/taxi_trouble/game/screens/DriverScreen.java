@@ -22,6 +22,7 @@ public class DriverScreen extends ViewObserver {
     private SpriteBatch spriteBatch;
     private ControlsUI controlsUI;
     private DriverControl driverControl;
+    PassangerAnimation animation;
 
     /**
      * Constructor, creates the Driver Screen.
@@ -74,6 +75,8 @@ public class DriverScreen extends ViewObserver {
 
         spriteBatch.setProjectionMatrix(virtualButtonsCamera.combined);
         controlsUI.render(spriteBatch);
+        animation.render();
+        
     }
 
     @Override
