@@ -32,17 +32,9 @@ public class ResourceManager {
     /**
      * Loads the character sprites in group of 3s.
      * 
-     * @throws IOException
      */
     public static void loadCharSprites() {
         charList = new ArrayList<Character>();
-        // File f = new File("assets/sprites/characters");
-        // System.out.println(f.getName());
-        // System.out.println(f.list());
-        // System.out.println(f.getCanonicalPath());
-        // ArrayList<String> names = new
-        // ArrayList<String>(Arrays.asList(f.list()));
-        // System.out.println(names);
         for (int i = 1; i < 4; i++) {
             Sprite standing = new Sprite(new Texture(
                     "sprites/characters/character-" + i + "-standing.png"));
@@ -50,7 +42,6 @@ public class ResourceManager {
                     "sprites/characters/character-" + i + "-walk1.png"));
             Sprite walking2 = new Sprite(new Texture(
                     "sprites/characters/character-" + i + "-walk2.png"));
-            // System.out.println(standing.toString());
             System.out.println(i);
             charList.add(new Character(standing, walking1, walking2));
         }

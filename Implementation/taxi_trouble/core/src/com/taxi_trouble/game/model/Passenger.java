@@ -27,29 +27,31 @@ public class Passenger {
 
     /**
      * Initializes a new passenger.
-     * 
+     *
      * @param world
      *            : the world in which the passenger is placed
      * @param width
      *            : the width of the passenger
      * @param height
      *            : the height of the passenger
-     * @param position
-     *            : the position where the passenger should be placed
+     * @param character
+     *            : the character assigned to this passenger
+     * @param spawnPoint
+     *            : the spawnPoint of the passenger
      */
-    public Passenger(World world, float width, float height, Vector2 position,
-            float angle, Character character, SpawnPoint spawnPoint) {
+    public Passenger(World world, float width, float height, float angle,
+            Character character, SpawnPoint spawnPoint) {
         this.width = width;
         this.height = height;
         this.character = character;
         this.spawnPoint = spawnPoint;
-        initializeBody(world, position, angle);
+        initializeBody(world, spawnPoint.getPosition(), angle);
         setSprite(character.getStanding());
     }
 
     /**
      * Initialize the body of the solid passenger.
-     * 
+     *
      * @param world
      *            : the world in which the solid passenger is placed
      * @param position
@@ -62,7 +64,6 @@ public class Passenger {
         bodyDef.fixedRotation = true;
         this.body = world.createBody(bodyDef);
         InitFixtureDef();
-
     }
 
     /**
@@ -144,7 +145,7 @@ public class Passenger {
         passSprite.setOrigin(this.getWidth() / 2, this.getHeight() / 2);
         this.getBody().setUserData(passSprite);
     }
-    
+
     /**
      * Resets the spawn point of the passenger.
      */

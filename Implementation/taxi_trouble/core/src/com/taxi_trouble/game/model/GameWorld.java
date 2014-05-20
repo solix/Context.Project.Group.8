@@ -30,17 +30,23 @@ public class GameWorld extends Game {
     public void create() {
         world = new World(new Vector2(0.0f, 0.0f), true);
         ResourceManager.loadMap();
-        ResourceManager.loadCharSprites();
         map = new WorldMap(ResourceManager.mapFile, world);
-        taxi = map.getSpawner().spawnTaxi(world);
-        setScreen(new DriverScreen(this));
         TaxiJukebox.loadMusic("sound/s.ogg", "sampleMusic");
+        
+        ResourceManager.loadCharSprites();
         passengers = new ArrayList<Passenger>();
+        
+        ResourceManager.loadTaxiAndWheelSprites();
+        taxi = map.getSpawner().spawnTaxi(world);
+        
+        setScreen(new DriverScreen(this));
     }
 
     @Override
     public void render() {
         super.render();
+        //Spawn a new passenger if there are less than #taxis-1.
+        //TODO: Instead of '3' adapt to #taxis in the game.
         if (passengers.size() < 3) {
             Passenger pas = map.getSpawner().spawnPassenger(world);
             passengers.add(pas);

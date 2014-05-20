@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.Character;
+import com.taxi_trouble.game.properties.ResourceManager;
 
 /**
  * A spawner which can be called for spawning new passengers, taxis and setting
@@ -79,10 +80,10 @@ public class Spawner {
                     * passengerspawnpoints.size() - 1));
         }
         SpawnPoint spawnPoint = passengerspawnpoints.get(random);
-        //Assign a random character to the passenger
+        // Assign a random character to the passenger
         Character character = getRandomCharacter();
-        Passenger pass = new Passenger(world, 2, 2, spawnPoint.getPosition(),
-                spawnPoint.getAngle(), character, spawnPoint);
+        Passenger pass = new Passenger(world, 2, 2, spawnPoint.getAngle(),
+                character, spawnPoint);
         return pass;
     }
 
@@ -94,16 +95,19 @@ public class Spawner {
      * @return
      */
     public Taxi spawnTaxi(World world) {
-        int random = (int) (Math
-                .abs(Math.random() * taxispawnpoints.size() - 1));
+        //Pick a random taxi spawn point as location to spawn a taxi.
+        int random = (int) (Math.abs(Math.random() 
+                * taxispawnpoints.size() - 1));
         while (taxispawnpoints.get(random).isActive()) {
             random = (int) (Math
                     .abs(Math.random() * taxispawnpoints.size() - 1));
         }
         SpawnPoint spawnPoint = taxispawnpoints.get(random);
         spawnPoint.setActive(true);
+        //Initialize the new Taxi spawned at the randomly chosen location
         Taxi taxi = new Taxi(2, 4, 20, 60, 60);
         taxi.createBody(world, spawnPoint.getPosition(), spawnPoint.getAngle());
+        taxi.setSprite(ResourceManager.taxiSprite,ResourceManager.wheelSprite);
         return taxi;
     }
 }
