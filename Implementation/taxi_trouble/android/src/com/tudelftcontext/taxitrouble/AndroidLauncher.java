@@ -1,4 +1,4 @@
-package com.taxi_trouble.game.android;
+package com.tudelftcontext.taxitrouble;
 
 import android.app.Activity;
 import android.content.Intent;
