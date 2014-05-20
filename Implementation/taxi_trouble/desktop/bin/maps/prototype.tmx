@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="80" height="101" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="80" height="101" tilewidth="32" tileheight="32" backgroundcolor="#aa007f">
  <tileset firstgid="1" name="Road-Aidan" tilewidth="32" tileheight="32">
   <image source="tilesets/Road-Aidan.png" width="1024" height="1024"/>
  </tileset>
  <layer name="Road" width="80" height="101">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
  <layer name="Pavement" width="80" height="101">
@@ -44,5 +44,392 @@
   <object x="1376" y="2912" width="832" height="32"/>
   <object x="0" y="1664" width="64" height="1568"/>
   <object x="64" y="3200" width="2496" height="32"/>
+ </objectgroup>
+ <objectgroup color="#ff0000" name="spawn-passenger" width="80" height="101">
+  <object x="352" y="2944" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="896" y="3168" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="1344" y="2912" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="768" y="2720" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="1632" y="2944" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="2080" y="3168" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="2208" y="2688" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="1664" y="2624" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="1824" y="2464" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="1440" y="2528" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="1088" y="2656" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="2432" y="2848" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="2432" y="2432" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="2112" y="2240" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="2208" y="2080" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="1888" y="2240" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="1664" y="2080" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="1792" y="1888" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="1440" y="1984" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="1440" y="2368" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="1216" y="1888" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="2432" y="1856" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="2144" y="1664" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="2208" y="1568" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="1696" y="1504" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="1440" y="1664" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="1120" y="1504" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="1216" y="1280" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="1568" y="1280" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="2112" y="1280" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="2208" y="1088" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="2432" y="896" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="1984" y="1056" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="1728" y="1056" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="1312" y="1056" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="1312" y="832" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="2144" y="832" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="1920" y="736" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="1696" y="672" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="1696" y="448" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="1408" y="384" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="1120" y="448" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="2144" y="448" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="2144" y="128" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="1792" y="32" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="1280" y="32" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="928" y="256" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="544" y="448" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="576" y="32" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="64" y="192" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="64" y="480" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="288" y="320" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="64" y="704" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="608" y="832" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="224" y="1056" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="768" y="1056" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="608" y="1312" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="384" y="1536" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="128" y="1664" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="480" y="1888" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="960" y="672" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="768" y="2048" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="576" y="2240" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="288" y="2112" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="64" y="2144" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="64" y="2720" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="416" y="2464" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="672" y="2464" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="960" y="2880" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="992" y="2272" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="spawn-taxi" width="80" height="101">
+  <object x="160" y="3104" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="160" y="96" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="2048" y="128" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="2336" y="3040" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="destination-point" width="80" height="101">
+  <object x="352" y="2976" width="96" height="64"/>
+  <object x="1600" y="1984" width="64" height="96"/>
+  <object x="544" y="2272" width="96" height="64"/>
+  <object x="2240" y="2688" width="64" height="96"/>
+  <object x="2368" y="1536" width="64" height="96"/>
+  <object x="1184" y="1440" width="96" height="64"/>
+  <object x="544" y="1280" width="64" height="96"/>
+  <object x="1536" y="864" width="96" height="64"/>
+  <object x="672" y="608" width="96" height="64"/>
+  <object x="1760" y="480" width="96" height="64"/>
+  <object x="768" y="64" width="96" height="64"/>
  </objectgroup>
 </map>

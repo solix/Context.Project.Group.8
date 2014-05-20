@@ -1,52 +1,39 @@
 package com.taxi_trouble.game.screens;
 
+import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_HEIGHT;
+import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_WIDTH;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.taxi_trouble.game.input.MapControls;
 import com.taxi_trouble.game.model.GameWorld;
 import com.taxi_trouble.game.model.WorldMap;
-import com.taxi_trouble.game.properties.ResourceManager;
-
-import static com.taxi_trouble.game.properties.GameProperties.*;
 
 /**
- * This is the Navigator view class.
+ * Provides the view of the game for a navigator.
  * 
- * @author Aidan
+ * @author Computer Games Project Group 8
  * 
  */
 public class NavigatorScreen extends ViewObserver {
-
-    private World world;
     private SpriteBatch spriteBatch;
-    private WorldMap cityMap;
     private Viewport viewport;
     private OrthographicCamera mapCamera;
     private MapControls mapControl;
     private float SCALE = 4;
-    private final static float ZERO_TWO_F = 0.2f;
-    private final static int THREE = 3;
-    
-    
-    
+
     /**
      * Constructor, creates the game screen.
      * 
      * @param game
      */
-    
-    public NavigatorScreen(GameWorld game){
-    	super(game);
+
+    public NavigatorScreen(GameWorld game) {
+        super(game);
     }
 
     /**
@@ -55,16 +42,20 @@ public class NavigatorScreen extends ViewObserver {
      */
     @Override
     public void show() {
+        super.show();
 
+        // Initialize the sprite batch that should be used.
+        spriteBatch = new SpriteBatch();
+
+        // Initialize the camera for the navigator view.
         this.mapCamera = new OrthographicCamera();
         mapCamera.setToOrtho(false, screenWidth, screenHeight);
         this.viewport = new StretchViewport(VIRTUAL_WIDTH * SCALE,
                 VIRTUAL_HEIGHT * SCALE, mapCamera);
-       
-        cityMap = taxigame.getMap();
+
+        // Load the MapControls to enable navigating through the map.
         mapControl = new MapControls(mapCamera, this);
         Gdx.input.setInputProcessor(mapControl);
-        spriteBatch = new SpriteBatch();
     }
 
     /**
@@ -72,46 +63,19 @@ public class NavigatorScreen extends ViewObserver {
      */
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, ZERO_TWO_F, 1);
+        // Specify the clear values for the color buffers and clear the buffers
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
-        stayInBounds(cityMap);
-        //update the mapCamera's view.
+        // Update the mapCamera's view.
         mapCamera.update();
-        
-        //tell the camera to update its matrices.
+        stayInBounds(cityMap);
+
+        // Tell the camera to update its matrices.
         spriteBatch.setProjectionMatrix(mapCamera.combined);
-        
-        // what does this do? should it happen here?
-        taxigame.getWorld().step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
-        taxigame.getWorld().clearForces();
         cityMap.render(mapCamera);
 
-        // Draw the sprites
-     //   drawSprites();
-
-    }
-
-    /**
-     * Can this be deleted??
-     * This method applies the provided sprites to their objects.
-     */
-    public void drawSprites() {
-        spriteBatch.begin();
-        Array<Body> tmpBodies = new Array<Body>();
-        world.getBodies(tmpBodies);
-        for (Body body : tmpBodies) {
-            if (body.getUserData() != null
-                    && body.getUserData() instanceof Sprite) {
-                Sprite sprite = (Sprite) body.getUserData();
-                sprite.setPosition(body.getPosition().x * PIXELS_PER_METER,
-                        body.getPosition().y * PIXELS_PER_METER);
-                sprite.setRotation(body.getAngle() * MathUtils.radiansToDegrees);
-                sprite.setScale(PIXELS_PER_METER);
-                sprite.draw(spriteBatch);
-            }
-        }
-        spriteBatch.end();
+        super.render(delta);
     }
 
     /**
@@ -182,16 +146,16 @@ public class NavigatorScreen extends ViewObserver {
      *            sc is the new SCALE to be set.
      */
     public void setScale(float sc) {
-    	
-    	int mapPixelHeight = cityMap.getHeight();
+
+        int mapPixelHeight = cityMap.getHeight();
         int mapPixelWidth = cityMap.getWidth();
-        
-    	if( mapCamera.position.x < VIRTUAL_WIDTH * sc / 2
-    		|| mapCamera.position.x >= mapPixelWidth - VIRTUAL_WIDTH * sc / 2
-    		|| mapCamera.position.y < VIRTUAL_HEIGHT * sc / 2
-    		|| mapCamera.position.y >= mapPixelHeight - VIRTUAL_HEIGHT * sc / 2) {
-    		return;
-    	}
+
+        if (mapCamera.position.x < VIRTUAL_WIDTH * sc / 2
+                || mapCamera.position.x >= mapPixelWidth - VIRTUAL_WIDTH * sc / 2
+                || mapCamera.position.y < VIRTUAL_HEIGHT * sc / 2
+                || mapCamera.position.y >= mapPixelHeight - VIRTUAL_HEIGHT * sc / 2) {
+            return;
+        }
         SCALE = sc;
     }
 
@@ -204,9 +168,13 @@ public class NavigatorScreen extends ViewObserver {
         return SCALE;
     }
 
-    public WorldMap getMap(){
-    	return this.cityMap;
+    public WorldMap getMap() {
+        return this.cityMap;
     }
-    
+
+    @Override
+    public SpriteBatch getSpriteBatch() {
+        return this.spriteBatch;
+    }
 
 }

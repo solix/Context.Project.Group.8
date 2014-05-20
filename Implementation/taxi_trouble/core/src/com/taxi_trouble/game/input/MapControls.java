@@ -67,6 +67,7 @@ public class MapControls implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         // If the index of the touch is 0 then initialize/ modify the value of
         // old_x and old_y.
+        System.out.println("x = " + screenX + " y = " + screenY);
         if (pointer == 0) {
             old_x = screenX;
             old_y = screenY;
