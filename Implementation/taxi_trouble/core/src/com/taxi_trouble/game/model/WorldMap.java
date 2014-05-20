@@ -117,7 +117,7 @@ public class WorldMap {
      */
     private float getAngle(MapObject obj) {
         if (obj.getProperties().get("angle") != null) {
-            return obj.getProperties().get("angle", Float.class);
+            return Float.parseFloat(obj.getProperties().get("angle",String.class));
         }
         // Default angle is zero
         return 0;

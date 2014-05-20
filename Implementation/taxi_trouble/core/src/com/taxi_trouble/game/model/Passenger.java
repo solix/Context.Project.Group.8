@@ -42,7 +42,7 @@ public class Passenger {
     private void initializeBody(World world, Vector2 position, float angle) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(position);
-        bodyDef.angle = angle;
+        bodyDef.angle = angle * MathUtils.degreesToRadians;
         bodyDef.fixedRotation = true;
         this.body = world.createBody(bodyDef);
         InitFixtureDef();
