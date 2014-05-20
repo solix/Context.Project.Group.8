@@ -84,4 +84,13 @@ public class Spawner {
         // Pick a randomly chosen character sprite for the passenger
         return pass;
     }
+    
+    public Taxi spawnTaxi(World world) {
+        int random = (int) (Math.abs(Math.random()
+                * taxispawnpoints.size() - 1));
+        SpawnPoint spawnPoint = taxispawnpoints.get(random);
+        Taxi taxi = new Taxi(2, 4, 20, 60, 60);
+        taxi.createBody(world, spawnPoint.getPosition(), spawnPoint.getAngle());
+        return taxi;
+    }
 }

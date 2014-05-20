@@ -81,7 +81,7 @@ public class Taxi {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyDef.BodyType.DynamicBody;
 		bodyDef.position.set(position);
-		bodyDef.angle = angle;
+		bodyDef.angle = angle * MathUtils.degreesToRadians;
 		this.taxiBody = world.createBody(bodyDef);
 		this.createFixture();
 		this.initializeWheels(world);

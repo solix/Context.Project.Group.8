@@ -7,6 +7,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.properties.ResourceManager;
+import com.taxi_trouble.game.screens.DriverScreen;
 import com.taxi_trouble.game.screens.NavigatorScreen;
 import com.taxi_trouble.game.sound.TaxiJukebox;
 
@@ -31,9 +32,8 @@ public class GameWorld extends Game {
         ResourceManager.loadMap();
         ResourceManager.loadCharSprites();
         map = new WorldMap(ResourceManager.mapFile, world);
-        taxi = new Taxi(2, 4, 20, 60, 60);
-        taxi.createBody(world, new Vector2(10, 10), (float) Math.PI);
-        setScreen(new NavigatorScreen(this));
+        taxi = map.getSpawner().spawnTaxi(world);
+        setScreen(new DriverScreen(this));
         TaxiJukebox.loadMusic("sound/s.ogg", "sampleMusic");
         passengers = new ArrayList<Passenger>();
     }
