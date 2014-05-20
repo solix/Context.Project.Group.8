@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="80" height="101" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="80" height="101" tilewidth="32" tileheight="32" backgroundcolor="#aa007f">
  <tileset firstgid="1" name="Road-Aidan" tilewidth="32" tileheight="32">
   <image source="tilesets/Road-Aidan.png" width="1024" height="1024"/>
  </tileset>
