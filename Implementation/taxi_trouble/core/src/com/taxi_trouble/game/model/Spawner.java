@@ -20,6 +20,9 @@ public class Spawner {
     private List<SpawnPoint> passengerspawnpoints;
     private List<SpawnPoint> taxispawnpoints;
     private List<SpawnPoint> destinationpoints;
+    final float F_FOUR = 4;
+    final float F_TWENTY = 20;
+    final float F_SIXTY = 60;
 
     /**
      * Initializes a new Spawner which can store spawn points and spawn taxis,
@@ -95,19 +98,19 @@ public class Spawner {
      * @return
      */
     public Taxi spawnTaxi(World world) {
-        //Pick a random taxi spawn point as location to spawn a taxi.
-        int random = (int) (Math.abs(Math.random() 
-                * taxispawnpoints.size() - 1));
+        // Pick a random taxi spawn point as location to spawn a taxi.
+        int random = (int) (Math
+                .abs(Math.random() * taxispawnpoints.size() - 1));
         while (taxispawnpoints.get(random).isActive()) {
             random = (int) (Math
                     .abs(Math.random() * taxispawnpoints.size() - 1));
         }
         SpawnPoint spawnPoint = taxispawnpoints.get(random);
         spawnPoint.setActive(true);
-        //Initialize the new Taxi spawned at the randomly chosen location
-        Taxi taxi = new Taxi(2, 4, 20, 60, 60);
+        // Initialize the new Taxi spawned at the randomly chosen location
+        Taxi taxi = new Taxi(2, F_FOUR, F_TWENTY, F_SIXTY, F_SIXTY);
         taxi.createBody(world, spawnPoint.getPosition(), spawnPoint.getAngle());
-        taxi.setSprite(ResourceManager.taxiSprite,ResourceManager.wheelSprite);
+        taxi.setSprite(ResourceManager.taxiSprite, ResourceManager.wheelSprite);
         return taxi;
     }
 }

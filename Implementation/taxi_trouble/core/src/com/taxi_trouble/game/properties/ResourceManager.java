@@ -1,6 +1,5 @@
 package com.taxi_trouble.game.properties;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +9,12 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.taxi_trouble.game.Character;
 
+/**
+ * This is the ResourceManager which handles and manages all the resources.
+ * 
+ * @author Context group 8
+ * 
+ */
 public class ResourceManager {
     // public static String mapFile = "maps/prototype.tmx";
 
@@ -17,8 +22,9 @@ public class ResourceManager {
     public static Sprite wheelSprite;
     public static TiledMap mapFile;
     public static List<Character> charList;
+    final static int AMOUNT_OF_CHARS = 4;
 
-    /*
+    /**
      * Loads the sprites needed for the rendering of the taxi. This method has
      * to be called before using the sprites.
      */
@@ -35,7 +41,7 @@ public class ResourceManager {
      */
     public static void loadCharSprites() {
         charList = new ArrayList<Character>();
-        for (int i = 1; i < 4; i++) {
+        for (int i = 1; i < AMOUNT_OF_CHARS; i++) {
             Sprite standing = new Sprite(new Texture(
                     "sprites/characters/character-" + i + "-standing.png"));
             Sprite walking1 = new Sprite(new Texture(
@@ -47,12 +53,17 @@ public class ResourceManager {
         }
     }
 
+    /**
+     * Returns a randomly selected Character.
+     * 
+     * @return
+     */
     public static Character getRandomCharacter() {
         int i = (int) (Math.abs(Math.random() * charList.size() - 1));
         return charList.get(i);
     }
 
-    /*
+    /**
      * Loads the map. Call his method before using the mapFile.
      */
     public static void loadMap() {

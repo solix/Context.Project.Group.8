@@ -63,14 +63,14 @@ public class Passenger {
         bodyDef.angle = angle * MathUtils.degreesToRadians;
         bodyDef.fixedRotation = true;
         this.body = world.createBody(bodyDef);
-        InitFixtureDef();
+        initFixtureDef();
     }
 
     /**
      * Retrieves the fixture for the body of the solid passenger.
      * 
      */
-    private void InitFixtureDef() {
+    private void initFixtureDef() {
         FixtureDef fixtureDef = new FixtureDef();
 
         PolygonShape passengerShape = new PolygonShape();
