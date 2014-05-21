@@ -26,9 +26,9 @@ public class ResourceManager {
     public static TextureRegion[] passenger_sheet_frames;
     public static TextureRegion current_passenger_frame;
     public static Animation loading_passenger_animation;
-    public static final int SHEET_TILE_WIDTH=16;
-    public static final int SHEET_TILE_HEIGHT=16;
-    public static int numberOfImageInSheet=3;
+    public static final int SHEET_TILE_WIDTH=128;
+    public static final int SHEET_TILE_HEIGHT=90;
+    public static int numberOfImageInSheet=4;
 
     /*
      * Loads the sprites needed for the rendering of the taxi. This method has
@@ -70,7 +70,7 @@ public class ResourceManager {
     public static void loadMap() {
         mapFile = new TmxMapLoader().load("maps/prototype.tmx");
     }
-
+    	
     /**
      * Loads Animation 
      * NOTE: argument inside method need to be changed to Passenger later on
@@ -80,14 +80,14 @@ public class ResourceManager {
     	TextureRegion[][] temp =TextureRegion.split(passenger_sheet, SHEET_TILE_WIDTH, SHEET_TILE_HEIGHT); 
     	passenger_sheet_frames=new TextureRegion[numberOfImageInSheet];
     	int index =0;
-    	for(int i=0;i<32;i++){
-    		for(int j=0;i<32;i++){
+    	for(int i=0;i<2;i++){
+    		for(int j=0;i<2;i++){
     			passenger_sheet_frames[index++]=temp[i][j];
     		}
     	}
-    	for(int i=0;i<32*32;i++){
+    	for(int i=0;i<2*2;i++){
     		passenger_sheet_frames[i].flip(false, true);
     	}
-    	loading_passenger_animation=new Animation(0.2f, passenger_sheet_frames);
+    	loading_passenger_animation=new Animation(0.1f, passenger_sheet_frames);
     }
 }

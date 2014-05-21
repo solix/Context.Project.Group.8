@@ -24,7 +24,7 @@ public class DriverScreen extends ViewObserver {
     private ControlsUI controlsUI;
     private DriverControl driverControl;
     PassangerAnimation animation;
-
+    
     /**
      * Constructor, creates the Driver Screen.
      * 
