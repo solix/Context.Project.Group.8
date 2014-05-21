@@ -8,6 +8,7 @@ import com.taxi_trouble.game.model.Passenger;
 import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.WorldMap;
 import com.taxi_trouble.game.properties.GameProperties;
+import com.taxi_trouble.game.properties.ResourceManager;
 
 /**Basic class for extending independent screen of the game
  * 
@@ -20,7 +21,10 @@ public abstract class ViewObserver implements Screen {
 	protected static int PIXELS_PER_METER = GameProperties.PIXELS_PER_METER;
 	protected Taxi taxi;
 	protected WorldMap cityMap;
-
+	
+	//animation
+	float statetime;
+	SpriteBatch batch;
 	/**
 	 * Constructor for creating game Screen
 	 * 
@@ -28,6 +32,8 @@ public abstract class ViewObserver implements Screen {
 	 */
 	public ViewObserver(GameWorld taxigame) {
 		this.taxigame = taxigame;
+		statetime=0F;
+		batch=new SpriteBatch();
 	}
 	
     /**
@@ -39,6 +45,7 @@ public abstract class ViewObserver implements Screen {
 	    this.taxi = taxigame.getTaxi();
 	    this.cityMap = taxigame.getMap();
 	    //TODO: Also retrieve and render the other taxis in the game.
+	    
 	}
 	
 	/**
@@ -60,6 +67,17 @@ public abstract class ViewObserver implements Screen {
         
         //Render the taxi sprites using the spriteBatch
         taxi.render(getSpriteBatch());
+        
+        //animates passenger
+        statetime+=Gdx.graphics.getDeltaTime();
+        ResourceManager.current_passenger_frame=ResourceManager.loading_passenger_animation.getKeyFrame(statetime, true);
+        
+        //for drawing animation not a right place to draw need refactoring later on size etc 
+        batch.begin();
+        batch.draw(ResourceManager.current_passenger_frame,256,256);
+        batch.end();
+        
+        
 	}
 	
 	/**Retrieve the spriteBatch that should be used.

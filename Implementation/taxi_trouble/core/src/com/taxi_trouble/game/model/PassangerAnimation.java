@@ -1,4 +1,4 @@
-package com.taxi_trouble.game.screens;
+package com.taxi_trouble.game.model;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.reflect.Constructor;
-import com.taxi_trouble.game.model.Passenger;
 /**
  * Animation implementation of passenger moving towards taxi
  * @author 5oheil

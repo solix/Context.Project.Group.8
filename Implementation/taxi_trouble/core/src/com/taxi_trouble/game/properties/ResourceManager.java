@@ -3,9 +3,12 @@ package com.taxi_trouble.game.properties;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.FileHandler;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.taxi_trouble.game.Character;
@@ -17,6 +20,15 @@ public class ResourceManager {
     public static Sprite wheelSprite;
     public static TiledMap mapFile;
     public static List<Character> charList;
+    
+    //animation
+    public static Texture passenger_sheet;
+    public static TextureRegion[] passenger_sheet_frames;
+    public static TextureRegion current_passenger_frame;
+    public static Animation loading_passenger_animation;
+    public static final int SHEET_TILE_WIDTH=16;
+    public static final int SHEET_TILE_HEIGHT=16;
+    public static int numberOfImageInSheet=3;
 
     /*
      * Loads the sprites needed for the rendering of the taxi. This method has
@@ -59,4 +71,23 @@ public class ResourceManager {
         mapFile = new TmxMapLoader().load("maps/prototype.tmx");
     }
 
+    /**
+     * Loads Animation 
+     * NOTE: argument inside method need to be changed to Passenger later on
+     */
+    public static void loadPassengerAnimation(String sheetfile){
+    	passenger_sheet=new Texture(sheetfile);
+    	TextureRegion[][] temp =TextureRegion.split(passenger_sheet, SHEET_TILE_WIDTH, SHEET_TILE_HEIGHT); 
+    	passenger_sheet_frames=new TextureRegion[numberOfImageInSheet];
+    	int index =0;
+    	for(int i=0;i<32;i++){
+    		for(int j=0;i<32;i++){
+    			passenger_sheet_frames[index++]=temp[i][j];
+    		}
+    	}
+    	for(int i=0;i<32*32;i++){
+    		passenger_sheet_frames[i].flip(false, true);
+    	}
+    	loading_passenger_animation=new Animation(0.2f, passenger_sheet_frames);
+    }
 }

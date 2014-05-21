@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.taxi_trouble.game.input.ControlsUI;
 import com.taxi_trouble.game.input.DriverControl;
 import com.taxi_trouble.game.model.GameWorld;
+import com.taxi_trouble.game.model.PassangerAnimation;
 
 /**Provides the view of the game for the driver of a taxi.
  *
@@ -75,7 +76,7 @@ public class DriverScreen extends ViewObserver {
 
         spriteBatch.setProjectionMatrix(virtualButtonsCamera.combined);
         controlsUI.render(spriteBatch);
-        animation.render();
+        //animation.render();
         
     }
 
