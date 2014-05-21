@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.FileHandler;
 
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -28,7 +29,7 @@ public class ResourceManager {
     public static Animation loading_passenger_animation;
     public static final int SHEET_TILE_WIDTH=128;
     public static final int SHEET_TILE_HEIGHT=90;
-    public static int numberOfImageInSheet=4;
+    public static int numberOfImageInSheet=3;
 
     /*
      * Loads the sprites needed for the rendering of the taxi. This method has
@@ -75,7 +76,8 @@ public class ResourceManager {
      * Loads Animation 
      * NOTE: argument inside method need to be changed to Passenger later on
      */
-    public static void loadPassengerAnimation(String sheetfile){
+    public static void loadPassengerAnimation(FileHandle sheetfile){
+    	
     	passenger_sheet=new Texture(sheetfile);
     	TextureRegion[][] temp =TextureRegion.split(passenger_sheet, SHEET_TILE_WIDTH, SHEET_TILE_HEIGHT); 
     	passenger_sheet_frames=new TextureRegion[numberOfImageInSheet];
@@ -85,9 +87,9 @@ public class ResourceManager {
     			passenger_sheet_frames[index++]=temp[i][j];
     		}
     	}
-    	for(int i=0;i<2*2;i++){
-    		passenger_sheet_frames[i].flip(false, true);
-    	}
-    	loading_passenger_animation=new Animation(0.1f, passenger_sheet_frames);
+    	//for(int i=0;i<2*2;i++){
+    		//passenger_sheet_frames[i].flip(false, true);
+    	//}
+    	loading_passenger_animation=new Animation(0.2f, passenger_sheet_frames);
     }
 }

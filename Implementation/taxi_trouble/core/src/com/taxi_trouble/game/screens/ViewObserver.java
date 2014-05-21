@@ -69,13 +69,13 @@ public abstract class ViewObserver implements Screen {
         taxi.render(getSpriteBatch());
         
         //animates passenger
-        statetime+=Gdx.graphics.getDeltaTime();
-        ResourceManager.current_passenger_frame=ResourceManager.loading_passenger_animation.getKeyFrame(statetime, true);
+        //statetime+=Gdx.graphics.getDeltaTime();
+        //ResourceManager.current_passenger_frame=ResourceManager.loading_passenger_animation.getKeyFrame(statetime, true);
         
         //for drawing animation not a right place to draw need refactoring later on size etc 
-        batch.begin();
-        batch.draw(ResourceManager.current_passenger_frame,256,256);
-        batch.end();
+       // batch.begin();
+        //batch.draw(ResourceManager.current_passenger_frame,256,256);
+        //batch.end();
         
         
 	}

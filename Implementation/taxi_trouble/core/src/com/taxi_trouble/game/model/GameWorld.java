@@ -25,7 +25,6 @@ public class GameWorld extends Game {
     // Temporary (may change when implementing multiplayer)
     private Taxi taxi;
     private List<Passenger> passengers;
-    PassangerAnimation animation;
 
     @Override
     public void create() {
@@ -42,7 +41,7 @@ public class GameWorld extends Game {
         ResourceManager.loadTaxiAndWheelSprites();
         taxi = map.getSpawner().spawnTaxi(world);
         
-        setScreen(new DriverScreen(this));
+        setScreen(new SampleScreen());
     }
 
     @Override

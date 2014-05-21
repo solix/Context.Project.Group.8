@@ -3,8 +3,10 @@ package com.taxi_trouble.game.model;
 import static com.taxi_trouble.game.properties.GameProperties.PIXELS_PER_METER;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -26,6 +28,7 @@ public class Passenger {
     private Body body;
     private Character character;
     private SpawnPoint spawnPoint;
+    float statetime=0f;
 
     /**
      * Initializes a new passenger.
@@ -157,23 +160,23 @@ public class Passenger {
 
     /**
      * Renders the sprite(s) of the passenger.
-     * 
      * @param spriteBatch
      */
     public void render(SpriteBatch spriteBatch) {
-    	float statetime=0f; 
-    	statetime+=Gdx.graphics.getDeltaTime();
-        spriteBatch.begin();
-        spriteBatch.draw(ResourceManager.current_passenger_frame,this.getXPosition() * PIXELS_PER_METER,this.getYPosition() * PIXELS_PER_METER);
-
-        Sprite sprite = (Sprite) this.body.getUserData();
-        sprite.setPosition(this.getXPosition() * PIXELS_PER_METER,
-                this.getYPosition() * PIXELS_PER_METER);
-        sprite.setRotation(this.getBody().getAngle()
-                * MathUtils.radiansToDegrees);
-        sprite.setScale(PIXELS_PER_METER);
-        sprite.draw(spriteBatch);
+    	statetime+=Gdx.graphics.getDeltaTime(); 
+        ResourceManager.loadPassengerAnimation(Gdx.files.internal("sprites/spriteSheet/character1_spritesheet.png"));
         ResourceManager.current_passenger_frame=ResourceManager.loading_passenger_animation.getKeyFrame(statetime, true);
+    	spriteBatch.begin();
+        spriteBatch.draw(ResourceManager.current_passenger_frame,this.getXPosition() * PIXELS_PER_METER,this.getYPosition() * PIXELS_PER_METER);
+        
+
+//        Sprite sprite = (Sprite) this.body.getUserData();
+//        sprite.setPosition(this.getXPosition() * PIXELS_PER_METER,
+//                this.getYPosition() * PIXELS_PER_METER);
+//        sprite.setRotation(this.getBody().getAngle()
+//                * MathUtils.radiansToDegrees);
+//        sprite.setScale(PIXELS_PER_METER);
+//        sprite.draw(spriteBatch);
 
         spriteBatch.end();
     }
