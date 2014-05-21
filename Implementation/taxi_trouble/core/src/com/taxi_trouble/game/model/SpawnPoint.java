@@ -2,12 +2,18 @@ package com.taxi_trouble.game.model;
 
 import com.badlogic.gdx.math.Vector2;
 
+/**A spawnpoint is a point where either a passenger or taxi is spawned or the
+ * place for a destination.
+ *
+ * @author Computer Games Project Group 8
+ *
+ */
 public class SpawnPoint {
     private Vector2 position;
     private float spawnAngle;
     private boolean active;
 
-    /**Initializes a new SpawnPosition with location (x,y) and 
+    /**Initializes a new SpawnPosition with location (x,y) and
      * with spawning angle as specified.
      *
      * @param x : the x-position of the SpawnPoint
@@ -53,7 +59,7 @@ public class SpawnPoint {
     }
 
     /**Retrieves whether the spawning point has been used.
-    
+    *
     * @return active
     */
     public boolean isActive() {

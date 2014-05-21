@@ -22,479 +22,499 @@ import com.taxi_trouble.game.model.Wheel;
  * A controllable taxi which can be steered and for which certain properties
  * hold. A Taxi has a width, length, maximum steering angle, maximum speed,
  * power, box2d body, sprite and a set of wheels.
- * 
+ *
  * @author Computer Games Project Group 8
- * 
+ *
  */
 public class Taxi {
-	private float width;
-	private float length;
-	private float maxSteerAngle;
-	private float maxSpeed;
-	private float power;
-	private float wheelAngle;
-	private Body taxiBody;
-	private List<Wheel> wheels;
-	private SteerDirection steer;
-	private Acceleration acceleration;
+    private float width;
+    private float length;
+    private float maxSteerAngle;
+    private float maxSpeed;
+    private float power;
+    private float wheelAngle;
+    private Body taxiBody;
+    private Sprite taxiSprite;
+    private List<Wheel> wheels;
+    private SteerDirection steer;
+    private Acceleration acceleration;
+    private Passenger passenger;
 
-	/**
-	 * Initializes a new Taxi which can be controlled by a player.
-	 * 
-	 * @param width
-	 *            : the width of the taxi
-	 * @param length
-	 *            : the length of the taxi
-	 * @param maxSteerAngle
-	 *            : the maximum angle under which the taxi can be steered
-	 * @param maxSpeed
-	 *            : the maximum speed of the taxi
-	 * @param power
-	 *            : the power of the taxi's engine
-	 */
-	public Taxi(float width, float length, float maxSteerAngle, float maxSpeed,
-			float power) {
-		this.width = width;
-		this.length = length;
-		this.maxSteerAngle = maxSteerAngle;
-		this.maxSpeed = maxSpeed;
-		this.power = power;
-		this.wheels = new ArrayList<Wheel>();
-		this.wheelAngle = 0;
-		this.steer = SteerDirection.STEER_NONE;
-		this.acceleration = Acceleration.ACC_NONE;
-	}
+    /**
+     * Initializes a new Taxi which can be controlled by a player.
+     *
+     * @param width
+     *            : the width of the taxi
+     * @param length
+     *            : the length of the taxi
+     * @param maxSteerAngle
+     *            : the maximum angle under which the taxi can be steered
+     * @param maxSpeed
+     *            : the maximum speed of the taxi
+     * @param power
+     *            : the power of the taxi's engine
+     */
+    public Taxi(float width, float length, float maxSteerAngle, float maxSpeed,
+            float power) {
+        this.width = width;
+        this.length = length;
+        this.maxSteerAngle = maxSteerAngle;
+        this.maxSpeed = maxSpeed;
+        this.power = power;
+        this.wheels = new ArrayList<Wheel>();
+        this.wheelAngle = 0;
+        this.steer = SteerDirection.STEER_NONE;
+        this.acceleration = Acceleration.ACC_NONE;
+    }
 
-	/**
-	 * Creates a body for this taxi in a world on a given position and placed
-	 * under a given angle(radian).
-	 * 
-	 * @param world
-	 *            : the world used to create the Body
-	 * @param position
-	 *            : the position where the taxi should be placed
-	 * @param angle
-	 *            : the angle under which the taxi is placed
-	 * @return the created body
-	 */
-	public void createBody(World world, Vector2 position, float angle) {
-		BodyDef bodyDef = new BodyDef();
-		bodyDef.type = BodyDef.BodyType.DynamicBody;
-		bodyDef.position.set(position);
-		bodyDef.angle = angle * MathUtils.degreesToRadians;
-		this.taxiBody = world.createBody(bodyDef);
-		this.createFixture();
-		this.initializeWheels(world);
-	}
+    /**
+     * Creates a body for this taxi in a world on a given position and placed
+     * under a given angle(radian).
+     *
+     * @param world
+     *            : the world used to create the Body
+     * @param position
+     *            : the position where the taxi should be placed
+     * @param angle
+     *            : the angle under which the taxi is placed
+     * @return the created body
+     */
+    public void createBody(World world, Vector2 position, float angle) {
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(position);
+        bodyDef.angle = angle * MathUtils.degreesToRadians;
+        this.setBody(world.createBody(bodyDef));
+        this.createFixture();
+        this.initializeWheels(world);
+    }
 
-	/**
-	 * Creates a fixture for the body of this taxi.
-	 * 
-	 */
-	private void createFixture() {
-		FixtureDef fixtureDef = new FixtureDef();
-		fixtureDef.density = 1.0f;
-		fixtureDef.friction = 0.6f;
-		fixtureDef.restitution = 0.4f;
-		PolygonShape carShape = new PolygonShape();
-		carShape.setAsBox(this.getWidth() / 2, this.getLength() / 2);
-		fixtureDef.shape = carShape;
-		this.getBody().createFixture(fixtureDef);
-	}
+    /**
+     * Creates a fixture for the body of this taxi.
+     *
+     */
+    private void createFixture() {
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.density = 1.0f;
+        fixtureDef.friction = 0.6f;
+        fixtureDef.restitution = 0.4f;
+        PolygonShape carShape = new PolygonShape();
+        carShape.setAsBox(this.getWidth() / 2, this.getLength() / 2);
+        fixtureDef.shape = carShape;
+        this.getBody().createFixture(fixtureDef);
+    }
 
-	/**
-	 * Retrieves the body of the taxi.
-	 * 
-	 * @return taxiBody : body of the taxi
-	 */
-	public Body getBody() {
-		return this.taxiBody;
-	}
+    /**
+     * Retrieves the body of the taxi.
+     *
+     * @return taxiBody : body of the taxi
+     */
+    public Body getBody() {
+        return this.taxiBody;
+    }
 
-	/**
-	 * Changes the body of the taxi to a given body.
-	 * 
-	 * @param body
-	 *            : the new body of the taxi
-	 */
-	public void setBody(Body body) {
-		this.taxiBody = body;
-	}
+    /**
+     * Changes the body of the taxi to a given body.
+     *
+     * @param body
+     *            : the new body of the taxi
+     */
+    public void setBody(Body body) {
+        this.taxiBody = body;
+        taxiBody.setUserData(this);
+    }
 
-	/**
-	 * Initializes the wheels of the taxi in a given world.
-	 * 
-	 * @param world
-	 *            : world used to create the bodies of the taxi wheels
-	 */
-	private void initializeWheels(World world) {
-		/*this.wheels.add(new Wheel(world, this, -1f, -1.4f, 0.35f, 0.45f, true,
-				true)); // top left
-		this.wheels.add(new Wheel(world, this, 1f, -1.4f, 0.35f, 0.45f, true,
-				true)); // top right
-		this.wheels.add(new Wheel(world, this, -1f, 1.2f, 0.35f, 0.45f, false,
-				false)); // back left
-		this.wheels.add(new Wheel(world, this, 1f, 1.2f, 0.35f, 0.45f, false,
-				false)); // back right
-*/	
-	    this.wheels.add(new Wheel(world, this, -1f, -1.4f, 0.4f, 0.6f, true,
+    /**
+     * Initializes the wheels of the taxi in a given world.
+     *
+     * @param world
+     *            : world used to create the bodies of the taxi wheels
+     */
+    private void initializeWheels(World world) {
+        this.wheels.add(new Wheel(world, this, -1f, -1.4f, 0.4f, 0.6f, true,
                 true)); // top left
         this.wheels.add(new Wheel(world, this, 1f, -1.4f, 0.4f, 0.6f, true,
                 true)); // top right
         this.wheels.add(new Wheel(world, this, -1f, 1.2f, 0.4f, 0.6f, false,
                 false)); // back left
         this.wheels.add(new Wheel(world, this, 1f, 1.2f, 0.4f, 0.6f, false,
-                false));    
-	}
+                false));
+    }
 
-	/**
-	 * Retrieves the width of the taxi.
-	 * 
-	 * @return width : the width of the taxi
-	 */
-	public float getWidth() {
-		return this.width;
-	}
+    /**
+     * Retrieves the width of the taxi.
+     *
+     * @return width : the width of the taxi
+     */
+    public float getWidth() {
+        return this.width;
+    }
 
-	/**
-	 * Retrieves the length of the taxi.
-	 * 
-	 * @return length : the length of the taxi
-	 */
-	public float getLength() {
-		return this.length;
-	}
+    /**
+     * Retrieves the length of the taxi.
+     *
+     * @return length : the length of the taxi
+     */
+    public float getLength() {
+        return this.length;
+    }
 
-	/**
-	 * Retrieves the maximum angle under which the taxi can be steered.
-	 * 
-	 * @return maxSteerAngle : the maximum angle under which the taxi can be
-	 *         steered
-	 */
-	public float getMaxSteerAngle() {
-		return this.maxSteerAngle;
-	}
+    /**
+     * Retrieves the maximum angle under which the taxi can be steered.
+     *
+     * @return maxSteerAngle : the maximum angle under which the taxi can be
+     *         steered
+     */
+    public float getMaxSteerAngle() {
+        return this.maxSteerAngle;
+    }
 
-	/**
-	 * Changes the maximum angle under which the taxi can be steered.
-	 * 
-	 * @param maxSteerAngle
-	 *            : the new maximum steering angle
-	 */
-	public void setMaxSteerAngle(float maxSteerAngle) {
-		this.maxSteerAngle = maxSteerAngle;
-	}
+    /**
+     * Changes the maximum angle under which the taxi can be steered.
+     *
+     * @param maxSteerAngle
+     *            : the new maximum steering angle
+     */
+    public void setMaxSteerAngle(float maxSteerAngle) {
+        this.maxSteerAngle = maxSteerAngle;
+    }
 
-	/**
-	 * Retrieves the maximum speed with which the taxi can drive.
-	 * 
-	 * @return maxSpeed : maximum speed of the taxi
-	 */
-	public float getMaxSpeed() {
-		return this.maxSpeed;
-	}
+    /**
+     * Retrieves the maximum speed with which the taxi can drive.
+     *
+     * @return maxSpeed : maximum speed of the taxi
+     */
+    public float getMaxSpeed() {
+        return this.maxSpeed;
+    }
 
-	/**
-	 * Changes the maximum speed with which the taxi can drive.
-	 * 
-	 * @param maxSpeed
-	 *            : new maximum speed of the taxi
-	 */
-	public void setMaxSpeed(float maxSpeed) {
-		this.maxSpeed = maxSpeed;
-	}
+    /**
+     * Changes the maximum speed with which the taxi can drive.
+     *
+     * @param maxSpeed
+     *            : new maximum speed of the taxi
+     */
+    public void setMaxSpeed(float maxSpeed) {
+        this.maxSpeed = maxSpeed;
+    }
 
-	/**
-	 * Retrieves the power of the taxi's engine.
-	 * 
-	 * @return power : power of the taxi
-	 */
-	public float getPower() {
-		return this.power;
-	}
+    /**
+     * Retrieves the power of the taxi's engine.
+     *
+     * @return power : power of the taxi
+     */
+    public float getPower() {
+        return this.power;
+    }
 
-	/**
-	 * Changes the power of the taxi's engine.
-	 * 
-	 * @param power
-	 *            : new power of the taxi
-	 */
-	public void setPower(float power) {
-		this.power = power;
-	}
+    /**
+     * Changes the power of the taxi's engine.
+     *
+     * @param power
+     *            : new power of the taxi
+     */
+    public void setPower(float power) {
+        this.power = power;
+    }
 
-	/**
-	 * Retrieves the speed of the taxi in kilometers per hour.
-	 * 
-	 * @return
-	 */
-	public float getSpeedKMH() {
-		Vector2 velocity = this.getBody().getLinearVelocity();
-		float len = velocity.len();
-		return (len / 1000) * 3600;
-	}
+    /**
+     * Retrieves the speed of the taxi in kilometers per hour.
+     *
+     * @return
+     */
+    public float getSpeedKMH() {
+        Vector2 velocity = this.getBody().getLinearVelocity();
+        float len = velocity.len();
+        return (len / 1000) * 3600;
+    }
 
-	/**
-	 * Changes the speed to a given speed in kilometers per hour.
-	 * 
-	 * @param speed
-	 *            : new speed of the taxi
-	 */
-	public void setSpeedKMH(float speed) {
-		Vector2 velocity = this.getBody().getLinearVelocity();
-		velocity = velocity.nor();
-		velocity = new Vector2(velocity.x * ((speed * 1000.0f) / 3600.0f),
-				velocity.y * ((speed * 1000.0f) / 3600.0f));
-		this.getBody().setLinearVelocity(velocity);
-	}
+    /**
+     * Changes the speed to a given speed in kilometers per hour.
+     *
+     * @param speed
+     *            : new speed of the taxi
+     */
+    public void setSpeedKMH(float speed) {
+        Vector2 velocity = this.getBody().getLinearVelocity();
+        velocity = velocity.nor();
+        velocity = new Vector2(velocity.x * ((speed * 1000.0f) / 3600.0f),
+                velocity.y * ((speed * 1000.0f) / 3600.0f));
+        this.getBody().setLinearVelocity(velocity);
+    }
 
-	/**
-	 * Retrieves the x-position of the taxi.
-	 * 
-	 * @return x-position of the taxi
-	 */
-	public float getXPosition() {
-		return this.getBody().getPosition().x;
-	}
+    /**
+     * Retrieves the x-position of the taxi.
+     *
+     * @return x-position of the taxi
+     */
+    public float getXPosition() {
+        return this.getBody().getPosition().x;
+    }
 
-	/**
-	 * Retrieves the y-position of the taxi.
-	 * 
-	 * @return y-position of the taxi
-	 */
-	public float getYPosition() {
-		return this.getBody().getPosition().y;
-	}
+    /**
+     * Retrieves the y-position of the taxi.
+     *
+     * @return y-position of the taxi
+     */
+    public float getYPosition() {
+        return this.getBody().getPosition().y;
+    }
 
-	/**
-	 * Retrieves the velocity vector relative to the taxi.
-	 * 
-	 * @return
-	 */
-	public Vector2 getLocalVelocity() {
-		return this.getBody().getLocalVector(
-				this.getBody().getLinearVelocityFromLocalPoint(
-						new Vector2(0, 0)));
-	}
+    /**Retrieves the position of the taxi.
+     *
+     * @return position of the taxi
+     */
+    public Vector2 getPosition() {
+        return this.getBody().getPosition();
+    }
 
-	/**
-	 * Changes the sprite of the taxi and the wheels for the given sprites.
-	 * 
-	 * @param taxisprite
-	 *            : the sprite to be set as the taxi's sprite
-	 * @param wheelsprite 
-	 * 			  : the sprite to be set as wheel's sprite	
-	 */
-	public void setSprite(Sprite taxisprite,Sprite wheelsprite) {
-		taxisprite.setSize(this.getWidth(), this.getLength());
-		taxisprite.setOrigin(this.getWidth() / 2, this.getLength() / 2);
-		this.getBody().setUserData(taxisprite);
-		setWheelSprite(wheelsprite);
-	}
+    /**
+     * Retrieves the velocity vector relative to the taxi.
+     *
+     * @return
+     */
+    public Vector2 getLocalVelocity() {
+        return this.getBody().getLocalVector(
+                this.getBody().getLinearVelocityFromLocalPoint(
+                        new Vector2(0, 0)));
+    }
 
-	/**
-	 * Changes the sprite of the taxi's wheels to the given sprite.
-	 * 
-	 * @param sprite
-	 *            : the sprite to be set as the wheels' sprite
-	 */
-	private void setWheelSprite(Sprite sprite) {
-		for (Wheel wheel : this.getWheels()) {
-			wheel.setSprite(sprite);
-		}
-	}
+    /**
+     * Changes the sprite of the taxi and the wheels for the given sprites.
+     *
+     * @param taxisprite
+     *            : the sprite to be set as the taxi's sprite
+     * @param wheelsprite
+     *            : the sprite to be set as wheel's sprite
+     */
+    public void setSprite(Sprite taxisprite, Sprite wheelsprite) {
+        taxisprite.setSize(this.getWidth(), this.getLength());
+        taxisprite.setOrigin(this.getWidth() / 2, this.getLength() / 2);
+        this.taxiSprite = taxisprite;
+        setWheelSprite(wheelsprite);
+    }
 
-	/**
-	 * Retrieves the wheels of the taxi.
-	 * 
-	 * @return wheels of the taxi
-	 */
-	public List<Wheel> getWheels() {
-		return this.wheels;
-	}
+    /**
+     * Changes the sprite of the taxi's wheels to the given sprite.
+     *
+     * @param sprite
+     *            : the sprite to be set as the wheels' sprite
+     */
+    private void setWheelSprite(Sprite sprite) {
+        for (Wheel wheel : this.getWheels()) {
+            wheel.setSprite(sprite);
+        }
+    }
 
-	/**
-	 * Retrieves the revolving wheels of the taxi.
-	 * 
-	 * @return revolving wheels
-	 */
-	public List<Wheel> getRevolvingWheels() {
-		List<Wheel> revolvingWheels = new ArrayList<Wheel>();
-		for (Wheel wheel : this.getWheels()) {
-			if (wheel.getRevolving())
-				revolvingWheels.add(wheel);
-		}
-		return revolvingWheels;
-	}
+    /**
+     * Retrieves the wheels of the taxi.
+     *
+     * @return wheels of the taxi
+     */
+    public List<Wheel> getWheels() {
+        return this.wheels;
+    }
 
-	/**
-	 * Retrieves the powered wheels of the taxi.
-	 * 
-	 * @return powered wheels
-	 */
-	public List<Wheel> getPoweredWheels() {
-		List<Wheel> poweredWheels = new ArrayList<Wheel>();
-		for (Wheel wheel : this.getWheels()) {
-			if (wheel.getPowered())
-				poweredWheels.add(wheel);
-		}
-		return poweredWheels;
-	}
+    /**
+     * Retrieves the revolving wheels of the taxi.
+     *
+     * @return revolving wheels
+     */
+    public List<Wheel> getRevolvingWheels() {
+        List<Wheel> revolvingWheels = new ArrayList<Wheel>();
+        for (Wheel wheel : this.getWheels()) {
+            if (wheel.getRevolving()) {
+                revolvingWheels.add(wheel);
+            }
+        }
+        return revolvingWheels;
+    }
 
-	/**
-	 * Retrieves the direction in which the taxi is steered.
-	 * 
-	 * @return steer direction of the taxi
-	 */
-	public SteerDirection getSteer() {
-		return this.steer;
-	}
+    /**
+     * Retrieves the powered wheels of the taxi.
+     *
+     * @return powered wheels
+     */
+    public List<Wheel> getPoweredWheels() {
+        List<Wheel> poweredWheels = new ArrayList<Wheel>();
+        for (Wheel wheel : this.getWheels()) {
+            if (wheel.getPowered()) {
+                poweredWheels.add(wheel);
+            }
+        }
+        return poweredWheels;
+    }
 
-	/**
-	 * Sets the direction in which to steer.
-	 * 
-	 * @param direction
-	 *            : direction to steer
-	 */
-	public void setSteer(SteerDirection direction) {
-		this.steer = direction;
-	}
+    /**
+     * Retrieves the direction in which the taxi is steered.
+     *
+     * @return steer direction of the taxi
+     */
+    public SteerDirection getSteer() {
+        return this.steer;
+    }
 
-	/**
-	 * Retrieves the way in which the taxi is accelerating.
-	 * 
-	 * @return acceleration of the taxi
-	 */
-	public Acceleration getAccelerate() {
-		return this.acceleration;
-	}
+    /**
+     * Sets the direction in which to steer.
+     *
+     * @param direction
+     *            : direction to steer
+     */
+    public void setSteer(SteerDirection direction) {
+        this.steer = direction;
+    }
 
-	/**
-	 * Sets the acceleration of the taxi.
-	 * 
-	 * @param acceleration
-	 *            : the way in which the taxi accerelates
-	 */
-	public void setAccelerate(Acceleration acceleration) {
-		this.acceleration = acceleration;
-	}
+    /**
+     * Retrieves the way in which the taxi is accelerating.
+     *
+     * @return acceleration of the taxi
+     */
+    public Acceleration getAccelerate() {
+        return this.acceleration;
+    }
 
-	/**
-	 * Updates the taxi's steer angle and acceleration.
-	 * 
-	 * @param deltaTime
-	 */
-	public void update(float deltaTime) {
-		updateSteerAngle(deltaTime);
-		updateAcceleration(deltaTime);
-	}
+    /**
+     * Sets the acceleration of the taxi.
+     *
+     * @param acceleration
+     *            : the way in which the taxi accerelates
+     */
+    public void setAccelerate(Acceleration acceleration) {
+        this.acceleration = acceleration;
+    }
+    
+    /**
+     * Picks up a passenger and places it into this taxi.
+     *
+     * @param passenger
+     *            : the passenger to pickup
+     */
+    public void pickUpPassenger(Passenger passenger) {
+        this.passenger = passenger;
+        passenger.setTransporter(this);
+    }
+    
+    public void dropOffPassenger() {
+        
+    }
 
-	/**
-	 * Updates the direction in which the taxi's wheels should be pointed.
-	 * 
-	 * @param deltaTime
-	 *            : difference in time in which the wheel angle updates
-	 */
-	private void updateSteerAngle(float deltaTime) {
-		for (Wheel wheel : wheels) {
-			wheel.killSidewaysVelocity();
-		}
+    /**
+     * Updates the taxi's steer angle and acceleration.
+     *
+     * @param deltaTime
+     */
+    public void update(float deltaTime) {
+        updateSteerAngle(deltaTime);
+        updateAcceleration(deltaTime);
+    }
 
-		float incr = (this.getMaxSteerAngle()) * deltaTime * 5;
-		switch (this.getSteer()) {
-		case STEER_LEFT:
-			this.wheelAngle = Math.min(Math.max(this.wheelAngle, 0) + incr,
-					this.maxSteerAngle);
-			break;
-		case STEER_RIGHT:
-			this.wheelAngle = Math.max(Math.min(this.wheelAngle, 0) - incr,
-					-this.maxSteerAngle);
-			break;
-		default:
-			this.wheelAngle = 0;
-			break;
-		}
-		this.updateRevolvingWheelsAngle();
-	}
+    /**
+     * Updates the direction in which the taxi's wheels should be pointed.
+     *
+     * @param deltaTime
+     *            : difference in time in which the wheel angle updates
+     */
+    private void updateSteerAngle(float deltaTime) {
+        for (Wheel wheel : wheels) {
+            wheel.killSidewaysVelocity();
+        }
 
-	/**
-	 * Updates the angle of the wheels.
-	 * 
-	 */
-	private void updateRevolvingWheelsAngle() {
-		for (Wheel wheel : this.getRevolvingWheels()) {
-			wheel.setAngle(wheelAngle);
-		}
-	}
+        float incr = (this.getMaxSteerAngle()) * deltaTime * 5;
+        switch (this.getSteer()) {
+        case STEER_LEFT:
+            this.wheelAngle = Math.min(Math.max(this.wheelAngle, 0) + incr,
+                    this.maxSteerAngle);
+            break;
+        case STEER_RIGHT:
+            this.wheelAngle = Math.max(Math.min(this.wheelAngle, 0) - incr,
+                    -this.maxSteerAngle);
+            break;
+        default:
+            this.wheelAngle = 0;
+            break;
+        }
+        this.updateRevolvingWheelsAngle();
+    }
 
-	/**
-	 * Updates the acceleration of the taxi.
-	 * 
-	 * @param deltaTime
-	 */
-	private void updateAcceleration(float deltaTime) {
-		// Vector pointing in the direction the force will be applied to the
-		// wheels
-		Vector2 baseVector = new Vector2(0, 0);
-		switch (this.getAccelerate()) {
-		case ACC_ACCELERATE:
-		    if (this.getLocalVelocity().y > 0)
-		        baseVector = new Vector2(0f, -1.3f);
-			if (this.getSpeedKMH() < this.getMaxSpeed())
-				baseVector = new Vector2(0, -1.5f);
-			break;
-		case ACC_BRAKE:
-			if (this.getLocalVelocity().y < 0)
-				baseVector = new Vector2(0f, 1.3f);
-			else if (this.getSpeedKMH() < this.getMaxSpeed())
-				baseVector = new Vector2(0f, 0.5f);
-			break;
-		default:
-			if (this.getSpeedKMH() < 7) {
-				this.setSpeedKMH(0);
-			} else if (this.getLocalVelocity().y < 0) {
-				baseVector = new Vector2(0, 1.1f);
-			} else if (this.getLocalVelocity().y > 0) {
-				baseVector = new Vector2(0, -1.1f);
-			}
-			break;
-		}
+    /**
+     * Updates the angle of the wheels.
+     *
+     */
+    private void updateRevolvingWheelsAngle() {
+        for (Wheel wheel : this.getRevolvingWheels()) {
+            wheel.setAngle(wheelAngle);
+        }
+    }
 
-		Vector2 forceVector = new Vector2(this.power * baseVector.x, this.power
-				* baseVector.y);
-		updatePoweredWheelsForce(forceVector);
-	}
+    /**
+     * Updates the acceleration of the taxi.
+     *
+     * @param deltaTime
+     */
+    private void updateAcceleration(float deltaTime) {
+        // Vector pointing in the direction the force will be applied to the
+        // wheels
+        Vector2 baseVector = new Vector2(0, 0);
+        switch (this.getAccelerate()) {
+        case ACC_ACCELERATE:
+            if (this.getLocalVelocity().y > 0)
+                baseVector = new Vector2(0f, -1.3f);
+            if (this.getSpeedKMH() < this.getMaxSpeed())
+                baseVector = new Vector2(0, -1.5f);
+            break;
+        case ACC_BRAKE:
+            if (this.getLocalVelocity().y < 0)
+                baseVector = new Vector2(0f, 1.3f);
+            else if (this.getSpeedKMH() < this.getMaxSpeed())
+                baseVector = new Vector2(0f, 0.5f);
+            break;
+        default:
+            if (this.getSpeedKMH() < 7) {
+                this.setSpeedKMH(0);
+            } else if (this.getLocalVelocity().y < 0) {
+                baseVector = new Vector2(0, 1.1f);
+            } else if (this.getLocalVelocity().y > 0) {
+                baseVector = new Vector2(0, -1.1f);
+            }
+            break;
+        }
 
-	/**
-	 * Applies the force specified by a vector to the wheels of the taxi.
-	 * 
-	 * @param forceVector
-	 */
-	private void updatePoweredWheelsForce(Vector2 forceVector) {
-		for (Wheel wheel : this.getPoweredWheels()) {
-			Vector2 position = wheel.getBody().getWorldCenter();
-			wheel.getBody().applyForce(
-					wheel.getBody().getWorldVector(
-							new Vector2(forceVector.x, forceVector.y)),
-					position, true);
-		}
-	}
-	
-	/**Render the sprites of the taxi using a given SpriteBatch.
-	 * 
-	 * @param spriteBatch
-	 */
-	public void render(SpriteBatch spriteBatch) {
-		for (Wheel wheel : getWheels()) {
-			wheel.render(spriteBatch);
-		}
-		spriteBatch.begin();
-		Sprite sprite = (Sprite) taxiBody.getUserData();
-		sprite.setPosition(taxiBody.getPosition().x * PIXELS_PER_METER,
-				taxiBody.getPosition().y * PIXELS_PER_METER);
-		sprite.setRotation(taxiBody.getAngle() * MathUtils.radiansToDegrees);
-		sprite.setScale(PIXELS_PER_METER);
-		sprite.draw(spriteBatch);
-		spriteBatch.end();
-	}
+        Vector2 forceVector = new Vector2(this.power * baseVector.x, this.power
+                * baseVector.y);
+        updatePoweredWheelsForce(forceVector);
+    }
+
+    /**
+     * Applies the force specified by a vector to the wheels of the taxi.
+     *
+     * @param forceVector
+     */
+    private void updatePoweredWheelsForce(Vector2 forceVector) {
+        for (Wheel wheel : this.getPoweredWheels()) {
+            Vector2 position = wheel.getBody().getWorldCenter();
+            wheel.getBody().applyForce(
+                    wheel.getBody().getWorldVector(
+                            new Vector2(forceVector.x, forceVector.y)),
+                    position, true);
+        }
+    }
+
+    /**
+     * Render the sprites of the taxi using a given SpriteBatch.
+     *
+     * @param spriteBatch
+     */
+    public void render(SpriteBatch spriteBatch) {
+        for (Wheel wheel : getWheels()) {
+            wheel.render(spriteBatch);
+        }
+        spriteBatch.begin();
+        taxiSprite.setPosition(taxiBody.getPosition().x * PIXELS_PER_METER,
+                taxiBody.getPosition().y * PIXELS_PER_METER);
+        taxiSprite
+                .setRotation(taxiBody.getAngle() * MathUtils.radiansToDegrees);
+        taxiSprite.setScale(PIXELS_PER_METER);
+        taxiSprite.draw(spriteBatch);
+        spriteBatch.end();
+    }
 }

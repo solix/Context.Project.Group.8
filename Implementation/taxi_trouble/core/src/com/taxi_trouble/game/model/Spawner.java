@@ -12,9 +12,9 @@ import com.taxi_trouble.game.properties.ResourceManager;
 /**
  * A spawner which can be called for spawning new passengers, taxis and setting
  * destination/deliver points for a taxi.
- * 
+ *
  * @author Computer Games Project Group 8
- * 
+ *
  */
 public class Spawner {
     private List<SpawnPoint> passengerspawnpoints;
@@ -24,7 +24,7 @@ public class Spawner {
     /**
      * Initializes a new Spawner which can store spawn points and spawn taxis,
      * passengers and create destination points.
-     * 
+     *
      */
     public Spawner() {
         passengerspawnpoints = new ArrayList<SpawnPoint>();
@@ -34,7 +34,7 @@ public class Spawner {
 
     /**
      * Add a new Passenger spawn point.
-     * 
+     *
      * @param spawnPoint
      *            : position of the spawn point
      */
@@ -45,7 +45,7 @@ public class Spawner {
 
     /**
      * Add a new Taxi spawn point.
-     * 
+     *
      * @param spawnPoint
      *            : position of the spawn point
      */
@@ -55,7 +55,7 @@ public class Spawner {
 
     /**
      * Add a new destination point.
-     * 
+     *
      * @param spawnPoint
      *            : the position of the destination point
      */
@@ -66,7 +66,7 @@ public class Spawner {
     /**
      * Spawn a new passenger into a specified world at a randomly chosen spawn
      * point.
-     * 
+     *
      * @param world
      *            : the world into which the passenger should be spawned
      * @return the spawned passenger
@@ -89,14 +89,14 @@ public class Spawner {
 
     /**
      * Spawn a new taxi into a specified world at a randomly chosen spawn point.
-     * 
+     *
      * @param world
      *            : the world into which the passenger should be spawned
      * @return
      */
     public Taxi spawnTaxi(World world) {
         //Pick a random taxi spawn point as location to spawn a taxi.
-        int random = (int) (Math.abs(Math.random() 
+        int random = (int) (Math.abs(Math.random()
                 * taxispawnpoints.size() - 1));
         while (taxispawnpoints.get(random).isActive()) {
             random = (int) (Math
