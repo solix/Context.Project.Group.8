@@ -8,6 +8,7 @@ import com.taxi_trouble.game.model.Passenger;
 import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.WorldMap;
 import com.taxi_trouble.game.properties.GameProperties;
+import com.taxi_trouble.game.properties.ScoreBoard;
 
 /**Basic class for extending independent screen of the game
  * 
@@ -20,6 +21,7 @@ public abstract class ViewObserver implements Screen {
 	protected static int PIXELS_PER_METER = GameProperties.PIXELS_PER_METER;
 	protected Taxi taxi;
 	protected WorldMap cityMap;
+	protected ScoreBoard score=new ScoreBoard();
 
 	/**
 	 * Constructor for creating game Screen
@@ -60,6 +62,8 @@ public abstract class ViewObserver implements Screen {
         
         //Render the taxi sprites using the spriteBatch
         taxi.render(getSpriteBatch());
+        //Render score top left
+        score.render();
 	}
 	
 	/**Retrieve the spriteBatch that should be used.

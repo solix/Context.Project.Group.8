@@ -7,6 +7,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.properties.ResourceManager;
+import com.taxi_trouble.game.properties.ScoreBoard;
 import com.taxi_trouble.game.screens.DriverScreen;
 import com.taxi_trouble.game.screens.NavigatorScreen;
 import com.taxi_trouble.game.sound.TaxiJukebox;
@@ -25,6 +26,7 @@ public class GameWorld extends Game {
     // Temporary (may change when implementing multiplayer)
     private Taxi taxi;
     private List<Passenger> passengers;
+    private ScoreBoard score;
 
     @Override
     public void create() {
@@ -39,6 +41,8 @@ public class GameWorld extends Game {
         ResourceManager.loadTaxiAndWheelSprites();
         taxi = map.getSpawner().spawnTaxi(world);
         
+        score=new ScoreBoard();
+        score.createScoreBoard();
         setScreen(new DriverScreen(this));
     }
 
