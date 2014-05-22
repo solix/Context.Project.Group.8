@@ -23,7 +23,6 @@ public class GameWorld extends Game {
     private List<Taxi> taxis;
     // Temporary (may change when implementing multiplayer)
     private Taxi taxi;
-    private List<Passenger> passengers;
 
     @Override
     public final void create() {
@@ -33,13 +32,12 @@ public class GameWorld extends Game {
         TaxiJukebox.loadMusic("sound/s.ogg", "sampleMusic");
 
         ResourceManager.loadCharSprites();
-        passengers = new ArrayList<Passenger>();
 
         ResourceManager.loadTaxiAndWheelSprites();
         taxi = map.getSpawner().spawnTaxi(world);
 
         setScreen(new DriverScreen(this));
-        world.setContactListener(new CollisionDetector());
+        world.setContactListener(new CollisionDetector(map));
     }
 
     @Override
@@ -47,9 +45,9 @@ public class GameWorld extends Game {
         super.render();
         //Spawn a new passenger if there are less than #taxis-1.
         //TODO: Instead of '3' adapt to #taxis-1 in the game.
+        List<Passenger> passengers = map.getSpawner().getActivePassengers();
         if (passengers.size() < 70) {
-            Passenger pas = map.getSpawner().spawnPassenger(world);
-            passengers.add(pas);
+            map.getSpawner().spawnPassenger(world);
         }
     }
 
@@ -86,6 +84,6 @@ public class GameWorld extends Game {
      * @return passengers
      */
     public final List<Passenger> getPassengers() {
-        return this.passengers;
+        return this.map.getSpawner().getActivePassengers();
     }
 }

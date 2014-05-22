@@ -11,6 +11,8 @@ import com.badlogic.gdx.math.Vector2;
 public class SpawnPoint {
     private Vector2 position;
     private float spawnAngle;
+    private float width;
+    private float height;
     private boolean active;
 
     /**Initializes a new SpawnPosition with location (x,y) and
@@ -22,6 +24,8 @@ public class SpawnPoint {
      */
     public SpawnPoint(float x, float y, float spawnAngle) {
         this.position = new Vector2(x, y);
+        this.width = 0;
+        this.height = 0;
         this.spawnAngle = spawnAngle;
         this.active = false;
     }
@@ -56,6 +60,38 @@ public class SpawnPoint {
      */
     public float getAngle() {
         return this.spawnAngle;
+    }
+
+    /**Retrieves the width of the spawn point.
+     *
+     * @return width
+     */
+    public float getWidth() {
+        return this.width;
+    }
+    
+    /**Set the width of the spawn point.
+     * 
+     * @param width
+     */
+    public void setWidth(float width) {
+        this.width = width;
+    }
+    
+    /**Set the height of the spawn point.
+     * 
+     * @param height
+     */
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
+    /**Retrieves the height of the spawn point.
+     *
+     * @return height
+     */
+    public float getHeight() {
+        return this.height;
     }
 
     /**Retrieves whether the spawning point has been used.

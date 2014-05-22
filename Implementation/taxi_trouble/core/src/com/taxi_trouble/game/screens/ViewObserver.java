@@ -60,6 +60,10 @@ public abstract class ViewObserver implements Screen {
         
         //Render the taxi sprites using the spriteBatch
         taxi.render(getSpriteBatch());
+        
+        if(taxi.pickedUpPassenger()) {
+            taxi.getPassenger().getDestination().render(getSpriteBatch());
+        }
 	}
 	
 	/**Retrieve the spriteBatch that should be used.

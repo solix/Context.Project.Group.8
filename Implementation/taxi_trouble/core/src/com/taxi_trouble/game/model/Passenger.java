@@ -15,7 +15,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.Character;
 
 /**
- * A passenger.
+ * A passenger which can be transported by a taxi to a certain destination when picked up.
  *
  * @author Computer Games Project Group 8
  *
@@ -27,6 +27,7 @@ public class Passenger {
     private SpawnPoint spawnPoint;
     private Sprite passengerSprite;
     private Taxi transporter;
+    private Destination destination;
 
     /**
      * Initializes a new passenger.
@@ -160,16 +161,20 @@ public class Passenger {
         passSprite.setOrigin(this.getWidth() / 2, this.getHeight() / 2);
         this.passengerSprite = passSprite;
     }
-    
+
     /**Set the transporter of the passenger.
-     * 
+     *
      */
     public void setTransporter(Taxi transporter) {
         this.transporter = transporter;
     }
-    
+
+    /**Make the passenger lose its transporter, i.e. get out of the taxi.
+     *
+     */
     public void cancelTransport() {
-        this.transporter = null;
+        //this.transporter.dropOffPassenger();
+        //this.transporter = null;
     }
 
     /**
@@ -177,6 +182,25 @@ public class Passenger {
      */
     public void resetSpawnPoint() {
         spawnPoint.setActive(false);
+    }
+
+    /**Set the passengers destination.
+     *
+     * @param dest : the destination to be set
+     */
+    public void setDestination(Destination dest) {
+        //The destination of a passenger can only be set once
+        if (this.destination == null) {
+            this.destination = dest;
+        }
+    }
+
+    /**Retrieves the passenger its destination.
+     *
+     * @return destination : the passenger destination
+     */
+    public Destination getDestination() {
+        return this.destination;
     }
 
     /**

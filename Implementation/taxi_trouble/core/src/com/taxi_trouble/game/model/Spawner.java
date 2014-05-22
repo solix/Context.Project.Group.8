@@ -12,14 +12,15 @@ import com.taxi_trouble.game.properties.ResourceManager;
 /**
  * A spawner which can be called for spawning new passengers, taxis and setting
  * destination/deliver points for a taxi.
- *
+ * 
  * @author Computer Games Project Group 8
- *
+ * 
  */
 public class Spawner {
     private List<SpawnPoint> passengerspawnpoints;
     private List<SpawnPoint> taxispawnpoints;
     private List<SpawnPoint> destinationpoints;
+    private List<Passenger> passengers;
 
     /**
      * Initializes a new Spawner which can store spawn points and spawn taxis,
@@ -30,11 +31,12 @@ public class Spawner {
         passengerspawnpoints = new ArrayList<SpawnPoint>();
         taxispawnpoints = new ArrayList<SpawnPoint>();
         destinationpoints = new ArrayList<SpawnPoint>();
+        passengers = new ArrayList<Passenger>();
     }
 
     /**
      * Add a new Passenger spawn point.
-     *
+     * 
      * @param spawnPoint
      *            : position of the spawn point
      */
@@ -45,7 +47,7 @@ public class Spawner {
 
     /**
      * Add a new Taxi spawn point.
-     *
+     * 
      * @param spawnPoint
      *            : position of the spawn point
      */
@@ -55,7 +57,7 @@ public class Spawner {
 
     /**
      * Add a new destination point.
-     *
+     * 
      * @param spawnPoint
      *            : the position of the destination point
      */
@@ -84,30 +86,66 @@ public class Spawner {
         Character character = getRandomCharacter();
         Passenger pass = new Passenger(world, 2, 2, spawnPoint.getAngle(),
                 character, spawnPoint);
+        pass.setDestination(randomDestination(world));
+        //Add the new passenger to the list of active passengers
+        passengers.add(pass);
         return pass;
+    }
+
+    /**Despawn the specified passenger from the map.
+     *
+     * @param passenger
+     */
+    public void despawnPasenger(Passenger passenger) {
+        passengers.remove(passenger);
+    }
+
+    /**Retrieves a random destination from the world.
+     *
+     * @param world
+     * @return random destination
+     */
+    public Destination randomDestination(World world) {
+        // Pick a random destination spawn point as location to spawn a
+        // passenger
+        int random = (int) (Math.abs(Math.random() * destinationpoints.size()
+                - 1));
+        SpawnPoint spawnPoint = destinationpoints.get(random);
+        Destination dest = new Destination(world, spawnPoint.getXPosition(),
+                spawnPoint.getYPosition(), spawnPoint.getWidth(),
+                spawnPoint.getHeight());
+        return dest;
     }
 
     /**
      * Spawn a new taxi into a specified world at a randomly chosen spawn point.
-     *
+     * 
      * @param world
      *            : the world into which the passenger should be spawned
      * @return
      */
     public Taxi spawnTaxi(World world) {
-        //Pick a random taxi spawn point as location to spawn a taxi.
-        int random = (int) (Math.abs(Math.random()
-                * taxispawnpoints.size() - 1));
+        // Pick a random taxi spawn point as location to spawn a taxi.
+        int random = (int) (Math
+                .abs(Math.random() * taxispawnpoints.size() - 1));
         while (taxispawnpoints.get(random).isActive()) {
             random = (int) (Math
                     .abs(Math.random() * taxispawnpoints.size() - 1));
         }
         SpawnPoint spawnPoint = taxispawnpoints.get(random);
         spawnPoint.setActive(true);
-        //Initialize the new Taxi spawned at the randomly chosen location
+        // Initialize the new Taxi spawned at the randomly chosen location
         Taxi taxi = new Taxi(2, 4, 20, 60, 60);
         taxi.createBody(world, spawnPoint.getPosition(), spawnPoint.getAngle());
-        taxi.setSprite(ResourceManager.taxiSprite,ResourceManager.wheelSprite);
+        taxi.setSprite(ResourceManager.taxiSprite, ResourceManager.wheelSprite);
         return taxi;
+    }
+
+    /**Retrieves the active (spawned) passengers of the game.
+     * 
+     * @return
+     */
+    public List<Passenger> getActivePassengers() {
+        return this.passengers;
     }
 }

@@ -382,7 +382,7 @@ public class Taxi {
     public void setAccelerate(Acceleration acceleration) {
         this.acceleration = acceleration;
     }
-    
+
     /**
      * Picks up a passenger and places it into this taxi.
      *
@@ -390,12 +390,25 @@ public class Taxi {
      *            : the passenger to pickup
      */
     public void pickUpPassenger(Passenger passenger) {
-        this.passenger = passenger;
-        passenger.setTransporter(this);
+        //Check if there is no passenger already picked up
+        if (this.passenger == null) {
+            this.passenger = passenger;
+            this.passenger.setTransporter(this);
+        }
     }
-    
-    public void dropOffPassenger() {
-        
+
+    /**
+     * Drop off the passenger, i.e. get it out of the taxi.
+     * @param destination
+     * @param map
+     *
+     */
+    public void dropOffPassenger(Destination destination, WorldMap map) {
+        if(this.passenger != null && this.passenger.getDestination().equals(destination)) {
+            map.getSpawner().despawnPasenger(passenger);
+            this.passenger = null;
+            //TODO: INCREMENT SCORE
+        }
     }
 
     /**
@@ -516,5 +529,13 @@ public class Taxi {
         taxiSprite.setScale(PIXELS_PER_METER);
         taxiSprite.draw(spriteBatch);
         spriteBatch.end();
+    }
+
+    public boolean pickedUpPassenger() {
+        return this.passenger != null;
+    }
+
+    public Passenger getPassenger() {
+        return this.passenger;
     }
 }

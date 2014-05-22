@@ -64,9 +64,9 @@ public class WorldMap {
         MapLayer layer = map.getLayers().get(type);
         MapObjects objects = layer.getObjects();
 
-        Iterator<MapObject> obj_iterator = objects.iterator();
-        while (obj_iterator.hasNext()) {
-            MapObject obj = obj_iterator.next();
+        Iterator<MapObject> objIterator = objects.iterator();
+        while (objIterator.hasNext()) {
+            MapObject obj = objIterator.next();
             if (obj instanceof RectangleMapObject && type.equals("box2D")) {
                 Rectangle rect = ((RectangleMapObject) obj).getRectangle();
                 createSolidBox(rect);
@@ -94,19 +94,42 @@ public class WorldMap {
      * @return x-position of the mapobject
      */
     private float getXPosition(MapObject obj) {
-        return obj.getProperties().get("x", Float.class)/PIXELS_PER_METER;
+        return obj.getProperties().get("x", Float.class) / PIXELS_PER_METER;
     }
 
     /**
      * Returns the y-position of a given MapObject.
-     * 
+     *
      * @param obj
      *            : the map object for which the y-position should be retrieved
      * @return y-position of the mapobject
      */
     private float getYPosition(MapObject obj) {
-        return obj.getProperties().get("y", Float.class)/PIXELS_PER_METER;
+        return obj.getProperties().get("y", Float.class) / PIXELS_PER_METER;
     }
+
+    /**
+     * Returns the width of a given MapObject.
+     *
+     * @param obj
+     *            : the map object for which the width should be retrieved
+     * @return width of the mapobject
+     */
+    private float getWidth(RectangleMapObject obj) {
+        return obj.getProperties().get("width", Float.class) / PIXELS_PER_METER;
+    }
+
+    /**
+     * Returns the height of a given MapObject.
+     *
+     * @param obj
+     *            : the map object for which the height should be retrieved
+     * @return height of the mapobject
+     */
+    private float getHeight(RectangleMapObject obj) {
+       return obj.getProperties().get("height", Float.class) / PIXELS_PER_METER;
+    }
+
 
     /**
      * Return the (spawning) angle of a given MapObject (default is zero).
@@ -117,14 +140,15 @@ public class WorldMap {
      */
     private float getAngle(MapObject obj) {
         if (obj.getProperties().get("angle") != null) {
-            return Float.parseFloat(obj.getProperties().get("angle",String.class));
+            return Float.parseFloat(
+                    obj.getProperties().get("angle", String.class));
         }
         // Default angle is zero
         return 0;
     }
 
     /**
-     * Creates a solid box in the map's world given a Rectangle specifying the
+     * Creates a solid box in the map's world given a Rectangle.
      *
      * @param r
      *            : rectangle specifying width, height and position
