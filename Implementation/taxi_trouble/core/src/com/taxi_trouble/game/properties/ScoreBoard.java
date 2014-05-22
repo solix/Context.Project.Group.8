@@ -12,7 +12,7 @@ public class ScoreBoard{
 	private static String scoreName;
 	
 	public void createScoreBoard(){
-		score=10;
+		score=0;
 		scoreName="Score  "+ getScore();
 		scoreFont=new BitmapFont();
 		
