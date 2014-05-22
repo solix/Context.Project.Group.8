@@ -46,9 +46,11 @@ public class GameWorld extends Game {
         ResourceManager.loadTaxiAndWheelSprites();
         taxi = map.getSpawner().spawnTaxi(world);
         
+
         score.createScoreBoard();
         setScreen(new DriverScreen(this));
         
+
     }
 
     @Override

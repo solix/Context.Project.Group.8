@@ -26,9 +26,11 @@ public abstract class ViewObserver implements Screen {
 	//animation
 	float statetime;
 	SpriteBatch batch;
+
 	
 	//scoreboard
 	ScoreBoard score=new ScoreBoard();
+
 	/**
 	 * Constructor for creating game Screen
 	 * 
@@ -71,10 +73,12 @@ public abstract class ViewObserver implements Screen {
         
         //Render the taxi sprites using the spriteBatch
         taxi.render(getSpriteBatch());
+
         score.render();
         
         
         
+
         
         //animates passenger
         //statetime+=Gdx.graphics.getDeltaTime();
