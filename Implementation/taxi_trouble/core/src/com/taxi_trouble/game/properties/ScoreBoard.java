@@ -23,7 +23,7 @@ public class ScoreBoard{
 		scoreBatch.begin();
 		scoreFont.setColor(1.0f,1.0f,1.0f,1.0f);
 		scoreFont.draw(scoreBatch, scoreName, 0, 0);
-		scoreBatch.end();
+		scoreBatch.end();  
 		
 	}
 	
