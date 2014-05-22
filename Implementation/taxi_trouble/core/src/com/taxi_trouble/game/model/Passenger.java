@@ -163,7 +163,6 @@ public class Passenger {
      * @param spriteBatch
      */
     public void render(SpriteBatch spriteBatch) {
-<<<<<<< HEAD
     	//statetime+=Gdx.graphics.getDeltaTime(); 
        // ResourceManager.loadPassengerAnimation(Gdx.files.internal("sprites/spriteSheet/character1_spritesheet.png"));
        // ResourceManager.current_passenger_frame=ResourceManager.loading_passenger_animation.getKeyFrame(statetime, true);
@@ -176,7 +175,6 @@ public class Passenger {
                 * MathUtils.radiansToDegrees);
         sprite.setScale(PIXELS_PER_METER);
        sprite.draw(spriteBatch);
-=======
     	statetime+=Gdx.graphics.getDeltaTime(); 
         ResourceManager.loadPassengerAnimation(Gdx.files.internal("sprites/spriteSheet/character1_spritesheet.png"));
         ResourceManager.current_passenger_frame=ResourceManager.loading_passenger_animation.getKeyFrame(statetime, true);
@@ -191,7 +189,7 @@ public class Passenger {
 //                * MathUtils.radiansToDegrees);
 //        sprite.setScale(PIXELS_PER_METER);
 //        sprite.draw(spriteBatch);
->>>>>>> 25e3747efb26aefb3e0f2947bae5250dff8efe08
+
 
         spriteBatch.end();
     }
