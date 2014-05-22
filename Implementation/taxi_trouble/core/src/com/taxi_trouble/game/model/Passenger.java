@@ -5,7 +5,6 @@ import static com.taxi_trouble.game.properties.GameProperties.PIXELS_PER_METER;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -15,10 +14,11 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.Character;
 
 /**
- * A passenger which can be transported by a taxi to a certain destination when picked up.
- *
+ * A passenger which can be transported by a taxi to a certain destination when
+ * picked up.
+ * 
  * @author Computer Games Project Group 8
- *
+ * 
  */
 public class Passenger {
     private float width, height;
@@ -31,7 +31,7 @@ public class Passenger {
 
     /**
      * Initializes a new passenger.
-     *
+     * 
      * @param world
      *            : the world in which the passenger is placed
      * @param width
@@ -55,7 +55,7 @@ public class Passenger {
 
     /**
      * Initialize the body of the solid passenger.
-     *
+     * 
      * @param world
      *            : the world in which the solid passenger is placed
      * @param position
@@ -73,7 +73,7 @@ public class Passenger {
 
     /**
      * Retrieves the fixture for the body of the solid passenger.
-     *
+     * 
      */
     private void InitFixtureDef() {
         FixtureDef fixtureDef = new FixtureDef();
@@ -89,7 +89,7 @@ public class Passenger {
 
     /**
      * Retrieves the width of the passenger.
-     *
+     * 
      * @return width
      */
     public float getWidth() {
@@ -98,7 +98,7 @@ public class Passenger {
 
     /**
      * Retrieves the height of the passenger.
-     *
+     * 
      * @return height
      */
     public float getHeight() {
@@ -107,7 +107,7 @@ public class Passenger {
 
     /**
      * Retrieves the body of the passenger.
-     *
+     * 
      * @return body
      */
     public Body getBody() {
@@ -116,7 +116,7 @@ public class Passenger {
 
     /**
      * Changes the body of the passenger to the specified body.
-     *
+     * 
      * @param body
      */
     public void setBody(Body body) {
@@ -141,14 +141,20 @@ public class Passenger {
     public float getYPosition() {
         return this.getBody().getPosition().y;
     }
-    
-    /**Sets the position of a passenger.
+
+    /**
+     * Sets the position of a passenger.
      * 
-     * @param position : the position of the passenger
+     * @param position
+     *            : the position of the passenger
      */
     public void setPosition(Vector2 position) {
         this.getBody().getPosition().x = position.x;
         this.getBody().getPosition().y = position.y;
+    }
+
+    public Vector2 getPosition() {
+        return this.getBody().getPosition();
     }
 
     /**
@@ -162,19 +168,21 @@ public class Passenger {
         this.passengerSprite = passSprite;
     }
 
-    /**Set the transporter of the passenger.
-     *
+    /**
+     * Set the transporter of the passenger.
+     * 
      */
     public void setTransporter(Taxi transporter) {
         this.transporter = transporter;
     }
 
-    /**Make the passenger lose its transporter, i.e. get out of the taxi.
-     *
+    /**
+     * Make the passenger lose its transporter, i.e. get out of the taxi.
+     * 
      */
     public void cancelTransport() {
-        //this.transporter.dropOffPassenger();
-        //this.transporter = null;
+        // this.transporter.dropOffPassenger();
+        // this.transporter = null;
     }
 
     /**
@@ -184,33 +192,41 @@ public class Passenger {
         spawnPoint.setActive(false);
     }
 
-    /**Set the passengers destination.
-     *
-     * @param dest : the destination to be set
+    /**
+     * Set the passengers destination.
+     * 
+     * @param dest
+     *            : the destination to be set
      */
     public void setDestination(Destination dest) {
-        //The destination of a passenger can only be set once
+        // The destination of a passenger can only be set once
         if (this.destination == null) {
             this.destination = dest;
         }
     }
 
-    /**Retrieves the passenger its destination.
-     *
+    /**
+     * Retrieves the passenger its destination.
+     * 
      * @return destination : the passenger destination
      */
     public Destination getDestination() {
         return this.destination;
     }
 
+    public Vector2 getStartPosition() {
+        return this.spawnPoint.getPosition();
+    }
+
     /**
      * Renders the sprite(s) of the passenger.
-     *
+     * 
      * @param spriteBatch
      */
     public void render(SpriteBatch spriteBatch) {
         if (this.transporter != null) {
-            this.body.setLinearVelocity(transporter.getBody().getLinearVelocity());
+            this.body.setLinearVelocity(transporter.getBody()
+                    .getLinearVelocity());
         }
         spriteBatch.begin();
         passengerSprite.setPosition(this.getXPosition() * PIXELS_PER_METER,

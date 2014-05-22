@@ -25,12 +25,15 @@ public class CollisionDetector implements ContactListener {
         Object collider = contact.getFixtureA().getBody().getUserData();
         Object collidee = contact.getFixtureB().getBody().getUserData();
         if (collider instanceof Taxi) {
-            if (collidee instanceof Passenger
-                    && !((Taxi) collider).pickedUpPassenger()) {
-                ((Taxi) collider).pickUpPassenger((Passenger) collidee);
-            }
-            if (collidee instanceof Destination) {
+            if (collidee instanceof Destination
+                    && ((Taxi) collider).pickedUpPassenger()) {
                 ((Taxi) collider).dropOffPassenger((Destination) collidee, map);
+            }
+            if (collidee instanceof Passenger
+                    && !((Taxi) collider).pickedUpPassenger()
+                    && ((Passenger) collidee).getStartPosition().equals(
+                            ((Passenger) collidee).getPosition())) {
+                ((Taxi) collider).pickUpPassenger((Passenger) collidee);
             }
         }
     }
