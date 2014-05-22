@@ -163,9 +163,9 @@ public class Passenger {
      * @param spriteBatch
      */
     public void render(SpriteBatch spriteBatch) {
-    	statetime+=Gdx.graphics.getDeltaTime(); 
-        ResourceManager.loadPassengerAnimation(Gdx.files.internal("sprites/spriteSheet/character1_spritesheet.png"));
-        ResourceManager.current_passenger_frame=ResourceManager.loading_passenger_animation.getKeyFrame(statetime, true);
+    	//statetime+=Gdx.graphics.getDeltaTime(); 
+       // ResourceManager.loadPassengerAnimation(Gdx.files.internal("sprites/spriteSheet/character1_spritesheet.png"));
+       // ResourceManager.current_passenger_frame=ResourceManager.loading_passenger_animation.getKeyFrame(statetime, true);
     	spriteBatch.begin();
         //spriteBatch.draw(ResourceManager.current_passenger_frame,this.getXPosition() * PIXELS_PER_METER,this.getYPosition() * PIXELS_PER_METER);
         

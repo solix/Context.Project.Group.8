@@ -22,7 +22,7 @@ public class ScoreBoard{
 		SpriteBatch scoreBatch=new SpriteBatch();
 		scoreBatch.begin();
 		scoreFont.setColor(1.0f,1.0f,1.0f,1.0f);
-		scoreFont.draw(scoreBatch, scoreName, 0, 0);
+		scoreFont.draw(scoreBatch, scoreName, 10, GameProperties.screenHeight -10);
 		scoreBatch.end();  
 		
 	}
