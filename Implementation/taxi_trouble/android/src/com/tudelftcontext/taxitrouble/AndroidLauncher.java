@@ -51,27 +51,9 @@ public class AndroidLauncher extends AndroidApplication implements
 	}
 
 	@Override
-	public void onActivityResult(int request, int response, Intent intent) {
-	    if (request == RC_WAITING_ROOM) {
-	        if (response == Activity.RESULT_OK) {
-	            // (start game)
-	        }
-	        else if (response == Activity.RESULT_CANCELED) {
-	            // Waiting room was dismissed with the back button. The meaning of this
-	            // action is up to the game. You may choose to leave the room and cancel the
-	            // match, or do something else like minimize the waiting room and
-	            // continue to connect in the background.
-
-	            // in this example, we take the simple approach and just leave the room:
-	            Games.RealTimeMultiplayer.leave(getApiClient(), null, mRoomId);
-	            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-	        }
-	        else if (response == GamesActivityResultCodes.RESULT_LEFT_ROOM) {
-	            // player wants to leave the room.
-	            Games.RealTimeMultiplayer.leave(getApiClient(), null, mRoomId);
-	            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-	        }
-	    }
+	public void onActivityResult(int request, int response, Intent data) {
+		super.onActivityResult(request, response, data);
+		aHelper.onActivityResult(request, response, data);
 	}
 
 	public void onSignInFailed() {
@@ -110,7 +92,7 @@ public class AndroidLauncher extends AndroidApplication implements
 	private void startQuickGame() {
 	    // auto-match criteria to invite one random automatch opponent.  
 	    // You can also specify more opponents (up to 3). 
-	    Bundle am = RoomConfig.createAutoMatchCriteria(1, 1, 0);
+	    Bundle am = RoomConfig.createAutoMatchCriteria(3, 3, 0);
 
 	    // build the room config:
 	    RoomConfig.Builder roomConfigBuilder = makeBasicRoomConfigBuilder();
