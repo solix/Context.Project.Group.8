@@ -13,7 +13,7 @@ public class ScoreBoard{
 	
 	public void createScoreBoard(){
 		score=0;
-		scoreName="score : 0";
+		scoreName="Score  0";
 		scoreFont=new BitmapFont();
 		
 	}
@@ -21,7 +21,7 @@ public class ScoreBoard{
 	public void render(){
 		SpriteBatch scoreBatch=new SpriteBatch();
 		scoreBatch.begin();
-		scoreFont.setColor(1.0f,1.0f,1.0f,1.0f);
+		scoreFont.setColor(0.0f, 0.0f, 1.0f, 1.0f);
 		scoreFont.draw(scoreBatch, scoreName, 10, GameProperties.screenHeight -10);
 		scoreBatch.end();  
 		
