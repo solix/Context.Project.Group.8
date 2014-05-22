@@ -1,5 +1,6 @@
 package com.tudelftcontext.taxitrouble;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,9 +8,9 @@ import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 import com.google.example.games.basegameutils.BaseGameActivity;
+import com.google.example.games.basegameutils.GameHelper;
 
 public class LoginActivity extends BaseGameActivity implements OnClickListener {
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -18,7 +19,6 @@ public class LoginActivity extends BaseGameActivity implements OnClickListener {
 		findViewById(R.id.sign_out_button).setOnClickListener(this);
 	}
 
-	@Override
 	public void onSignInFailed() {
 		// Sign in has failed. So show the user the sign-in button.
 		findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
@@ -28,7 +28,6 @@ public class LoginActivity extends BaseGameActivity implements OnClickListener {
 				Toast.LENGTH_LONG).show();
 	}
 
-	@Override
 	public void onSignInSucceeded() {
 		// show sign-out button, hide the sign-in button
 		findViewById(R.id.sign_in_button).setVisibility(View.GONE);
@@ -40,7 +39,6 @@ public class LoginActivity extends BaseGameActivity implements OnClickListener {
 		startActivity(new Intent(this, GameActivity.class));
 	}
 
-	@Override
 	public void onClick(View view) {
 		if (view.getId() == R.id.sign_in_button) {
 			// start the asynchronous sign in flow
@@ -54,4 +52,5 @@ public class LoginActivity extends BaseGameActivity implements OnClickListener {
 			findViewById(R.id.sign_out_button).setVisibility(View.GONE);
 		}
 	}
+	
 }
