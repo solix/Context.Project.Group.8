@@ -31,9 +31,11 @@ public class GameWorld extends Game {
     @Override
     public void create() {
         world = new World(new Vector2(0.0f, 0.0f), true);
+       TaxiJukebox.createMusicInGame("sound/bobmar.mp3", "BobMarley");
+       TaxiJukebox.createMusicInGame("sound/street.mp3", "street");
+       
         ResourceManager.loadMap();
         map = new WorldMap(ResourceManager.mapFile, world);
-        TaxiJukebox.loadMusic("sound/s.ogg", "sampleMusic");
         
         ResourceManager.loadCharSprites();
         passengers = new ArrayList<Passenger>();
@@ -55,9 +57,9 @@ public class GameWorld extends Game {
             Passenger pas = map.getSpawner().spawnPassenger(world);
             passengers.add(pas);
         }
-
+    
     }
-
+  
     /**
      * Retrieves the game world map.
      * 

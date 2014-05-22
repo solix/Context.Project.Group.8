@@ -54,8 +54,9 @@ public class TaxiJukebox {
 		musics.get(name).play();
 	}
 	
-	public static void loopMusic(String name){
-		musics.get(name).play();
+	public static void loopMusic(String musicname,boolean t){
+		musics.get(musicname).setLooping(true);
+		musics.get(musicname).play();
 	}
 	
 	public static void stopMusic(String name){
@@ -90,6 +91,16 @@ public class TaxiJukebox {
 			System.out.println("The music is playing");
 		}
 		return musics.get(musicname).isPlaying();	
+		
+	}
+	public static void createMusicInGame(String path,String musicName){
+        
+		
+	TaxiJukebox.loadMusic(path,musicName);
+
+    	
+    }
+	public static void renderSound(){
 		
 	}
 	

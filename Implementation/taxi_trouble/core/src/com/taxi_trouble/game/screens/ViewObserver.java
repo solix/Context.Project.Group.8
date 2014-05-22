@@ -1,5 +1,7 @@
 package com.taxi_trouble.game.screens;
 
+import sun.text.resources.uk.JavaTimeSupplementary_uk;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,6 +11,7 @@ import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.WorldMap;
 import com.taxi_trouble.game.properties.GameProperties;
 import com.taxi_trouble.game.properties.ScoreBoard;
+import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**Basic class for extending independent screen of the game
  * 
@@ -40,6 +43,14 @@ public abstract class ViewObserver implements Screen {
 	public void show() {
 	    this.taxi = taxigame.getTaxi();
 	    this.cityMap = taxigame.getMap();
+	    TaxiJukebox.loopMusic("BobMarley",true);
+	    TaxiJukebox.playMusic("BobMarley");
+	    TaxiJukebox.loopMusic("street",true);
+	    TaxiJukebox.playMusic("street");
+	    TaxiJukebox.setMusicVolume("BobMarley", 0.8f);
+	    TaxiJukebox.setMusicVolume("street", 0.4f);
+
+	    
 	    //TODO: Also retrieve and render the other taxis in the game.
 	}
 	
@@ -64,8 +75,9 @@ public abstract class ViewObserver implements Screen {
         taxi.render(getSpriteBatch());
         //Render score top left
         score.render();
+        
 	}
-	
+
 	/**Retrieve the spriteBatch that should be used.
 	 * 
 	 * @return spriteBatch
