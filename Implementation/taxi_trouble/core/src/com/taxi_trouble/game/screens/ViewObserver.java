@@ -43,8 +43,14 @@ public abstract class ViewObserver implements Screen {
 	public void show() {
 	    this.taxi = taxigame.getTaxi();
 	    this.cityMap = taxigame.getMap();
-	    TaxiJukebox.loopMusic("DigDug",true);
-	    TaxiJukebox.playMusic("DigDug");
+	    TaxiJukebox.loopMusic("BobMarley",true);
+	    TaxiJukebox.playMusic("BobMarley");
+	    TaxiJukebox.loopMusic("street",true);
+	    TaxiJukebox.playMusic("street");
+	    TaxiJukebox.setMusicVolume("BobMarley", 0.8f);
+	    TaxiJukebox.setMusicVolume("street", 0.4f);
+
+	    
 	    //TODO: Also retrieve and render the other taxis in the game.
 	}
 	

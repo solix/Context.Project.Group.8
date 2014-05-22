@@ -31,7 +31,8 @@ public class GameWorld extends Game {
     @Override
     public void create() {
         world = new World(new Vector2(0.0f, 0.0f), true);
-       TaxiJukebox.createMusicInGame("sound/DigDug.mp3", "DigDug");
+       TaxiJukebox.createMusicInGame("sound/bobmar.mp3", "BobMarley");
+       TaxiJukebox.createMusicInGame("sound/street.mp3", "street");
        
         ResourceManager.loadMap();
         map = new WorldMap(ResourceManager.mapFile, world);
