@@ -9,6 +9,7 @@ import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.WorldMap;
 import com.taxi_trouble.game.properties.GameProperties;
 import com.taxi_trouble.game.properties.ResourceManager;
+import com.taxi_trouble.game.properties.ScoreBoard;
 
 /**Basic class for extending independent screen of the game
  * 
@@ -25,6 +26,9 @@ public abstract class ViewObserver implements Screen {
 	//animation
 	float statetime;
 	SpriteBatch batch;
+	
+	//scoreboard
+	ScoreBoard score=new ScoreBoard();
 	/**
 	 * Constructor for creating game Screen
 	 * 
@@ -67,6 +71,10 @@ public abstract class ViewObserver implements Screen {
         
         //Render the taxi sprites using the spriteBatch
         taxi.render(getSpriteBatch());
+        score.render();
+        
+        
+        
         
         //animates passenger
         //statetime+=Gdx.graphics.getDeltaTime();
