@@ -438,8 +438,10 @@ public class Taxi {
 		Vector2 baseVector = new Vector2(0, 0);
 		switch (this.getAccelerate()) {
 		case ACC_ACCELERATE:
+		    if (this.getLocalVelocity().y > 0)
+		        baseVector = new Vector2(0f, -1.3f);
 			if (this.getSpeedKMH() < this.getMaxSpeed())
-				baseVector = new Vector2(0, -1);
+				baseVector = new Vector2(0, -1.5f);
 			break;
 		case ACC_BRAKE:
 			if (this.getLocalVelocity().y < 0)
