@@ -10,6 +10,7 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.GamesStatusCodes;
+import com.google.android.gms.games.multiplayer.Participant;
 import com.google.android.gms.games.multiplayer.realtime.RealTimeMessage;
 import com.google.android.gms.games.multiplayer.realtime.RealTimeMessageReceivedListener;
 import com.google.android.gms.games.multiplayer.realtime.Room;
@@ -92,7 +93,7 @@ public class AndroidLauncher extends AndroidApplication implements
 	private void startQuickGame() {
 	    // auto-match criteria to invite one random automatch opponent.  
 	    // You can also specify more opponents (up to 3). 
-	    Bundle am = RoomConfig.createAutoMatchCriteria(3, 3, 0);
+	    Bundle am = RoomConfig.createAutoMatchCriteria(1, 3, 0);
 
 	    // build the room config:
 	    RoomConfig.Builder roomConfigBuilder = makeBasicRoomConfigBuilder();
@@ -168,11 +169,6 @@ public class AndroidLauncher extends AndroidApplication implements
 		
 	}
 
-	@Override
-	public void onPeerDeclined(Room arg0, List<String> arg1) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void onPeerInvitedToRoom(Room arg0, List<String> arg1) {
@@ -182,24 +178,6 @@ public class AndroidLauncher extends AndroidApplication implements
 
 	@Override
 	public void onPeerJoined(Room arg0, List<String> arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onPeerLeft(Room arg0, List<String> arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onPeersConnected(Room arg0, List<String> arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onPeersDisconnected(Room arg0, List<String> arg1) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -228,7 +206,7 @@ public class AndroidLauncher extends AndroidApplication implements
 	    }
 
 	    // get waiting room intent
-	    Intent i = Games.RealTimeMultiplayer.getWaitingRoomIntent(aHelper.getApiClient(), room, 4 );
+	    Intent i = Games.RealTimeMultiplayer.getWaitingRoomIntent(aHelper.getApiClient(), room, 2 );
 	    startActivityForResult(i, RC_WAITING_ROOM);
 	}
 
@@ -238,11 +216,7 @@ public class AndroidLauncher extends AndroidApplication implements
 		
 	}
 
-	@Override
-	public void onRoomConnected(int arg0, Room arg1) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	public void onRoomCreated(int statusCode, Room room) {
@@ -253,7 +227,87 @@ public class AndroidLauncher extends AndroidApplication implements
 	    }
 
 	    // get waiting room intent
-	    Intent i = Games.RealTimeMultiplayer.getWaitingRoomIntent(aHelper.getApiClient(), room, 4);
+	    Intent i = Games.RealTimeMultiplayer.getWaitingRoomIntent(aHelper.getApiClient(), room, 2);
 	    startActivityForResult(i, RC_WAITING_ROOM);
+	}
+	
+
+
+
+	@Override
+	public void onRoomConnected(int statusCode, Room room) {
+		System.out.println("room connected!!");
+	    if (statusCode != GamesStatusCodes.STATUS_OK) {
+	        // let screen go to sleep
+	        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+	        // show error message, return to main screen.
+	    }
+	}
+	
+	// are we already playing?
+	boolean mPlaying = false;
+
+	// at least 2 players required for our game
+	final static int MIN_PLAYERS = 2;
+
+	// returns whether there are enough players to start the game
+	boolean shouldStartGame(Room room) {
+	    int connectedPlayers = 0;
+	    for (Participant p : room.getParticipants()) {
+	        if (p.isConnectedToRoom()) ++connectedPlayers;
+	    }
+	    return connectedPlayers >= MIN_PLAYERS;
+	}
+
+	// Returns whether the room is in a state where the game should be canceled.
+	boolean shouldCancelGame(Room room) {
+	    // TODO: Your game-specific cancellation logic here. For example, you might decide to 
+	    // cancel the game if enough people have declined the invitation or left the room.
+	    // You can check a participant's status with Participant.getStatus().
+	    // (Also, your UI should have a Cancel button that cancels the game too)
+		return false;
+	}
+
+	@Override
+	public void onPeersConnected(Room room, List<String> peers) {
+	    if (mPlaying) {
+	        // add new player to an ongoing game
+	    }
+	    else if (shouldStartGame(room)) {
+	        // start game!
+	    }
+	}
+
+	@Override
+	public void onPeersDisconnected(Room room, List<String> peers) {
+	    if (mPlaying) {
+	        // do game-specific handling of this -- remove player's avatar 
+	        // from the screen, etc. If not enough players are left for
+	        // the game to go on, end the game and leave the room.
+	    }
+	    else if (shouldCancelGame(room)) {
+	        // cancel the game
+	        Games.RealTimeMultiplayer.leave(aHelper.getApiClient(), null, room.getRoomId());
+	        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+	    }
+	}
+
+	@Override
+	public void onPeerLeft(Room room, List<String> peers) {
+	    // peer left -- see if game should be canceled
+	    if (!mPlaying && shouldCancelGame(room)) {
+	        Games.RealTimeMultiplayer.leave(aHelper.getApiClient(), null, room.getRoomId());
+	        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+	    }
+	}
+
+	@Override
+	public void onPeerDeclined(Room room, List<String> peers) {
+	    // peer declined invitation -- see if game should be canceled
+	    if (!mPlaying && shouldCancelGame(room)) {
+	        Games.RealTimeMultiplayer.leave(aHelper.getApiClient(), null, room.getRoomId());
+	        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+	    }
 	}
 }
