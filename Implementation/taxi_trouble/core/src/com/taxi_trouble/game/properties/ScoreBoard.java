@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class ScoreBoard{
 
-	private static int score;
+	public static int score;
 	private static BitmapFont scoreFont;
 	private static String scoreName;
 	
@@ -27,5 +27,8 @@ public class ScoreBoard{
 		
 	}
 	
+	public int getScore(){
+		return score;
+	}
 
 }
