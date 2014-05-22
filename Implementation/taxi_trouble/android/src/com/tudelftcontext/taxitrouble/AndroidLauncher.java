@@ -1,5 +1,6 @@
 package com.tudelftcontext.taxitrouble;
 
+import java.util.Collections;
 import java.util.List;
 
 import android.content.Intent;
@@ -29,6 +30,9 @@ public class AndroidLauncher extends AndroidApplication implements
 
 	private GameHelper aHelper;
 	private boolean iAmHost = false;
+	private String mMyId;
+	private boolean driver;
+	private GameWorld gameWorld;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -38,7 +42,8 @@ public class AndroidLauncher extends AndroidApplication implements
 		AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
 		// cfg.useGL20 = false;
 		aHelper.setup(this);
-		initialize(new GameWorld(this), cfg);
+		gameWorld = new GameWorld(this);
+		initialize(gameWorld, cfg);
 	}
 
 	@Override
@@ -116,8 +121,6 @@ public class AndroidLauncher extends AndroidApplication implements
 		builder.setMessageReceivedListener(this);
 		builder.setRoomStatusUpdateListener(this);
 
-		// ...add other listeners as needed...
-
 		return builder;
 	}
 
@@ -147,9 +150,9 @@ public class AndroidLauncher extends AndroidApplication implements
 	}
 
 	@Override
-	public void onConnectedToRoom(Room arg0) {
-		// TODO Auto-generated method stub
-
+	public void onConnectedToRoom(Room room) {
+		mMyId = room.getParticipantId(Games.Players.getCurrentPlayerId(aHelper
+				.getApiClient()));
 	}
 
 	@Override
@@ -241,6 +244,13 @@ public class AndroidLauncher extends AndroidApplication implements
 
 			// show error message, return to main screen.
 		}
+		Collections.sort(room.getParticipantIds());
+		if (room.getParticipantIds().get(0) == mMyId) {
+			driver = true;
+		} else {
+			driver = false;
+		}
+		gameWorld.setScreen(driver);
 	}
 
 	// are we already playing?
@@ -276,15 +286,6 @@ public class AndroidLauncher extends AndroidApplication implements
 			// add new player to an ongoing game
 		} else if (shouldStartGame(room)) {
 			// start game!
-		}
-
-		if (room.getParticipants().size() == 1) {
-			iAmHost = true;
-		} else if (room.getParticipants().size() == 2) {
-			Games.RealTimeMultiplayer.sendReliableMessage(
-					aHelper.getApiClient(), null, "test".getBytes(),
-					room.getRoomId(), room.getParticipants().get(1)
-							.getParticipantId());
 		}
 	}
 

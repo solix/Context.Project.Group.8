@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.gdxGooglePlay.GooglePlayInterface;
 import com.taxi_trouble.game.properties.ResourceManager;
+import com.taxi_trouble.game.screens.DriverScreen;
 import com.taxi_trouble.game.screens.NavigatorScreen;
 import com.taxi_trouble.game.sound.TaxiJukebox;
 
@@ -72,5 +73,13 @@ public class GameWorld extends Game {
 	 */
 	public World getWorld() {
 		return this.world;
+	}
+
+	public void setScreen(boolean driver) {
+		if (driver) {
+			setScreen(new DriverScreen(this));
+		} else {
+			setScreen(new NavigatorScreen(this));
+		}
 	}
 }
