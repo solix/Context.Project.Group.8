@@ -210,7 +210,6 @@ public class Passenger {
      */
     public void render(SpriteBatch spriteBatch) {
         if (this.transporter != null) {
-            System.out.println("MOVE: " + getXPosition() + " " + getYPosition());
             this.body.setLinearVelocity(transporter.getBody().getLinearVelocity());
         }
         spriteBatch.begin();

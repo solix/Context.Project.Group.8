@@ -40,6 +40,7 @@ public class Destination {
     private void initializeBody(World world, Vector2 position) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(position);
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
         this.setBody(world.createBody(bodyDef));
         initFixtureDef();
     }
@@ -52,6 +53,7 @@ public class Destination {
         PolygonShape destShape = new PolygonShape();
         destShape.setAsBox(this.width / 2, this.height / 2);
         fixtureDef.shape = destShape;
+        fixtureDef.isSensor = true;
         fixtureDef.restitution = 0f;
         this.body.createFixture(fixtureDef);
         destShape.dispose();

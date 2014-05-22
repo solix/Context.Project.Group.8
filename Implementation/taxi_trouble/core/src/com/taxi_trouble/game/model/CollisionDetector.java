@@ -30,6 +30,7 @@ public class CollisionDetector implements ContactListener {
         }
         if (collider instanceof Taxi) {
             if (collidee instanceof Destination) {
+                System.out.println("DROPPING OF!");
                 ((Taxi) collider).dropOffPassenger((Destination) collidee, map);
             }
         }

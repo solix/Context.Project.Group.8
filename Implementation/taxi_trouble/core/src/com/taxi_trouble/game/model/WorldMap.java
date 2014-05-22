@@ -81,6 +81,8 @@ public class WorldMap {
             } else if (type.equals("destination-point")) {
                 SpawnPoint spawn = new SpawnPoint(getXPosition(obj),
                         getYPosition(obj), getAngle(obj));
+                spawn.setHeight(getHeight((RectangleMapObject) obj));
+                spawn.setWidth(getWidth((RectangleMapObject) obj));
                 spawner.addDestination(spawn);
             }
         }
@@ -116,7 +118,7 @@ public class WorldMap {
      * @return width of the mapobject
      */
     private float getWidth(RectangleMapObject obj) {
-        return obj.getProperties().get("width", Float.class) / PIXELS_PER_METER;
+        return obj.getRectangle().getWidth() / PIXELS_PER_METER;
     }
 
     /**
@@ -127,7 +129,7 @@ public class WorldMap {
      * @return height of the mapobject
      */
     private float getHeight(RectangleMapObject obj) {
-       return obj.getProperties().get("height", Float.class) / PIXELS_PER_METER;
+       return obj.getRectangle().getHeight() / PIXELS_PER_METER;
     }
 
 
