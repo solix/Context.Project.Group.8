@@ -5,10 +5,11 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
-/**Detects collisions on a map and performs the right actions accordingly.
- *
+/**
+ * Detects collisions on a map and performs the right actions accordingly.
+ * 
  * @author Computer Games Project Group 8
- *
+ * 
  */
 public class CollisionDetector implements ContactListener {
 
@@ -24,13 +25,11 @@ public class CollisionDetector implements ContactListener {
         Object collider = contact.getFixtureA().getBody().getUserData();
         Object collidee = contact.getFixtureB().getBody().getUserData();
         if (collider instanceof Taxi) {
-            if (collidee instanceof Passenger) {
+            if (collidee instanceof Passenger
+                    && !((Taxi) collider).pickedUpPassenger()) {
                 ((Taxi) collider).pickUpPassenger((Passenger) collidee);
             }
-        }
-        if (collider instanceof Taxi) {
             if (collidee instanceof Destination) {
-                System.out.println("DROPPING OF!");
                 ((Taxi) collider).dropOffPassenger((Destination) collidee, map);
             }
         }

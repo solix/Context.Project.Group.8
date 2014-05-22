@@ -1,6 +1,5 @@
 package com.taxi_trouble.game.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Game;
@@ -13,9 +12,9 @@ import com.taxi_trouble.game.sound.TaxiJukebox;
 /**
  * Provides the main model for all the elements of a game that is played.
  * (Please note: implementation will change when implementing multiplayer)
- *
+ * 
  * @author Computer Games Project Group 8
- *
+ * 
  */
 public class GameWorld extends Game {
     private World world;
@@ -43,17 +42,17 @@ public class GameWorld extends Game {
     @Override
     public final void render() {
         super.render();
-        //Spawn a new passenger if there are less than #taxis-1.
-        //TODO: Instead of '3' adapt to #taxis-1 in the game.
+        // Spawn a new passenger if there are less than #taxis-1.
+        // TODO: Instead of '3' adapt to #taxis-1 in the game.
         List<Passenger> passengers = map.getSpawner().getActivePassengers();
-        if (passengers.size() < 70) {
+        if (passengers.size() < 3) {
             map.getSpawner().spawnPassenger(world);
         }
     }
 
     /**
      * Retrieves the game world map.
-     *
+     * 
      * @return map
      */
     public final WorldMap getMap() {
@@ -62,7 +61,7 @@ public class GameWorld extends Game {
 
     /**
      * Retrieves the taxi that is steered.
-     *
+     * 
      * @return taxi
      */
     public final Taxi getTaxi() {
@@ -71,7 +70,7 @@ public class GameWorld extends Game {
 
     /**
      * Retrieves the world in which the game is played.
-     *
+     * 
      * @return world
      */
     public final World getWorld() {
@@ -80,7 +79,7 @@ public class GameWorld extends Game {
 
     /**
      * Retrieves the passengers that are currently in the game.
-     *
+     * 
      * @return passengers
      */
     public final List<Passenger> getPassengers() {

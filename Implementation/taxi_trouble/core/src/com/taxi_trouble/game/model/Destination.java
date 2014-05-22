@@ -5,7 +5,6 @@ import static com.taxi_trouble.game.properties.GameProperties.PIXELS_PER_METER;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -13,11 +12,12 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-/**After a passenger is picked by a taxi, the team corresponding to the taxi
+/**
+ * After a passenger is picked by a taxi, the team corresponding to the taxi
  * should see the destination to bring the passenger to.
- *
+ * 
  * @author Computer Games Project Group 8
- *
+ * 
  */
 public class Destination {
     private Body body;
@@ -29,11 +29,12 @@ public class Destination {
         this.width = width;
         this.height = height;
         initializeBody(world, new Vector2(x, y));
-        setSprite(new Sprite(new Texture("sprites/break.png")));
+        setSprite(new Sprite(new Texture("sprites/destination.png")));
     }
 
-    /**Initializes the body of this destination.
-     *
+    /**
+     * Initializes the body of this destination.
+     * 
      * @param world
      * @param vector2
      */
@@ -45,8 +46,9 @@ public class Destination {
         initFixtureDef();
     }
 
-    /**Initializes the fixture of the body.
-     *
+    /**
+     * Initializes the fixture of the body.
+     * 
      */
     private void initFixtureDef() {
         FixtureDef fixtureDef = new FixtureDef();
@@ -59,23 +61,26 @@ public class Destination {
         destShape.dispose();
     }
 
-    /**Retrieves the position of this destination.
-     *
+    /**
+     * Retrieves the position of this destination.
+     * 
      * @return position
      */
     public Vector2 getPosition() {
         return this.getBody().getPosition();
     }
 
-    /**Retrieves the x-position.
+    /**
+     * Retrieves the x-position.
      * 
      * @return x-position
      */
     public float getXPosition() {
         return this.getBody().getPosition().x;
     }
-    
-    /**Retrieves the y-position.
+
+    /**
+     * Retrieves the y-position.
      * 
      * @return y-position
      */
@@ -83,32 +88,38 @@ public class Destination {
         return this.getBody().getPosition().y;
     }
 
-    /**Retrieves the body of the destination.
+    /**
+     * Retrieves the body of the destination.
      * 
      * @return body
      */
     public Body getBody() {
         return this.body;
     }
-    
-    /**Sets the body of the destination.
+
+    /**
+     * Sets the body of the destination.
      * 
-     * @param body : the body to be set
+     * @param body
+     *            : the body to be set
      */
     public void setBody(Body body) {
         this.body = body;
+        this.body.setUserData(this);
     }
 
-    /**Retrieves the width of this destination.
-     *
+    /**
+     * Retrieves the width of this destination.
+     * 
      * @return width
      */
     public float getWidth() {
         return width;
     }
 
-    /**Retrieves the height of this destination.
-     *
+    /**
+     * Retrieves the height of this destination.
+     * 
      * @return height
      */
     public float getHeight() {
@@ -117,7 +128,7 @@ public class Destination {
 
     /**
      * Sets the sprite of the destination point.
-     *
+     * 
      * @param destSprite
      */
     public void setSprite(Sprite destSprite) {
