@@ -12,8 +12,8 @@ public class ScoreBoard{
 	private static String scoreName;
 	
 	public void createScoreBoard(){
-		score=0;
-		scoreName="Score  0";
+		score=10;
+		scoreName="Score  "+ getScore();
 		scoreFont=new BitmapFont();
 		
 	}
