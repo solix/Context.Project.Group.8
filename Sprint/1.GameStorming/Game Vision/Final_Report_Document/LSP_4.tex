@@ -55,7 +55,7 @@
 				\small{Aidan Mauricio \qquad amauricio\qquad 4195175}\\
 				\small{Joost van Oorschot\qquad jjevanoorschot\qquad  4220471}\\
 				\vspace{0.2cm}
-				\small{\textbf{Date:} 15 May 2014}
+				\small{\textbf{Date:} 23 May 2014}
 			\end{flushright}
 	\end{minipage}
 \end{figure}
@@ -75,7 +75,7 @@ The selected items of the backlog that we will be working on this comming week  
 \begin{itemize}
 	\item Adding multiplayer features
 	\item Implementing passenger stealing
-	\item Adding power-ups
+	\item Testing the implementation of the game
 \end{itemize}
 
 \section*{User stories}
@@ -94,39 +94,42 @@ As a driver\\
 Given that I do not have a passenger\\
 And I crash my car into a car that does have a passenger\\
 Then I steal the passenger of the other car\\\\
-\subsection*{Power-ups}
-As a navigator\\
-Given a power-up has spawned\\
-Then I can see the power-up on the map\\\\
-As a driver\\
-Given that a power-up has spawned\\
-And I drive over the power-up\\
-My navigator will be able to activate the powerup
+\subsection*{Testing}
+As a user\\ I want a tested and bug free game.
 \section*{List of tasks, assigned group members and estimation of effort}
 \textbf{Multiplayer} \\
 \begin{tabular}{ | l | l | l | }
 \hline
 \textbf{Task} & \textbf{Assigned to} & \textbf{estimated effort} \\ \hline
-Car location synchronization &  & 6 points\\ \hline
-Score synchronization & & 3 points\\ \hline
-End-of-game scoreboard & & 4 points\\ 
- \hline
+Car location synchronization & Joost \& Thijs & 5 points \\ \hline
+Implement client message protocol & Thijs \& Soheil & 5 points \\\hline
+Score synchronization & Rob & 3 points \\ \hline
 \end{tabular} \newline
 \newline \\
 \textbf{Passenger stealing} \\
 \begin{tabular}{ | l | l | l | }
 \hline
 \textbf{Task} & \textbf{Assigned to} & \textbf{estimated effort} \\ \hline
-Car collision detection & & 3 points\\ \hline
-Multiplayer integration & & 4 points\\ \hline
+Car collision detection & Rob & 3 points\\ \hline
+Dropping passenger and cancelling transport & Aidan \& Joost & 4 points\\ \hline
+Multiplayer integration & Aidan \& Soheil & 4 points\\ \hline
 \end{tabular}
-\newline \\
-\textbf{Power-ups} \\
+\newline\\\\
+\textbf{Testing}\\
 \begin{tabular}{ | l | l | l | }
 \hline
 \textbf{Task} & \textbf{Assigned to} & \textbf{estimated effort} \\ \hline
-Power-up spawning & & 2 points\\ \hline
-Adding power-up activation to navigator screen& & 2 points \\ \hline
-Various power-ups & & 3 points\\ \hline
+Expand test suite & Rob \& Aidan & 5 points \\
+ \hline
+ \end{tabular}
+
+\subsection*{Optional for this sprint}
+If there is time left in this sprint we will work on the following subtask as part of the multiplayer part of the game:\\\\
+\begin{tabular}{ | l | l | }
+\hline
+\textbf{Task} & \textbf{estimated effort} \\ \hline
+Show scoreboard at the end of a game & 4 points \\ \hline
+
 \end{tabular}
+
 \end{document}
