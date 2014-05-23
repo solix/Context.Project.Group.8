@@ -80,19 +80,20 @@ Creating a product is not as simple as having an idea of what to build and then 
 During the last few years, a new software engineering mantra arose: agile. Agile teaches us iterative, short-cycled development, which alleviates risk and makes for a more maintainable product. During the context project we will be using the agile method Scrum.
 
 Scrum development consists of a number of short development cycles called sprints. The result of each sprint is a working product. During the context project we will use Scrum to structure our development process. This document specifies our planning for the project, and it lists for each sprint what we want to finish at the end of that sprint. We also define a number of user stories that specify what use cases we want to implement in the game. Additionally, we will give a definition of when we consider work done.
+\pagebreak
 \section{Product}
 \subsection{High-level Product Backlog}
-The following lists contains all high level features that we will implement:
+The following lists contains all high level features that we will implement: (ordered  by priority)
 \begin{itemize}
 \item Drivable taxi with collisions
-\item Intuitive touch controls for the car
 \item Tiled, extensible world map
-\item A navigator screen
-\item Power-ups for the navigator
-\item 8-player multiplayer
-\item Teams of two (driver-navigator pair)
+\item Intuitive touch controls for the car
 \item Passengers to pick up and deliver
+\item A navigator screen
+\item Teams of two (driver-navigator pair)
+\item 8-player multiplayer
 \item Stealing passengers by ramming another car
+\item Power-ups for the navigator
 \end{itemize}
 \subsection{Road map}
 This section specifies the road map of the development of Taxi Trouble.
@@ -135,6 +136,7 @@ During this sprint we implement advanced gameplay mechanics.
 \begin{itemize}
 \item Implementing advanced gameplay (car collisions and passenger stealing)
 \item Further refining of the multiplayer.
+\item \textbf{First playable} with multiplayer, passenger pickup and dropoff and scores.
 \end{itemize}
 \item[Sprint 6] \hfill \\
 During this sprint we fine tune and polish the game.
@@ -143,6 +145,7 @@ During this sprint we fine tune and polish the game.
 \item Improvement of game graphics.
 \item Fixing any problems that still linger.
 \item If possible: implement additional features.
+\item \textbf{Beta release}
 \end{itemize}
 \item[Sprint 7] \hfill \\
 During this sprint we do user tests and we finalize the game.
@@ -151,6 +154,7 @@ During this sprint we do user tests and we finalize the game.
 \item Finalizing end product.
 \end{itemize}
 \end{description}
+\pagebreak
 \section{User stories}
 As a user\\
 Given that I have installed the app\\
@@ -188,6 +192,7 @@ Then I win that game\\\\
 As a navigator\\
 Given that there is a power-up on the map\\
 Then I can use that power-up to influence the game.\\\\
+\pagebreak
 \section{Definition of done}
 The final point that this document will reflect on is the definition that we have given to when certain aspects of development are 'done'. The aspects of development that we will focus one in this section are when a feature, a sprint, and a release are done.
 
@@ -196,6 +201,7 @@ A feature is considered done when the following requirements have been met. Firs
 A sprint is considered done, when all features of the sprint backlog are done, as specified in the previous paragraph. This means that all unit tests and the continuous integration test should pass. Additionally we will play the game to make sure that no hidden bugs are in the code, and that all user stories of the sprint backlog work as specified.
 
 A release, or rather the release of the end product, is considered done when all of the following requirements have been met. All features and sprints must be done as specified in the previous paragraphs. Also, user tests must have been performed to make sure that the user is satisfied with the product, and that the product meets the requirements of the user. Additional requirements are a positive result from the test performed by SIG, and gameplay that is considered fun by the user.
+\pagebreak
 \section{Glossary}
 \begin{description}
 \item[app] \hfill \\
