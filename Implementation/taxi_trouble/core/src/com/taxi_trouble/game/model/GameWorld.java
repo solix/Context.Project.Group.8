@@ -25,6 +25,8 @@ public class GameWorld extends Game {
 	// Temporary (may change when implementing multiplayer)
 	private Taxi taxi;
 	private GooglePlayInterface platformInterface;
+	private DriverScreen driverScreen;
+	private NavigatorScreen navigatorScreen;
 
 	public GameWorld(GooglePlayInterface aInterface) {
 		platformInterface = aInterface;
@@ -38,9 +40,10 @@ public class GameWorld extends Game {
 		map = new WorldMap(ResourceManager.mapFile, world);
 		taxi = new Taxi(2, 4, 20, 60, 60);
 		taxi.createBody(world, new Vector2(10, 10), (float) Math.PI);
-		setScreen(new NavigatorScreen(this));
+		// setScreen(new NavigatorScreen(this));
 		TaxiJukebox.loadMusic("sound/s.ogg", "sampleMusic");
-
+		driverScreen = new DriverScreen(this);
+		navigatorScreen = new NavigatorScreen(this);
 	}
 
 	@Override
@@ -77,9 +80,17 @@ public class GameWorld extends Game {
 
 	public void setScreen(boolean driver) {
 		if (driver) {
-			setScreen(new DriverScreen(this));
+			setScreen(driverScreen);
 		} else {
-			setScreen(new NavigatorScreen(this));
+			setScreen(navigatorScreen);
 		}
+	}
+
+	public void setTaxiLocation(int x, int y) {
+		navigatorScreen.updateTaxiLocation(x, y);
+	}
+
+	public void sendLocation(float f, float g) {
+		platformInterface.sendLocation(f, g);
 	}
 }

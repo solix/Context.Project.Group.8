@@ -1,7 +1,9 @@
 package com.taxi_trouble.game.screens;
 
+import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_HEIGHT;
+import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_WIDTH;
+
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,110 +16,112 @@ import com.taxi_trouble.game.model.WorldMap;
 import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.sound.TaxiJukebox;
 
-import static com.taxi_trouble.game.properties.GameProperties.*;
-
-/**Provides the view of the game for the driver of a taxi.
- *
+/**
+ * Provides the view of the game for the driver of a taxi.
+ * 
  * @author Computer Games Project Group 8
- *
+ * 
  */
 public class DriverScreen extends ViewObserver {
-    private TaxiCamera taxiCamera;
-    private Taxi taxi;
-    private OrthographicCamera virtualButtonsCamera;
-    private SpriteBatch spriteBatch;
-    private ControlsUI controlsUI;
-    private WorldMap cityMap;
-    private DriverControl driverControl;
-    private Box2DDebugRenderer debugRenderer;
+	private TaxiCamera taxiCamera;
+	private Taxi taxi;
+	private OrthographicCamera virtualButtonsCamera;
+	private SpriteBatch spriteBatch;
+	private ControlsUI controlsUI;
+	private WorldMap cityMap;
+	private DriverControl driverControl;
+	private GameWorld game;
+	private Box2DDebugRenderer debugRenderer;
 
-    /**
-     * Constructor creates game screen and adds camera to follow taxi.
-     * 
-     * @param game
-     */
-    public DriverScreen(GameWorld game) {
-        super(game);
-    }
+	/**
+	 * Constructor creates game screen and adds camera to follow taxi.
+	 * 
+	 * @param game
+	 */
+	public DriverScreen(GameWorld game) {
+		super(game);
+		this.game = game;
+	}
 
-    @Override
-    public void show() {
-        this.virtualButtonsCamera = new OrthographicCamera();
-        this.virtualButtonsCamera.setToOrtho(false, BUTTON_CAM_WIDTH, BUTTON_CAM_HEIGHT);
-        spriteBatch = new SpriteBatch();
-        debugRenderer = new Box2DDebugRenderer();
+	@Override
+	public void show() {
+		this.virtualButtonsCamera = new OrthographicCamera();
+		this.virtualButtonsCamera.setToOrtho(false, BUTTON_CAM_WIDTH,
+				BUTTON_CAM_HEIGHT);
+		spriteBatch = new SpriteBatch();
+		debugRenderer = new Box2DDebugRenderer();
 
-        // Initialize the taxi
-        this.taxi = taxigame.getTaxi();
-        this.taxiCamera = new TaxiCamera(taxi);
-        
-        // Load the UI for player input
-        this.controlsUI = new ControlsUI();
-        this.driverControl = new DriverControl(taxi, controlsUI);
-        Gdx.input.setInputProcessor(driverControl);
-        
-        // Load the map of the game
-        cityMap = taxigame.getMap();
-        
-        //Load the Sprites
-        ResourceManager.loadTaxiAndWheelSprites();
-        taxi.setSprite(ResourceManager.taxiSprite,ResourceManager.wheelSprite);
-        TaxiJukebox.playMusic("sampleMusic");
-        TaxiJukebox.setMusicVolume("sampleMusic", 0.4f);
-    }
+		// Initialize the taxi
+		this.taxi = taxigame.getTaxi();
+		this.taxiCamera = new TaxiCamera(taxi);
 
-    @Override
-    public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0.2f, 1);
-        Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
+		// Load the UI for player input
+		this.controlsUI = new ControlsUI();
+		this.driverControl = new DriverControl(taxi, controlsUI);
+		Gdx.input.setInputProcessor(driverControl);
 
-        //Update the taxiCamera's view
-        taxiCamera.update(cityMap);
+		// Load the map of the game
+		cityMap = taxigame.getMap();
 
-        // Tell the camera to update its matrices.
-        spriteBatch.setProjectionMatrix(taxiCamera.combined);
-        taxi.update(Gdx.app.getGraphics().getDeltaTime());
+		// Load the Sprites
+		ResourceManager.loadTaxiAndWheelSprites();
+		taxi.setSprite(ResourceManager.taxiSprite, ResourceManager.wheelSprite);
+		TaxiJukebox.playMusic("sampleMusic");
+		TaxiJukebox.setMusicVolume("sampleMusic", 0.4f);
+	}
 
-        taxigame.getWorld().step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
-        taxigame.getWorld().clearForces();
-        
-        cityMap.render(taxiCamera);
-        taxi.render(spriteBatch);
+	@Override
+	public void render(float delta) {
+		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
-        spriteBatch.setProjectionMatrix(virtualButtonsCamera.combined);
-        controlsUI.render(spriteBatch);
-        
-        //Try Outs must be deleted afterwards
-        //Temporarily disabled
-        //TaxiJukebox.playMusic("sampleMusic");
-        //TaxiJukebox.isPlaying("sampleMusic");
-        //TaxiJukebox.dispose("sampleMusic");
-        //TaxiJukebox.setMusicVolume("sampleMusic", 0.4f);
-        //End of tryouts        
-    }
+		// Update the taxiCamera's view
+		taxiCamera.update(cityMap);
 
-    @Override
-    public void hide() {
-        // TODO Auto-generated method stub
-    }
+		// Tell the camera to update its matrices.
+		spriteBatch.setProjectionMatrix(taxiCamera.combined);
+		taxi.update(Gdx.app.getGraphics().getDeltaTime());
 
-    @Override
-    public void pause() {
-        // TODO Auto-generated method stub
-    }
+		taxigame.getWorld().step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
+		taxigame.getWorld().clearForces();
 
-    @Override
-    public void resume() {
-        // TODO Auto-generated method stub
-    }
+		cityMap.render(taxiCamera);
+		taxi.render(spriteBatch);
+		game.sendLocation(taxi.getXPosition(), taxi.getYPosition());
 
-    @Override
-    public void dispose() {
-        spriteBatch.dispose();
-    }
+		spriteBatch.setProjectionMatrix(virtualButtonsCamera.combined);
+		controlsUI.render(spriteBatch);
+		// Try Outs must be deleted afterwards
+		// Temporarily disabled
+		// TaxiJukebox.playMusic("sampleMusic");
+		// TaxiJukebox.isPlaying("sampleMusic");
+		// TaxiJukebox.dispose("sampleMusic");
+		// TaxiJukebox.setMusicVolume("sampleMusic", 0.4f);
+		// End of tryouts
+	}
 
-    @Override
-    public void resize(int width, int height) {
-        taxiCamera.updateViewPort(width, height);
-    }
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void dispose() {
+		spriteBatch.dispose();
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		taxiCamera.updateViewPort(width, height);
+	}
 }

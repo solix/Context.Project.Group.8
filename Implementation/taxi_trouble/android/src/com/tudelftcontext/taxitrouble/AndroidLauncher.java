@@ -2,9 +2,11 @@ package com.tudelftcontext.taxitrouble;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -30,9 +32,10 @@ public class AndroidLauncher extends AndroidApplication implements
 
 	private GameHelper aHelper;
 	private boolean iAmHost = false;
-	private String mMyId;
+	private String myId;
 	private boolean driver;
 	private GameWorld gameWorld;
+	private String roomId;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,11 @@ public class AndroidLauncher extends AndroidApplication implements
 	public void onActivityResult(int request, int response, Intent data) {
 		super.onActivityResult(request, response, data);
 		aHelper.onActivityResult(request, response, data);
+		if (request == RC_WAITING_ROOM) {
+			Log.d("MULTI", "game started trough activityResult");
+			Log.d("MULTI", "driver:" + driver);
+			gameWorld.setScreen(driver);
+		}
 	}
 
 	public void onSignInFailed() {
@@ -112,8 +120,6 @@ public class AndroidLauncher extends AndroidApplication implements
 
 		// prevent screen from sleeping during handshake
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-		// go to game screen
 	}
 
 	private RoomConfig.Builder makeBasicRoomConfigBuilder() {
@@ -147,12 +153,25 @@ public class AndroidLauncher extends AndroidApplication implements
 		String message = new String(rtm.getMessageData());
 		Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG)
 				.show();
+
+		if (message.equals("DRIVER")) {
+			driver = true;
+		} else if (message.equals("NAVIGATOR")) {
+			driver = false;
+		} else {
+			Scanner sc = new Scanner(message);
+			int x = Integer.parseInt(sc.nextLine());
+			int y = Integer.parseInt(sc.nextLine());
+			Log.d("MULTI", message + ";" + x + ", " + y);
+			gameWorld.setTaxiLocation(x, y);
+		}
 	}
 
 	@Override
 	public void onConnectedToRoom(Room room) {
-		mMyId = room.getParticipantId(Games.Players.getCurrentPlayerId(aHelper
+		myId = room.getParticipantId(Games.Players.getCurrentPlayerId(aHelper
 				.getApiClient()));
+		roomId = room.getRoomId();
 	}
 
 	@Override
@@ -244,13 +263,42 @@ public class AndroidLauncher extends AndroidApplication implements
 
 			// show error message, return to main screen.
 		}
-		Collections.sort(room.getParticipantIds());
-		if (room.getParticipantIds().get(0) == mMyId) {
-			driver = true;
-		} else {
-			driver = false;
+
+		setHost(room);
+		if (iAmHost) {
+			setTeams(room);
 		}
-		gameWorld.setScreen(driver);
+	}
+
+	private void setTeams(Room room) {
+		List<String> ids = room.getParticipantIds();
+		Collections.sort(ids);
+		String role = "";
+
+		for (int i = 0; i < ids.size(); i++) {
+			if (i % 2 == 0) {
+				role = "DRIVER";
+			} else {
+				role = "NAVIGATOR";
+			}
+			if (!ids.get(i).equals(myId)) {
+				Games.RealTimeMultiplayer.sendReliableMessage(
+						aHelper.getApiClient(), null, role.getBytes(),
+						room.getRoomId(), ids.get(i));
+			} else {
+				driver = role == "DRIVER" ? true : false;
+			}
+		}
+	}
+
+	private void setHost(Room room) {
+		List<String> ids = room.getParticipantIds();
+		Collections.sort(ids);
+		if (ids.get(0).equals(myId)) {
+			iAmHost = true;
+		} else {
+			iAmHost = false;
+		}
 	}
 
 	// are we already playing?
@@ -323,6 +371,15 @@ public class AndroidLauncher extends AndroidApplication implements
 					room.getRoomId());
 			getWindow().clearFlags(
 					WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		}
+	}
+
+	@Override
+	public void sendLocation(float x, float y) {
+		if (roomId != null) {
+			Games.RealTimeMultiplayer.sendUnreliableMessageToOthers(
+					aHelper.getApiClient(),
+					((int) x + "\n" + (int) y).getBytes(), roomId);
 		}
 	}
 }
