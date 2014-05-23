@@ -8,14 +8,15 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.properties.ScoreBoard;
 import com.taxi_trouble.game.screens.DriverScreen;
+import com.taxi_trouble.game.screens.NavigatorScreen;
 import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**
  * Provides the main model for all the elements of a game that is played.
  * (Please note: implementation will change when implementing multiplayer)
- * 
+ *
  * @author Computer Games Project Group 8
- * 
+ *
  */
 public class GameWorld extends Game {
     private World world;
@@ -26,23 +27,28 @@ public class GameWorld extends Game {
     private List<Passenger> passengers;
     private ScoreBoard score;
 
+    /**Called when the game world is first created.
+     *
+     */
     @Override
     public final void create() {
+        loadResources();
         world = new World(new Vector2(0.0f, 0.0f), true);
+        map = new WorldMap(ResourceManager.mapFile, world);
+        team = new Team(map.getSpawner().spawnTaxi(world));
+        world.setContactListener(new CollisionDetector(map));
+        setScreen(new DriverScreen(this));
+    }
 
+    /**Loads the game resources.
+     *
+     */
+    public void loadResources() {
         TaxiJukebox.createMusicInGame("sound/bobmar.mp3", "BobMarley");
         TaxiJukebox.createMusicInGame("sound/street.mp3", "street");
-
         ResourceManager.loadMap();
-        map = new WorldMap(ResourceManager.mapFile, world);
-
-        ResourceManager.loadCharSprites();
-
-        ResourceManager.loadTaxiAndWheelSprites();
-        team = new Team(map.getSpawner().spawnTaxi(world));
-
-        setScreen(new DriverScreen(this));
-        world.setContactListener(new CollisionDetector(map));
+        ResourceManager.loadSprites();
+        ResourceManager.loadFonts();
     }
 
     @Override
@@ -58,7 +64,7 @@ public class GameWorld extends Game {
 
     /**
      * Retrieves the game world map.
-     * 
+     *
      * @return map
      */
     public final WorldMap getMap() {
@@ -67,7 +73,7 @@ public class GameWorld extends Game {
 
     /**
      * Retrieves the single team.
-     * 
+     *
      * @return team
      */
     public final Team getTeam() {
@@ -76,7 +82,7 @@ public class GameWorld extends Game {
 
     /**
      * Retrieves the world in which the game is played.
-     * 
+     *
      * @return world
      */
     public final World getWorld() {
@@ -85,7 +91,7 @@ public class GameWorld extends Game {
 
     /**
      * Retrieves the passengers that are currently in the game.
-     * 
+     *
      * @return passengers
      */
     public final List<Passenger> getPassengers() {

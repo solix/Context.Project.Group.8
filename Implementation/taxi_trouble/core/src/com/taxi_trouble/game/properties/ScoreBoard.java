@@ -4,37 +4,46 @@ import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_HEIGHT;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import static com.taxi_trouble.game.properties.ResourceManager.scoreFont;
 
 /**
  * A scoreboard that keeps the score for a team.
- * 
+ *
  * @author Computer Games Project Group 8
- * 
+ *
  */
 public class ScoreBoard {
 
     private int score;
-    private BitmapFont scoreFont;
+    private BitmapFont scoreBoardFont;
     private String scoreName;
-    final static int TEN = 10;
+    private final static int TEN = 10;
 
+    /**Initializes a new ScoreBoard.
+     * The score will be initialized to zero.
+     *
+     */
     public ScoreBoard() {
-        score = 0;
-        scoreName = "Score  " + getScore();
-        scoreFont = new BitmapFont();
+        this.score = 0;
+        this.scoreName = "Score  " + getScore();
+        this.scoreBoardFont = scoreFont;
+        this.scoreBoardFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
-    public void render(SpriteBatch scoreBatch) {
-        scoreBatch.begin();
+    /**Renders the score board on screen using the given spriteBatch.
+     *
+     * @param spriteBatch
+     */
+    public void render(SpriteBatch spriteBatch) {
+        spriteBatch.begin();
         scoreName = "Score  " + getScore();
-        scoreFont.setColor(0.0f, 0.0f, 1.0f, 1.0f);
-        scoreFont.draw(scoreBatch, scoreName, TEN, VIRTUAL_HEIGHT + 150);
-        scoreBatch.end();
+        scoreBoardFont.draw(spriteBatch, scoreName, TEN, VIRTUAL_HEIGHT + 150);
+        spriteBatch.end();
     }
 
     /**
      * Retrieve the score.
-     * 
+     *
      * @return score
      */
     public int getScore() {
@@ -43,7 +52,7 @@ public class ScoreBoard {
 
     /**
      * Set the score to a specified score.
-     * 
+     *
      * @param score
      */
     public void setScore(int score) {
@@ -52,7 +61,7 @@ public class ScoreBoard {
 
     /**
      * Increment the current score.
-     * 
+     *
      */
     public void incrScore() {
         this.score++;

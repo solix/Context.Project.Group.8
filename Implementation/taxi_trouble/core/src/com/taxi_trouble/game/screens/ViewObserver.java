@@ -12,8 +12,8 @@ import com.taxi_trouble.game.properties.ScoreBoard;
 import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**
- * Basic class for extending independent screen of the game
- * 
+ * Basic class for extending independent screen of the game.
+ *
  * @author Computer Games Project Group 8
  */
 public abstract class ViewObserver implements Screen {
@@ -23,11 +23,10 @@ public abstract class ViewObserver implements Screen {
     protected static int PIXELS_PER_METER = GameProperties.PIXELS_PER_METER;
     protected Taxi taxi;
     protected WorldMap cityMap;
-    protected ScoreBoard score = new ScoreBoard();
 
     /**
-     * Constructor for creating game Screen
-     * 
+     * Constructor for creating game Screen.
+     *
      * @param game
      */
     public ViewObserver(GameWorld taxigame) {
@@ -36,7 +35,7 @@ public abstract class ViewObserver implements Screen {
 
     /**
      * Called when the screen is set as current screen.
-     * 
+     *
      */
     @Override
     public void show() {
@@ -55,25 +54,24 @@ public abstract class ViewObserver implements Screen {
 
     /**
      * Update the world and draw the sprites of the world.
-     * 
+     *
      */
     @Override
     public void render(float delta) {
         // Render the passengers into the game
-        for (Passenger passtest : taxigame.getPassengers()) {
-            passtest.render(getSpriteBatch());
+        for (Passenger pass : taxigame.getPassengers()) {
+            pass.render(getSpriteBatch());
         }
         // Update the taxi movement
         taxi.update(Gdx.app.getGraphics().getDeltaTime());
 
         // Progress the physics of the game
         taxigame.getWorld().step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
-        // taxigame.getWorld().clearForces(); //this is the default setting
 
         // Render the taxi sprites using the spriteBatch
         taxi.render(getSpriteBatch());
-        // Render score top left
 
+        //Show the destination for a taxi picking up the corresponding passenger
         if (taxi.pickedUpPassenger()) {
             taxi.getPassenger().getDestination().render(getSpriteBatch());
         }
@@ -81,7 +79,7 @@ public abstract class ViewObserver implements Screen {
 
     /**
      * Retrieve the spriteBatch that should be used.
-     * 
+     *
      * @return spriteBatch
      */
     public abstract SpriteBatch getSpriteBatch();

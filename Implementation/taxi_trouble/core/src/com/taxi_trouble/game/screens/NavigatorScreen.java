@@ -15,20 +15,21 @@ import com.taxi_trouble.game.model.WorldMap;
 
 /**
  * Provides the view of the game for a navigator.
- * 
+ *
  * @author Computer Games Project Group 8
- * 
+ *
  */
 public class NavigatorScreen extends ViewObserver {
     private SpriteBatch spriteBatch;
     private Viewport viewport;
     private OrthographicCamera mapCamera;
+    private OrthographicCamera scoreCamera;
     private MapControls mapControl;
     private float SCALE = 4;
 
     /**
      * Constructor, creates the game screen.
-     * 
+     *
      * @param game
      */
 
@@ -38,7 +39,7 @@ public class NavigatorScreen extends ViewObserver {
 
     /**
      * This method is only called once at the beginning to setup the main
-     * screen.
+     * screen. It is called when the screen first shows.
      */
     @Override
     public void show() {
@@ -53,6 +54,10 @@ public class NavigatorScreen extends ViewObserver {
         this.viewport = new StretchViewport(VIRTUAL_WIDTH * SCALE,
                 VIRTUAL_HEIGHT * SCALE, mapCamera);
 
+        //Set the camera to show the game scores
+        this.scoreCamera = new OrthographicCamera();
+        scoreCamera.setToOrtho(false, screenWidth, screenHeight);
+
         // Load the MapControls to enable navigating through the map.
         mapControl = new MapControls(mapCamera, this);
         Gdx.input.setInputProcessor(mapControl);
@@ -63,7 +68,7 @@ public class NavigatorScreen extends ViewObserver {
      */
     @Override
     public void render(float delta) {
-        // Specify the clear values for the color buffers and clear the buffers
+        // Specify the clear values for the color buffers and clear the buffers.
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
@@ -71,10 +76,16 @@ public class NavigatorScreen extends ViewObserver {
         mapCamera.update();
         stayInBounds(cityMap);
 
-        // Tell the camera to update its matrices.
+        // Tell the camera to update its matrices and render the citymap.
         spriteBatch.setProjectionMatrix(mapCamera.combined);
         cityMap.render(mapCamera);
 
+        //Draw the score board on screen
+        spriteBatch.setProjectionMatrix(scoreCamera.combined);
+        taxigame.getTeam().getScoreBoard().render(spriteBatch);
+
+        //Render the common game elements (taxis, passengers, etc.)
+        spriteBatch.setProjectionMatrix(mapCamera.combined);
         super.render(delta);
     }
 
