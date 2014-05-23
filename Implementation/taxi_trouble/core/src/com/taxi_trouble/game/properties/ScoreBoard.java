@@ -1,16 +1,16 @@
 package com.taxi_trouble.game.properties;
 
-import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_HEIGHT;
+import static com.taxi_trouble.game.properties.GameProperties.screenHeight;
+import static com.taxi_trouble.game.properties.ResourceManager.scoreFont;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import static com.taxi_trouble.game.properties.ResourceManager.scoreFont;
 
 /**
  * A scoreboard that keeps the score for a team.
- *
+ * 
  * @author Computer Games Project Group 8
- *
+ * 
  */
 public class ScoreBoard {
 
@@ -19,9 +19,9 @@ public class ScoreBoard {
     private String scoreName;
     private final static int TEN = 10;
 
-    /**Initializes a new ScoreBoard.
-     * The score will be initialized to zero.
-     *
+    /**
+     * Initializes a new ScoreBoard. The score will be initialized to zero.
+     * 
      */
     public ScoreBoard() {
         this.score = 0;
@@ -30,20 +30,22 @@ public class ScoreBoard {
         this.scoreBoardFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
-    /**Renders the score board on screen using the given spriteBatch.
-     *
+    /**
+     * Renders the score board on screen using the given spriteBatch.
+     * 
      * @param spriteBatch
+     *            Spritebatch to be rendered.
      */
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.begin();
         scoreName = "Score  " + getScore();
-        scoreBoardFont.draw(spriteBatch, scoreName, TEN, VIRTUAL_HEIGHT + 150);
+        scoreBoardFont.draw(spriteBatch, scoreName, TEN, screenHeight);
         spriteBatch.end();
     }
 
     /**
      * Retrieve the score.
-     *
+     * 
      * @return score
      */
     public int getScore() {
@@ -52,8 +54,9 @@ public class ScoreBoard {
 
     /**
      * Set the score to a specified score.
-     *
+     * 
      * @param score
+     *            Score to be set.
      */
     public void setScore(int score) {
         this.score = score;
@@ -61,7 +64,7 @@ public class ScoreBoard {
 
     /**
      * Increment the current score.
-     *
+     * 
      */
     public void incrScore() {
         this.score++;

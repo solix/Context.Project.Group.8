@@ -15,9 +15,9 @@ import com.taxi_trouble.game.model.WorldMap;
 
 /**
  * Provides the view of the game for a navigator.
- *
+ * 
  * @author Computer Games Project Group 8
- *
+ * 
  */
 public class NavigatorScreen extends ViewObserver {
     private SpriteBatch spriteBatch;
@@ -29,7 +29,7 @@ public class NavigatorScreen extends ViewObserver {
 
     /**
      * Constructor, creates the game screen.
-     *
+     * 
      * @param game
      */
 
@@ -54,7 +54,7 @@ public class NavigatorScreen extends ViewObserver {
         this.viewport = new StretchViewport(VIRTUAL_WIDTH * SCALE,
                 VIRTUAL_HEIGHT * SCALE, mapCamera);
 
-        //Set the camera to show the game scores
+        // Set the camera to show the game scores
         this.scoreCamera = new OrthographicCamera();
         scoreCamera.setToOrtho(false, screenWidth, screenHeight);
 
@@ -80,11 +80,11 @@ public class NavigatorScreen extends ViewObserver {
         spriteBatch.setProjectionMatrix(mapCamera.combined);
         cityMap.render(mapCamera);
 
-        //Draw the score board on screen
+        // Draw the score board on screen
         spriteBatch.setProjectionMatrix(scoreCamera.combined);
         taxigame.getTeam().getScoreBoard().render(spriteBatch);
 
-        //Render the common game elements (taxis, passengers, etc.)
+        // Render the common game elements (taxis, passengers, etc.)
         spriteBatch.setProjectionMatrix(mapCamera.combined);
         super.render(delta);
     }
@@ -162,9 +162,11 @@ public class NavigatorScreen extends ViewObserver {
         int mapPixelWidth = cityMap.getWidth();
 
         if (mapCamera.position.x < VIRTUAL_WIDTH * sc / 2
-                || mapCamera.position.x >= mapPixelWidth - VIRTUAL_WIDTH * sc / 2
+                || mapCamera.position.x >= mapPixelWidth - VIRTUAL_WIDTH * sc
+                        / 2
                 || mapCamera.position.y < VIRTUAL_HEIGHT * sc / 2
-                || mapCamera.position.y >= mapPixelHeight - VIRTUAL_HEIGHT * sc / 2) {
+                || mapCamera.position.y >= mapPixelHeight - VIRTUAL_HEIGHT * sc
+                        / 2) {
             return;
         }
         SCALE = sc;
@@ -173,12 +175,17 @@ public class NavigatorScreen extends ViewObserver {
     /**
      * This method returns the SCALE value.
      * 
-     * @return
+     * @return scale
      */
     public float getScale() {
         return SCALE;
     }
 
+    /**
+     * Retrieves the map.
+     * 
+     * @return map
+     */
     public WorldMap getMap() {
         return this.cityMap;
     }

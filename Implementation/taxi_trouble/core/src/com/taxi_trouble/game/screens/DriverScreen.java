@@ -75,7 +75,6 @@ public class DriverScreen extends ViewObserver {
         super.render(delta);
 
         spriteBatch.setProjectionMatrix(virtualButtonsCamera.combined);
-        taxi.getTeam().getScoreBoard().render(spriteBatch);
         controlsUI.render(spriteBatch);
 
     }
