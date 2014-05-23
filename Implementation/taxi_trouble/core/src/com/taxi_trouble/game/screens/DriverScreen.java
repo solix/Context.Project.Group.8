@@ -11,10 +11,11 @@ import com.taxi_trouble.game.input.ControlsUI;
 import com.taxi_trouble.game.input.DriverControl;
 import com.taxi_trouble.game.model.GameWorld;
 
-/**Provides the view of the game for the driver of a taxi.
- *
+/**
+ * Provides the view of the game for the driver of a taxi.
+ * 
  * @author Computer Games Project Group 8
- *
+ * 
  */
 public class DriverScreen extends ViewObserver {
     private TaxiCamera taxiCamera;
@@ -34,18 +35,19 @@ public class DriverScreen extends ViewObserver {
 
     /**
      * Called when the Driver Screen is set as the current screen.
-     *
+     * 
      */
     @Override
     public void show() {
         super.show();
-        
-        //Initialize the spriteBatch that should be used
+
+        // Initialize the spriteBatch that should be used
         spriteBatch = new SpriteBatch();
-        
-        //Initialize the virtual buttons camera
+
+        // Initialize the virtual buttons camera
         this.virtualButtonsCamera = new OrthographicCamera();
-        this.virtualButtonsCamera.setToOrtho(false, BUTTON_CAM_WIDTH, BUTTON_CAM_HEIGHT);
+        this.virtualButtonsCamera.setToOrtho(false, BUTTON_CAM_WIDTH,
+                BUTTON_CAM_HEIGHT);
 
         // Initialize the taxiCamera to follow the driver its taxi
         this.taxiCamera = new TaxiCamera(taxi);
@@ -58,22 +60,24 @@ public class DriverScreen extends ViewObserver {
 
     @Override
     public void render(float delta) {
-        //Specify the clear values for the color buffers and clear the buffers
+        // Specify the clear values for the color buffers and clear the buffers
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
-        
-        //Update the taxiCamera's view
+
+        // Update the taxiCamera's view
         taxiCamera.update(cityMap);
 
         // Tell the camera to update its matrices.
         spriteBatch.setProjectionMatrix(taxiCamera.combined);
         taxi.update(Gdx.app.getGraphics().getDeltaTime());
         cityMap.render(taxiCamera);
-        
+
         super.render(delta);
 
         spriteBatch.setProjectionMatrix(virtualButtonsCamera.combined);
+        taxi.getTeam().getScoreBoard().render(spriteBatch);
         controlsUI.render(spriteBatch);
+
     }
 
     @Override
@@ -105,8 +109,5 @@ public class DriverScreen extends ViewObserver {
     public SpriteBatch getSpriteBatch() {
         return this.spriteBatch;
     }
-    
-    
-    
-    
+
 }

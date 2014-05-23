@@ -12,25 +12,32 @@ public class Team {
         this.scoreBoard = new ScoreBoard();
     }
 
-    /**Retrieves the taxi of the team.
-     *
+    /**
+     * Retrieves the taxi of the team.
+     * 
      * @return taxi
      */
     public Taxi getTaxi() {
         return taxi;
     }
 
-    /**Increment the team score.
-     *
+    /**
+     * Increment the team score.
+     * 
      */
     public void incScore() {
         scoreBoard.incrScore();
     }
 
-    /**Retrieve the score of the team.
-     *
+    /**
+     * Retrieve the score of the team.
+     * 
      */
     public int getScore() {
         return scoreBoard.getScore();
+    }
+
+    public ScoreBoard getScoreBoard() {
+        return this.scoreBoard;
     }
 }

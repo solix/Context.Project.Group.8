@@ -11,77 +11,79 @@ import com.taxi_trouble.game.properties.GameProperties;
 import com.taxi_trouble.game.properties.ScoreBoard;
 import com.taxi_trouble.game.sound.TaxiJukebox;
 
-/**Basic class for extending independent screen of the game
+/**
+ * Basic class for extending independent screen of the game
  * 
  * @author Computer Games Project Group 8
  */
 public abstract class ViewObserver implements Screen {
-	protected final GameWorld taxigame;
-	protected int screenWidth = GameProperties.screenWidth;
-	protected int screenHeight = GameProperties.screenHeight;
-	protected static int PIXELS_PER_METER = GameProperties.PIXELS_PER_METER;
-	protected Taxi taxi;
-	protected WorldMap cityMap;
-	protected ScoreBoard score=new ScoreBoard();
+    protected final GameWorld taxigame;
+    protected int screenWidth = GameProperties.screenWidth;
+    protected int screenHeight = GameProperties.screenHeight;
+    protected static int PIXELS_PER_METER = GameProperties.PIXELS_PER_METER;
+    protected Taxi taxi;
+    protected WorldMap cityMap;
+    protected ScoreBoard score = new ScoreBoard();
 
-	/**
-	 * Constructor for creating game Screen
-	 * 
-	 * @param game
-	 */
-	public ViewObserver(GameWorld taxigame) {
-		this.taxigame = taxigame;
-	}
-	
+    /**
+     * Constructor for creating game Screen
+     * 
+     * @param game
+     */
+    public ViewObserver(GameWorld taxigame) {
+        this.taxigame = taxigame;
+    }
+
     /**
      * Called when the screen is set as current screen.
-     *
+     * 
      */
-	@Override
-	public void show() {
-	    this.taxi = taxigame.getTeam().getTaxi();
-	    this.cityMap = taxigame.getMap();
-	    TaxiJukebox.loopMusic("BobMarley",true);
-	    TaxiJukebox.playMusic("BobMarley");
-	    TaxiJukebox.loopMusic("street",true);
-	    TaxiJukebox.playMusic("street");
-	    TaxiJukebox.setMusicVolume("BobMarley", 0.8f);
-	    TaxiJukebox.setMusicVolume("street", 0.4f);
-	    
-	    //TODO: Also retrieve and render the other taxis in the game.
-	}
-	
-	/**
-	 * Update the world and draw the sprites of the world.
-	 * 
-	 */
-	@Override
-	public void render(float delta) {    
-        //Render the passengers into the game
+    @Override
+    public void show() {
+        this.taxi = taxigame.getTeam().getTaxi();
+        this.cityMap = taxigame.getMap();
+
+        TaxiJukebox.loopMusic("BobMarley", true);
+        TaxiJukebox.playMusic("BobMarley");
+        TaxiJukebox.loopMusic("street", true);
+        TaxiJukebox.playMusic("street");
+        TaxiJukebox.setMusicVolume("BobMarley", 0.8f);
+        TaxiJukebox.setMusicVolume("street", 0.4f);
+
+        // TODO: Also retrieve and render the other taxis in the game.
+    }
+
+    /**
+     * Update the world and draw the sprites of the world.
+     * 
+     */
+    @Override
+    public void render(float delta) {
+        // Render the passengers into the game
         for (Passenger passtest : taxigame.getPassengers()) {
             passtest.render(getSpriteBatch());
         }
-        //Update the taxi movement
+        // Update the taxi movement
         taxi.update(Gdx.app.getGraphics().getDeltaTime());
 
-        //Progress the physics of the game
+        // Progress the physics of the game
         taxigame.getWorld().step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
-        //taxigame.getWorld().clearForces(); //this is the default setting
-        
-        //Render the taxi sprites using the spriteBatch
-        taxi.render(getSpriteBatch());
-        //Render score top left
-        score.render();
+        // taxigame.getWorld().clearForces(); //this is the default setting
 
-        if(taxi.pickedUpPassenger()) {
+        // Render the taxi sprites using the spriteBatch
+        taxi.render(getSpriteBatch());
+        // Render score top left
+
+        if (taxi.pickedUpPassenger()) {
             taxi.getPassenger().getDestination().render(getSpriteBatch());
         }
-	}
+    }
 
-	/**Retrieve the spriteBatch that should be used.
-	 * 
-	 * @return spriteBatch
-	 */
-	public abstract SpriteBatch getSpriteBatch();
+    /**
+     * Retrieve the spriteBatch that should be used.
+     * 
+     * @return spriteBatch
+     */
+    public abstract SpriteBatch getSpriteBatch();
 
 }
