@@ -6,7 +6,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.properties.ResourceManager;
-import com.taxi_trouble.game.screens.NavigatorScreen;
+import com.taxi_trouble.game.screens.DriverScreen;
 import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**
@@ -38,7 +38,7 @@ public class GameWorld extends Game {
         map = new WorldMap(ResourceManager.mapFile, world);
         team = new Team(map.getSpawner().spawnTaxi(world));
         world.setContactListener(new CollisionDetector(map));
-        setScreen(new NavigatorScreen(this));
+        setScreen(new DriverScreen(this));
     }
 
     /**
