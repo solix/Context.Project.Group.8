@@ -14,7 +14,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.Character;
 
 /**
- * A passenger.
+ * A passenger which can be transported by a taxi to a certain destination when
+ * picked up.
  * 
  * @author Computer Games Project Group 8
  * 
@@ -24,10 +25,13 @@ public class Passenger {
     private Body body;
     private Character character;
     private SpawnPoint spawnPoint;
+    private Sprite passengerSprite;
+    private Taxi transporter;
+    private Destination destination;
 
     /**
      * Initializes a new passenger.
-     *
+     * 
      * @param world
      *            : the world in which the passenger is placed
      * @param width
@@ -51,7 +55,7 @@ public class Passenger {
 
     /**
      * Initialize the body of the solid passenger.
-     *
+     * 
      * @param world
      *            : the world in which the solid passenger is placed
      * @param position
@@ -60,9 +64,10 @@ public class Passenger {
     private void initializeBody(World world, Vector2 position, float angle) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(position);
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.angle = angle * MathUtils.degreesToRadians;
         bodyDef.fixedRotation = true;
-        this.body = world.createBody(bodyDef);
+        this.setBody(world.createBody(bodyDef));
         InitFixtureDef();
     }
 
@@ -76,6 +81,7 @@ public class Passenger {
         PolygonShape passengerShape = new PolygonShape();
         passengerShape.setAsBox(this.width / 2, this.height / 2);
         fixtureDef.shape = passengerShape;
+        fixtureDef.isSensor = true;
         fixtureDef.restitution = 0f;
         this.body.createFixture(fixtureDef);
         passengerShape.dispose();
@@ -115,6 +121,7 @@ public class Passenger {
      */
     public void setBody(Body body) {
         this.body = body;
+        body.setUserData(this);
     }
 
     /**
@@ -136,6 +143,21 @@ public class Passenger {
     }
 
     /**
+     * Sets the position of a passenger.
+     * 
+     * @param position
+     *            : the position of the passenger
+     */
+    public void setPosition(Vector2 position) {
+        this.getBody().getPosition().x = position.x;
+        this.getBody().getPosition().y = position.y;
+    }
+
+    public Vector2 getPosition() {
+        return this.getBody().getPosition();
+    }
+
+    /**
      * Sets the (initial) sprite of the passenger.
      * 
      * @param passSprite
@@ -143,7 +165,24 @@ public class Passenger {
     public void setSprite(Sprite passSprite) {
         passSprite.setSize(this.getWidth(), this.getHeight());
         passSprite.setOrigin(this.getWidth() / 2, this.getHeight() / 2);
-        this.getBody().setUserData(passSprite);
+        this.passengerSprite = passSprite;
+    }
+
+    /**
+     * Set the transporter of the passenger.
+     * 
+     */
+    public void setTransporter(Taxi transporter) {
+        this.transporter = transporter;
+    }
+
+    /**
+     * Make the passenger lose its transporter, i.e. get out of the taxi.
+     * 
+     */
+    public void cancelTransport() {
+        // this.transporter.dropOffPassenger();
+        // this.transporter = null;
     }
 
     /**
@@ -154,19 +193,48 @@ public class Passenger {
     }
 
     /**
+     * Set the passengers destination.
+     * 
+     * @param dest
+     *            : the destination to be set
+     */
+    public void setDestination(Destination dest) {
+        // The destination of a passenger can only be set once
+        if (this.destination == null) {
+            this.destination = dest;
+        }
+    }
+
+    /**
+     * Retrieves the passenger its destination.
+     * 
+     * @return destination : the passenger destination
+     */
+    public Destination getDestination() {
+        return this.destination;
+    }
+
+    public Vector2 getStartPosition() {
+        return this.spawnPoint.getPosition();
+    }
+
+    /**
      * Renders the sprite(s) of the passenger.
      * 
      * @param spriteBatch
      */
     public void render(SpriteBatch spriteBatch) {
+        if (this.transporter != null) {
+            this.body.setLinearVelocity(transporter.getBody()
+                    .getLinearVelocity());
+        }
         spriteBatch.begin();
-        Sprite sprite = (Sprite) this.body.getUserData();
-        sprite.setPosition(this.getXPosition() * PIXELS_PER_METER,
+        passengerSprite.setPosition(this.getXPosition() * PIXELS_PER_METER,
                 this.getYPosition() * PIXELS_PER_METER);
-        sprite.setRotation(this.getBody().getAngle()
+        passengerSprite.setRotation(this.getBody().getAngle()
                 * MathUtils.radiansToDegrees);
-        sprite.setScale(PIXELS_PER_METER);
-        sprite.draw(spriteBatch);
+        passengerSprite.setScale(PIXELS_PER_METER);
+        passengerSprite.draw(spriteBatch);
         spriteBatch.end();
     }
 }

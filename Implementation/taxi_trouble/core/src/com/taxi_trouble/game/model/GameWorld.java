@@ -1,6 +1,5 @@
 package com.taxi_trouble.game.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Game;
@@ -9,7 +8,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.properties.ScoreBoard;
 import com.taxi_trouble.game.screens.DriverScreen;
-import com.taxi_trouble.game.screens.NavigatorScreen;
 import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**
@@ -22,42 +20,38 @@ import com.taxi_trouble.game.sound.TaxiJukebox;
 public class GameWorld extends Game {
     private World world;
     private WorldMap map;
-    private List<Taxi> taxis;
-    // Temporary (may change when implementing multiplayer)
-    private Taxi taxi;
+    private List<Team> teams;
+    // Temporary: single team (may change when implementing multiplayer)
+    private Team team;
     private List<Passenger> passengers;
     private ScoreBoard score;
-
     @Override
-    public void create() {
+    public final void create() {
         world = new World(new Vector2(0.0f, 0.0f), true);
        TaxiJukebox.createMusicInGame("sound/bobmar.mp3", "BobMarley");
        TaxiJukebox.createMusicInGame("sound/street.mp3", "street");
-       
+
         ResourceManager.loadMap();
         map = new WorldMap(ResourceManager.mapFile, world);
-        
+
         ResourceManager.loadCharSprites();
-        passengers = new ArrayList<Passenger>();
-        
+
         ResourceManager.loadTaxiAndWheelSprites();
-        taxi = map.getSpawner().spawnTaxi(world);
-        
-        score=new ScoreBoard();
-        score.createScoreBoard();
+        team = new Team(map.getSpawner().spawnTaxi(world));
+
         setScreen(new DriverScreen(this));
+        world.setContactListener(new CollisionDetector(map));
     }
 
     @Override
-    public void render() {
+    public final void render() {
         super.render();
-        //Spawn a new passenger if there are less than #taxis-1.
-        //TODO: Instead of '3' adapt to #taxis in the game.
+        // Spawn a new passenger if there are less than #taxis-1.
+        // TODO: Instead of '3' adapt to #taxis-1 in the game.
+        List<Passenger> passengers = map.getSpawner().getActivePassengers();
         if (passengers.size() < 3) {
-            Passenger pas = map.getSpawner().spawnPassenger(world);
-            passengers.add(pas);
+            map.getSpawner().spawnPassenger(world);
         }
-    
     }
   
     /**
@@ -65,17 +59,17 @@ public class GameWorld extends Game {
      * 
      * @return map
      */
-    public WorldMap getMap() {
+    public final WorldMap getMap() {
         return this.map;
     }
 
     /**
-     * Retrieves the taxi that is steered.
+     * Retrieves the single team.
      * 
-     * @return taxi
+     * @return team
      */
-    public Taxi getTaxi() {
-        return this.taxi;
+    public final Team getTeam() {
+        return this.team;
     }
 
     /**
@@ -83,11 +77,16 @@ public class GameWorld extends Game {
      * 
      * @return world
      */
-    public World getWorld() {
+    public final World getWorld() {
         return this.world;
     }
 
-    public List<Passenger> getPassengers() {
-        return this.passengers;
+    /**
+     * Retrieves the passengers that are currently in the game.
+     * 
+     * @return passengers
+     */
+    public final List<Passenger> getPassengers() {
+        return this.map.getSpawner().getActivePassengers();
     }
 }

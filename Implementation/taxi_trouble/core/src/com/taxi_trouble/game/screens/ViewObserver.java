@@ -39,7 +39,7 @@ public abstract class ViewObserver implements Screen {
      */
 	@Override
 	public void show() {
-	    this.taxi = taxigame.getTaxi();
+	    this.taxi = taxigame.getTeam().getTaxi();
 	    this.cityMap = taxigame.getMap();
 	    TaxiJukebox.loopMusic("BobMarley",true);
 	    TaxiJukebox.playMusic("BobMarley");
@@ -47,7 +47,6 @@ public abstract class ViewObserver implements Screen {
 	    TaxiJukebox.playMusic("street");
 	    TaxiJukebox.setMusicVolume("BobMarley", 0.8f);
 	    TaxiJukebox.setMusicVolume("street", 0.4f);
-
 	    
 	    //TODO: Also retrieve and render the other taxis in the game.
 	}
@@ -73,7 +72,10 @@ public abstract class ViewObserver implements Screen {
         taxi.render(getSpriteBatch());
         //Render score top left
         score.render();
-        
+
+        if(taxi.pickedUpPassenger()) {
+            taxi.getPassenger().getDestination().render(getSpriteBatch());
+        }
 	}
 
 	/**Retrieve the spriteBatch that should be used.

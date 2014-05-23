@@ -4,31 +4,55 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import static com.taxi_trouble.game.properties.GameProperties.screenHeight;
 
-public class ScoreBoard{
+/**A scoreboard that keeps the score for a team.
+ *
+ * @author Computer Games Project Group 8
+ *
+ */
+public class ScoreBoard {
 
-	public static int score;
-	private static BitmapFont scoreFont;
-	private static String scoreName;
+    private int score;
+	private BitmapFont scoreFont;
+	private String scoreName;
 	
-	public void createScoreBoard(){
-		score=0;
-		scoreName="Score  "+ getScore();
-		scoreFont=new BitmapFont();
-		
+	public ScoreBoard() {
+	    score = 0;
+        scoreName = "Score  "+ getScore();
+        scoreFont = new BitmapFont();
 	}
-	
+
 	public void render(){
-		SpriteBatch scoreBatch=new SpriteBatch();
+		SpriteBatch scoreBatch = new SpriteBatch();
 		scoreBatch.begin();
+		scoreName = "Score  "+ getScore();
 		scoreFont.setColor(0.0f, 0.0f, 1.0f, 1.0f);
-		scoreFont.draw(scoreBatch, scoreName, 10, GameProperties.screenHeight -10);
-		scoreBatch.end();  
-		
+		scoreFont.draw(scoreBatch, scoreName, 10, screenHeight -10);
+		scoreBatch.end();
 	}
-	
-	public int getScore(){
-		return score;
+
+	/**Retrieve the score.
+	 *
+	 * @return score
+	 */
+	public int getScore() {
+		return this.score;
+	}
+
+	/**Set the score to a specified score.
+	 *
+	 * @param score
+	 */
+	public void setScore(int score) {
+	    this.score = score;
+	}
+
+	/**Increment the current score.
+	 *
+	 */
+	public void incrScore() {
+	    this.score++;
 	}
 
 }

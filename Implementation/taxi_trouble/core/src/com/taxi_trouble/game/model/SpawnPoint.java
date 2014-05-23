@@ -2,12 +2,20 @@ package com.taxi_trouble.game.model;
 
 import com.badlogic.gdx.math.Vector2;
 
+/**A spawnpoint is a point where either a passenger or taxi is spawned or the
+ * place for a destination.
+ *
+ * @author Computer Games Project Group 8
+ *
+ */
 public class SpawnPoint {
     private Vector2 position;
     private float spawnAngle;
+    private float width;
+    private float height;
     private boolean active;
 
-    /**Initializes a new SpawnPosition with location (x,y) and 
+    /**Initializes a new SpawnPosition with location (x,y) and
      * with spawning angle as specified.
      *
      * @param x : the x-position of the SpawnPoint
@@ -16,6 +24,8 @@ public class SpawnPoint {
      */
     public SpawnPoint(float x, float y, float spawnAngle) {
         this.position = new Vector2(x, y);
+        this.width = 0;
+        this.height = 0;
         this.spawnAngle = spawnAngle;
         this.active = false;
     }
@@ -52,8 +62,40 @@ public class SpawnPoint {
         return this.spawnAngle;
     }
 
-    /**Retrieves whether the spawning point has been used.
+    /**Retrieves the width of the spawn point.
+     *
+     * @return width
+     */
+    public float getWidth() {
+        return this.width;
+    }
     
+    /**Set the width of the spawn point.
+     * 
+     * @param width
+     */
+    public void setWidth(float width) {
+        this.width = width;
+    }
+    
+    /**Set the height of the spawn point.
+     * 
+     * @param height
+     */
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
+    /**Retrieves the height of the spawn point.
+     *
+     * @return height
+     */
+    public float getHeight() {
+        return this.height;
+    }
+
+    /**Retrieves whether the spawning point has been used.
+    *
     * @return active
     */
     public boolean isActive() {
