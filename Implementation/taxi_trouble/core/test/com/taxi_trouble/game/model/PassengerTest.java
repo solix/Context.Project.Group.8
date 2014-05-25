@@ -1,6 +1,8 @@
 package com.taxi_trouble.game.model;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.model.Passenger;
 import com.taxi_trouble.game.Character;
 
@@ -38,11 +40,11 @@ public class PassengerTest {
     *
     */
    @Before
-   public void initTaxi() {
+   public void initPassenger() {
        when(character.getStanding()).thenReturn(sprite);
        passenger = new Passenger(2, 2, character);
    }
-   
+
    @Test
    public final void templateTest() {
        assertEquals(0, 0);

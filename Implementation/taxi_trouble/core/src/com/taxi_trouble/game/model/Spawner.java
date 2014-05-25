@@ -1,10 +1,12 @@
 package com.taxi_trouble.game.model;
 
 import static com.taxi_trouble.game.properties.ResourceManager.getRandomCharacter;
+import static com.taxi_trouble.game.properties.ResourceManager.destinationSprite;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.Character;
 import com.taxi_trouble.game.properties.ResourceManager;
@@ -112,9 +114,11 @@ public class Spawner {
         int random = (int) (Math.abs(Math.random() * destinationpoints.size()
                 - 1));
         SpawnPoint spawnPoint = destinationpoints.get(random);
-        Destination dest = new Destination(world, spawnPoint.getXPosition(),
-                spawnPoint.getYPosition(), spawnPoint.getWidth(),
+        Destination dest = new Destination(spawnPoint.getWidth(),
                 spawnPoint.getHeight());
+        dest.initializeBody(world, new Vector2(spawnPoint.getXPosition(),
+                spawnPoint.getYPosition()));
+        dest.setSprite(destinationSprite);
         return dest;
     }
 

@@ -14,7 +14,7 @@ public class Team {
 
     /**
      * Retrieves the taxi of the team.
-     * 
+     *
      * @return taxi
      */
     public Taxi getTaxi() {
@@ -23,7 +23,7 @@ public class Team {
 
     /**
      * Increment the team score.
-     * 
+     *
      */
     public void incScore() {
         scoreBoard.incrScore();
@@ -31,12 +31,16 @@ public class Team {
 
     /**
      * Retrieve the score of the team.
-     * 
+     *
      */
     public int getScore() {
         return scoreBoard.getScore();
     }
 
+    /**Retrieve the team scoreboard.
+     *
+     * @return scoreboard
+     */
     public ScoreBoard getScoreBoard() {
         return this.scoreBoard;
     }

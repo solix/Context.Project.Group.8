@@ -25,20 +25,23 @@ public class Destination {
     private float height;
     private Sprite destinationSprite;
 
-    public Destination(World world, float x, float y, float width, float height) {
+    /**Initializes a new destination where a passenger can be dropped off.
+     *
+     * @param width
+     * @param height
+     */
+    public Destination(float width, float height) {
         this.width = width;
         this.height = height;
-        initializeBody(world, new Vector2(x, y));
-        setSprite(new Sprite(new Texture("sprites/destination.png")));
     }
 
     /**
      * Initializes the body of this destination.
-     * 
+     *
      * @param world
      * @param vector2
      */
-    private void initializeBody(World world, Vector2 position) {
+    public void initializeBody(World world, Vector2 position) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(position);
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -48,7 +51,7 @@ public class Destination {
 
     /**
      * Initializes the fixture of the body.
-     * 
+     *
      */
     private void initFixtureDef() {
         FixtureDef fixtureDef = new FixtureDef();
@@ -63,34 +66,37 @@ public class Destination {
 
     /**
      * Retrieves the position of this destination.
-     * 
+     *
      * @return position
      */
     public Vector2 getPosition() {
+        assert (this.getBody() != null);
         return this.getBody().getPosition();
     }
 
     /**
      * Retrieves the x-position.
-     * 
+     *
      * @return x-position
      */
     public float getXPosition() {
+        assert (this.getBody() != null);
         return this.getBody().getPosition().x;
     }
 
     /**
      * Retrieves the y-position.
-     * 
+     *
      * @return y-position
      */
     public float getYPosition() {
+        assert (this.getBody() != null);
         return this.getBody().getPosition().y;
     }
 
     /**
      * Retrieves the body of the destination.
-     * 
+     *
      * @return body
      */
     public Body getBody() {
@@ -99,7 +105,7 @@ public class Destination {
 
     /**
      * Sets the body of the destination.
-     * 
+     *
      * @param body
      *            : the body to be set
      */
@@ -110,7 +116,7 @@ public class Destination {
 
     /**
      * Retrieves the width of this destination.
-     * 
+     *
      * @return width
      */
     public float getWidth() {
@@ -119,7 +125,7 @@ public class Destination {
 
     /**
      * Retrieves the height of this destination.
-     * 
+     *
      * @return height
      */
     public float getHeight() {
@@ -128,7 +134,7 @@ public class Destination {
 
     /**
      * Sets the sprite of the destination point.
-     * 
+     *
      * @param destSprite
      */
     public void setSprite(Sprite destSprite) {

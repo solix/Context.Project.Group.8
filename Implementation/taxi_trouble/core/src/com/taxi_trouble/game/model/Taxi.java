@@ -16,7 +16,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.Acceleration;
 import com.taxi_trouble.game.SteerDirection;
-import com.taxi_trouble.game.model.Wheel;
 
 /**
  * A controllable taxi which can be steered and for which certain properties
@@ -138,7 +137,7 @@ public class Taxi {
         this.wheels.add(new Wheel(world, this, -1f, 1.2f, 0.4f, 0.6f, false,
                 false)); // back left
         this.wheels.add(new Wheel(world, this, 1f, 1.2f, 0.4f, 0.6f, false,
-                false));
+                false)); //back right
     }
 
     /**
@@ -223,6 +222,7 @@ public class Taxi {
      * @return
      */
     public float getSpeedKMH() {
+        assert (this.getBody() != null);
         Vector2 velocity = this.getBody().getLinearVelocity();
         float len = velocity.len();
         return (len / 1000) * 3600;
@@ -235,6 +235,7 @@ public class Taxi {
      *            : new speed of the taxi
      */
     public void setSpeedKMH(float speed) {
+        assert (this.getBody() != null);
         Vector2 velocity = this.getBody().getLinearVelocity();
         velocity = velocity.nor();
         velocity = new Vector2(velocity.x * ((speed * 1000.0f) / 3600.0f),
@@ -248,6 +249,7 @@ public class Taxi {
      * @return x-position of the taxi
      */
     public float getXPosition() {
+        assert (this.getBody() != null);
         return this.getBody().getPosition().x;
     }
 
@@ -257,6 +259,7 @@ public class Taxi {
      * @return y-position of the taxi
      */
     public float getYPosition() {
+        assert (this.getBody() != null);
         return this.getBody().getPosition().y;
     }
 
@@ -265,6 +268,7 @@ public class Taxi {
      * @return position of the taxi
      */
     public Vector2 getPosition() {
+        assert (this.getBody() != null);
         return this.getBody().getPosition();
     }
 
@@ -274,6 +278,7 @@ public class Taxi {
      * @return
      */
     public Vector2 getLocalVelocity() {
+        assert (this.getBody() != null);
         return this.getBody().getLocalVector(
                 this.getBody().getLinearVelocityFromLocalPoint(
                         new Vector2(0, 0)));
@@ -344,14 +349,14 @@ public class Taxi {
         }
         return poweredWheels;
     }
-    
+
     /**Retrieves the current angle under which the taxi
      * stands on the map.
-     * 
+     *
      * @return angle
      */
     public float getAngle() {
-        assert(this.taxiBody != null);
+        assert (this.getBody() != null);
         return this.taxiBody.getAngle();
     }
 
@@ -409,6 +414,22 @@ public class Taxi {
         this.team = team;
     }
 
+    /**Retrieve whether a passenger has been picked up by the taxi.
+    *
+    * @return boolean indicating whether the taxi has a passenger
+    */
+   public boolean pickedUpPassenger() {
+       return this.passenger != null;
+   }
+
+   /**Retrieve the passenger of the taxi.
+    *
+    * @return passenger
+    */
+   public Passenger getPassenger() {
+       return this.passenger;
+   }
+
     /**
      * Picks up a passenger and places it into this taxi.
      *
@@ -416,6 +437,7 @@ public class Taxi {
      *            : the passenger to pickup
      */
     public void pickUpPassenger(Passenger passenger) {
+        assert(passenger != null);
         //Check if there is no passenger already picked up
         if (this.passenger == null) {
             this.passenger = passenger;
@@ -428,8 +450,6 @@ public class Taxi {
      *
      * @param destination
      * @param map
-     *
-     * @return boolean indicating whether the passenger was dropped off
      *
      */
     public void dropOffPassenger(Destination destination, WorldMap map) {
@@ -559,13 +579,5 @@ public class Taxi {
         taxiSprite.setScale(PIXELS_PER_METER);
         taxiSprite.draw(spriteBatch);
         spriteBatch.end();
-    }
-
-    public boolean pickedUpPassenger() {
-        return this.passenger != null;
-    }
-
-    public Passenger getPassenger() {
-        return this.passenger;
     }
 }

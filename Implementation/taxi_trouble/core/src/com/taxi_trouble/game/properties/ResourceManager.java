@@ -23,6 +23,7 @@ public class ResourceManager {
     public static Sprite throttleSprite;
     public static Sprite brakeSprite;
     public static Sprite dPadSprite;
+    public static Sprite destinationSprite;
     public static TiledMap mapFile;
     public static List<Character> charList;
     public static BitmapFont scoreFont;
@@ -34,6 +35,7 @@ public class ResourceManager {
         loadTaxiAndWheelSprites();
         loadDriverControlSprites();
         loadCharSprites();
+        destinationSprite = new Sprite(new Texture("sprites/destination.png"));
     }
 
     /**

@@ -21,9 +21,9 @@ import com.taxi_trouble.game.Character;
 /**
  * A passenger which can be transported by a taxi to a certain destination when
  * picked up.
- * 
+ *
  * @author Computer Games Project Group 8
- * 
+ *
  */
 public class Passenger {
     private float width, height;
@@ -225,7 +225,6 @@ public class Passenger {
      * @param destination
      *            : the destination to deliver the passenger
      *
-     * @return boolean indicating whether the passenger was successfully delivered
      */
     public void deliverAtDestination(WorldMap map, Destination destination) {
         assert (this.getBody() != null);
@@ -243,6 +242,7 @@ public class Passenger {
      * Resets the spawn point of the passenger.
      */
     public void resetSpawnPoint() {
+        assert (this.spawnPoint != null);
         spawnPoint.setActive(true);
     }
 
@@ -274,10 +274,12 @@ public class Passenger {
      * @return startposition
      */
     public Vector2 getStartPosition() {
+        assert (this.spawnPoint != null);
         return this.spawnPoint.getPosition();
     }
     
     public boolean isDelivered() {
+        assert (this.spawnPoint != null);
         return this.spawnPoint.isActive();
     }
 

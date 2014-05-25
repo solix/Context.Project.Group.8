@@ -69,17 +69,17 @@ public class SpawnPoint {
     public float getWidth() {
         return this.width;
     }
-    
+
     /**Set the width of the spawn point.
-     * 
+     *
      * @param width
      */
     public void setWidth(float width) {
         this.width = width;
     }
-    
+
     /**Set the height of the spawn point.
-     * 
+     *
      * @param height
      */
     public void setHeight(float height) {
