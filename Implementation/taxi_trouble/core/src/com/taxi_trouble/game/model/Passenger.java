@@ -40,32 +40,29 @@ public class Passenger {
      *            : the height of the passenger
      * @param character
      *            : the character assigned to this passenger
-     * @param spawnPoint
-     *            : the spawnPoint of the passenger
      */
-    public Passenger(World world, float width, float height, float angle,
-            Character character, SpawnPoint spawnPoint) {
+    public Passenger(float width, float height, Character character) {
         this.width = width;
         this.height = height;
         this.character = character;
         this.spawnPoint = spawnPoint;
-        initializeBody(world, spawnPoint.getPosition(), angle);
         setSprite(character.getStanding());
     }
 
     /**
      * Initialize the body of the solid passenger.
-     * 
+     *
      * @param world
      *            : the world in which the solid passenger is placed
-     * @param position
-     *            : the position at which the solid passenger is placed
+     * @param spawnPoint
+     *            : the spawnPoint of the passenger
      */
-    private void initializeBody(World world, Vector2 position, float angle) {
+    public void initializeBody(World world, SpawnPoint spawnPoint) {
+        this.spawnPoint = spawnPoint;
         BodyDef bodyDef = new BodyDef();
-        bodyDef.position.set(position);
+        bodyDef.position.set(spawnPoint.getPosition());
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.angle = angle * MathUtils.degreesToRadians;
+        bodyDef.angle = spawnPoint.getAngle() * MathUtils.degreesToRadians;
         bodyDef.fixedRotation = true;
         this.setBody(world.createBody(bodyDef));
         InitFixtureDef();
@@ -73,7 +70,7 @@ public class Passenger {
 
     /**
      * Retrieves the fixture for the body of the solid passenger.
-     * 
+     *
      */
     private void InitFixtureDef() {
         FixtureDef fixtureDef = new FixtureDef();

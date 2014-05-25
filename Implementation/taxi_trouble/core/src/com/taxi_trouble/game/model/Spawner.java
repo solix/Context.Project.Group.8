@@ -84,8 +84,8 @@ public class Spawner {
         SpawnPoint spawnPoint = passengerspawnpoints.get(random);
         // Assign a random character to the passenger
         Character character = getRandomCharacter();
-        Passenger pass = new Passenger(world, 2, 2, spawnPoint.getAngle(),
-                character, spawnPoint);
+        Passenger pass = new Passenger(2, 2, character);
+        pass.initializeBody(world, spawnPoint);
         pass.setDestination(randomDestination(world));
         //Add the new passenger to the list of active passengers
         passengers.add(pass);
@@ -96,7 +96,7 @@ public class Spawner {
      *
      * @param passenger
      */
-    public void despawnPasenger(Passenger passenger) {
+    public void despawnPassenger(Passenger passenger) {
         passengers.remove(passenger);
     }
 

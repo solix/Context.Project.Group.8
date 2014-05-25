@@ -78,7 +78,6 @@ public class Taxi {
      *            : the position where the taxi should be placed
      * @param angle
      *            : the angle under which the taxi is placed
-     * @return the created body
      */
     public void createBody(World world, Vector2 position, float angle) {
         BodyDef bodyDef = new BodyDef();
@@ -422,7 +421,7 @@ public class Taxi {
      */
     public void dropOffPassenger(Destination destination, WorldMap map) {
         if(this.passenger != null && this.passenger.getDestination().equals(destination)) {
-            map.getSpawner().despawnPasenger(passenger);
+            map.getSpawner().despawnPassenger(passenger);
             this.passenger = null;
             this.team.incScore();
         }
