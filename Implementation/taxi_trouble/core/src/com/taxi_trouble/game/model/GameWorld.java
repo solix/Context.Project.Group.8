@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.DestructionListener;
 import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.properties.ScoreBoard;
@@ -44,7 +45,7 @@ public class GameWorld extends Game {
      *
      */
     public void loadResources() {
-        TaxiJukebox.createMusicInGame("sound/bobmar.mp3", "BobMarley");
+        //TaxiJukebox.createMusicInGame("sound/bobmar.mp3", "BobMarley");
         TaxiJukebox.createMusicInGame("sound/street.mp3", "street");
         ResourceManager.loadMap();
         ResourceManager.loadSprites();

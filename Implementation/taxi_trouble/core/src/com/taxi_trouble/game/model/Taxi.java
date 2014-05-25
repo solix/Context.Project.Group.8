@@ -79,7 +79,7 @@ public class Taxi {
      * @param angle
      *            : the angle under which the taxi is placed
      */
-    public void createBody(World world, Vector2 position, float angle) {
+    public void initializeBody(World world, Vector2 position, float angle) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(position);
@@ -344,6 +344,16 @@ public class Taxi {
         }
         return poweredWheels;
     }
+    
+    /**Retrieves the current angle under which the taxi
+     * stands on the map.
+     * 
+     * @return angle
+     */
+    public float getAngle() {
+        assert(this.taxiBody != null);
+        return this.taxiBody.getAngle();
+    }
 
     /**
      * Retrieves the direction in which the taxi is steered.
@@ -415,13 +425,17 @@ public class Taxi {
 
     /**
      * Drop off the passenger, i.e. get it out of the taxi.
+     *
      * @param destination
      * @param map
      *
+     * @return boolean indicating whether the passenger was dropped off
+     *
      */
     public void dropOffPassenger(Destination destination, WorldMap map) {
-        if(this.passenger != null && this.passenger.getDestination().equals(destination)) {
-            map.getSpawner().despawnPassenger(passenger);
+        if (pickedUpPassenger()
+                && this.passenger.getDestination().equals(destination)) {
+            passenger.deliverAtDestination(map, destination);
             this.passenger = null;
             this.team.incScore();
         }

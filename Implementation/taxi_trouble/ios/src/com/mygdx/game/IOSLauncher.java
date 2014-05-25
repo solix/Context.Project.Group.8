@@ -5,13 +5,13 @@ import org.robovm.apple.uikit.UIApplication;
 
 import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
-import com.taxi_trouble.game.TaxiTest;
+import com.taxi_trouble.game.model.GameWorld;
 
 public class IOSLauncher extends IOSApplication.Delegate {
     @Override
     protected IOSApplication createApplication() {
         IOSApplicationConfiguration config = new IOSApplicationConfiguration();
-        return new IOSApplication(new TaxiTest(), config);
+        return new IOSApplication(new GameWorld(), config);
     }
 
     public static void main(String[] argv) {

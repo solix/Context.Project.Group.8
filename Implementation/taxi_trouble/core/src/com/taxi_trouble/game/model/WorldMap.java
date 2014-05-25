@@ -19,7 +19,7 @@ import static com.taxi_trouble.game.properties.GameProperties.*;
  * The map for the world in which a game can take place and its objects.
  *
  * @author Computer Games Project Group 8
- * 
+ *
  */
 public class WorldMap {
     private TiledMap map;
@@ -31,8 +31,8 @@ public class WorldMap {
      * Initializes a new WorldMap for a specified world using the specified
      * directory of the map file.
      *
-     * @param mapFile
-     *            : location/directory of the map (tmx-file)
+     * @param map
+     *            : the TiledMap to be used for the map
      * @param world
      *            : the world for which the map is created
      */
@@ -212,5 +212,14 @@ public class WorldMap {
      */
     public Spawner getSpawner() {
         return this.spawner;
+    }
+
+    /**Retrieves the World of the WorldMap. This is where all objects are
+     * placed of the game.
+     *
+     * @return world : the world
+     */
+    public World getWorld() {
+        return this.world;
     }
 }

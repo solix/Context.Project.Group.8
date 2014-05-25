@@ -2,15 +2,20 @@ package com.taxi_trouble.game.model;
 
 import static com.taxi_trouble.game.properties.GameProperties.PIXELS_PER_METER;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.JointEdge;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.taxi_trouble.game.Character;
 
 /**
@@ -31,9 +36,7 @@ public class Passenger {
 
     /**
      * Initializes a new passenger.
-     * 
-     * @param world
-     *            : the world in which the passenger is placed
+     *
      * @param width
      *            : the width of the passenger
      * @param height
@@ -45,7 +48,6 @@ public class Passenger {
         this.width = width;
         this.height = height;
         this.character = character;
-        this.spawnPoint = spawnPoint;
         setSprite(character.getStanding());
     }
 
@@ -86,7 +88,7 @@ public class Passenger {
 
     /**
      * Retrieves the width of the passenger.
-     * 
+     *
      * @return width
      */
     public float getWidth() {
@@ -95,7 +97,7 @@ public class Passenger {
 
     /**
      * Retrieves the height of the passenger.
-     * 
+     *
      * @return height
      */
     public float getHeight() {
@@ -104,7 +106,7 @@ public class Passenger {
 
     /**
      * Retrieves the body of the passenger.
-     * 
+     *
      * @return body
      */
     public Body getBody() {
@@ -113,7 +115,7 @@ public class Passenger {
 
     /**
      * Changes the body of the passenger to the specified body.
-     * 
+     *
      * @param body
      */
     public void setBody(Body body) {
@@ -123,40 +125,74 @@ public class Passenger {
 
     /**
      * Retrieves the x-position of the passenger.
-     * 
+     *
      * @return x-position
      */
     public float getXPosition() {
+        assert (this.getBody() != null);
         return this.getBody().getPosition().x;
     }
 
     /**
      * Retrieves the y-position of the passenger.
-     * 
-     * @return
+     *
+     * @return y-position
      */
     public float getYPosition() {
+        assert (this.getBody() != null);
         return this.getBody().getPosition().y;
     }
 
     /**
      * Sets the position of a passenger.
-     * 
+     *
      * @param position
      *            : the position of the passenger
      */
     public void setPosition(Vector2 position) {
-        this.getBody().getPosition().x = position.x;
-        this.getBody().getPosition().y = position.y;
+        assert (this.getBody() != null);
+        this.getBody().setType(BodyType.StaticBody);
+        this.getBody().setTransform(position, this.body.getAngle());
+        this.getBody().setType(BodyType.DynamicBody);
     }
 
+    /**
+     * Retrieves the current position of the passenger.
+     *
+     * @return current position
+     */
     public Vector2 getPosition() {
+        assert (this.getBody() != null);
         return this.getBody().getPosition();
     }
 
     /**
+     * Retrieves the current angle under which the passenger is placed in the
+     * world.
+     *
+     * @return angle
+     */
+    public float getAngle() {
+        assert (this.getBody() != null);
+        return this.getBody().getAngle();
+    }
+
+    /**
+     * Sets the angle of the passenger.
+     *
+     * @param angle
+     *            : the new angle
+     */
+    public void setAngle(float angle) {
+        assert (this.getBody() != null);
+        this.getBody().setType(BodyType.StaticBody);
+        this.getBody().setTransform(getPosition(), angle);
+        this.getBody().setType(BodyType.DynamicBody);
+    }
+
+    /**
      * Sets the (initial) sprite of the passenger.
-     * 
+     *
      * @param passSprite
      */
     public void setSprite(Sprite passSprite) {
@@ -167,7 +203,7 @@ public class Passenger {
 
     /**
      * Set the transporter of the passenger.
-     * 
+     *
      */
     public void setTransporter(Taxi transporter) {
         this.transporter = transporter;
@@ -175,23 +211,44 @@ public class Passenger {
 
     /**
      * Make the passenger lose its transporter, i.e. get out of the taxi.
-     * 
+     *
      */
     public void cancelTransport() {
-        // this.transporter.dropOffPassenger();
-        // this.transporter = null;
+        this.transporter = null;
+    }
+
+    /**
+     * Deliver the passenger at its destination.
+     *
+     * @param map
+     *            : the map to remove the passenger from
+     * @param destination
+     *            : the destination to deliver the passenger
+     *
+     * @return boolean indicating whether the passenger was successfully delivered
+     */
+    public void deliverAtDestination(WorldMap map, Destination destination) {
+        assert (this.getBody() != null);
+        // Check if the destination is the right location
+        if (this.getDestination().equals(destination)) {
+            map.getSpawner().despawnPassenger(this);
+            resetSpawnPoint();
+            //Deactivate the body of the passenger
+            map.getWorld().step(0, 0, 0);
+            this.getBody().setActive(false);
+        }
     }
 
     /**
      * Resets the spawn point of the passenger.
      */
     public void resetSpawnPoint() {
-        spawnPoint.setActive(false);
+        spawnPoint.setActive(true);
     }
 
     /**
      * Set the passengers destination.
-     * 
+     *
      * @param dest
      *            : the destination to be set
      */
@@ -204,26 +261,35 @@ public class Passenger {
 
     /**
      * Retrieves the passenger its destination.
-     * 
+     *
      * @return destination : the passenger destination
      */
     public Destination getDestination() {
         return this.destination;
     }
 
+    /**
+     * Retrieves the startposition of the passenger from its spawnpoint.
+     *
+     * @return startposition
+     */
     public Vector2 getStartPosition() {
         return this.spawnPoint.getPosition();
+    }
+    
+    public boolean isDelivered() {
+        return this.spawnPoint.isActive();
     }
 
     /**
      * Renders the sprite(s) of the passenger.
-     * 
+     *
      * @param spriteBatch
      */
     public void render(SpriteBatch spriteBatch) {
         if (this.transporter != null) {
-            this.body.setLinearVelocity(transporter.getBody()
-                    .getLinearVelocity());
+            setPosition(transporter.getPosition());
+            setAngle(transporter.getAngle());
         }
         spriteBatch.begin();
         passengerSprite.setPosition(this.getXPosition() * PIXELS_PER_METER,

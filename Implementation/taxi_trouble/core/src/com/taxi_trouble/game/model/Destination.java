@@ -15,9 +15,9 @@ import com.badlogic.gdx.physics.box2d.World;
 /**
  * After a passenger is picked by a taxi, the team corresponding to the taxi
  * should see the destination to bring the passenger to.
- * 
+ *
  * @author Computer Games Project Group 8
- * 
+ *
  */
 public class Destination {
     private Body body;

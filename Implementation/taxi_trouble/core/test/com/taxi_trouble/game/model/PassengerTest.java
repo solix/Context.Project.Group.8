@@ -1,11 +1,8 @@
 package com.taxi_trouble.game.model;
 
-import com.taxi_trouble.game.model.Destination;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.taxi_trouble.game.model.Passenger;
-import com.taxi_trouble.game.model.Spawner;
-import com.taxi_trouble.game.model.Taxi;
-import com.taxi_trouble.game.model.Team;
-import com.taxi_trouble.game.model.WorldMap;
+import com.taxi_trouble.game.Character;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,5 +25,26 @@ import static org.mockito.Mockito.mock;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class PassengerTest {
-    //TODO
+
+    private Passenger passenger;
+
+    @Mock
+    private Character character;
+
+    @Mock
+    private Sprite sprite;
+
+    /**Initialize the passenger that should be tested.
+    *
+    */
+   @Before
+   public void initTaxi() {
+       when(character.getStanding()).thenReturn(sprite);
+       passenger = new Passenger(2, 2, character);
+   }
+   
+   @Test
+   public final void templateTest() {
+       assertEquals(0, 0);
+   }
 }

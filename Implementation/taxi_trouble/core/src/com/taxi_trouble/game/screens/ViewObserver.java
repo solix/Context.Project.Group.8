@@ -42,12 +42,12 @@ public abstract class ViewObserver implements Screen {
         this.taxi = taxigame.getTeam().getTaxi();
         this.cityMap = taxigame.getMap();
 
-        TaxiJukebox.loopMusic("BobMarley", true);
-        TaxiJukebox.playMusic("BobMarley");
-        TaxiJukebox.loopMusic("street", true);
-        TaxiJukebox.playMusic("street");
-        TaxiJukebox.setMusicVolume("BobMarley", 0.8f);
-        TaxiJukebox.setMusicVolume("street", 0.4f);
+        //TaxiJukebox.loopMusic("BobMarley", true);
+        //TaxiJukebox.playMusic("BobMarley");
+        //TaxiJukebox.loopMusic("street", true);
+        //TaxiJukebox.playMusic("street");
+        //TaxiJukebox.setMusicVolume("BobMarley", 0.8f);
+        //TaxiJukebox.setMusicVolume("street", 0.4f);
 
         // TODO: Also retrieve and render the other taxis in the game.
     }
@@ -58,10 +58,6 @@ public abstract class ViewObserver implements Screen {
      */
     @Override
     public void render(float delta) {
-        // Render the passengers into the game
-        for (Passenger pass : taxigame.getPassengers()) {
-            pass.render(getSpriteBatch());
-        }
         // Update the taxi movement
         taxi.update(Gdx.app.getGraphics().getDeltaTime());
 
@@ -70,6 +66,11 @@ public abstract class ViewObserver implements Screen {
 
         // Render the taxi sprites using the spriteBatch
         taxi.render(getSpriteBatch());
+
+        // Render the passengers into the game
+        for (Passenger pass : taxigame.getPassengers()) {
+            pass.render(getSpriteBatch());
+        }
 
         //Show the destination for a taxi picking up the corresponding passenger
         if (taxi.pickedUpPassenger()) {

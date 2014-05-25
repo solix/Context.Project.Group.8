@@ -8,7 +8,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 /**A solid box that can be placed in a world through which taxis cannot drive.
- * 
+ *
  * @author Computer Games Project Group 8
  *
  */
@@ -16,8 +16,9 @@ public class SolidBox {
     public float width, height;
     public Body body;
 
-    /**Initializes a new SolidBox in a world with specified width, height and position.
-     * 
+    /**Initializes a new SolidBox in a world with specified width,
+     * height and position.
+     *
      * @param world : the world in which the box is placed
      * @param width : the width of the box
      * @param height : the height of the box
@@ -30,7 +31,7 @@ public class SolidBox {
     }
 
     /**Initialize the body of the solid box.
-     * 
+     *
      * @param world : the world in which the solid box is placed
      * @param position : the position at which the solid box is placed
      */
@@ -41,26 +42,25 @@ public class SolidBox {
         bodyDef.fixedRotation = true;
         this.body = world.createBody(bodyDef);
         InitFixtureDef();
-        
     }
 
     /**Retrieves the fixture for the body of the solid box.
-     * 
-     * 
+     *
+     *
      */
     private void InitFixtureDef() {
         FixtureDef fixtureDef = new FixtureDef();
 
         PolygonShape boxShape = new PolygonShape();
         boxShape.setAsBox(this.width / 2, this.height / 2);
-        fixtureDef.shape=boxShape;
-        fixtureDef.restitution=0f;
+        fixtureDef.shape = boxShape;
+        fixtureDef.restitution = 0f;
         this.body.createFixture(fixtureDef);
         boxShape.dispose();
        }
 
     /**Retrieves the width of the solid box.
-     * 
+     *
      * @return width
      */
     public float getWidth() {
@@ -68,23 +68,23 @@ public class SolidBox {
     }
 
     /**Retrieves the height of the solid box.
-     * 
+     *
      * @return height
      */
     public float getHeight() {
        return this.height;
-	}
+    }
 
     /**Retrieves the body of the solid box.
-     * 
+     *
      * @return body
      */
     public Body getBody() {
         return this.body;
     }
-    
+
     /**Changes the body of the solid box to the specified body.
-     * 
+     *
      * @param body
      */
     public void setBody(Body body) {
@@ -92,7 +92,7 @@ public class SolidBox {
     }
 
     /**Retrieves the x-position of the solid box.
-     * 
+     *
      * @return x-position
      */
     public float getXPosition() {
@@ -100,7 +100,7 @@ public class SolidBox {
     }
 
     /**Retrieves the y-position of the solid box.
-     * 
+     *
      * @return
      */
     public float getYPosition() {
