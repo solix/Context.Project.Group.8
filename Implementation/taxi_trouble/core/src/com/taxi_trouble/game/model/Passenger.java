@@ -66,14 +66,14 @@ public class Passenger {
         bodyDef.angle = spawnPoint.getAngle() * MathUtils.degreesToRadians;
         bodyDef.fixedRotation = true;
         this.setBody(world.createBody(bodyDef));
-        InitFixtureDef();
+        initFixtureDef();
     }
 
     /**
      * Retrieves the fixture for the body of the solid passenger.
      *
      */
-    private void InitFixtureDef() {
+    private void initFixtureDef() {
         FixtureDef fixtureDef = new FixtureDef();
 
         PolygonShape passengerShape = new PolygonShape();
@@ -164,8 +164,8 @@ public class Passenger {
     }
 
     /**
-     * Retrieves the current angle under which the passenger is placed in the
-     * world.
+     * Retrieves the current angle in radians under which the passenger
+     * is placed in the world.
      *
      * @return angle
      */
@@ -175,7 +175,7 @@ public class Passenger {
     }
 
     /**
-     * Sets the angle of the passenger.
+     * Sets the angle in radians of the passenger.
      *
      * @param angle
      *            : the new angle
@@ -212,6 +212,15 @@ public class Passenger {
         this.transporter = null;
     }
 
+    /**Retrieves whether the passenger is transported, i.e. it has a
+     * transporter/taxi.
+     *
+     * @return boolean indicating whether the passenger is transported
+     */
+    public boolean isTransported() {
+        return this.transporter != null;
+    }
+
     /**
      * Deliver the passenger at its destination.
      *
@@ -224,9 +233,9 @@ public class Passenger {
     public void deliverAtDestination(WorldMap map, Destination destination) {
         assert (this.getBody() != null);
         // Check if the destination is the right location
-        if (this.getDestination().equals(destination)) {
+        if (this.getDestination().equals(destination) && isTransported()) {
             map.getSpawner().despawnPassenger(this);
-            resetSpawnPoint();
+            cancelTransport();
             //Deactivate the body of the passenger
             map.getWorld().step(0, 0, 0);
             this.getBody().setActive(false);
@@ -273,6 +282,10 @@ public class Passenger {
         return this.spawnPoint.getPosition();
     }
 
+    /**Retrieves whether the passenger is delivered at its destination.
+     *
+     * @return delivered
+     */
     public boolean isDelivered() {
         assert (this.spawnPoint != null);
         return this.spawnPoint.isActive();
