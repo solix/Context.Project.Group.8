@@ -120,10 +120,10 @@ public class GameWorld extends Game {
     }
     
     public void setTaxiLocation(int id, int x, int y) {
-		getTeam().getTaxi().getBody().setTransform(x, y, 0);
+		//getTeam().getTaxi().getBody().setTransform(x, y, 0);
 	}
 
 	public void sendLocation(float f, float g) {
-		platformInterface.sendLocation(f, g);
+		//platformInterface.sendLocation(f, g);
 	}
 }

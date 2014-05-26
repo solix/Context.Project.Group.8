@@ -78,6 +78,7 @@ public class DriverScreen extends ViewObserver {
         controlsUI.render(spriteBatch);
 
     }
+    
 
     @Override
     public void hide() {
