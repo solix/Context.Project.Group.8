@@ -44,7 +44,6 @@ public class NavigatorScreen extends ViewObserver {
     @Override
     public void show() {
         super.show();
-
         // Initialize the sprite batch that should be used.
         spriteBatch = new SpriteBatch();
 

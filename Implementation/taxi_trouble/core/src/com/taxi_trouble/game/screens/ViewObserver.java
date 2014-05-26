@@ -21,7 +21,7 @@ public abstract class ViewObserver implements Screen {
     protected int screenWidth = GameProperties.screenWidth;
     protected int screenHeight = GameProperties.screenHeight;
     protected static int PIXELS_PER_METER = GameProperties.PIXELS_PER_METER;
-    protected Taxi taxi;
+    protected Taxi taxi; //should be tweaked to support more taxis.
     protected WorldMap cityMap;
     private OrthographicCamera scoreCam;
     final static int THREE = 3;

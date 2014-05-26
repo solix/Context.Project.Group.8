@@ -5,8 +5,10 @@ import java.util.List;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.taxi_trouble.game.gdxGooglePlay.GooglePlayInterface;
 import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.screens.DriverScreen;
+import com.taxi_trouble.game.screens.NavigatorScreen;
 import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**
@@ -22,10 +24,18 @@ public class GameWorld extends Game {
     // private List<Team> teams;
     // Temporary: single team (may change when implementing multiplayer)
     private Team team;
+    private GooglePlayInterface platformInterface;
     final static int THREE = 3;
 
     // private List<Passenger> passengers;
     // private ScoreBoard score;
+    
+    
+    
+    public GameWorld(GooglePlayInterface aInterface) {
+		platformInterface = aInterface;
+		platformInterface.Login();
+	}
 
     /**
      * Called when the game world is first created.
@@ -38,7 +48,8 @@ public class GameWorld extends Game {
         map = new WorldMap(ResourceManager.mapFile, world);
         team = new Team(map.getSpawner().spawnTaxi(world));
         world.setContactListener(new CollisionDetector(map));
-        setScreen(new DriverScreen(this));
+        //setScreen(new DriverScreen(this));
+        
     }
 
     /**
@@ -63,6 +74,14 @@ public class GameWorld extends Game {
             map.getSpawner().spawnPassenger(world);
         }
     }
+    
+	public void setScreen(boolean driver) {
+		if (driver) {
+			setScreen(new DriverScreen(this));
+		} else {
+			setScreen(new NavigatorScreen(this));
+		}
+	}
 
     /**
      * Retrieves the game world map.
@@ -99,4 +118,12 @@ public class GameWorld extends Game {
     public final List<Passenger> getPassengers() {
         return this.map.getSpawner().getActivePassengers();
     }
+    
+    public void setTaxiLocation(int id, int x, int y) {
+		getTeam().getTaxi().getBody().setTransform(x, y, 0);
+	}
+
+	public void sendLocation(float f, float g) {
+		platformInterface.sendLocation(f, g);
+	}
 }
