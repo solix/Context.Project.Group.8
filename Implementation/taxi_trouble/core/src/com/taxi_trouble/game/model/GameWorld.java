@@ -46,7 +46,7 @@ public class GameWorld extends Game {
      */
     public void loadResources() {
         //TaxiJukebox.createMusicInGame("sound/bobmar.mp3", "BobMarley");
-        TaxiJukebox.createMusicInGame("sound/street.mp3", "street");
+        //TaxiJukebox.createMusicInGame("sound/street.mp3", "street");
         ResourceManager.loadMap();
         ResourceManager.loadSprites();
         ResourceManager.loadFonts();

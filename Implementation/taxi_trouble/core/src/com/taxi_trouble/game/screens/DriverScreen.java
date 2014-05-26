@@ -63,21 +63,6 @@ public class DriverScreen extends ViewObserver {
 
     @Override
     public void render(float delta) {
-        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP))
-        taxi.setAccelerate(Acceleration.ACC_ACCELERATE);
-    else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN))
-        taxi.setAccelerate(Acceleration.ACC_BRAKE);
-    else
-        taxi.setAccelerate(Acceleration.ACC_NONE);
-
-    if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT))
-        taxi.setSteer(SteerDirection.STEER_LEFT);
-    else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT))
-        taxi.setSteer(SteerDirection.STEER_RIGHT);
-    else
-        taxi.setSteer(SteerDirection.STEER_NONE);
-
-        
         // Specify the clear values for the color buffers and clear the buffers
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);

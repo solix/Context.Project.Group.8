@@ -90,7 +90,7 @@ public class TaxiTest {
         //Drop the passenger off at the right destination of the map
         taxi.dropOffPassenger(destination, map);
         verify(passenger).getDestination();
-        verify(spawner).despawnPassenger(passenger);
+        verify(passenger).deliverAtDestination(map, destination);
         verify(team).incScore();
         assertEquals(false, taxi.pickedUpPassenger());
     }

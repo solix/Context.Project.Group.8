@@ -15,7 +15,7 @@ public class DriverControl implements InputProcessor {
 
     /**
      * New DriverControl.
-     * 
+     *
      * @param taxi
      *            the taxi to be controlled
      * @param controlsUI

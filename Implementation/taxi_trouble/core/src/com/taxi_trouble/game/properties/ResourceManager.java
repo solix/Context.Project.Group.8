@@ -17,7 +17,7 @@ import com.taxi_trouble.game.Character;
  *
  */
 public class ResourceManager {
-    
+
     public static Sprite taxiSprite;
     public static Sprite wheelSprite;
     public static Sprite throttleSprite;

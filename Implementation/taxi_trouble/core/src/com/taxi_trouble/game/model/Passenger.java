@@ -63,7 +63,6 @@ public class Passenger {
         this.spawnPoint = spawnPoint;
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(spawnPoint.getPosition());
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.angle = spawnPoint.getAngle() * MathUtils.degreesToRadians;
         bodyDef.fixedRotation = true;
         this.setBody(world.createBody(bodyDef));
@@ -151,9 +150,7 @@ public class Passenger {
      */
     public void setPosition(Vector2 position) {
         assert (this.getBody() != null);
-        this.getBody().setType(BodyType.StaticBody);
         this.getBody().setTransform(position, this.body.getAngle());
-        this.getBody().setType(BodyType.DynamicBody);
     }
 
     /**
@@ -185,9 +182,7 @@ public class Passenger {
      */
     public void setAngle(float angle) {
         assert (this.getBody() != null);
-        this.getBody().setType(BodyType.StaticBody);
         this.getBody().setTransform(getPosition(), angle);
-        this.getBody().setType(BodyType.DynamicBody);
     }
 
     /**
@@ -277,7 +272,7 @@ public class Passenger {
         assert (this.spawnPoint != null);
         return this.spawnPoint.getPosition();
     }
-    
+
     public boolean isDelivered() {
         assert (this.spawnPoint != null);
         return this.spawnPoint.isActive();
