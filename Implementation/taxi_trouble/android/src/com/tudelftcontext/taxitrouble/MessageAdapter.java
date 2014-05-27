@@ -14,16 +14,19 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
 	public MessageAdapter(GameWorld gameWorld) {
 		this.gameWorld = gameWorld;
 	}
-
 	@Override
 	public void onRealTimeMessageReceived(RealTimeMessage rtm) {
-		String message = new String(rtm.getMessageData());
+		onRealTimeMessageReceived(new String(rtm.getMessageData()));
+	}
+	
+	public void onRealTimeMessageReceived(String rtm) {
+		String message = rtm;
 
 		Scanner sc = new Scanner(message);
 		String flag = sc.next();
 
-		// if (!flag.equals("TAXI"))
-		Log.d("MULTI", message);
+		if (!flag.equals("TAXI"))
+		System.out.println(message);
 
 		if (flag.equals("TAXI")) {
 			int id = sc.nextInt();
@@ -31,16 +34,15 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
 			float y = Float.parseFloat(sc.next());
 			float a = Float.parseFloat(sc.next());
 			gameWorld.setTaxiLocation(id, x, y, a);
-		} else if (flag.equals("TEAM")) {
+		} else if (flag.equals("SETUP")) {
+			boolean driver = sc.nextBoolean();
+			gameWorld.setDriver(driver);
 			int teamId = sc.nextInt();
 			gameWorld.getTeam().setTeamId(teamId);
-		} else if (flag.equals("DRIVER")) {
-			gameWorld.setDriver(true);
-		} else if (flag.equals("NAVIGATOR")) {
-			gameWorld.setDriver(false);
-		} else if (flag.equals("TOTALTEAMS")) {
 			int totalTeams = sc.nextInt();
 			gameWorld.setTeams(totalTeams);
+		} else if (flag.equals("NAVIGATOR")) {
+			gameWorld.setDriver(false);
 		}
 
 		sc.close();

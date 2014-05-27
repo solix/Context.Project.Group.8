@@ -76,8 +76,8 @@ public class DriverScreen extends ViewObserver {
 		ownTaxi.update(Gdx.app.getGraphics().getDeltaTime());
 		cityMap.render(taxiCamera);
 
-		super.render(delta);
 
+		super.render(delta);
 		spriteBatch.setProjectionMatrix(virtualButtonsCamera.combined);
 		controlsUI.render(spriteBatch);
 	}

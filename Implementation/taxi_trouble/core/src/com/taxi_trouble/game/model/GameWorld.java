@@ -100,10 +100,12 @@ public class GameWorld extends Game {
 	}
 
 	public void setDriver(boolean driver) {
+		System.out.println("setDriver called, driver = " + driver);
 		this.driver = driver;
 	}
 
 	public void setScreen() {
+		System.out.println("setscreen called, driver = " + driver);
 		if (driver) {
 			setScreen(driverScreen);
 		} else {

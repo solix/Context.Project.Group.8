@@ -46,36 +46,40 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 
 	}
 
-	public boolean setTeams(Room room) {
+	public String setTeams(Room room) {
 		List<String> ids = room.getParticipantIds();
 		Collections.sort(ids);
-		String role = "";
+		boolean role;
+		String mySetupMessage = "MessageCreationError";
 		int teamId;
-
+		int totalTeams = room.getParticipantIds().size() / 2;
 		for (int i = 0; i < ids.size(); i++) {
-			teamId = (int) Math.ceil(i / 2.0);
+			teamId = (int) Math.floor(i / 2.0);
 			if (i % 2 == 0) {
-				role = "DRIVER";
+				//role = "DRIVER";
+				role = true;
 			} else {
-				role = "NAVIGATOR";
+				//role = "NAVIGATOR";
+				role = false;
 			}
+			
+			String message = "SETUP " + role + " " + teamId + " " + totalTeams;
+			
+			
+			
 			if (!ids.get(i).equals(myId)) {
 				Games.RealTimeMultiplayer.sendReliableMessage(apiClient, null,
-						role.getBytes(), room.getRoomId(), ids.get(i));
+						message.getBytes(), room.getRoomId(), ids.get(i));
 
-				Games.RealTimeMultiplayer.sendReliableMessage(apiClient, null,
-						("TEAM " + teamId).getBytes(), room.getRoomId(),
-						ids.get(i));
 			} else {
-				driver = (role == "DRIVER") ? true : false;
-				myTeamId = teamId;
+				mySetupMessage = message;
 			}
 		}
 
-		int totalTeams = room.getParticipantIds().size() / 2;
-		reliableBroadcast("TOTALTEAMS " + totalTeams, room);
+		//reliableBroadcast("TOTALTEAMS " + totalTeams, room);
+		 
 
-		return driver;
+		return mySetupMessage ;
 	}
 
 	public void setMyId(String myId) {

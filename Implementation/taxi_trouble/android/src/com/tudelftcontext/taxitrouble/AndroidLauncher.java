@@ -71,6 +71,7 @@ public class AndroidLauncher extends AndroidApplication implements
 		if (request == RC_WAITING_ROOM) {
 			Log.d("MULTI", "game started trough activityResult");
 			gameWorld.setScreen();
+			System.out.println("teamID = " + gameWorld.getTeam().getTeamId());
 		}
 	}
 
@@ -230,7 +231,8 @@ public class AndroidLauncher extends AndroidApplication implements
 
 		setHost(room);
 		if (iAmHost) {
-			gameWorld.setDriver(multiplayerInterface.setTeams(room));
+			messageAdapter.onRealTimeMessageReceived(multiplayerInterface.setTeams(room));
+			System.out.println("done setting teams");
 		}
 	}
 
