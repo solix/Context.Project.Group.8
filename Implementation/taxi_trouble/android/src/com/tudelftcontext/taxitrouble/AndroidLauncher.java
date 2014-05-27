@@ -2,33 +2,29 @@ package com.tudelftcontext.taxitrouble;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.GamesStatusCodes;
 import com.google.android.gms.games.multiplayer.Participant;
-import com.google.android.gms.games.multiplayer.realtime.RealTimeMessage;
-import com.google.android.gms.games.multiplayer.realtime.RealTimeMessageReceivedListener;
 import com.google.android.gms.games.multiplayer.realtime.Room;
 import com.google.android.gms.games.multiplayer.realtime.RoomConfig;
 import com.google.android.gms.games.multiplayer.realtime.RoomStatusUpdateListener;
 import com.google.android.gms.games.multiplayer.realtime.RoomUpdateListener;
 import com.google.example.games.basegameutils.GameHelper;
 import com.google.example.games.basegameutils.GameHelper.GameHelperListener;
-import com.taxi_trouble.game.gdxGooglePlay.GooglePlayInterface;
 import com.taxi_trouble.game.model.GameWorld;
+import com.taxi_trouble.game.multiplayer.SetupInterface;
 
 public class AndroidLauncher extends AndroidApplication implements
-		GameHelperListener, GooglePlayInterface, RoomUpdateListener,
-		RoomStatusUpdateListener, RealTimeMessageReceivedListener {
+		GameHelperListener, SetupInterface, RoomUpdateListener,
+		RoomStatusUpdateListener {
 
 	private GameHelper aHelper;
 	private boolean iAmHost = false;
@@ -36,6 +32,11 @@ public class AndroidLauncher extends AndroidApplication implements
 	private boolean driver;
 	private GameWorld gameWorld;
 	private String roomId;
+	private AndroidMultiplayerAdapter multiplayerInterface;
+	private MessageAdapter messageAdapter;
+	// arbitrary request code for the waiting room UI.
+	// This can be any integer that's unique in your Activity.
+	private final static int RC_WAITING_ROOM = 10002;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -43,9 +44,11 @@ public class AndroidLauncher extends AndroidApplication implements
 		aHelper = new GameHelper(this, GameHelper.CLIENT_GAMES);
 
 		AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
-		// cfg.useGL20 = false;
 		aHelper.setup(this);
-		gameWorld = new GameWorld(this);
+		multiplayerInterface = new AndroidMultiplayerAdapter(
+				aHelper.getApiClient());
+		gameWorld = new GameWorld(multiplayerInterface, this);
+		messageAdapter = new MessageAdapter(gameWorld);
 		initialize(gameWorld, cfg);
 	}
 
@@ -67,8 +70,7 @@ public class AndroidLauncher extends AndroidApplication implements
 		aHelper.onActivityResult(request, response, data);
 		if (request == RC_WAITING_ROOM) {
 			Log.d("MULTI", "game started trough activityResult");
-			Log.d("MULTI", "driver:" + driver);
-			gameWorld.setScreen(driver);
+			gameWorld.setScreen();
 		}
 	}
 
@@ -81,15 +83,16 @@ public class AndroidLauncher extends AndroidApplication implements
 		startQuickGame();
 	}
 
-	public void Login() {
+	@Override
+	public void login() {
 		System.out.println("started AL login");
 		aHelper.beginUserInitiatedSignIn();
 	}
 
-	public void LogOut() {
+	@Override
+	public void logout() {
 		try {
 			runOnUiThread(new Runnable() {
-
 				// @Override
 				public void run() {
 					aHelper.signOut();
@@ -98,7 +101,6 @@ public class AndroidLauncher extends AndroidApplication implements
 		} catch (final Exception ex) {
 
 		}
-
 	}
 
 	public boolean getSignedIn() {
@@ -108,7 +110,7 @@ public class AndroidLauncher extends AndroidApplication implements
 	private void startQuickGame() {
 		// auto-match criteria to invite one random automatch opponent.
 		// You can also specify more opponents (up to 3).
-		Bundle am = RoomConfig.createAutoMatchCriteria(1, 1, 0);
+		Bundle am = RoomConfig.createAutoMatchCriteria(1, 3, 0);
 
 		// build the room config:
 		RoomConfig.Builder roomConfigBuilder = makeBasicRoomConfigBuilder();
@@ -124,53 +126,10 @@ public class AndroidLauncher extends AndroidApplication implements
 
 	private RoomConfig.Builder makeBasicRoomConfigBuilder() {
 		RoomConfig.Builder builder = RoomConfig.builder(this);
-		builder.setMessageReceivedListener(this);
+		builder.setMessageReceivedListener(messageAdapter);
 		builder.setRoomStatusUpdateListener(this);
 
 		return builder;
-	}
-
-	@Override
-	public void submitScore(int score) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void getScores() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void getScoresData() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onRealTimeMessageReceived(RealTimeMessage rtm) {
-		String message = new String(rtm.getMessageData());
-		System.out.println(message);
-		//Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG)
-		//		.show();
-
-		if (message.equals("DRIVER")) {
-			driver = true;
-		} else if (message.equals("NAVIGATOR")) {
-			driver = false;
-		} else {
-			Scanner sc = new Scanner(message);
-			String flag = sc.next();
-			if (flag.equals("TAXI")){
-				int id = sc.nextInt();
-				float x = Float.parseFloat(sc.next());
-				float y = Float.parseFloat(sc.next());
-				float a = Float.parseFloat(sc.next());
-				gameWorld.setTaxiLocation(id, x, y, a);
-			}
-			
-		}
 	}
 
 	@Override
@@ -178,6 +137,9 @@ public class AndroidLauncher extends AndroidApplication implements
 		myId = room.getParticipantId(Games.Players.getCurrentPlayerId(aHelper
 				.getApiClient()));
 		roomId = room.getRoomId();
+
+		multiplayerInterface.setMyId(myId);
+		multiplayerInterface.setRoomId(roomId);
 	}
 
 	@Override
@@ -221,10 +183,6 @@ public class AndroidLauncher extends AndroidApplication implements
 		// TODO Auto-generated method stub
 
 	}
-
-	// arbitrary request code for the waiting room UI.
-	// This can be any integer that's unique in your Activity.
-	final static int RC_WAITING_ROOM = 10002;
 
 	@Override
 	public void onJoinedRoom(int statusCode, Room room) {
@@ -272,28 +230,7 @@ public class AndroidLauncher extends AndroidApplication implements
 
 		setHost(room);
 		if (iAmHost) {
-			setTeams(room);
-		}
-	}
-
-	private void setTeams(Room room) {
-		List<String> ids = room.getParticipantIds();
-		Collections.sort(ids);
-		String role = "";
-
-		for (int i = 0; i < ids.size(); i++) {
-			if (i % 2 == 0) {
-				role = "DRIVER";
-			} else {
-				role = "NAVIGATOR";
-			}
-			if (!ids.get(i).equals(myId)) {
-				Games.RealTimeMultiplayer.sendReliableMessage(
-						aHelper.getApiClient(), null, role.getBytes(),
-						room.getRoomId(), ids.get(i));
-			} else {
-				driver = role == "DRIVER" ? true : false;
-			}
+			gameWorld.setDriver(multiplayerInterface.setTeams(room));
 		}
 	}
 
@@ -377,15 +314,6 @@ public class AndroidLauncher extends AndroidApplication implements
 					room.getRoomId());
 			getWindow().clearFlags(
 					WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-		}
-	}
-
-	@Override
-	public void sendLocation(float x, float y, float a) {
-		if (roomId != null) {
-			Games.RealTimeMultiplayer.sendUnreliableMessageToOthers(
-					aHelper.getApiClient(),
-					("TAXI" + " " + 0 + " " +  x + " " +  y + " " +  a).getBytes(), roomId);
 		}
 	}
 }

@@ -3,41 +3,54 @@ package com.taxi_trouble.game.model;
 import com.taxi_trouble.game.properties.ScoreBoard;
 
 public class Team {
-    private Taxi taxi;
-    private ScoreBoard scoreBoard;
+	private Taxi taxi;
+	private ScoreBoard scoreBoard;
+	private int teamId;
 
-    public Team(Taxi taxi) {
-        this.taxi = taxi;
-        this.taxi.setTeam(this);
-        this.scoreBoard = new ScoreBoard();
-    }
+	public Team(Taxi taxi) {
+		this.taxi = taxi;
+		this.taxi.setTeam(this);
+		this.scoreBoard = new ScoreBoard();
+	}
 
-    /**
-     * Retrieves the taxi of the team.
-     * 
-     * @return taxi
-     */
-    public Taxi getTaxi() {
-        return taxi;
-    }
+	/**
+	 * Retrieves the taxi of the team.
+	 * 
+	 * @return taxi
+	 */
+	public Taxi getTaxi() {
+		return taxi;
+	}
 
-    /**
-     * Increment the team score.
-     * 
-     */
-    public void incScore() {
-        scoreBoard.incrScore();
-    }
+	/**
+	 * Increment the team score.
+	 * 
+	 */
+	public void incScore() {
+		scoreBoard.incrScore();
+	}
 
-    /**
-     * Retrieve the score of the team.
-     * 
-     */
-    public int getScore() {
-        return scoreBoard.getScore();
-    }
+	/**
+	 * Retrieve the score of the team.
+	 * 
+	 */
+	public int getScore() {
+		return scoreBoard.getScore();
+	}
 
-    public ScoreBoard getScoreBoard() {
-        return this.scoreBoard;
-    }
+	public ScoreBoard getScoreBoard() {
+		return this.scoreBoard;
+	}
+
+	public int getTeamId() {
+		return teamId;
+	}
+
+	public void setTeamId(int teamId) {
+		this.teamId = teamId;
+	}
+
+	public String toString() {
+		return "<Team teamId=" + teamId + ">";
+	}
 }
