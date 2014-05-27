@@ -3,6 +3,7 @@ package com.taxi_trouble.game.screens;
 import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_HEIGHT;
 import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_WIDTH;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -76,6 +77,7 @@ public class DriverScreen extends ViewObserver {
 
         spriteBatch.setProjectionMatrix(virtualButtonsCamera.combined);
         controlsUI.render(spriteBatch);
+        
 
     }
     

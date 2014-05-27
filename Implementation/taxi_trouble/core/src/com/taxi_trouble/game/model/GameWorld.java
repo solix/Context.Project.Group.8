@@ -25,14 +25,17 @@ public class GameWorld extends Game {
     // Temporary: single team (may change when implementing multiplayer)
     private Team team;
     private GooglePlayInterface platformInterface;
+    private DriverScreen driverScreen;
+    private NavigatorScreen navigatorScreen;
     final static int THREE = 3;
+    
 
     // private List<Passenger> passengers;
     // private ScoreBoard score;
     
     
     
-    public GameWorld(GooglePlayInterface aInterface) {
+   public GameWorld(GooglePlayInterface aInterface) {
 		platformInterface = aInterface;
 		platformInterface.Login();
 	}
@@ -48,8 +51,16 @@ public class GameWorld extends Game {
         map = new WorldMap(ResourceManager.mapFile, world);
         team = new Team(map.getSpawner().spawnTaxi(world));
         world.setContactListener(new CollisionDetector(map));
-        //setScreen(new DriverScreen(this));
+        System.out.println("gameworld created!!!");
+        driverScreen = new DriverScreen(this);
+        navigatorScreen = new NavigatorScreen(this);
+        setScreen(new DriverScreen(this)); // this fixes invisible car and invisible controls. I do not know why?
         
+    }
+    
+    @Override
+    public void resume() {
+    	loadResources();
     }
 
     /**
@@ -67,6 +78,9 @@ public class GameWorld extends Game {
     @Override
     public final void render() {
         super.render();
+        if(getScreen() instanceof DriverScreen){
+        sendLocation(getTeam().getTaxi().getXPosition(), getTeam().getTaxi().getYPosition(), getTeam().getTaxi().getBody().getAngle());
+        }
         // Spawn a new passenger if there are less than #taxis-1.
         // TODO: Instead of '3' adapt to #taxis-1 in the game.
         List<Passenger> passengers = map.getSpawner().getActivePassengers();
@@ -77,9 +91,9 @@ public class GameWorld extends Game {
     
 	public void setScreen(boolean driver) {
 		if (driver) {
-			setScreen(new DriverScreen(this));
+			setScreen(driverScreen);
 		} else {
-			setScreen(new NavigatorScreen(this));
+			setScreen(navigatorScreen);
 		}
 	}
 
@@ -119,11 +133,12 @@ public class GameWorld extends Game {
         return this.map.getSpawner().getActivePassengers();
     }
     
-    public void setTaxiLocation(int id, int x, int y) {
-		//getTeam().getTaxi().getBody().setTransform(x, y, 0);
+    public void setTaxiLocation(float id, float x, float y, float a) {
+    	//System.out.println("received taxi location!!");
+		getTeam().getTaxi().getBody().setTransform(x, y, a);
 	}
 
-	public void sendLocation(float f, float g) {
-		//platformInterface.sendLocation(f, g);
+	public void sendLocation(float f, float g, float a) {
+		platformInterface.sendLocation(f, g, a);
 	}
 }

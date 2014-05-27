@@ -33,7 +33,7 @@ public class DesktopGdxGooglePlay implements GooglePlayInterface {
 	}
 
 	@Override
-	public void sendLocation(float x, float y) {
+	public void sendLocation(float x, float y, float a) {
 		// TODO Auto-generated method stub
 
 	}

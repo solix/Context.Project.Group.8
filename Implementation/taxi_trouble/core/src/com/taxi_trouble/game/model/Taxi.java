@@ -535,7 +535,6 @@ public class Taxi {
      * @param spriteBatch
      */
     public void render(SpriteBatch spriteBatch) {
-    	System.out.println("rendering car!!");
         for (Wheel wheel : getWheels()) {
             wheel.render(spriteBatch);
         }

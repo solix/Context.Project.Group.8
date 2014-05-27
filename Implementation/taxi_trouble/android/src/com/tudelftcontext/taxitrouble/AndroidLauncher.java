@@ -151,8 +151,9 @@ public class AndroidLauncher extends AndroidApplication implements
 	@Override
 	public void onRealTimeMessageReceived(RealTimeMessage rtm) {
 		String message = new String(rtm.getMessageData());
-		Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG)
-				.show();
+		System.out.println(message);
+		//Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG)
+		//		.show();
 
 		if (message.equals("DRIVER")) {
 			driver = true;
@@ -161,11 +162,12 @@ public class AndroidLauncher extends AndroidApplication implements
 		} else {
 			Scanner sc = new Scanner(message);
 			String flag = sc.next();
-			if (flag == "TAXI"){
+			if (flag.equals("TAXI")){
 				int id = sc.nextInt();
-				int x = sc.nextInt();
-				int y = sc.nextInt();
-				gameWorld.setTaxiLocation(id, x, y);
+				float x = Float.parseFloat(sc.next());
+				float y = Float.parseFloat(sc.next());
+				float a = Float.parseFloat(sc.next());
+				gameWorld.setTaxiLocation(id, x, y, a);
 			}
 			
 		}
@@ -379,11 +381,11 @@ public class AndroidLauncher extends AndroidApplication implements
 	}
 
 	@Override
-	public void sendLocation(float x, float y) {
+	public void sendLocation(float x, float y, float a) {
 		if (roomId != null) {
 			Games.RealTimeMultiplayer.sendUnreliableMessageToOthers(
 					aHelper.getApiClient(),
-					("" + 0 + (int) x + (int) y).getBytes(), roomId);
+					("TAXI" + " " + 0 + " " +  x + " " +  y + " " +  a).getBytes(), roomId);
 		}
 	}
 }

@@ -18,5 +18,5 @@ public interface GooglePlayInterface {
 	// gets the score and gives access to the raw score data
 	public void getScoresData();
 
-	public void sendLocation(float f, float g);
+	public void sendLocation(float f, float g, float a);
 }
