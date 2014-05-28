@@ -23,7 +23,7 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 	public void sendCarLocation(int teamId, float x, float y, float a) {
 		if (roomId != null) {
 			Games.RealTimeMultiplayer
-					.sendUnreliableMessageToOthers(apiClient, ("TAXI" + " " + 0
+					.sendUnreliableMessageToOthers(apiClient, ("TAXI" + " " + teamId
 							+ " " + x + " " + y + " " + a).getBytes(), roomId);
 		}
 	}

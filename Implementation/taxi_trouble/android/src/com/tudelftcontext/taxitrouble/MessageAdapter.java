@@ -10,6 +10,7 @@ import com.taxi_trouble.game.model.GameWorld;
 
 public class MessageAdapter implements RealTimeMessageReceivedListener {
 	private GameWorld gameWorld;
+	private int count = 0;
 
 	public MessageAdapter(GameWorld gameWorld) {
 		this.gameWorld = gameWorld;
@@ -20,6 +21,7 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
 	}
 	
 	public void onRealTimeMessageReceived(String rtm) {
+		count++;
 		String message = rtm;
 
 		Scanner sc = new Scanner(message);
@@ -43,6 +45,11 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
 			gameWorld.setTeams(totalTeams);
 		} else if (flag.equals("NAVIGATOR")) {
 			gameWorld.setDriver(false);
+		}
+		
+		if (count> 10){
+			System.out.println(message);
+			count = 0;
 		}
 
 		sc.close();

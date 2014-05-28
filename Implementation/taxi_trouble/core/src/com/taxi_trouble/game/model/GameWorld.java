@@ -31,7 +31,6 @@ public class GameWorld extends Game {
 	private DriverScreen driverScreen;
 	private NavigatorScreen navigatorScreen;
 	final static int THREE = 3;
-	private int myTeamId;
 	private SetupInterface setupInterface;
 	private boolean driver;
 	private Map<Integer, Team> teams;
@@ -89,7 +88,8 @@ public class GameWorld extends Game {
 		if (getScreen() instanceof DriverScreen) {
 			sendLocation(getTeam().getTaxi().getXPosition(), getTeam()
 					.getTaxi().getYPosition(), getTeam().getTaxi().getBody()
-					.getAngle());
+					.getAngle()); 
+			
 		}
 		// Spawn a new passenger if there are less than #taxis-1.
 		// TODO: Instead of '3' adapt to #taxis-1 in the game.
@@ -149,13 +149,13 @@ public class GameWorld extends Game {
 		return this.map.getSpawner().getActivePassengers();
 	}
 
-	public void setTaxiLocation(float id, float x, float y, float a) {
+	public void setTaxiLocation(int id, float x, float y, float a) {
 		// System.out.println("received taxi location!!");
-		getTeam().getTaxi().getBody().setTransform(x, y, a);
+		getTeams().get(id).getTaxi().getBody().setTransform(x, y, a);
 	}
 
 	public void sendLocation(float f, float g, float a) {
-		multiplayerInterface.sendCarLocation(myTeamId, f, g, a);
+		multiplayerInterface.sendCarLocation(getTeam().getTeamId(), f, g, a);
 	}
 
 	public void setTeams(int totalTeams) {
