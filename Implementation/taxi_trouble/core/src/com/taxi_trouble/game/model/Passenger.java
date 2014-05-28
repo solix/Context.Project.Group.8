@@ -234,12 +234,20 @@ public class Passenger {
         assert (this.getBody() != null);
         // Check if the destination is the right location
         if (this.getDestination().equals(destination) && isTransported()) {
-            map.getSpawner().despawnPassenger(this);
-            cancelTransport();
-            //Deactivate the body of the passenger
-            map.getWorld().step(0, 0, 0);
-            this.getBody().setActive(false);
+            //Despawn the passenger and remove it from the world
+            Spawner spawner = map.getSpawner();
+            spawner.despawnPassenger(this);
+            removePassengerFromWorld(map.getWorld());
         }
+    }
+
+    /**Removes the passenger from the world.
+     *
+     * @param world : the world from which the passenger should be removed
+     */
+    private void removePassengerFromWorld(World world) {
+        world.step(0, 0, 0);
+        world.destroyBody(this.getBody());
     }
 
     /**
@@ -247,7 +255,7 @@ public class Passenger {
      */
     public void resetSpawnPoint() {
         assert (this.spawnPoint != null);
-        spawnPoint.setActive(true);
+        this.spawnPoint.setActive(true);
     }
 
     /**
@@ -280,15 +288,6 @@ public class Passenger {
     public Vector2 getStartPosition() {
         assert (this.spawnPoint != null);
         return this.spawnPoint.getPosition();
-    }
-
-    /**Retrieves whether the passenger is delivered at its destination.
-     *
-     * @return delivered
-     */
-    public boolean isDelivered() {
-        assert (this.spawnPoint != null);
-        return this.spawnPoint.isActive();
     }
 
     /**

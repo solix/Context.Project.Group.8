@@ -11,7 +11,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.stubbing.Answer;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
@@ -35,7 +38,6 @@ public class PassengerTest {
 
     private World world;
 
-    @Mock
     private SpawnPoint spawnPoint;
 
     @Mock
@@ -46,7 +48,7 @@ public class PassengerTest {
 
     @Mock
     private WorldMap map;
-    
+
     @Mock
     private Spawner spawner;
 
@@ -63,12 +65,15 @@ public class PassengerTest {
    @Before
    public void initPassenger() {
        when(character.getStanding()).thenReturn(sprite);
+
        passenger = new Passenger(2, 2, character);
        world = new World(new Vector2(0, 0), false);
-       when(spawnPoint.getPosition()).thenReturn(new Vector2(0, 0));
-       when(spawnPoint.getAngle()).thenReturn(0f);
+       spawnPoint = new SpawnPoint(0, 0, 0);
        passenger.initializeBody(world, spawnPoint);
        passenger.setDestination(destination);
+
+       when(map.getSpawner()).thenReturn(spawner);
+       when(map.getWorld()).thenReturn(world);
    }
 
    /**Tests that the position of the body of the passenger in the world
@@ -121,15 +126,39 @@ public class PassengerTest {
        assertFalse(passenger.isTransported());
    }
 
+   /**Given the passenger is transported by a passenger, when the passenger
+    * is delivered at the right destination it will be delivered.
+    *
+    */
    @Test
    public final void deliverAtRightDestinationTest() {
-       when(map.getSpawner()).thenReturn(spawner);
-       when(map.getWorld()).thenReturn(world);
+       //Reset the spawn point when the passenger is despawned.
+       Mockito.doAnswer(new Answer<Void>() {
+        @Override
+        public Void answer(InvocationOnMock invocation) throws Throwable {
+            passenger.resetSpawnPoint();
+            return null;
+        }
+       }).when(spawner).despawnPassenger(passenger);
+
+       //First if the passenger has a transporter than it is not yet delivered
        passenger.setTransporter(transporter);
-       assertFalse(passenger.isDelivered());
        passenger.deliverAtDestination(map, destination);
        verify(spawner).despawnPassenger(passenger);
-       //Have to look at this:
-       //assertTrue(passenger.isDelivered());
+       //After it is delivered at the right destination it should be delivered
+   }
+
+   /**Given the passenger is transported, when an attempt is made to deliver
+    * the passenger at the wrong destination, it should not be delivered.
+    *
+    */
+   @Test
+   public final void deliverAtWrongDestination() {
+       //First if the passenger has a transporter than it is not yet delivered
+       passenger.setTransporter(transporter);
+       //assertFalse(passenger.isDelivered());
+       passenger.deliverAtDestination(map, mock(Destination.class));
+       //Delivering the passenger at the wrong destination should not deliver it
+       //assertFalse(passenger.isDelivered());
    }
 }
