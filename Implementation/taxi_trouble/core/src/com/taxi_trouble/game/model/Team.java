@@ -1,6 +1,7 @@
 package com.taxi_trouble.game.model;
 
 import com.taxi_trouble.game.properties.ScoreBoard;
+import static com.taxi_trouble.game.properties.ResourceManager.scoreFont;
 
 public class Team {
     private Taxi taxi;
@@ -9,7 +10,7 @@ public class Team {
     public Team(Taxi taxi) {
         this.taxi = taxi;
         this.taxi.setTeam(this);
-        this.scoreBoard = new ScoreBoard();
+        this.scoreBoard = new ScoreBoard(scoreFont);
     }
 
     /**
