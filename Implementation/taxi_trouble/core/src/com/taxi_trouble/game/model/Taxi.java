@@ -21,9 +21,9 @@ import com.taxi_trouble.game.SteerDirection;
  * A controllable taxi which can be steered and for which certain properties
  * hold. A Taxi has a width, length, maximum steering angle, maximum speed,
  * power, box2d body, sprite and a set of wheels.
- *
+ * 
  * @author Computer Games Project Group 8
- *
+ * 
  */
 public class Taxi {
     private float width;
@@ -39,10 +39,11 @@ public class Taxi {
     private Acceleration acceleration;
     private Passenger passenger;
     private Team team;
+    private int number;
 
     /**
      * Initializes a new Taxi which can be controlled by a player.
-     *
+     * 
      * @param width
      *            : the width of the taxi
      * @param length
@@ -70,7 +71,7 @@ public class Taxi {
     /**
      * Creates a body for this taxi in a world on a given position and placed
      * under a given angle(radian).
-     *
+     * 
      * @param world
      *            : the world used to create the Body
      * @param position
@@ -90,7 +91,7 @@ public class Taxi {
 
     /**
      * Creates a fixture for the body of this taxi.
-     *
+     * 
      */
     private void createFixture() {
         FixtureDef fixtureDef = new FixtureDef();
@@ -105,7 +106,7 @@ public class Taxi {
 
     /**
      * Retrieves the body of the taxi.
-     *
+     * 
      * @return taxiBody : body of the taxi
      */
     public Body getBody() {
@@ -114,7 +115,7 @@ public class Taxi {
 
     /**
      * Changes the body of the taxi to a given body.
-     *
+     * 
      * @param body
      *            : the new body of the taxi
      */
@@ -125,7 +126,7 @@ public class Taxi {
 
     /**
      * Initializes the wheels of the taxi in a given world.
-     *
+     * 
      * @param world
      *            : world used to create the bodies of the taxi wheels
      */
@@ -137,12 +138,12 @@ public class Taxi {
         this.wheels.add(new Wheel(world, this, -1f, 1.2f, 0.4f, 0.6f, false,
                 false)); // back left
         this.wheels.add(new Wheel(world, this, 1f, 1.2f, 0.4f, 0.6f, false,
-                false)); //back right
+                false)); // back right
     }
 
     /**
      * Retrieves the width of the taxi.
-     *
+     * 
      * @return width : the width of the taxi
      */
     public float getWidth() {
@@ -151,7 +152,7 @@ public class Taxi {
 
     /**
      * Retrieves the length of the taxi.
-     *
+     * 
      * @return length : the length of the taxi
      */
     public float getLength() {
@@ -160,7 +161,7 @@ public class Taxi {
 
     /**
      * Retrieves the maximum angle under which the taxi can be steered.
-     *
+     * 
      * @return maxSteerAngle : the maximum angle under which the taxi can be
      *         steered
      */
@@ -170,7 +171,7 @@ public class Taxi {
 
     /**
      * Changes the maximum angle under which the taxi can be steered.
-     *
+     * 
      * @param maxSteerAngle
      *            : the new maximum steering angle
      */
@@ -180,7 +181,7 @@ public class Taxi {
 
     /**
      * Retrieves the maximum speed with which the taxi can drive.
-     *
+     * 
      * @return maxSpeed : maximum speed of the taxi
      */
     public float getMaxSpeed() {
@@ -189,7 +190,7 @@ public class Taxi {
 
     /**
      * Changes the maximum speed with which the taxi can drive.
-     *
+     * 
      * @param maxSpeed
      *            : new maximum speed of the taxi
      */
@@ -199,7 +200,7 @@ public class Taxi {
 
     /**
      * Retrieves the power of the taxi's engine.
-     *
+     * 
      * @return power : power of the taxi
      */
     public float getPower() {
@@ -208,7 +209,7 @@ public class Taxi {
 
     /**
      * Changes the power of the taxi's engine.
-     *
+     * 
      * @param power
      *            : new power of the taxi
      */
@@ -218,7 +219,7 @@ public class Taxi {
 
     /**
      * Retrieves the speed of the taxi in kilometers per hour.
-     *
+     * 
      * @return
      */
     public float getSpeedKMH() {
@@ -230,7 +231,7 @@ public class Taxi {
 
     /**
      * Changes the speed to a given speed in kilometers per hour.
-     *
+     * 
      * @param speed
      *            : new speed of the taxi
      */
@@ -245,7 +246,7 @@ public class Taxi {
 
     /**
      * Retrieves the x-position of the taxi.
-     *
+     * 
      * @return x-position of the taxi
      */
     public float getXPosition() {
@@ -255,7 +256,7 @@ public class Taxi {
 
     /**
      * Retrieves the y-position of the taxi.
-     *
+     * 
      * @return y-position of the taxi
      */
     public float getYPosition() {
@@ -263,8 +264,9 @@ public class Taxi {
         return this.getBody().getPosition().y;
     }
 
-    /**Retrieves the position of the taxi.
-     *
+    /**
+     * Retrieves the position of the taxi.
+     * 
      * @return position of the taxi
      */
     public Vector2 getPosition() {
@@ -274,7 +276,7 @@ public class Taxi {
 
     /**
      * Retrieves the velocity vector relative to the taxi.
-     *
+     * 
      * @return
      */
     public Vector2 getLocalVelocity() {
@@ -286,7 +288,7 @@ public class Taxi {
 
     /**
      * Changes the sprite of the taxi and the wheels for the given sprites.
-     *
+     * 
      * @param taxisprite
      *            : the sprite to be set as the taxi's sprite
      * @param wheelsprite
@@ -301,7 +303,7 @@ public class Taxi {
 
     /**
      * Changes the sprite of the taxi's wheels to the given sprite.
-     *
+     * 
      * @param sprite
      *            : the sprite to be set as the wheels' sprite
      */
@@ -313,7 +315,7 @@ public class Taxi {
 
     /**
      * Retrieves the wheels of the taxi.
-     *
+     * 
      * @return wheels of the taxi
      */
     public List<Wheel> getWheels() {
@@ -322,7 +324,7 @@ public class Taxi {
 
     /**
      * Retrieves the revolving wheels of the taxi.
-     *
+     * 
      * @return revolving wheels
      */
     public List<Wheel> getRevolvingWheels() {
@@ -337,7 +339,7 @@ public class Taxi {
 
     /**
      * Retrieves the powered wheels of the taxi.
-     *
+     * 
      * @return powered wheels
      */
     public List<Wheel> getPoweredWheels() {
@@ -350,9 +352,9 @@ public class Taxi {
         return poweredWheels;
     }
 
-    /**Retrieves the current angle under which the taxi
-     * stands on the map.
-     *
+    /**
+     * Retrieves the current angle under which the taxi stands on the map.
+     * 
      * @return angle
      */
     public float getAngle() {
@@ -362,7 +364,7 @@ public class Taxi {
 
     /**
      * Retrieves the direction in which the taxi is steered.
-     *
+     * 
      * @return steer direction of the taxi
      */
     public SteerDirection getSteer() {
@@ -371,7 +373,7 @@ public class Taxi {
 
     /**
      * Sets the direction in which to steer.
-     *
+     * 
      * @param direction
      *            : direction to steer
      */
@@ -381,7 +383,7 @@ public class Taxi {
 
     /**
      * Retrieves the way in which the taxi is accelerating.
-     *
+     * 
      * @return acceleration of the taxi
      */
     public Acceleration getAccelerate() {
@@ -390,7 +392,7 @@ public class Taxi {
 
     /**
      * Sets the acceleration of the taxi.
-     *
+     * 
      * @param acceleration
      *            : the way in which the taxi accerelates
      */
@@ -398,48 +400,53 @@ public class Taxi {
         this.acceleration = acceleration;
     }
 
-    /**Retrieves the team to which this taxi belongs.
-     *
+    /**
+     * Retrieves the team to which this taxi belongs.
+     * 
      * @return team
      */
     public Team getTeam() {
         return this.team;
     }
 
-    /**Set the team of the taxi.
-     *
+    /**
+     * Set the team of the taxi.
+     * 
      * @param team
      */
     public void setTeam(Team team) {
         this.team = team;
     }
 
-    /**Retrieve whether a passenger has been picked up by the taxi.
-    *
-    * @return boolean indicating whether the taxi has a passenger
-    */
-   public boolean pickedUpPassenger() {
-       return this.passenger != null;
-   }
+    /**
+     * Retrieve whether a passenger has been picked up by the taxi.
+     * 
+     * @return boolean indicating whether the taxi has a passenger
+     */
+    public boolean pickedUpPassenger() {
+        return this.passenger != null;
+    }
 
-   /**Retrieve the passenger of the taxi.
-    *
-    * @return passenger
-    */
-   public Passenger getPassenger() {
-       return this.passenger;
-   }
+    /**
+     * Retrieve the passenger of the taxi.
+     * 
+     * @return passenger
+     */
+    public Passenger getPassenger() {
+        return this.passenger;
+    }
 
     /**
      * Picks up a passenger and places it into this taxi.
-     *
+     * 
      * @param passenger
      *            : the passenger to pickup
      */
     public void pickUpPassenger(Passenger passenger) {
-        assert(passenger != null);
-        //Check if there is no passenger already picked up
-        if (this.passenger == null) {
+        assert (passenger != null);
+        // Check if there is no passenger already picked up
+        if (this.passenger == null && !passenger.isTransported()) {
+            System.out.println("TEST");
             this.passenger = passenger;
             this.passenger.setTransporter(this);
         }
@@ -447,23 +454,23 @@ public class Taxi {
 
     /**
      * Drop off the passenger, i.e. get it out of the taxi.
-     *
+     * 
      * @param destination
      * @param map
-     *
+     * 
      */
     public void dropOffPassenger(Destination destination, WorldMap map) {
         if (pickedUpPassenger()
                 && this.passenger.getDestination().equals(destination)) {
             passenger.deliverAtDestination(map, destination);
-            this.passenger = null;
+            this.losePassenger();
             this.team.incScore();
         }
     }
 
     /**
      * Updates the taxi's steer angle and acceleration.
-     *
+     * 
      * @param deltaTime
      */
     public void update(float deltaTime) {
@@ -473,7 +480,7 @@ public class Taxi {
 
     /**
      * Updates the direction in which the taxi's wheels should be pointed.
-     *
+     * 
      * @param deltaTime
      *            : difference in time in which the wheel angle updates
      */
@@ -501,7 +508,7 @@ public class Taxi {
 
     /**
      * Updates the angle of the wheels.
-     *
+     * 
      */
     private void updateRevolvingWheelsAngle() {
         for (Wheel wheel : this.getRevolvingWheels()) {
@@ -511,7 +518,7 @@ public class Taxi {
 
     /**
      * Updates the acceleration of the taxi.
-     *
+     * 
      * @param deltaTime
      */
     private void updateAcceleration(float deltaTime) {
@@ -549,7 +556,7 @@ public class Taxi {
 
     /**
      * Applies the force specified by a vector to the wheels of the taxi.
-     *
+     * 
      * @param forceVector
      */
     private void updatePoweredWheelsForce(Vector2 forceVector) {
@@ -564,7 +571,7 @@ public class Taxi {
 
     /**
      * Render the sprites of the taxi using a given SpriteBatch.
-     *
+     * 
      * @param spriteBatch
      */
     public void render(SpriteBatch spriteBatch) {
@@ -579,5 +586,29 @@ public class Taxi {
         taxiSprite.setScale(PIXELS_PER_METER);
         taxiSprite.draw(spriteBatch);
         spriteBatch.end();
+    }
+
+    public void stealPassenger(Taxi taxi) {
+        if (taxi.pickedUpPassenger() && !this.pickedUpPassenger()) {
+            Passenger pas = taxi.getPassenger();
+            System.out.println("I lost my passenger:");
+            taxi.losePassenger();
+            this.pickUpPassenger(pas);
+        }
+
+    }
+
+    private boolean losePassenger() {
+        this.getPassenger().cancelTransport();
+        this.passenger = null;
+        return true;
+    }
+
+    public void setNumber(int i) {
+        this.number = i;
+    }
+
+    public int getNumber() {
+        return this.number;
     }
 }
