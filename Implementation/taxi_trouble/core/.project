@@ -15,11 +15,4 @@
 		<nature>org.springsource.ide.eclipse.gradle.core.nature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>assets</name>
-			<type>2</type>
-			<location>C:/Users/Lboy/Documents/GitHub/Context.Project.Group.8/Implementation/taxi_trouble/android/assets</location>
-		</link>
-	</linkedResources>
 </projectDescription>

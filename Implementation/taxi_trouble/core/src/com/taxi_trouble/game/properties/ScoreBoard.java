@@ -1,7 +1,5 @@
 package com.taxi_trouble.game.properties;
 
-import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_HEIGHT;
-
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -17,7 +15,7 @@ public class ScoreBoard {
     private BitmapFont scoreBoardFont;
     private String scoreName;
     private final static int SCORE_XPOSITION = 10;
-    private final static int SCORE_YPOSITION = VIRTUAL_HEIGHT + 150;
+    private final static int SCORE_YPOSITION = 470;
 
     /**Initializes a new ScoreBoard.
      * The score will be initialized to zero.

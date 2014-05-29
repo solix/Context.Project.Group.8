@@ -1,12 +1,14 @@
 package com.taxi_trouble.game.properties;
 
-import static org.junit.Assert.assertEquals;
-
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import static org.junit.Assert.assertEquals;
 
 
 /**This class tests the functionality of the ScoreBoard class which
@@ -15,6 +17,7 @@ import org.mockito.Mock;
  * @author Computer Games Project Group 8
  *
  */
+@RunWith(MockitoJUnitRunner.class)
 public class ScoreBoardTest {
 
     private ScoreBoard scoreBoard;
