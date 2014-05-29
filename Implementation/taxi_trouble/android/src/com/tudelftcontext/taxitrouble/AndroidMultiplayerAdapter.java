@@ -6,6 +6,7 @@ import java.util.List;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.multiplayer.realtime.Room;
+import com.taxi_trouble.game.Acceleration;
 import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
 
 public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
@@ -14,6 +15,7 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 	private String myId;
 	private int myTeamId;
 	private boolean driver;
+	private String hostId;
 
 	public AndroidMultiplayerAdapter(GoogleApiClient apiClient) {
 		this.apiClient = apiClient;
@@ -96,5 +98,25 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 			Games.RealTimeMultiplayer.sendReliableMessage(apiClient, null,
 					messageBytes, room.getRoomId(), id);
 		}
+	}
+
+
+	@Override
+	public void sendCar(String networkMessage) {
+		if (roomId != null) {
+			Games.RealTimeMultiplayer
+					.sendUnreliableMessage(apiClient, networkMessage.getBytes(), roomId, hostId);
+		}
+		
+	}
+	
+	public void setHostID(String hostId){
+		this.hostId = hostId;
+	}
+
+	@Override
+	public void sendCarAcceleration(int teamId, Acceleration acceleration) {
+		// TODO Auto-generated method stub
+		
 	}
 }

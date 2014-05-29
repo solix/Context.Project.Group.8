@@ -11,6 +11,7 @@ import com.taxi_trouble.game.model.GameWorld;
 public class MessageAdapter implements RealTimeMessageReceivedListener {
 	private GameWorld gameWorld;
 	private int count = 0;
+	private String hostId;
 
 	public MessageAdapter(GameWorld gameWorld) {
 		this.gameWorld = gameWorld;
@@ -35,7 +36,7 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
 			float x = Float.parseFloat(sc.next());
 			float y = Float.parseFloat(sc.next());
 			float a = Float.parseFloat(sc.next());
-			gameWorld.setTaxiLocation(id, x, y, a);
+		//	gameWorld.setTaxiLocation(id, x, y, a);
 		} else if (flag.equals("SETUP")) {
 			boolean driver = sc.nextBoolean();
 			gameWorld.setDriver(driver);
@@ -53,5 +54,11 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
 		}
 
 		sc.close();
+	}
+	public String getHostId() {
+		return hostId;
+	}
+	public void setHostId(String hostId) {
+		this.hostId = hostId;
 	}
 }

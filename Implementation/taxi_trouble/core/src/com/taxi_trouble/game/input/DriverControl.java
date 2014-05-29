@@ -3,6 +3,7 @@ package com.taxi_trouble.game.input;
 import com.badlogic.gdx.InputProcessor;
 import com.taxi_trouble.game.Acceleration;
 import com.taxi_trouble.game.SteerDirection;
+import com.taxi_trouble.game.model.GameWorld;
 import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.properties.GameProperties;
 
@@ -69,11 +70,14 @@ public class DriverControl implements InputProcessor {
                 switch (button.ACTION) {
                 case ACCELERATE:
                     taxi.setAccelerate(Acceleration.ACC_ACCELERATE);
+                    GameWorld.multiplayerInterface.newChange("accel",Acceleration.ACC_ACCELERATE.ordinal() + "" );
                     break;
                 case BRAKE:
                     taxi.setAccelerate(Acceleration.ACC_BRAKE);
+                    GameWorld.multiplayerInterface.newChange("accel",Acceleration.ACC_BRAKE.ordinal() + "" );
                     break;
                 default:
+                	System.out.println("DEFAULTEXCEPTION");
                     // taxi.setAccelerate(Acceleration.ACC_NONE);
                     break;
                 }
@@ -81,11 +85,14 @@ public class DriverControl implements InputProcessor {
                 switch (button.ACTION) {
                 case LEFT:
                     taxi.setSteer(SteerDirection.STEER_LEFT);
+                    GameWorld.multiplayerInterface.newChange("steer",SteerDirection.STEER_LEFT.ordinal() + "" );
                     break;
                 case RIGHT:
                     taxi.setSteer(SteerDirection.STEER_RIGHT);
+                    GameWorld.multiplayerInterface.newChange("steer",SteerDirection.STEER_RIGHT.ordinal() + "" );
                     break;
                 default:
+                	System.out.println("DEFAULTEXCEPTION");
                     // taxi.setSteer(SteerDirection.STEER_NONE);
                     break;
                 }
@@ -110,15 +117,19 @@ public class DriverControl implements InputProcessor {
         controlsUI.setInActive(pointer);
         if (controlsUI.steering() && !controlsUI.driving()) {
             taxi.setAccelerate(Acceleration.ACC_NONE);
+            GameWorld.multiplayerInterface.newChange("accel",Acceleration.ACC_NONE.ordinal() + "" );
             return true;
         }
         if (!controlsUI.steering() && controlsUI.driving()) {
             taxi.setSteer(SteerDirection.STEER_NONE);
+            GameWorld.multiplayerInterface.newChange("steer",SteerDirection.STEER_NONE.ordinal() + "" );
             return true;
         }
         if (!controlsUI.steering() && !controlsUI.driving()) {
             taxi.setAccelerate(Acceleration.ACC_NONE);
             taxi.setSteer(SteerDirection.STEER_NONE);
+            GameWorld.multiplayerInterface.newChange("accel",Acceleration.ACC_NONE.ordinal() + "" );
+            GameWorld.multiplayerInterface.newChange("steer",SteerDirection.STEER_NONE.ordinal() + "" );
             return true;
         }
         return false;

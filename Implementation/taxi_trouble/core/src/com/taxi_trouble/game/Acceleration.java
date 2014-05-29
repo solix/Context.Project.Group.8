@@ -20,4 +20,6 @@ public enum Acceleration {
      * Steering in no direction
      */
     ACC_NONE;
+    
+    public static final Acceleration values[] = values();
 }

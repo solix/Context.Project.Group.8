@@ -20,6 +20,7 @@ import com.google.android.gms.games.multiplayer.realtime.RoomUpdateListener;
 import com.google.example.games.basegameutils.GameHelper;
 import com.google.example.games.basegameutils.GameHelper.GameHelperListener;
 import com.taxi_trouble.game.model.GameWorld;
+import com.taxi_trouble.game.multiplayer.CoreMultiplayerAdapter;
 import com.taxi_trouble.game.multiplayer.SetupInterface;
 
 public class AndroidLauncher extends AndroidApplication implements
@@ -34,6 +35,7 @@ public class AndroidLauncher extends AndroidApplication implements
 	private String roomId;
 	private AndroidMultiplayerAdapter multiplayerInterface;
 	private MessageAdapter messageAdapter;
+	private CoreMultiplayerAdapter coreMultiplayerAdapter;
 	// arbitrary request code for the waiting room UI.
 	// This can be any integer that's unique in your Activity.
 	private final static int RC_WAITING_ROOM = 10002;
@@ -47,7 +49,8 @@ public class AndroidLauncher extends AndroidApplication implements
 		aHelper.setup(this);
 		multiplayerInterface = new AndroidMultiplayerAdapter(
 				aHelper.getApiClient());
-		gameWorld = new GameWorld(multiplayerInterface, this);
+		coreMultiplayerAdapter = new CoreMultiplayerAdapter(multiplayerInterface);
+		gameWorld = new GameWorld(coreMultiplayerAdapter, this);
 		messageAdapter = new MessageAdapter(gameWorld);
 		initialize(gameWorld, cfg);
 	}
@@ -230,6 +233,7 @@ public class AndroidLauncher extends AndroidApplication implements
 		}
 
 		setHost(room);
+		
 		if (iAmHost) {
 			messageAdapter.onRealTimeMessageReceived(multiplayerInterface.setTeams(room));
 			System.out.println("done setting teams");
@@ -244,6 +248,8 @@ public class AndroidLauncher extends AndroidApplication implements
 		} else {
 			iAmHost = false;
 		}
+		multiplayerInterface.setHostID(ids.get(0));
+		messageAdapter.setHostId(ids.get(0));
 	}
 
 	// are we already playing?

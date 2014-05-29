@@ -8,6 +8,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
+import com.taxi_trouble.game.multiplayer.CoreMultiplayerAdapter;
 import com.taxi_trouble.game.multiplayer.SetupInterface;
 import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.screens.DriverScreen;
@@ -27,20 +28,21 @@ public class GameWorld extends Game {
 	// private List<Team> teams;
 	// Temporary: single team (may change when implementing multiplayer)
 	private Team ownTeam;
-	private AndroidMultiplayerInterface multiplayerInterface;
+	public static CoreMultiplayerAdapter multiplayerInterface;
 	private DriverScreen driverScreen;
 	private NavigatorScreen navigatorScreen;
 	final static int THREE = 3;
 	private SetupInterface setupInterface;
 	private boolean driver;
 	private Map<Integer, Team> teams;
+	private int count = 0;
 
 	// private List<Passenger> passengers;
 	// private ScoreBoard score;
 
-	public GameWorld(AndroidMultiplayerInterface multiplayerInterface,
+	public GameWorld(CoreMultiplayerAdapter multiplayerInterface,
 			SetupInterface setupInterface) {
-		this.multiplayerInterface = multiplayerInterface;
+		GameWorld.multiplayerInterface = multiplayerInterface;
 		this.setupInterface = setupInterface;
 		this.setupInterface.login();
 		this.teams = new HashMap<Integer, Team>();
@@ -85,18 +87,20 @@ public class GameWorld extends Game {
 	@Override
 	public final void render() {
 		super.render();
-		if (getScreen() instanceof DriverScreen) {
-			sendLocation(getTeam().getTaxi().getXPosition(), getTeam()
-					.getTaxi().getYPosition(), getTeam().getTaxi().getBody()
-					.getAngle()); 
+		if (getScreen() instanceof DriverScreen && count >0) {
+            multiplayerInterface.sendChanges();
+            count = 0;
+
 			
 		}
+		else count++;
 		// Spawn a new passenger if there are less than #taxis-1.
 		// TODO: Instead of '3' adapt to #taxis-1 in the game.
 		List<Passenger> passengers = map.getSpawner().getActivePassengers();
 		if (passengers.size() < THREE) {
 			map.getSpawner().spawnPassenger(world);
 		}
+		
 	}
 
 	public void setDriver(boolean driver) {
@@ -149,14 +153,9 @@ public class GameWorld extends Game {
 		return this.map.getSpawner().getActivePassengers();
 	}
 
-	public void setTaxiLocation(int id, float x, float y, float a) {
-		// System.out.println("received taxi location!!");
-		getTeams().get(id).getTaxi().getBody().setTransform(x, y, a);
-	}
+	
 
-	public void sendLocation(float f, float g, float a) {
-		multiplayerInterface.sendCarLocation(getTeam().getTeamId(), f, g, a);
-	}
+	
 
 	public void setTeams(int totalTeams) {
 		for (int i = 0; i < totalTeams; i++) {

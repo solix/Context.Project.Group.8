@@ -40,6 +40,7 @@ public class Taxi {
     private Acceleration acceleration;
     private Passenger passenger;
     private Team team;
+    private int seq = 0;
 
     /**
      * Initializes a new Taxi which can be controlled by a player.
@@ -555,4 +556,26 @@ public class Taxi {
     public Passenger getPassenger() {
         return this.passenger;
     }
+    
+    public String networkMessage(){
+    	seq++;
+		int teamId = getTeam().getTeamId();
+		float x = getXPosition();
+		float y = getYPosition();
+		float orientation = getBody().getAngle();
+		float speed = getSpeedKMH();
+		int acceleration = getAccelerate().ordinal();
+		int steerDirection = getSteer().ordinal();
+		return "TAXI " + seq + " " + teamId + " " + x + " " + y + " " + orientation + " " 
+				+ speed + " " + acceleration + " " + steerDirection;
+		
+	}
+
+	public void processMessage(float x, float y, float angle, float speed, Acceleration acceleration, SteerDirection steerDirection) {
+		getBody().setTransform(x, y, angle);
+		this.setSpeedKMH(speed);
+		this.setAccelerate(acceleration);
+		this.setSteer(steerDirection);
+		
+	}
 }

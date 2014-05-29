@@ -20,4 +20,7 @@ public enum SteerDirection {
      * Steering in no direction
      */
     STEER_NONE;
+    
+    
+    public static final SteerDirection values[] = values();
 }
