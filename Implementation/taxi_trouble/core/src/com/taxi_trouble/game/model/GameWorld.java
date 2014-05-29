@@ -6,8 +6,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.properties.ResourceManager;
-import com.taxi_trouble.game.screens.DriverScreen;
-import com.taxi_trouble.game.sound.TaxiJukebox;
+import com.taxi_trouble.game.screens.NavigatorScreen;
 
 /**
  * Provides the main model for all the elements of a game that is played.
@@ -38,7 +37,7 @@ public class GameWorld extends Game {
         map = new WorldMap(ResourceManager.mapFile, world);
         team = new Team(map.getSpawner().spawnTaxi(world));
         world.setContactListener(new CollisionDetector(map));
-        setScreen(new DriverScreen(this));
+        setScreen(new NavigatorScreen(this));
     }
 
     /**
@@ -46,8 +45,8 @@ public class GameWorld extends Game {
      * 
      */
     public void loadResources() {
-        TaxiJukebox.createMusicInGame("sound/bobmar.mp3", "BobMarley");
-        TaxiJukebox.createMusicInGame("sound/street.mp3", "street");
+        //TaxiJukebox.createMusicInGame("sound/bobmar.mp3", "BobMarley");
+        //TaxiJukebox.createMusicInGame("sound/street.mp3", "street");
         ResourceManager.loadMap();
         ResourceManager.loadSprites();
         ResourceManager.loadFonts();

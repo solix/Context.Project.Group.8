@@ -1,8 +1,5 @@
 package com.taxi_trouble.game.properties;
 
-import static com.taxi_trouble.game.properties.GameProperties.screenHeight;
-import static com.taxi_trouble.game.properties.ResourceManager.scoreFont;
-
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -17,16 +14,17 @@ public class ScoreBoard {
     private int score;
     private BitmapFont scoreBoardFont;
     private String scoreName;
-    private final static int TEN = 10;
+    private final static int SCORE_XPOSITION = 10;
+    private final static int SCORE_YPOSITION = 470;
 
     /**
      * Initializes a new ScoreBoard. The score will be initialized to zero.
      * 
      */
-    public ScoreBoard() {
+    public ScoreBoard(BitmapFont scoreBoardFont) {
         this.score = 0;
         this.scoreName = "Score  " + getScore();
-        this.scoreBoardFont = scoreFont;
+        this.scoreBoardFont = scoreBoardFont;
         this.scoreBoardFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
@@ -39,7 +37,7 @@ public class ScoreBoard {
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.begin();
         scoreName = "Score  " + getScore();
-        scoreBoardFont.draw(spriteBatch, scoreName, TEN, screenHeight);
+        scoreBoardFont.draw(spriteBatch, scoreName, SCORE_XPOSITION, SCORE_YPOSITION);
         spriteBatch.end();
     }
 

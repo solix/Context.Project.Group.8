@@ -16,9 +16,9 @@ import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 
 /**
  * A wheel as part of a Taxi which is controlled by a player.
- * 
+ *
  * @author Computer Games Project Group 8
- * 
+ *
  */
 public class Wheel {
 	private Taxi taxi;
@@ -40,7 +40,7 @@ public class Wheel {
 
 	/**
 	 * Creates the body of this wheel.
-	 * 
+	 *
 	 * @param world
 	 *            : the world for which the body should be created
 	 * @param position
@@ -58,7 +58,7 @@ public class Wheel {
 
 	/**
 	 * Creates the fixture of this wheel.
-	 * 
+	 *
 	 */
 	private void createFixture() {
 		FixtureDef fixtureDef = new FixtureDef();
@@ -75,7 +75,7 @@ public class Wheel {
 
 	/**
 	 * Creates joint to connect the wheel to the body.
-	 * 
+	 *
 	 */
 	private void createJoint(World world) {
 		if (this.getRevolving()) {
@@ -96,7 +96,7 @@ public class Wheel {
 
 	/**
 	 * Retrieve whether the wheel revolves when steering.
-	 * 
+	 *
 	 * @return revolving
 	 */
 	public boolean getRevolving() {
@@ -105,7 +105,7 @@ public class Wheel {
 
 	/**
 	 * Retrieve whether the wheel is powered.
-	 * 
+	 *
 	 * @return powered
 	 */
 	public boolean getPowered() {
@@ -114,7 +114,7 @@ public class Wheel {
 
 	/**
 	 * Sets the sprite of the wheel to a given sprite.
-	 * 
+	 *
 	 * @param sprite
 	 *            : sprite of the wheel
 	 */
@@ -126,7 +126,7 @@ public class Wheel {
 
 	/**
 	 * Retrieves the box2d body of this wheel.
-	 * 
+	 *
 	 * @return
 	 */
 	public Body getBody() {
@@ -135,7 +135,7 @@ public class Wheel {
 
 	/**
 	 * Changes the body of the wheel to a given body.
-	 * 
+	 *
 	 * @param body
 	 *            : the new body of the wheel
 	 */
@@ -145,7 +145,7 @@ public class Wheel {
 
 	/**
 	 * Changes the angle (degrees) relative to the taxi the wheel belongs to.
-	 * 
+	 *
 	 * @param angle
 	 *            : angle of the wheel relative to the taxi
 	 */
@@ -156,7 +156,7 @@ public class Wheel {
 
 	/**
 	 * Retrieves the velocity vector relative to the taxi it belongs to
-	 * 
+	 *
 	 * @return
 	 */
 	public Vector2 getLocalVelocity() {
@@ -168,7 +168,7 @@ public class Wheel {
 	/**
 	 * Retrieves a world unit vector which is pointing in the direction the
 	 * wheel is moving.
-	 * 
+	 *
 	 * @return direction vector
 	 */
 	public Vector2 getDirectionVector() {
@@ -183,7 +183,7 @@ public class Wheel {
 
 	/**
 	 * Subtracts sideways velocity from the wheel's velocity vector.
-	 * 
+	 *
 	 * @return remaining front-facing velocity vector
 	 */
 	public Vector2 getKillVelocityVector() {
@@ -195,7 +195,7 @@ public class Wheel {
 
 	/**
 	 * Removes all sideways velocity from the wheels velocity.
-	 * 
+	 *
 	 */
 	public void killSidewaysVelocity() {
 		this.getBody().setLinearVelocity(this.getKillVelocityVector());

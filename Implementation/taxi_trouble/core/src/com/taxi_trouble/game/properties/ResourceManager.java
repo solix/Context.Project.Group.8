@@ -11,29 +11,33 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.taxi_trouble.game.Character;
 
-/**Manages all the resources that are used in the game.
- *
+/**
+ * Manages all the resources that are used in the game.
+ * 
  * @author Computer Games Project Group 8
- *
+ * 
  */
 public class ResourceManager {
-    
+
     public static Sprite taxiSprite;
     public static Sprite wheelSprite;
     public static Sprite throttleSprite;
     public static Sprite brakeSprite;
     public static Sprite dPadSprite;
+    public static Sprite destinationSprite;
     public static TiledMap mapFile;
     public static List<Character> charList;
     public static BitmapFont scoreFont;
 
-    /**Loads all of the required sprites that are used in the game.
-     *
+    /**
+     * Loads all of the required sprites that are used in the game.
+     * 
      */
     public static void loadSprites() {
         loadTaxiAndWheelSprites();
         loadDriverControlSprites();
         loadCharSprites();
+        destinationSprite = new Sprite(new Texture("sprites/destination.png"));
     }
 
     /**
@@ -62,13 +66,15 @@ public class ResourceManager {
 
     /**
      * Loads the character sprites in group of 3s.
-     *
+     * 
      */
     public static void loadCharSprites() {
         charList = new ArrayList<Character>();
         for (int i = 1; i < 4; i++) {
+            System.out.println(Gdx.files);
             Sprite standing = new Sprite(new Texture(
                     "sprites/characters/character-" + i + "-standing.png"));
+
             Sprite walking1 = new Sprite(new Texture(
                     "sprites/characters/character-" + i + "-walk1.png"));
             Sprite walking2 = new Sprite(new Texture(
@@ -78,8 +84,9 @@ public class ResourceManager {
         }
     }
 
-    /**Retrieve a random character to be used by a passenger.
-     *
+    /**
+     * Retrieve a random character to be used by a passenger.
+     * 
      * @return character
      */
     public static Character getRandomCharacter() {
@@ -98,10 +105,8 @@ public class ResourceManager {
      * Loads the fonts of the game.
      */
     public static void loadFonts() {
-        scoreFont = new BitmapFont(
-                Gdx.files.internal("fonts/arial-24.fnt"),
-                Gdx.files.internal("fonts/arial-24.png"),
-                false);
+        scoreFont = new BitmapFont(Gdx.files.internal("fonts/arial-24.fnt"),
+                Gdx.files.internal("fonts/arial-24.png"), false);
     }
 
 }

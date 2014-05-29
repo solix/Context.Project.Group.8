@@ -2,7 +2,6 @@ package com.taxi_trouble.game.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.taxi_trouble.game.TaxiTest;
 import com.taxi_trouble.game.model.GameWorld;
 
 public class DesktopLauncher {
