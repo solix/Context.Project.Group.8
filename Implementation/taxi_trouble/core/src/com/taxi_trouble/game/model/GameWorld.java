@@ -3,6 +3,7 @@ package com.taxi_trouble.game.model;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
@@ -36,6 +37,7 @@ public class GameWorld extends Game {
 	private boolean driver;
 	private Map<Integer, Team> teams;
 	private int count = 0;
+	boolean host;
 
 	// private List<Passenger> passengers;
 	// private ScoreBoard score;
@@ -100,6 +102,21 @@ public class GameWorld extends Game {
 		if (passengers.size() < THREE) {
 			map.getSpawner().spawnPassenger(world);
 		}
+		if(host){
+			sendServerState();
+		}
+		else multiplayerInterface.newRecord(getTeam().getTaxi());
+		
+	}
+
+	private void sendServerState() {
+		float time = (float)(System.currentTimeMillis()/1000.0);
+		String message = "SERVER " + time + " ";		
+		for (Team team : getTeams().values()){
+			message += team.getTaxi().networkMessage();
+		}
+		multiplayerInterface.broadcast(message);
+		
 		
 	}
 
@@ -177,5 +194,9 @@ public class GameWorld extends Game {
 
 	public Map<Integer, Team> getTeams() {
 		return teams;
+	}
+	
+	public void setHost(boolean host){
+		this.host = host;
 	}
 }

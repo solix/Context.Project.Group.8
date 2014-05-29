@@ -248,8 +248,9 @@ public class AndroidLauncher extends AndroidApplication implements
 		} else {
 			iAmHost = false;
 		}
+		messageAdapter.setIAmHost(iAmHost);
+		gameWorld.setHost(iAmHost);
 		multiplayerInterface.setHostID(ids.get(0));
-		messageAdapter.setHostId(ids.get(0));
 	}
 
 	// are we already playing?

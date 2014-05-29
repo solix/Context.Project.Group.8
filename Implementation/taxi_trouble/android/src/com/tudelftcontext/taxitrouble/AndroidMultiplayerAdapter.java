@@ -119,4 +119,12 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void broadcast(String message) {
+		if (roomId != null) {
+			Games.RealTimeMultiplayer
+			.sendUnreliableMessageToOthers(apiClient, message.getBytes(), roomId);		}
+		
+	}
 }

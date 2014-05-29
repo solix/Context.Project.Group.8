@@ -558,7 +558,7 @@ public class Taxi {
     }
     
     public String networkMessage(){
-    	seq++;
+    	;
 		int teamId = getTeam().getTeamId();
 		float x = getXPosition();
 		float y = getYPosition();
@@ -566,8 +566,8 @@ public class Taxi {
 		float speed = getSpeedKMH();
 		int acceleration = getAccelerate().ordinal();
 		int steerDirection = getSteer().ordinal();
-		return "TAXI " + seq + " " + teamId + " " + x + " " + y + " " + orientation + " " 
-				+ speed + " " + acceleration + " " + steerDirection;
+		return "TAXI " + " " + teamId + " " + x + " " + y + " " + orientation + " " 
+				+ speed + " " + acceleration + " " + steerDirection + " ";
 		
 	}
 
