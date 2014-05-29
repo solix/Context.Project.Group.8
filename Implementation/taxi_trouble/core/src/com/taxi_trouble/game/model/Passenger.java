@@ -2,20 +2,15 @@ package com.taxi_trouble.game.model;
 
 import static com.taxi_trouble.game.properties.GameProperties.PIXELS_PER_METER;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.JointEdge;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
 import com.taxi_trouble.game.Character;
 
 /**
@@ -238,6 +233,7 @@ public class Passenger {
             Spawner spawner = map.getSpawner();
             spawner.despawnPassenger(this);
             removePassengerFromWorld(map.getWorld());
+            cancelTransport();
         }
     }
 
@@ -296,7 +292,7 @@ public class Passenger {
      * @param spriteBatch
      */
     public void render(SpriteBatch spriteBatch) {
-        if (this.transporter != null) {
+        if (this.isTransported()) {
             setPosition(transporter.getPosition());
             setAngle(transporter.getAngle());
         }
