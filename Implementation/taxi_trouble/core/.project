@@ -21,4 +21,11 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>net.sf.eclipsecs.core.CheckstyleNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>assets</name>
+			<type>2</type>
+			<location>C:/Users/Lboy/Documents/GitHub/Context.Project.Group.8/Implementation/taxi_trouble/android/assets</location>
+		</link>
+	</linkedResources>
 </projectDescription>
