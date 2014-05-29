@@ -2,20 +2,15 @@ package com.taxi_trouble.game.model;
 
 import static com.taxi_trouble.game.properties.GameProperties.PIXELS_PER_METER;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.JointEdge;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
 import com.taxi_trouble.game.Character;
 
 /**
@@ -234,12 +229,21 @@ public class Passenger {
         assert (this.getBody() != null);
         // Check if the destination is the right location
         if (this.getDestination().equals(destination) && isTransported()) {
-            map.getSpawner().despawnPassenger(this);
+            //Despawn the passenger and remove it from the world
+            Spawner spawner = map.getSpawner();
+            spawner.despawnPassenger(this);
+            removePassengerFromWorld(map.getWorld());
             cancelTransport();
-            //Deactivate the body of the passenger
-            map.getWorld().step(0, 0, 0);
-            this.getBody().setActive(false);
         }
+    }
+
+    /**Removes the passenger from the world.
+     *
+     * @param world : the world from which the passenger should be removed
+     */
+    private void removePassengerFromWorld(World world) {
+        world.step(0, 0, 0);
+        world.destroyBody(this.getBody());
     }
 
     /**
@@ -247,7 +251,7 @@ public class Passenger {
      */
     public void resetSpawnPoint() {
         assert (this.spawnPoint != null);
-        spawnPoint.setActive(true);
+        this.spawnPoint.setActive(true);
     }
 
     /**
@@ -282,22 +286,13 @@ public class Passenger {
         return this.spawnPoint.getPosition();
     }
 
-    /**Retrieves whether the passenger is delivered at its destination.
-     *
-     * @return delivered
-     */
-    public boolean isDelivered() {
-        assert (this.spawnPoint != null);
-        return this.spawnPoint.isActive();
-    }
-
     /**
      * Renders the sprite(s) of the passenger.
      *
      * @param spriteBatch
      */
     public void render(SpriteBatch spriteBatch) {
-        if (this.transporter != null) {
+        if (this.isTransported()) {
             setPosition(transporter.getPosition());
             setAngle(transporter.getAngle());
         }
