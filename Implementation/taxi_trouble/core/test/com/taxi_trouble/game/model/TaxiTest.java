@@ -56,7 +56,7 @@ public class TaxiTest {
 
     @Mock
     private Team team;
-    
+
     @Captor
     private ArgumentCaptor<Float> wheelAngle;
 
