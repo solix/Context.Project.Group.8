@@ -14,6 +14,8 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 import com.taxi_trouble.game.Acceleration;
 import com.taxi_trouble.game.SteerDirection;
 
@@ -40,6 +42,7 @@ public class Taxi {
     private Passenger passenger;
     private Team team;
     private int number;
+    private boolean invincibility;
 
     /**
      * Initializes a new Taxi which can be controlled by a player.
@@ -66,6 +69,8 @@ public class Taxi {
         this.wheelAngle = 0;
         this.steer = SteerDirection.STEER_NONE;
         this.acceleration = Acceleration.ACC_NONE;
+        this.invincibility = false;
+
     }
 
     /**
@@ -445,11 +450,26 @@ public class Taxi {
     public void pickUpPassenger(Passenger passenger) {
         assert (passenger != null);
         // Check if there is no passenger already picked up
-        if (this.passenger == null && !passenger.isTransported()) {
-            System.out.println("TEST");
+        if (!this.pickedUpPassenger() && !passenger.isTransported()) {
             this.passenger = passenger;
             this.passenger.setTransporter(this);
+            this.triggerInvincibility();
         }
+    }
+
+    private void triggerInvincibility() {
+        this.invincibility = true;
+        final Taxi taxi = this;
+        Timer.schedule(new Task() {
+            @Override
+            public void run() {
+                taxi.turnOffInvincibility();
+            }
+        }, 5);
+    }
+
+    private void turnOffInvincibility() {
+        this.invincibility = false;
     }
 
     /**
@@ -589,13 +609,17 @@ public class Taxi {
     }
 
     public void stealPassenger(Taxi taxi) {
-        if (taxi.pickedUpPassenger() && !this.pickedUpPassenger()) {
+        if (taxi.pickedUpPassenger() && !this.pickedUpPassenger()
+                && !taxi.isInvincible()) {
             Passenger pas = taxi.getPassenger();
-            System.out.println("I lost my passenger:");
             taxi.losePassenger();
             this.pickUpPassenger(pas);
         }
 
+    }
+
+    private boolean isInvincible() {
+        return this.invincibility;
     }
 
     private boolean losePassenger() {

@@ -37,19 +37,13 @@ public class CollisionDetector implements ContactListener {
         Object collider = contact.getFixtureA().getBody().getUserData();
         Object collidee = contact.getFixtureB().getBody().getUserData();
         if (collider instanceof Taxi) {
-            if (collidee instanceof Destination
-                    && ((Taxi) collider).pickedUpPassenger()) {
+            if (collidee instanceof Destination) {
                 taxiAtDestination((Taxi) collider, (Destination) collidee);
-            } else if (collidee instanceof Taxi) {
+            }
+            if (collidee instanceof Taxi) {
                 taxiAtTaxi((Taxi) collider, (Taxi) collidee);
-                System.out.println("collider has Passenger : "
-                        + ((Taxi) collider).pickedUpPassenger() + "no. : "
-                        + ((Taxi) collider).getNumber());
-                System.out.println("collidee has Passenger : "
-                        + ((Taxi) collidee).pickedUpPassenger() + "no. : "
-                        + ((Taxi) collidee).getNumber());
-            } else if (collidee instanceof Passenger
-                    && !((Taxi) collider).pickedUpPassenger()) {
+            }
+            if (collidee instanceof Passenger) {
                 taxiAtPassenger((Taxi) collider, (Passenger) collidee);
             }
         }
@@ -73,9 +67,14 @@ public class CollisionDetector implements ContactListener {
      */
     private void taxiAtPassenger(Taxi taxi, Passenger passenger) {
         taxi.pickUpPassenger(passenger);
-        System.out.println("TEST taxiAtPassenger");
     }
 
+    /**
+     * Defines the behaviour of a taxi colliding with another taxi.
+     * 
+     * @param taxi1
+     * @param taxi2
+     */
     private void taxiAtTaxi(Taxi taxi1, Taxi taxi2) {
         taxi1.stealPassenger(taxi2);
     }
