@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.JointDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
@@ -74,24 +75,45 @@ public class Wheel {
 	}
 
 	/**
-	 * Creates joint to connect the wheel to the body.
+	 * Creates joint to connect the wheel to the taxi body.
+	 * 
+	 * @param world : the world into which the joint should
+	 *                be initialized
 	 *
 	 */
 	private void createJoint(World world) {
+	    JointDef jointdef = null;
 		if (this.getRevolving()) {
-			RevoluteJointDef jointdef = new RevoluteJointDef();
-			jointdef.initialize(this.taxi.getBody(), this.getBody(), this
-					.getBody().getWorldCenter());
-			jointdef.enableMotor = false;
-			world.createJoint(jointdef);
+			jointdef = createRevolvingWheelJoint();
 		} else {
-			PrismaticJointDef jointdef = new PrismaticJointDef();
-			jointdef.initialize(this.taxi.getBody(), this.getBody(), this
-					.getBody().getWorldCenter(), new Vector2(1, 0));
-			jointdef.enableLimit = true;
-			jointdef.lowerTranslation = jointdef.upperTranslation = 0;
-			world.createJoint(jointdef);
+		    jointdef = createNonRevolvingWheelJoint();
 		}
+		world.createJoint(jointdef);
+	}
+
+	/**Creates joint for a non-revolving wheel.
+	 * 
+	 * @return jointdef for a non-revolving wheel
+	 */
+	private JointDef createNonRevolvingWheelJoint() {
+	    PrismaticJointDef jointdef = new PrismaticJointDef();         
+        jointdef.initialize(this.taxi.getBody(), this.getBody(),
+                this.getBody().getWorldCenter(), new Vector2(1, 0));
+        jointdef.enableLimit = true;
+        jointdef.lowerTranslation = jointdef.upperTranslation = 0;
+        return jointdef;
+    }
+
+	/**Creates a joint for a revolving wheel.
+	 * 
+	 * @return jointdef for a revolving wheel
+	 */
+    private JointDef createRevolvingWheelJoint() {
+	    RevoluteJointDef jointdef = new RevoluteJointDef();
+        jointdef.initialize(this.taxi.getBody(), this.getBody(), 
+                this.getBody().getWorldCenter());
+        jointdef.enableMotor = false;
+        return jointdef;
 	}
 
 	/**
