@@ -3,7 +3,6 @@ package com.taxi_trouble.game.model;
 import static com.taxi_trouble.game.properties.ResourceManager.charList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -17,7 +16,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.Character;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -25,7 +23,7 @@ public class SpawnerTest {
 
     private Spawner spawner;
     private Vector2 vector2;
-    private World world;
+    // private World world;
 
     @Mock
     private SpawnPoint spawnpoint;
@@ -50,7 +48,7 @@ public class SpawnerTest {
         spawner = new Spawner();
         charList = new ArrayList<Character>();
         vector2 = new Vector2();
-        world = new World(vector2, true);
+        // world = new World(vector2, true);
         when(spawnpoint.getPosition()).thenReturn(vector2);
         // LwjglApplicationConfiguration config = new
         // LwjglApplicationConfiguration();
@@ -66,25 +64,25 @@ public class SpawnerTest {
     @Test
     public void checkAddPassengerPoint() {
         spawner.addPassengerPoint(spawnpoint);
-        assertTrue(spawner.getPassengerspawnpoints().size() == 1);
+        assertEquals(1, spawner.getPassengerspawnpoints().size());
         spawner.addPassengerPoint(spawnpoint);
-        assertTrue(spawner.getPassengerspawnpoints().size() == 2);
+        assertEquals(2, spawner.getPassengerspawnpoints().size());
     }
 
     @Test
     public void checkAddDestination() {
         spawner.addDestination(spawnpoint);
-        assertTrue(spawner.getDestinationpoints().size() == 1);
+        assertEquals(1, spawner.getDestinationpoints().size());
         spawner.addDestination(spawnpoint);
-        assertTrue(spawner.getDestinationpoints().size() == 2);
+        assertEquals(2, spawner.getDestinationpoints().size());
     }
 
     @Test
     public void checkAddTaxiPoint() {
         spawner.addTaxiPoint(spawnpoint);
-        assertTrue(spawner.getTaxispawnpoints().size() == 1);
+        assertEquals(1, spawner.getTaxispawnpoints().size());
         spawner.addTaxiPoint(spawnpoint);
-        assertTrue(spawner.getTaxispawnpoints().size() == 2);
+        assertEquals(2, spawner.getTaxispawnpoints().size());
     }
 
     // @Test
