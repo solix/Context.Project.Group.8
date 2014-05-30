@@ -186,7 +186,7 @@ public class Wheel {
 	 *
 	 * @return remaining front-facing velocity vector
 	 */
-	public Vector2 getKillVelocityVector() {
+	private Vector2 getKillVelocityVector() {
 		Vector2 velocity = this.getBody().getLinearVelocity();
 		Vector2 sidewaysAxis = this.getDirectionVector();
 		float dotprod = velocity.dot(sidewaysAxis);

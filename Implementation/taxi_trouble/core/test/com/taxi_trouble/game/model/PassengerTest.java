@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
@@ -22,6 +21,7 @@ import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.doAnswer;
 
 
 /**This class tests the functionality of the Passenger class.
@@ -152,7 +152,7 @@ public class PassengerTest {
    @Test
    public final void deliverAtRightDestinationTest() {
        //Reset the spawn point when the passenger is despawned.
-       Mockito.doAnswer(new Answer<Void>() {
+       doAnswer(new Answer<Void>() {
         @Override
         public Void answer(InvocationOnMock invocation) throws Throwable {
             passenger.resetSpawnPoint();
@@ -165,7 +165,7 @@ public class PassengerTest {
        assertTrue(passenger.isTransported());
        passenger.deliverAtDestination(map, destination);
        verify(spawner).despawnPassenger(passenger);
-       //After it is delivered at the right destination the transport should be canceled
+       //After delivering at the right destination transport should be cancelled
        assertFalse(passenger.isTransported());
    }
 

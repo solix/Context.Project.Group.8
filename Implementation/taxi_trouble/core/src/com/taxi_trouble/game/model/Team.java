@@ -10,7 +10,7 @@ public class Team {
     public Team(Taxi taxi) {
         this.taxi = taxi;
         this.taxi.setTeam(this);
-        this.scoreBoard = new ScoreBoard(scoreFont);
+        setScoreBoard(new ScoreBoard(scoreFont));
     }
 
     /**
@@ -38,11 +38,28 @@ public class Team {
         return scoreBoard.getScore();
     }
 
+    /**
+     * Set the score of the team to the given score.
+     *
+     * @param score
+     */
+    public void setScore(int score) {
+        scoreBoard.setScore(score);
+    }
+
     /**Retrieve the team scoreboard.
      *
      * @return scoreboard
      */
     public ScoreBoard getScoreBoard() {
         return this.scoreBoard;
+    }
+
+    /**Changes the scoreboard of the team to the given scoreboard.
+     *
+     * @param scoreBoard
+     */
+    public void setScoreBoard(ScoreBoard scoreBoard) {
+        this.scoreBoard = scoreBoard;
     }
 }
