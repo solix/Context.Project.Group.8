@@ -41,14 +41,14 @@ public class SolidBox {
         bodyDef.angle = 0;
         bodyDef.fixedRotation = true;
         this.body = world.createBody(bodyDef);
-        InitFixtureDef();
+        initFixtureDef();
     }
 
     /**Retrieves the fixture for the body of the solid box.
      *
      *
      */
-    private void InitFixtureDef() {
+    private void initFixtureDef() {
         FixtureDef fixtureDef = new FixtureDef();
 
         PolygonShape boxShape = new PolygonShape();

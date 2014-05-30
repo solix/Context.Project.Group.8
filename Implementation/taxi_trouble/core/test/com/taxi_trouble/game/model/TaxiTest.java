@@ -1,15 +1,14 @@
 package com.taxi_trouble.game.model;
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
-import com.taxi_trouble.game.Acceleration;
-import com.taxi_trouble.game.SteerDirection;
-import com.taxi_trouble.game.model.Destination;
-import com.taxi_trouble.game.model.Passenger;
-import com.taxi_trouble.game.model.Spawner;
-import com.taxi_trouble.game.model.Taxi;
-import com.taxi_trouble.game.model.Team;
-import com.taxi_trouble.game.model.WorldMap;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.spy;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,14 +18,10 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.mock;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
+import com.taxi_trouble.game.Acceleration;
+import com.taxi_trouble.game.SteerDirection;
 
 
 /**This class tests the functionality of the Taxi class.
@@ -48,6 +43,9 @@ public class TaxiTest {
     private Destination destination;
 
     @Mock
+    private Destination secondDestination;
+
+    @Mock
     private WorldMap map;
 
     @Mock
@@ -64,13 +62,15 @@ public class TaxiTest {
      */
     @Before
     public void initTaxi() {
-        taxi = new Taxi(2, 4, 20, 60, 60);
+        taxi = spy(new Taxi(2, 4, 20, 60, 60));
         taxi.setTeam(team);
         world = new World(new Vector2(0, 0), false);
         taxi.initializeBody(world, new Vector2(1, 1), 0);
 
         when(map.getSpawner()).thenReturn(spawner);
         when(passenger.getDestination()).thenReturn(destination);
+        //Avoid the timer from being called
+        doNothing().when(taxi).triggerInvincibility();
     }
 
     /**Verify that the taxi is successfully initialized.
@@ -86,20 +86,21 @@ public class TaxiTest {
      * a passenger.
      *
      */
-/*    @Test
+    @Test
     public final void pickUpPassengerTest() {
         assertFalse(taxi.pickedUpPassenger());
-        //taxi.pickUpPassenger(passenger);
+        taxi.pickUpPassenger(passenger);
+        verify(passenger).isTransported();
         verify(passenger).setTransporter(taxi);
         assertTrue(taxi.pickedUpPassenger());
         verifyNoMoreInteractions(passenger);
-    }*/
+    }
 
     /**Checks that the passenger is dropped off when the
      * taxi drops off the passenger at the right destination on the map.
      *
      */
-/*    @Test
+    @Test
     public final void dropOffPassengerRightDestinationTest() {
         //First let the taxi pick up the passenger
         taxi.pickUpPassenger(passenger);
@@ -111,31 +112,23 @@ public class TaxiTest {
         verify(passenger).deliverAtDestination(map, destination);
         verify(team).incScore();
         assertFalse(taxi.pickedUpPassenger());
-    }*/
+    }
 
     /**Given the taxi has a passenger, check that the passenger
      * can not be dropped off at the wrong destination.
      *
      */
-/*    @Test
+    @Test
     public final void dropOffPassengerWrongDestination() {
         //First the taxi should have picked up a passenger
         taxi.pickUpPassenger(passenger);
         assertTrue(taxi.pickedUpPassenger());
 
-        taxi.dropOffPassenger(mock(Destination.class), map);
+        taxi.dropOffPassenger(secondDestination, map);
         verifyNoMoreInteractions(map);
         verifyNoMoreInteractions(spawner);
         assertTrue(taxi.pickedUpPassenger());
-    }*/
-
-/*    @Test
-    public final void changeTaxiSpeedTest() {
-        //Initially the speed should be zero
-        assertEquals(0f, taxi.getSpeedKMH(), 0);
-        taxi.setSpeedKMH(42f);
-        assertEquals(42f, taxi.getSpeedKMH(), 0);
-    }*/
+    }
 
     /**Given the game starts and the taxi is initialized for
      * the first time, then check that the taxi is not steered
@@ -147,16 +140,5 @@ public class TaxiTest {
         //Initially the taxi should not steer and not accelerate
         assertEquals(SteerDirection.STEER_NONE, taxi.getSteer());
         assertEquals(Acceleration.ACC_NONE, taxi.getAccelerate());
-    }
-
-    @Test
-    public final void steerRightTest() {
-        taxi.setSteer(SteerDirection.STEER_RIGHT);
-        assertEquals(SteerDirection.STEER_RIGHT, taxi.getSteer());
-        taxi.update(20);
-        for(Wheel wheel : taxi.getRevolvingWheels()) {
-            //verify(wheel).setAngle(wheelAngle.capture());
-        }
-        //assertEquals(20f, wheelAngle.getValue(), 0f);
     }
 }

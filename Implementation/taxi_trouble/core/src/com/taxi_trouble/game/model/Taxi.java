@@ -459,7 +459,7 @@ public class Taxi {
     /**Triggers invincibility for this taxi for a short period of five seconds.
      *
      */
-    private void triggerInvincibility() {
+    public void triggerInvincibility() {
         this.invincibility = true;
         final Taxi taxi = this;
         Timer.schedule(new Task() {

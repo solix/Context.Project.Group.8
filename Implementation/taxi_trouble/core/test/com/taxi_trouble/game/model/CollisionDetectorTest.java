@@ -66,7 +66,7 @@ public class CollisionDetectorTest {
     @Test
     public final void collideTaxiWithDestination() {
         collisionDetector.collide(taxi, destination);
-        taxi.dropOffPassenger(destination, map);
+        verify(taxi).dropOffPassenger(destination, map);
     }
 
     /**Check that when a taxi drives into another taxi, the taxi will
@@ -76,6 +76,6 @@ public class CollisionDetectorTest {
     @Test
     public final void collideTaxiWithOtherTaxi() {
         collisionDetector.collide(taxi, secondTaxi);
-        taxi.stealPassenger(secondTaxi);
+        verify(taxi).stealPassenger(secondTaxi);
     }
 }
