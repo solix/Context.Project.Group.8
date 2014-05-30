@@ -2,7 +2,6 @@ package com.taxi_trouble.game.model;
 
 import static com.taxi_trouble.game.properties.GameProperties.PIXELS_PER_METER;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -15,9 +14,9 @@ import com.badlogic.gdx.physics.box2d.World;
 /**
  * After a passenger is picked by a taxi, the team corresponding to the taxi
  * should see the destination to bring the passenger to.
- *
+ * 
  * @author Computer Games Project Group 8
- *
+ * 
  */
 public class Destination {
     private Body body;
@@ -25,8 +24,9 @@ public class Destination {
     private float height;
     private Sprite destinationSprite;
 
-    /**Initializes a new destination where a passenger can be dropped off.
-     *
+    /**
+     * Initializes a new destination where a passenger can be dropped off.
+     * 
      * @param width
      * @param height
      */
@@ -37,7 +37,7 @@ public class Destination {
 
     /**
      * Initializes the body of this destination.
-     *
+     * 
      * @param world
      * @param vector2
      */
@@ -51,7 +51,7 @@ public class Destination {
 
     /**
      * Initializes the fixture of the body.
-     *
+     * 
      */
     private void initFixtureDef() {
         FixtureDef fixtureDef = new FixtureDef();
@@ -66,7 +66,7 @@ public class Destination {
 
     /**
      * Retrieves the position of this destination.
-     *
+     * 
      * @return position
      */
     public Vector2 getPosition() {
@@ -76,7 +76,7 @@ public class Destination {
 
     /**
      * Retrieves the x-position.
-     *
+     * 
      * @return x-position
      */
     public float getXPosition() {
@@ -86,7 +86,7 @@ public class Destination {
 
     /**
      * Retrieves the y-position.
-     *
+     * 
      * @return y-position
      */
     public float getYPosition() {
@@ -96,7 +96,7 @@ public class Destination {
 
     /**
      * Retrieves the body of the destination.
-     *
+     * 
      * @return body
      */
     public Body getBody() {
@@ -105,7 +105,7 @@ public class Destination {
 
     /**
      * Sets the body of the destination.
-     *
+     * 
      * @param body
      *            : the body to be set
      */
@@ -116,7 +116,7 @@ public class Destination {
 
     /**
      * Retrieves the width of this destination.
-     *
+     * 
      * @return width
      */
     public float getWidth() {
@@ -125,7 +125,7 @@ public class Destination {
 
     /**
      * Retrieves the height of this destination.
-     *
+     * 
      * @return height
      */
     public float getHeight() {
@@ -134,7 +134,7 @@ public class Destination {
 
     /**
      * Sets the sprite of the destination point.
-     *
+     * 
      * @param destSprite
      */
     public void setSprite(Sprite destSprite) {

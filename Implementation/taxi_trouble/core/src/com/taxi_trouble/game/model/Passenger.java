@@ -16,9 +16,9 @@ import com.taxi_trouble.game.Character;
 /**
  * A passenger which can be transported by a taxi to a certain destination when
  * picked up.
- *
+ * 
  * @author Computer Games Project Group 8
- *
+ * 
  */
 public class Passenger {
     private float width, height;
@@ -31,7 +31,7 @@ public class Passenger {
 
     /**
      * Initializes a new passenger.
-     *
+     * 
      * @param width
      *            : the width of the passenger
      * @param height
@@ -42,13 +42,13 @@ public class Passenger {
     public Passenger(float width, float height, Character character) {
         this.width = width;
         this.height = height;
-        this.character = character;
+        this.setCharacter(character);
         setSprite(character.getStanding());
     }
 
     /**
      * Initialize the body of the solid passenger.
-     *
+     * 
      * @param world
      *            : the world in which the solid passenger is placed
      * @param spawnPoint
@@ -66,7 +66,7 @@ public class Passenger {
 
     /**
      * Retrieves the fixture for the body of the solid passenger.
-     *
+     * 
      */
     private void initFixtureDef() {
         FixtureDef fixtureDef = new FixtureDef();
@@ -82,7 +82,7 @@ public class Passenger {
 
     /**
      * Retrieves the width of the passenger.
-     *
+     * 
      * @return width
      */
     public float getWidth() {
@@ -91,7 +91,7 @@ public class Passenger {
 
     /**
      * Retrieves the height of the passenger.
-     *
+     * 
      * @return height
      */
     public float getHeight() {
@@ -100,7 +100,7 @@ public class Passenger {
 
     /**
      * Retrieves the body of the passenger.
-     *
+     * 
      * @return body
      */
     public Body getBody() {
@@ -109,7 +109,7 @@ public class Passenger {
 
     /**
      * Changes the body of the passenger to the specified body.
-     *
+     * 
      * @param body
      */
     public void setBody(Body body) {
@@ -119,7 +119,7 @@ public class Passenger {
 
     /**
      * Retrieves the x-position of the passenger.
-     *
+     * 
      * @return x-position
      */
     public float getXPosition() {
@@ -129,7 +129,7 @@ public class Passenger {
 
     /**
      * Retrieves the y-position of the passenger.
-     *
+     * 
      * @return y-position
      */
     public float getYPosition() {
@@ -139,7 +139,7 @@ public class Passenger {
 
     /**
      * Sets the position of a passenger.
-     *
+     * 
      * @param position
      *            : the position of the passenger
      */
@@ -150,7 +150,7 @@ public class Passenger {
 
     /**
      * Retrieves the current position of the passenger.
-     *
+     * 
      * @return current position
      */
     public Vector2 getPosition() {
@@ -159,9 +159,9 @@ public class Passenger {
     }
 
     /**
-     * Retrieves the current angle in radians under which the passenger
-     * is placed in the world.
-     *
+     * Retrieves the current angle in radians under which the passenger is
+     * placed in the world.
+     * 
      * @return angle
      */
     public float getAngle() {
@@ -171,7 +171,7 @@ public class Passenger {
 
     /**
      * Sets the angle in radians of the passenger.
-     *
+     * 
      * @param angle
      *            : the new angle
      */
@@ -182,7 +182,7 @@ public class Passenger {
 
     /**
      * Sets the (initial) sprite of the passenger.
-     *
+     * 
      * @param passSprite
      */
     public void setSprite(Sprite passSprite) {
@@ -193,7 +193,7 @@ public class Passenger {
 
     /**
      * Set the transporter of the passenger.
-     *
+     * 
      */
     public void setTransporter(Taxi transporter) {
         this.transporter = transporter;
@@ -201,15 +201,16 @@ public class Passenger {
 
     /**
      * Make the passenger lose its transporter, i.e. get out of the taxi.
-     *
+     * 
      */
     public void cancelTransport() {
         this.transporter = null;
     }
 
-    /**Retrieves whether the passenger is transported, i.e. it has a
+    /**
+     * Retrieves whether the passenger is transported, i.e. it has a
      * transporter/taxi.
-     *
+     * 
      * @return boolean indicating whether the passenger is transported
      */
     public boolean isTransported() {
@@ -218,18 +219,18 @@ public class Passenger {
 
     /**
      * Deliver the passenger at its destination.
-     *
+     * 
      * @param map
      *            : the map to remove the passenger from
      * @param destination
      *            : the destination to deliver the passenger
-     *
+     * 
      */
     public void deliverAtDestination(WorldMap map, Destination destination) {
         assert (this.getBody() != null);
         // Check if the destination is the right location
         if (this.getDestination().equals(destination) && isTransported()) {
-            //Despawn the passenger and remove it from the world
+            // Despawn the passenger and remove it from the world
             Spawner spawner = map.getSpawner();
             spawner.despawnPassenger(this);
             removePassengerFromWorld(map.getWorld());
@@ -237,9 +238,11 @@ public class Passenger {
         }
     }
 
-    /**Removes the passenger from the world.
-     *
-     * @param world : the world from which the passenger should be removed
+    /**
+     * Removes the passenger from the world.
+     * 
+     * @param world
+     *            : the world from which the passenger should be removed
      */
     private void removePassengerFromWorld(World world) {
         world.step(0, 0, 0);
@@ -256,7 +259,7 @@ public class Passenger {
 
     /**
      * Set the passengers destination.
-     *
+     * 
      * @param dest
      *            : the destination to be set
      */
@@ -269,7 +272,7 @@ public class Passenger {
 
     /**
      * Retrieves the passenger its destination.
-     *
+     * 
      * @return destination : the passenger destination
      */
     public Destination getDestination() {
@@ -278,7 +281,7 @@ public class Passenger {
 
     /**
      * Retrieves the startposition of the passenger from its spawnpoint.
-     *
+     * 
      * @return startposition
      */
     public Vector2 getStartPosition() {
@@ -287,8 +290,26 @@ public class Passenger {
     }
 
     /**
+     * Retrieves the character of the passenger.
+     * 
+     * @return character
+     */
+    public Character getCharacter() {
+        return character;
+    }
+
+    /**
+     * Sets the character of the passenger to the given argument.
+     * 
+     * @param character
+     */
+    public void setCharacter(Character character) {
+        this.character = character;
+    }
+
+    /**
      * Renders the sprite(s) of the passenger.
-     *
+     * 
      * @param spriteBatch
      */
     public void render(SpriteBatch spriteBatch) {
