@@ -70,6 +70,7 @@ public class DriverControl implements InputProcessor {
                 switch (button.ACTION) {
                 case ACCELERATE:
                     taxi.setAccelerate(Acceleration.ACC_ACCELERATE);
+                    System.out.println("ACCEL");
                     GameWorld.multiplayerInterface.newChange("accel",Acceleration.ACC_ACCELERATE.ordinal() + "" );
                     break;
                 case BRAKE:
@@ -77,7 +78,7 @@ public class DriverControl implements InputProcessor {
                     GameWorld.multiplayerInterface.newChange("accel",Acceleration.ACC_BRAKE.ordinal() + "" );
                     break;
                 default:
-                	System.out.println("DEFAULTEXCEPTION");
+                	//System.out.println("DEFAULTEXCEPTION");
                     // taxi.setAccelerate(Acceleration.ACC_NONE);
                     break;
                 }
@@ -92,7 +93,7 @@ public class DriverControl implements InputProcessor {
                     GameWorld.multiplayerInterface.newChange("steer",SteerDirection.STEER_RIGHT.ordinal() + "" );
                     break;
                 default:
-                	System.out.println("DEFAULTEXCEPTION");
+                	//System.out.println("DEFAULTEXCEPTION");
                     // taxi.setSteer(SteerDirection.STEER_NONE);
                     break;
                 }
@@ -127,6 +128,7 @@ public class DriverControl implements InputProcessor {
         }
         if (!controlsUI.steering() && !controlsUI.driving()) {
             taxi.setAccelerate(Acceleration.ACC_NONE);
+            System.out.println("ACCEL STOP");
             taxi.setSteer(SteerDirection.STEER_NONE);
             GameWorld.multiplayerInterface.newChange("accel",Acceleration.ACC_NONE.ordinal() + "" );
             GameWorld.multiplayerInterface.newChange("steer",SteerDirection.STEER_NONE.ordinal() + "" );

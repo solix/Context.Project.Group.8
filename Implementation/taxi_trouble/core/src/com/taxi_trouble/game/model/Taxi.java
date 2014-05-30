@@ -578,4 +578,9 @@ public class Taxi {
 		this.setSteer(steerDirection);
 		
 	}
+
+	public void correct() {
+		// TODO Auto-generated method stub
+		
+	}
 }

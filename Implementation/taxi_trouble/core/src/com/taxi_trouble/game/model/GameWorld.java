@@ -1,5 +1,6 @@
 package com.taxi_trouble.game.model;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +46,7 @@ public class GameWorld extends Game {
 	public GameWorld(CoreMultiplayerAdapter multiplayerInterface,
 			SetupInterface setupInterface) {
 		GameWorld.multiplayerInterface = multiplayerInterface;
+		System.out.println("CORE INTERFACE SET");
 		this.setupInterface = setupInterface;
 		this.setupInterface.login();
 		this.teams = new HashMap<Integer, Team>();
@@ -110,8 +112,10 @@ public class GameWorld extends Game {
 	}
 
 	private void sendServerState() {
-		float time = (float)(System.currentTimeMillis()/1000.0);
-		String message = "SERVER " + time + " ";		
+		Calendar calendar = Calendar.getInstance();
+		int timeInMilisecs = calendar.get(Calendar.SECOND)*1000 + calendar.get(Calendar.MILLISECOND);
+		String message = "SERVER " + timeInMilisecs + " ";	
+		System.out.println("sending " + message);
 		for (Team team : getTeams().values()){
 			message += team.getTaxi().networkMessage();
 		}

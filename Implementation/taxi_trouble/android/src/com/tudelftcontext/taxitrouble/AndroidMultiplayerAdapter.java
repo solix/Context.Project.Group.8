@@ -59,10 +59,10 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 			teamId = (int) Math.floor(i / 2.0);
 			if (i % 2 == 0) {
 				//role = "DRIVER";
-				role = true;
+				role = false;
 			} else {
 				//role = "NAVIGATOR";
-				role = false;
+				role = true;
 			}
 			
 			String message = "SETUP " + role + " " + teamId + " " + totalTeams;
