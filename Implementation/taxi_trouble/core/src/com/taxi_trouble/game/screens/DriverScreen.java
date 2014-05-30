@@ -16,9 +16,9 @@ import com.taxi_trouble.game.model.GameWorld;
 
 /**
  * Provides the view of the game for the driver of a taxi.
- * 
+ *
  * @author Computer Games Project Group 8
- * 
+ *
  */
 public class DriverScreen extends ViewObserver {
     private TaxiCamera taxiCamera;
@@ -29,7 +29,7 @@ public class DriverScreen extends ViewObserver {
 
     /**
      * Constructor, creates the Driver Screen.
-     * 
+     *
      * @param game
      */
     public DriverScreen(GameWorld game) {
@@ -38,7 +38,7 @@ public class DriverScreen extends ViewObserver {
 
     /**
      * Called when the Driver Screen is set as the current screen.
-     * 
+     *
      */
     @Override
     public void show() {

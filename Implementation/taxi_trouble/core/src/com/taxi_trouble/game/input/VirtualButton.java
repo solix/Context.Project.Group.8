@@ -9,7 +9,7 @@ public class VirtualButton {
     protected Rectangle body;
     protected Sprite sprite;
     protected ControlsUI.Action ACTION;
-    public boolean ACTIVE;
+    protected boolean ACTIVE;
     protected float scale = GameProperties.scale;
 
     public VirtualButton(Rectangle body, Sprite sprite, ControlsUI.Action action) {

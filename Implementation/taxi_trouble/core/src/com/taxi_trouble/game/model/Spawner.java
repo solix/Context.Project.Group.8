@@ -14,9 +14,9 @@ import com.taxi_trouble.game.properties.ResourceManager;
 /**
  * A spawner which can be called for spawning new passengers, taxis and setting
  * destination/deliver points for a taxi.
- * 
+ *
  * @author Computer Games Project Group 8
- * 
+ *
  */
 public class Spawner {
     private List<SpawnPoint> passengerspawnpoints;
@@ -27,7 +27,7 @@ public class Spawner {
     /**
      * Initializes a new Spawner which can store spawn points and spawn taxis,
      * passengers and create destination points.
-     * 
+     *
      */
     public Spawner() {
         passengerspawnpoints = new ArrayList<SpawnPoint>();
@@ -38,7 +38,7 @@ public class Spawner {
 
     /**
      * Add a new Passenger spawn point.
-     * 
+     *
      * @param spawnPoint
      *            : position of the spawn point
      */
@@ -50,7 +50,7 @@ public class Spawner {
 
     /**
      * Add a new Taxi spawn point.
-     * 
+     *
      * @param spawnPoint
      *            : position of the spawn point
      */
@@ -60,7 +60,7 @@ public class Spawner {
 
     /**
      * Add a new destination point.
-     * 
+     *
      * @param spawnPoint
      *            : the position of the destination point
      */
@@ -71,7 +71,7 @@ public class Spawner {
     /**
      * Spawn a new passenger into a specified world at a randomly chosen spawn
      * point.
-     * 
+     *
      * @param world
      *            : the world into which the passenger should be spawned
      * @return the spawned passenger
@@ -97,7 +97,7 @@ public class Spawner {
 
     /**
      * Despawn the specified passenger from the map.
-     * 
+     *
      * @param passenger
      */
     public void despawnPassenger(Passenger passenger) {
@@ -107,7 +107,7 @@ public class Spawner {
 
     /**
      * Retrieves a random destination from the world.
-     * 
+     *
      * @param world
      * @return random destination
      */
@@ -127,7 +127,7 @@ public class Spawner {
 
     /**
      * Spawn a new taxi into a specified world at a randomly chosen spawn point.
-     * 
+     *
      * @param world
      *            : the world into which the passenger should be spawned
      * @return
@@ -152,27 +152,37 @@ public class Spawner {
 
     /**
      * Retrieves the active (spawned) passengers of the game.
-     * 
+     *
      * @return
      */
     public List<Passenger> getActivePassengers() {
         return this.passengers;
     }
 
+    /**
+     * Retrieves the available passenger spawnpoints.
+     *
+     * @return
+     */
     public List<SpawnPoint> getPassengerspawnpoints() {
         return passengerspawnpoints;
     }
 
+    /**
+     * Retrieves the available taxi spawnpoints.
+     *
+     * @return
+     */
     public List<SpawnPoint> getTaxispawnpoints() {
         return taxispawnpoints;
     }
 
+    /**
+     * Retrieves the spawnpoints for destinations.
+     *
+     * @return
+     */
     public List<SpawnPoint> getDestinationpoints() {
         return destinationpoints;
     }
-
-    public List<Passenger> getPassengers() {
-        return passengers;
-    }
-
 }

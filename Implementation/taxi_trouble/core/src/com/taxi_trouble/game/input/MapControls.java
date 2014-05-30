@@ -33,13 +33,11 @@ public class MapControls implements InputProcessor {
      * Constructor method for MapControlsUI.
      *
      * @param cam
-     * @param port
      * @param mapscreen
      */
     public MapControls(OrthographicCamera cam, NavigatorScreen mapscreen) {
         this.mapCamera = cam;
         this.mapscreen = mapscreen;
-        // this.map = map;
     }
 
     @Override
@@ -67,7 +65,6 @@ public class MapControls implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         // If the index of the touch is 0 then initialize/ modify the value of
         // old_x and old_y.
-        System.out.println("x = " + screenX + " y = " + screenY);
         if (pointer == 0) {
             old_x = screenX;
             old_y = screenY;
@@ -211,7 +208,5 @@ public class MapControls implements InputProcessor {
         cam.zoom = cam.zoom * factor;
         ZOOM = cam.zoom;
         mapscreen.setScale(factor * mapscreen.getScale());
-        System.out.println("zoom = " + cam.zoom);
-
     }
 }

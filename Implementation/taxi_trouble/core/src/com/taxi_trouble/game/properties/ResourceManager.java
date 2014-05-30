@@ -13,9 +13,9 @@ import com.taxi_trouble.game.Character;
 
 /**
  * Manages all the resources that are used in the game.
- * 
+ *
  * @author Computer Games Project Group 8
- * 
+ *
  */
 public class ResourceManager {
 
@@ -31,7 +31,7 @@ public class ResourceManager {
 
     /**
      * Loads all of the required sprites that are used in the game.
-     * 
+     *
      */
     public static void loadSprites() {
         loadTaxiAndWheelSprites();
@@ -66,20 +66,17 @@ public class ResourceManager {
 
     /**
      * Loads the character sprites in group of 3s.
-     * 
+     *
      */
     public static void loadCharSprites() {
         charList = new ArrayList<Character>();
         for (int i = 1; i < 4; i++) {
-            System.out.println(Gdx.files);
             Sprite standing = new Sprite(new Texture(
                     "sprites/characters/character-" + i + "-standing.png"));
-
             Sprite walking1 = new Sprite(new Texture(
                     "sprites/characters/character-" + i + "-walk1.png"));
             Sprite walking2 = new Sprite(new Texture(
                     "sprites/characters/character-" + i + "-walk2.png"));
-            System.out.println(i);
             charList.add(new Character(standing, walking1, walking2));
         }
     }

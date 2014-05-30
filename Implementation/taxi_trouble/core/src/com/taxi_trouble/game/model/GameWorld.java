@@ -11,24 +11,20 @@ import com.taxi_trouble.game.screens.NavigatorScreen;
 /**
  * Provides the main model for all the elements of a game that is played.
  * (Please note: implementation will change when implementing multiplayer)
- * 
+ *
  * @author Computer Games Project Group 8
- * 
+ *
  */
 public class GameWorld extends Game {
     private World world;
     private WorldMap map;
-    // private List<Team> teams;
     // Temporary: single team (may change when implementing multiplayer)
     private Team team;
     final static int THREE = 3;
 
-    // private List<Passenger> passengers;
-    // private ScoreBoard score;
-
     /**
      * Called when the game world is first created.
-     * 
+     *
      */
     @Override
     public final void create() {
@@ -42,7 +38,7 @@ public class GameWorld extends Game {
 
     /**
      * Loads the game resources.
-     * 
+     *
      */
     public void loadResources() {
         //TaxiJukebox.createMusicInGame("sound/bobmar.mp3", "BobMarley");
@@ -65,7 +61,7 @@ public class GameWorld extends Game {
 
     /**
      * Retrieves the game world map.
-     * 
+     *
      * @return map
      */
     public final WorldMap getMap() {
@@ -74,7 +70,7 @@ public class GameWorld extends Game {
 
     /**
      * Retrieves the single team.
-     * 
+     *
      * @return team
      */
     public final Team getTeam() {
@@ -83,7 +79,7 @@ public class GameWorld extends Game {
 
     /**
      * Retrieves the world in which the game is played.
-     * 
+     *
      * @return world
      */
     public final World getWorld() {
@@ -92,7 +88,7 @@ public class GameWorld extends Game {
 
     /**
      * Retrieves the passengers that are currently in the game.
-     * 
+     *
      * @return passengers
      */
     public final List<Passenger> getPassengers() {

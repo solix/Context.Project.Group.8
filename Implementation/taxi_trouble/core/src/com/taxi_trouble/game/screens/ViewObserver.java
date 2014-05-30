@@ -13,7 +13,7 @@ import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**
  * Basic class for extending independent screen of the game.
- * 
+ *
  * @author Computer Games Project Group 8
  */
 public abstract class ViewObserver implements Screen {
@@ -24,13 +24,11 @@ public abstract class ViewObserver implements Screen {
     protected Taxi taxi;
     protected WorldMap cityMap;
     private OrthographicCamera scoreCam;
-    final static int THREE = 3;
-    final static float ZERO_EIGHT_F = 0.8f;
-    final static float ZERO_FOUR_F = 0.4f;
+    private final static int THREE = 3;
 
     /**
      * Constructor for creating game Screen.
-     * 
+     *
      * @param taxigame
      */
     public ViewObserver(GameWorld taxigame) {
@@ -60,7 +58,7 @@ public abstract class ViewObserver implements Screen {
 
     /**
      * Update the world and draw the sprites of the world.
-     * 
+     *
      * @param delta
      *            delta to be rendered.
      */
@@ -92,7 +90,7 @@ public abstract class ViewObserver implements Screen {
 
     /**
      * Retrieve the spriteBatch that should be used.
-     * 
+     *
      * @return spriteBatch
      */
     public abstract SpriteBatch getSpriteBatch();

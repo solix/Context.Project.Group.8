@@ -15,9 +15,9 @@ import com.taxi_trouble.game.model.WorldMap;
 
 /**
  * Provides the view of the game for a navigator.
- * 
+ *
  * @author Computer Games Project Group 8
- * 
+ *
  */
 public class NavigatorScreen extends ViewObserver {
     private SpriteBatch spriteBatch;
@@ -25,11 +25,11 @@ public class NavigatorScreen extends ViewObserver {
     private OrthographicCamera mapCamera;
     private OrthographicCamera scoreCamera;
     private MapControls mapControl;
-    private float SCALE = 4;
+    private float scale = 4;
 
     /**
      * Constructor, creates the game screen.
-     * 
+     *
      * @param game
      */
 
@@ -51,8 +51,8 @@ public class NavigatorScreen extends ViewObserver {
         // Initialize the camera for the navigator view.
         this.mapCamera = new OrthographicCamera();
         mapCamera.setToOrtho(false, screenWidth, screenHeight);
-        this.viewport = new StretchViewport(VIRTUAL_WIDTH * SCALE,
-                VIRTUAL_HEIGHT * SCALE, mapCamera);
+        this.viewport = new StretchViewport(VIRTUAL_WIDTH * scale,
+                VIRTUAL_HEIGHT * scale, mapCamera);
 
         // Set the camera to show the game scores
         this.scoreCamera = new OrthographicCamera();
@@ -124,7 +124,7 @@ public class NavigatorScreen extends ViewObserver {
     /**
      * This method makes it that the camera doesn't go out of bounds from the
      * map.
-     * 
+     *
      * @param map
      *            Worldmap map is needed so that we can stay in bounds.
      */
@@ -133,31 +133,30 @@ public class NavigatorScreen extends ViewObserver {
         int mapPixelWidth = map.getWidth();
 
         // Check if the camera is near the left border of the map
-        if (mapCamera.position.x < VIRTUAL_WIDTH * SCALE / 2) {
-            mapCamera.position.x = VIRTUAL_WIDTH * SCALE / 2;
+        if (mapCamera.position.x < VIRTUAL_WIDTH * scale / 2) {
+            mapCamera.position.x = VIRTUAL_WIDTH * scale / 2;
         }
         // Check if the camera is near the right border of the map
-        if (mapCamera.position.x >= mapPixelWidth - VIRTUAL_WIDTH * SCALE / 2) {
-            mapCamera.position.x = mapPixelWidth - VIRTUAL_WIDTH * SCALE / 2;
+        if (mapCamera.position.x >= mapPixelWidth - VIRTUAL_WIDTH * scale / 2) {
+            mapCamera.position.x = mapPixelWidth - VIRTUAL_WIDTH * scale / 2;
         }
         // Check if the camera is near the bottom border of the map
-        if (mapCamera.position.y < VIRTUAL_HEIGHT * SCALE / 2) {
-            mapCamera.position.y = VIRTUAL_HEIGHT * SCALE / 2;
+        if (mapCamera.position.y < VIRTUAL_HEIGHT * scale / 2) {
+            mapCamera.position.y = VIRTUAL_HEIGHT * scale / 2;
         }
         // Check if the camera is near the top border of the map
-        if (mapCamera.position.y >= mapPixelHeight - VIRTUAL_HEIGHT * SCALE / 2) {
-            mapCamera.position.y = mapPixelHeight - VIRTUAL_HEIGHT * SCALE / 2;
+        if (mapCamera.position.y >= mapPixelHeight - VIRTUAL_HEIGHT * scale / 2) {
+            mapCamera.position.y = mapPixelHeight - VIRTUAL_HEIGHT * scale / 2;
         }
     }
 
     /**
-     * This method changes the SCALE value.
-     * 
+     * This method changes the scale value.
+     *
      * @param sc
-     *            sc is the new SCALE to be set.
+     *            sc is the new scale to be set.
      */
     public void setScale(float sc) {
-
         int mapPixelHeight = cityMap.getHeight();
         int mapPixelWidth = cityMap.getWidth();
 
@@ -169,21 +168,21 @@ public class NavigatorScreen extends ViewObserver {
                         / 2) {
             return;
         }
-        SCALE = sc;
+        scale = sc;
     }
 
     /**
-     * This method returns the SCALE value.
-     * 
+     * This method returns the scale value.
+     *
      * @return scale
      */
     public float getScale() {
-        return SCALE;
+        return scale;
     }
 
     /**
      * Retrieves the map.
-     * 
+     *
      * @return map
      */
     public WorldMap getMap() {
