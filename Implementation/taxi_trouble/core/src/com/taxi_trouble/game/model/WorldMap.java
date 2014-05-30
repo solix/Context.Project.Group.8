@@ -105,7 +105,7 @@ public class WorldMap {
                 getYPosition(obj), getAngle(obj));
         spawn.setHeight(getHeight(obj));
         spawn.setWidth(getWidth(obj));
-        spawner.addDestination(spawn);
+        spawner.addPassengerPoint(spawn);
     }
     /**
      * Creates a new taxi spawnpoint where a taxi can spawn into
@@ -132,7 +132,7 @@ public class WorldMap {
                 getYPosition(obj), getAngle(obj));
         spawn.setHeight(getHeight(obj));
         spawn.setWidth(getWidth(obj));
-        spawner.addPassengerPoint(spawn);
+        spawner.addDestination(spawn);
     }
     /**
      * Returns the x-position of a given MapObject.
