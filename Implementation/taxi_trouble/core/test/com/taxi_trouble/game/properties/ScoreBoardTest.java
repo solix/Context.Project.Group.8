@@ -1,6 +1,7 @@
 package com.taxi_trouble.game.properties;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.taxi_trouble.game.model.ScoreBoard;
 
 import org.junit.Before;
 import org.junit.Test;

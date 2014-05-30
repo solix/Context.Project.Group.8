@@ -1,6 +1,5 @@
 package com.taxi_trouble.game.model;
 
-import com.taxi_trouble.game.properties.ScoreBoard;
 import static com.taxi_trouble.game.properties.ResourceManager.scoreFont;
 
 public class Team {

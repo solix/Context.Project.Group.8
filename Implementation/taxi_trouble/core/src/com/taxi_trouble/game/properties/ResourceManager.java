@@ -12,12 +12,12 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.taxi_trouble.game.Character;
 
 /**
- * Manages all the resources that are used in the game.
+ * Utility class managing all the resources that are used in the game.
  *
  * @author Computer Games Project Group 8
  *
  */
-public class ResourceManager {
+public final class ResourceManager {
 
     public static Sprite taxiSprite;
     public static Sprite wheelSprite;
@@ -29,6 +29,9 @@ public class ResourceManager {
     public static List<Character> charList;
     public static BitmapFont scoreFont;
 
+    private ResourceManager() {
+    }
+    
     /**
      * Loads all of the required sprites that are used in the game.
      *
