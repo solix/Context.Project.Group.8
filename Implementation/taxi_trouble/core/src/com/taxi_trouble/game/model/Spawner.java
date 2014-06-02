@@ -14,31 +14,37 @@ import com.taxi_trouble.game.properties.ResourceManager;
 /**
  * A spawner which can be called for spawning new passengers, taxis and setting
  * destination/deliver points for a taxi.
- *
+ * 
  * @author Computer Games Project Group 8
- *
+ * 
  */
 public class Spawner {
     private List<SpawnPoint> passengerspawnpoints;
     private List<SpawnPoint> taxispawnpoints;
     private List<SpawnPoint> destinationpoints;
+    private List<SpawnPoint> poweruppoints;
     private List<Passenger> passengers;
+    private List<PowerUp> powerups;
+    private List<String> powTypes;
 
     /**
      * Initializes a new Spawner which can store spawn points and spawn taxis,
      * passengers and create destination points.
-     *
+     * 
      */
     public Spawner() {
         passengerspawnpoints = new ArrayList<SpawnPoint>();
         taxispawnpoints = new ArrayList<SpawnPoint>();
         destinationpoints = new ArrayList<SpawnPoint>();
         passengers = new ArrayList<Passenger>();
+        powerups = new ArrayList<PowerUp>();
+        powTypes = new ArrayList<String>();
+        powTypes.add("invincibility");
     }
 
     /**
      * Add a new Passenger spawn point.
-     *
+     * 
      * @param spawnPoint
      *            : position of the spawn point
      */
@@ -50,7 +56,7 @@ public class Spawner {
 
     /**
      * Add a new Taxi spawn point.
-     *
+     * 
      * @param spawnPoint
      *            : position of the spawn point
      */
@@ -60,7 +66,7 @@ public class Spawner {
 
     /**
      * Add a new destination point.
-     *
+     * 
      * @param spawnPoint
      *            : the position of the destination point
      */
@@ -68,21 +74,24 @@ public class Spawner {
         destinationpoints.add(spawnPoint);
     }
 
+    public void addPowerup(SpawnPoint spawnPoint) {
+        poweruppoints.add(spawnPoint);
+
+    }
+
     /**
      * Spawn a new passenger into a specified world at a randomly chosen spawn
      * point.
-     *
+     * 
      * @param world
      *            : the world into which the passenger should be spawned
      * @return the spawned passenger
      */
     public Passenger spawnPassenger(World world) {
         // Pick a random passenger spawn point as location to spawn a passenger
-        int random = (int) (Math.abs(Math.random()
-                * passengerspawnpoints.size() - 1));
+        int random = random(passengerspawnpoints.size());
         while (passengerspawnpoints.get(random).isActive()) {
-            random = (int) (Math.abs(Math.random()
-                    * passengerspawnpoints.size() - 1));
+            random = random(passengerspawnpoints.size());
         }
         SpawnPoint spawnPoint = passengerspawnpoints.get(random);
         // Assign a random character to the passenger
@@ -97,7 +106,7 @@ public class Spawner {
 
     /**
      * Despawn the specified passenger from the map.
-     *
+     * 
      * @param passenger
      */
     public void despawnPassenger(Passenger passenger) {
@@ -107,15 +116,14 @@ public class Spawner {
 
     /**
      * Retrieves a random destination from the world.
-     *
+     * 
      * @param world
      * @return random destination
      */
     public Destination randomDestination(World world) {
         // Pick a random destination spawn point as location to spawn a
         // passenger
-        int random = (int) (Math.abs(Math.random() * destinationpoints.size()
-                - 1));
+        int random = random(destinationpoints.size());
         SpawnPoint spawnPoint = destinationpoints.get(random);
         Destination dest = new Destination(spawnPoint.getWidth(),
                 spawnPoint.getHeight());
@@ -127,18 +135,16 @@ public class Spawner {
 
     /**
      * Spawn a new taxi into a specified world at a randomly chosen spawn point.
-     *
+     * 
      * @param world
      *            : the world into which the passenger should be spawned
      * @return
      */
     public Taxi spawnTaxi(World world) {
         // Pick a random taxi spawn point as location to spawn a taxi.
-        int random = (int) (Math
-                .abs(Math.random() * taxispawnpoints.size() - 1));
+        int random = random(taxispawnpoints.size());
         while (taxispawnpoints.get(random).isActive()) {
-            random = (int) (Math
-                    .abs(Math.random() * taxispawnpoints.size() - 1));
+            random = random(taxispawnpoints.size());
         }
         SpawnPoint spawnPoint = taxispawnpoints.get(random);
         spawnPoint.setActive(true);
@@ -150,18 +156,41 @@ public class Spawner {
         return taxi;
     }
 
+    public PowerUp spawnPowerUp(World world) {
+        int random = random(poweruppoints.size());
+        while (poweruppoints.get(random).isActive()) {
+            random = random(poweruppoints.size());
+        }
+        SpawnPoint spawnPoint = poweruppoints.get(random);
+        spawnPoint.setActive(true);
+        int random2 = random(powTypes.size());
+        String type = powTypes.get(random2);
+        PowerUp power = new PowerUp(type);
+
+        /*
+         * NOT FINISHED YET
+         */
+
+        return power;
+
+    }
+
     /**
      * Retrieves the active (spawned) passengers of the game.
-     *
+     * 
      * @return
      */
     public List<Passenger> getActivePassengers() {
         return this.passengers;
     }
 
+    public List<PowerUp> getActivePowerUps() {
+        return this.powerups;
+    }
+
     /**
      * Retrieves the available passenger spawnpoints.
-     *
+     * 
      * @return
      */
     public List<SpawnPoint> getPassengerspawnpoints() {
@@ -170,7 +199,7 @@ public class Spawner {
 
     /**
      * Retrieves the available taxi spawnpoints.
-     *
+     * 
      * @return
      */
     public List<SpawnPoint> getTaxispawnpoints() {
@@ -179,10 +208,15 @@ public class Spawner {
 
     /**
      * Retrieves the spawnpoints for destinations.
-     *
+     * 
      * @return
      */
     public List<SpawnPoint> getDestinationpoints() {
         return destinationpoints;
+    }
+
+    public int random(int size) {
+        int res = (int) Math.abs(Math.random() * size - 1);
+        return res;
     }
 }
