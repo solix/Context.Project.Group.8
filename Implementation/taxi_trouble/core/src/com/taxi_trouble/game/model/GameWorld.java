@@ -30,7 +30,6 @@ public class GameWorld extends Game {
 	private AndroidMultiplayerInterface multiplayerInterface;
 	private DriverScreen driverScreen;
 	private NavigatorScreen navigatorScreen;
-	final static int THREE = 3;
 	private SetupInterface setupInterface;
 	private boolean driver;
 	private Map<Integer, Team> teams;
@@ -85,16 +84,9 @@ public class GameWorld extends Game {
 	@Override
 	public final void render() {
 		super.render();
-		if (getScreen() instanceof DriverScreen) {
-			sendLocation(getTeam().getTaxi().getXPosition(), getTeam()
-					.getTaxi().getYPosition(), getTeam().getTaxi().getBody()
-					.getAngle()); 
-			
-		}
 		// Spawn a new passenger if there are less than #taxis-1.
-		// TODO: Instead of '3' adapt to #taxis-1 in the game.
 		List<Passenger> passengers = map.getSpawner().getActivePassengers();
-		if (passengers.size() < THREE) {
+		if (passengers.size() < 3) {
 			map.getSpawner().spawnPassenger(world);
 		}
 	}

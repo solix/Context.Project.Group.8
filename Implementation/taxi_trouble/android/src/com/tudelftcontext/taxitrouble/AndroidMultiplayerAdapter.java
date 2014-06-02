@@ -22,9 +22,9 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 	@Override
 	public void sendCarLocation(int teamId, float x, float y, float a) {
 		if (roomId != null) {
-			Games.RealTimeMultiplayer
-					.sendUnreliableMessageToOthers(apiClient, ("TAXI" + " " + teamId
-							+ " " + x + " " + y + " " + a).getBytes(), roomId);
+			Games.RealTimeMultiplayer.sendUnreliableMessageToOthers(apiClient,
+					("TAXI" + " " + teamId + " " + x + " " + y + " " + a)
+							.getBytes(), roomId);
 		}
 	}
 
@@ -56,17 +56,15 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 		for (int i = 0; i < ids.size(); i++) {
 			teamId = (int) Math.floor(i / 2.0);
 			if (i % 2 == 0) {
-				//role = "DRIVER";
+				// role = "DRIVER";
 				role = true;
 			} else {
-				//role = "NAVIGATOR";
+				// role = "NAVIGATOR";
 				role = false;
 			}
-			
+
 			String message = "SETUP " + role + " " + teamId + " " + totalTeams;
-			
-			
-			
+
 			if (!ids.get(i).equals(myId)) {
 				Games.RealTimeMultiplayer.sendReliableMessage(apiClient, null,
 						message.getBytes(), room.getRoomId(), ids.get(i));
@@ -76,10 +74,9 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 			}
 		}
 
-		//reliableBroadcast("TOTALTEAMS " + totalTeams, room);
-		 
+		// reliableBroadcast("TOTALTEAMS " + totalTeams, room);
 
-		return mySetupMessage ;
+		return mySetupMessage;
 	}
 
 	public void setMyId(String myId) {

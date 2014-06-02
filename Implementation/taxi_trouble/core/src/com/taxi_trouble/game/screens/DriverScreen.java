@@ -23,6 +23,7 @@ public class DriverScreen extends ViewObserver {
 	private SpriteBatch spriteBatch;
 	private ControlsUI controlsUI;
 	private DriverControl driverControl;
+	private GameWorld game;
 
 	/**
 	 * Constructor, creates the Driver Screen.
@@ -31,6 +32,7 @@ public class DriverScreen extends ViewObserver {
 	 */
 	public DriverScreen(GameWorld game) {
 		super(game);
+		this.game = game;
 	}
 
 	/**
@@ -76,10 +78,14 @@ public class DriverScreen extends ViewObserver {
 		ownTaxi.update(Gdx.app.getGraphics().getDeltaTime());
 		cityMap.render(taxiCamera);
 
-
 		super.render(delta);
 		spriteBatch.setProjectionMatrix(virtualButtonsCamera.combined);
 		controlsUI.render(spriteBatch);
+
+		if (ownTaxi.hasMoved()) {
+			game.sendLocation(ownTaxi.getXPosition(), ownTaxi.getYPosition(),
+					ownTaxi.getBody().getAngle());
+		}
 	}
 
 	@Override
