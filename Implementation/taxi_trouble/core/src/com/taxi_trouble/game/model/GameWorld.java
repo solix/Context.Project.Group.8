@@ -6,7 +6,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.properties.ResourceManager;
-import com.taxi_trouble.game.screens.DriverScreen;
+import com.taxi_trouble.game.screens.NavigatorScreen;
 
 /**
  * Provides the main model for all the elements of a game that is played.
@@ -20,6 +20,7 @@ public class GameWorld extends Game {
     private WorldMap map;
     // Temporary: single team (may change when implementing multiplayer)
     private Team team;
+    private PowerUpAnimation powerAnim;
     final static int THREE = 3;
 
     /**
@@ -33,7 +34,9 @@ public class GameWorld extends Game {
         map = new WorldMap(ResourceManager.mapFile, world);
         team = new Team(map.getSpawner().spawnTaxi(world));
         world.setContactListener(new CollisionDetector(map));
-        setScreen(new DriverScreen(this));
+        setScreen(new NavigatorScreen(this));
+        powerAnim = new PowerUpAnimation();
+        powerAnim.create();
     }
 
     /**
@@ -93,5 +96,9 @@ public class GameWorld extends Game {
      */
     public final List<Passenger> getPassengers() {
         return this.map.getSpawner().getActivePassengers();
+    }
+
+    public PowerUpAnimation getPowerAnim() {
+        return powerAnim;
     }
 }

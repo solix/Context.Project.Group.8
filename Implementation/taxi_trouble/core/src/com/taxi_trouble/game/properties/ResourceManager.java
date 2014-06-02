@@ -13,9 +13,9 @@ import com.taxi_trouble.game.Character;
 
 /**
  * Utility class managing all the resources that are used in the game.
- *
+ * 
  * @author Computer Games Project Group 8
- *
+ * 
  */
 public final class ResourceManager {
 
@@ -31,10 +31,10 @@ public final class ResourceManager {
 
     private ResourceManager() {
     }
-    
+
     /**
      * Loads all of the required sprites that are used in the game.
-     *
+     * 
      */
     public static void loadSprites() {
         loadTaxiAndWheelSprites();
@@ -69,7 +69,7 @@ public final class ResourceManager {
 
     /**
      * Loads the character sprites in group of 3s.
-     *
+     * 
      */
     public static void loadCharSprites() {
         charList = new ArrayList<Character>();

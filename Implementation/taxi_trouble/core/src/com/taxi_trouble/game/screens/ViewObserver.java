@@ -9,11 +9,10 @@ import com.taxi_trouble.game.model.Passenger;
 import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.WorldMap;
 import com.taxi_trouble.game.properties.GameProperties;
-import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**
  * Basic class for extending independent screen of the game.
- *
+ * 
  * @author Computer Games Project Group 8
  */
 public abstract class ViewObserver implements Screen {
@@ -28,7 +27,7 @@ public abstract class ViewObserver implements Screen {
 
     /**
      * Constructor for creating game Screen.
-     *
+     * 
      * @param taxigame
      */
     public ViewObserver(GameWorld taxigame) {
@@ -46,19 +45,19 @@ public abstract class ViewObserver implements Screen {
         this.scoreCam = new OrthographicCamera();
         scoreCam.setToOrtho(false, screenWidth, screenHeight);
 
-        //TaxiJukebox.loopMusic("BobMarley", true);
-        //TaxiJukebox.playMusic("BobMarley");
-        //TaxiJukebox.loopMusic("street", true);
-        //TaxiJukebox.playMusic("street");
-        //TaxiJukebox.setMusicVolume("BobMarley", 0.8f);
-        //TaxiJukebox.setMusicVolume("street", 0.4f);
+        // TaxiJukebox.loopMusic("BobMarley", true);
+        // TaxiJukebox.playMusic("BobMarley");
+        // TaxiJukebox.loopMusic("street", true);
+        // TaxiJukebox.playMusic("street");
+        // TaxiJukebox.setMusicVolume("BobMarley", 0.8f);
+        // TaxiJukebox.setMusicVolume("street", 0.4f);
 
         // TODO: Also retrieve and render the other taxis in the game.
     }
 
     /**
      * Update the world and draw the sprites of the world.
-     *
+     * 
      * @param delta
      *            delta to be rendered.
      */
@@ -79,7 +78,10 @@ public abstract class ViewObserver implements Screen {
             pass.render(getSpriteBatch());
         }
 
-        //Show the destination for a taxi picking up the corresponding passenger
+        taxigame.getPowerAnim().render(getSpriteBatch());
+
+        // Show the destination for a taxi picking up the corresponding
+        // passenger
         if (taxi.pickedUpPassenger()) {
             taxi.getPassenger().getDestination().render(getSpriteBatch());
         }
@@ -90,7 +92,7 @@ public abstract class ViewObserver implements Screen {
 
     /**
      * Retrieve the spriteBatch that should be used.
-     *
+     * 
      * @return spriteBatch
      */
     public abstract SpriteBatch getSpriteBatch();
