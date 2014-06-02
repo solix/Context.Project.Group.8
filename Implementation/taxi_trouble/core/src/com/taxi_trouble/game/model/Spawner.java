@@ -39,6 +39,7 @@ public class Spawner {
         passengers = new ArrayList<Passenger>();
         powerups = new ArrayList<PowerUp>();
         powTypes = new ArrayList<String>();
+        poweruppoints = new ArrayList<SpawnPoint>();
         powTypes.add("invincibility");
     }
 
@@ -156,6 +157,12 @@ public class Spawner {
         return taxi;
     }
 
+    /**
+     * Spawns a PowerUp at a random location on the map.
+     * 
+     * @param world
+     * @return
+     */
     public PowerUp spawnPowerUp(World world) {
         int random = random(poweruppoints.size());
         while (poweruppoints.get(random).isActive()) {
@@ -165,14 +172,10 @@ public class Spawner {
         spawnPoint.setActive(true);
         int random2 = random(powTypes.size());
         String type = powTypes.get(random2);
-        PowerUp power = new PowerUp(type);
-
-        /*
-         * NOT FINISHED YET
-         */
-
+        PowerUp power = new PowerUp(type, spawnPoint);
+        power.initializeBody(world, spawnPoint.getPosition());
+        powerups.add(power);
         return power;
-
     }
 
     /**
@@ -184,6 +187,11 @@ public class Spawner {
         return this.passengers;
     }
 
+    /**
+     * Retrieves the active (spawned) powerups of the game.
+     * 
+     * @return
+     */
     public List<PowerUp> getActivePowerUps() {
         return this.powerups;
     }
@@ -215,6 +223,12 @@ public class Spawner {
         return destinationpoints;
     }
 
+    /**
+     * Returns a random number smaller than the size.
+     * 
+     * @param size
+     * @return
+     */
     public int random(int size) {
         int res = (int) Math.abs(Math.random() * size - 1);
         return res;

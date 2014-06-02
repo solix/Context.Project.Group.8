@@ -53,6 +53,7 @@ public class WorldMap {
         loadMapObjectsOfType("spawn-passenger");
         loadMapObjectsOfType("spawn-taxi");
         loadMapObjectsOfType("destination-point");
+        loadMapObjectsOfType("powerups");
     }
 
     /**
@@ -138,6 +139,11 @@ public class WorldMap {
         spawner.addDestination(spawn);
     }
 
+    /**
+     * Creates a new poweruppoint where a powerup can be spawned into the world
+     * 
+     * @param obj
+     */
     private void createPowerup(RectangleMapObject obj) {
         SpawnPoint spawn = new SpawnPoint(getXPosition(obj), getYPosition(obj),
                 getAngle(obj));

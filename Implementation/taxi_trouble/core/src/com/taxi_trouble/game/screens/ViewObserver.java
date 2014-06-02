@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.taxi_trouble.game.model.GameWorld;
 import com.taxi_trouble.game.model.Passenger;
+import com.taxi_trouble.game.model.PowerUp;
 import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.WorldMap;
 import com.taxi_trouble.game.properties.GameProperties;
@@ -78,7 +79,9 @@ public abstract class ViewObserver implements Screen {
             pass.render(getSpriteBatch());
         }
 
-        taxigame.getPowerAnim().render(getSpriteBatch());
+        for (PowerUp pow : taxigame.getPowerUps()) {
+            taxigame.getPowerAnim().render(getSpriteBatch(), pow.getPosition());
+        }
 
         // Show the destination for a taxi picking up the corresponding
         // passenger

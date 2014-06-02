@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * Animation implementation of passenger moving towards taxi
@@ -69,13 +70,13 @@ public class PowerUpAnimation {
  * 
  */
 
-    public void render(SpriteBatch spriteBatch) {
+    public void render(SpriteBatch spriteBatch, Vector2 location) {
         stateTime += Gdx.graphics.getDeltaTime(); // #15
         currentFrame = powerAnimation.getKeyFrame(stateTime, true); // #16
         spriteBatch.begin();
-        spriteBatch.draw(currentFrame, 50, 50);// ,
-        // ((powerSheet.getWidth() / FRAME_COL) / 4),
-        // ((powerSheet.getHeight() / FRAME_ROW) / 4)); // #17
+        spriteBatch.draw(currentFrame, location.x, location.y,
+                ((powerSheet.getWidth() / FRAME_COL) / 4),
+                ((powerSheet.getHeight() / FRAME_ROW) / 4)); // #17
         spriteBatch.end();
     }
 

@@ -432,4 +432,15 @@
   <object x="1760" y="480" width="96" height="64"/>
   <object x="768" y="64" width="96" height="64"/>
  </objectgroup>
+ <objectgroup color="#0000ff" name="powerups" width="80" height="101">
+  <object x="512" y="128" width="32" height="32"/>
+  <object x="1984" y="288" width="32" height="32"/>
+  <object x="672" y="896" width="32" height="32"/>
+  <object x="448" y="1440" width="32" height="32"/>
+  <object x="1952" y="1376" width="32" height="32"/>
+  <object x="1184" y="1760" width="32" height="32"/>
+  <object x="128" y="2592" width="32" height="32"/>
+  <object x="1568" y="2560" width="32" height="32"/>
+  <object x="2144" y="3008" width="32" height="32"/>
+ </objectgroup>
 </map>

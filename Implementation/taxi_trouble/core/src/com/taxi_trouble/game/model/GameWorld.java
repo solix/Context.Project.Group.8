@@ -6,7 +6,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.properties.ResourceManager;
-import com.taxi_trouble.game.screens.NavigatorScreen;
+import com.taxi_trouble.game.screens.DriverScreen;
 
 /**
  * Provides the main model for all the elements of a game that is played.
@@ -34,7 +34,7 @@ public class GameWorld extends Game {
         map = new WorldMap(ResourceManager.mapFile, world);
         team = new Team(map.getSpawner().spawnTaxi(world));
         world.setContactListener(new CollisionDetector(map));
-        setScreen(new NavigatorScreen(this));
+        setScreen(new DriverScreen(this));
         powerAnim = new PowerUpAnimation();
         powerAnim.create();
     }
@@ -59,6 +59,10 @@ public class GameWorld extends Game {
         List<Passenger> passengers = map.getSpawner().getActivePassengers();
         if (passengers.size() < THREE) {
             map.getSpawner().spawnPassenger(world);
+        }
+        List<PowerUp> powerups = map.getSpawner().getActivePowerUps();
+        if (powerups.size() < THREE) {
+            map.getSpawner().spawnPowerUp(world);
         }
     }
 
@@ -98,7 +102,21 @@ public class GameWorld extends Game {
         return this.map.getSpawner().getActivePassengers();
     }
 
+    /**
+     * Retrieves the powerUpAnimation. THIS SHOULDN'T BE HERE.
+     * 
+     * @return
+     */
     public PowerUpAnimation getPowerAnim() {
         return powerAnim;
+    }
+
+    /**
+     * Retrieves the active powerups on the map.
+     * 
+     * @return
+     */
+    public final List<PowerUp> getPowerUps() {
+        return this.map.getSpawner().getActivePowerUps();
     }
 }
