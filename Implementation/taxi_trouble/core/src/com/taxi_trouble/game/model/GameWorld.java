@@ -51,6 +51,7 @@ public class GameWorld extends Game {
 
     @Override
     public final void render() {
+        System.out.println("new render");
         super.render();
         // Spawn a new passenger if there are less than #taxis-1.
         // TODO: Instead of '3' adapt to #taxis-1 in the game.
@@ -58,7 +59,9 @@ public class GameWorld extends Game {
         if (passengers.size() < THREE) {
             map.getSpawner().spawnPassenger(world);
         }
+        System.out.println("getting spawner");
         List<PowerUp> powerups = map.getSpawner().getActivePowerUps();
+        System.out.println("powerups size: " + powerups.size());
         if (powerups.size() < THREE) {
             map.getSpawner().spawnPowerUp(world);
         }

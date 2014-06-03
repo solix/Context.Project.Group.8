@@ -28,10 +28,6 @@ public class Spawner {
     private List<PowerUp> powerups;
     private List<String> powTypes;
 
-    final static int TWENTY = 20;
-    final static int SIXTY = 60;
-    final static int FOUR = 4;
-
     /**
      * Initializes a new Spawner which can store spawn points and spawn taxis,
      * passengers and create destination points.
@@ -155,7 +151,7 @@ public class Spawner {
         SpawnPoint spawnPoint = taxispawnpoints.get(random);
         spawnPoint.setActive(true);
         // Initialize the new Taxi spawned at the randomly chosen location
-        Taxi taxi = new Taxi(2, FOUR, TWENTY, SIXTY, SIXTY);
+        Taxi taxi = new Taxi(2, 4, 20, 60, 60);
         taxi.initializeBody(world, spawnPoint.getPosition(),
                 spawnPoint.getAngle());
         taxi.setSprite(ResourceManager.taxiSprite, ResourceManager.wheelSprite);
@@ -170,15 +166,19 @@ public class Spawner {
      */
     public PowerUp spawnPowerUp(World world) {
         int random = random(poweruppoints.size());
+        System.out.println("Ik spawn een powerup");
 
         while (poweruppoints.get(random).isActive()) {
+            System.out.println("ik ben aan het zoekn");
             random = random(poweruppoints.size());
         }
         SpawnPoint spawnPoint = poweruppoints.get(random);
         spawnPoint.setActive(true);
 
+        // Get a random powerup
         int random2 = random(powTypes.size());
-        String type = powTypes.get(random2);
+        String type = "speed";
+        // powTypes.get(random2);
         PowerUp power = new PowerUp(type, spawnPoint);
         power.initializeBody(world, spawnPoint.getPosition());
         powerups.add(power);
@@ -192,8 +192,8 @@ public class Spawner {
      * @param world
      */
     public void despawnPowerup(PowerUp power, World world) {
-        power.deSpawn(world);
         powerups.remove(power);
+        power.deSpawn(world);
     }
 
     /**

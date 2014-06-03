@@ -150,6 +150,7 @@ public class PowerUp {
     public void deSpawn(World world) {
         resetSpawnpoint();
         removePowerUpFromWorld(world);
+        System.out.println("TEST");
     }
 
     /**

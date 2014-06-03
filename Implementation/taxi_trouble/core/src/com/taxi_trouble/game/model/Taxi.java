@@ -42,6 +42,8 @@ public class Taxi {
     private Passenger passenger;
     private Team team;
     private boolean invincibility;
+    final float increasedMaxSpeed = 80;
+    final int TIME = 100;
 
     /**
      * Initializes a new Taxi which can be controlled by a player.
@@ -468,7 +470,7 @@ public class Taxi {
             public void run() {
                 taxi.turnOffInvincibility();
             }
-        }, 5);
+        }, TIME);
     }
 
     /**
@@ -667,15 +669,18 @@ public class Taxi {
 
     }
 
+    /**
+     * Temporarly increases maxSpeed.
+     */
     private void triggerSpeed() {
         final float original = this.getMaxSpeed();
-        this.setMaxSpeed(80);
+        this.setMaxSpeed(increasedMaxSpeed);
         final Taxi taxi = this;
         Timer.schedule(new Task() {
             @Override
             public void run() {
                 taxi.setMaxSpeed(original);
             }
-        }, 5);
+        }, TIME);
     }
 }
