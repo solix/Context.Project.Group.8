@@ -39,7 +39,7 @@ public class GameWorld extends Game {
 
 	public GameWorld(AndroidMultiplayerInterface multiplayerInterface,
 			SetupInterface setupInterface) {
-		this.multiplayerInterface = multiplayerInterface;
+		this.setMultiplayerInterface(multiplayerInterface);
 		this.setupInterface = setupInterface;
 		this.setupInterface.login();
 		this.teams = new HashMap<Integer, Team>();
@@ -146,9 +146,7 @@ public class GameWorld extends Game {
 		getTeams().get(id).getTaxi().getBody().setTransform(x, y, a);
 	}
 
-	public void sendLocation(float f, float g, float a) {
-		multiplayerInterface.sendCarLocation(getTeam().getTeamId(), f, g, a);
-	}
+	
 
 	public void setTeams(int totalTeams) {
 		for (int i = 0; i < totalTeams; i++) {
@@ -171,4 +169,14 @@ public class GameWorld extends Game {
 	public Map<Integer, Team> getTeams() {
 		return teams;
 	}
+
+	public AndroidMultiplayerInterface getMultiplayerInterface() {
+		return multiplayerInterface;
+	}
+
+	public void setMultiplayerInterface(AndroidMultiplayerInterface multiplayerInterface) {
+		this.multiplayerInterface = multiplayerInterface;
+	}
+
+	
 }

@@ -558,14 +558,17 @@ public class Taxi {
 		taxiSprite.draw(spriteBatch);
 		spriteBatch.end();
 
-		updateOldLocation();
+		
 	}
 
 	private void setMoved() {
 		hasMoved = false;
-		if (oldX != getXPosition() || oldY != getYPosition()
-				|| oldAngle != taxiBody.getAngle())
+		if (Math.abs(oldX - getXPosition()) > 0.25 || Math.abs(oldY - getYPosition()) > 0.25
+				|| Math.abs(oldAngle - taxiBody.getAngle()) >0.2)
+		{
 			hasMoved = true;
+			updateOldLocation();
+		}
 	}
 
 	private void updateOldLocation() {
@@ -584,5 +587,32 @@ public class Taxi {
 
 	public boolean hasMoved() {
 		return hasMoved;
+	}
+	
+public String networkMessage(){
+    	
+		int teamId = getTeam().getTeamId();
+		float x = getXPosition();
+		float y = getYPosition();
+		float orientation = getBody().getAngle();
+		float xSpeed = getBody().getLinearVelocity().x;
+		float ySpeed = getBody().getLinearVelocity().y;
+		/*int acceleration = getAccelerate().ordinal();
+		int steerDirection = getSteer().ordinal();*/
+		return "TAXI " + " " + teamId + " " + x + " " + y + " " + orientation + " " 
+				+ xSpeed + " " + ySpeed; //+ " " + acceleration + " " + steerDirection + " ";
+    }
+
+
+	public void setInfo(float x, float y, float angle, float xSpeed, float ySpeed)//,
+			//int acceleration, int steerDirection) 
+	{
+		
+		getBody().setTransform(x, y, angle);
+		getBody().setLinearVelocity(xSpeed, ySpeed); 
+		//setAccelerate(Acceleration.values[acceleration]);
+		//setSteer(SteerDirection.values[steerDirection]);
+		
+		
 	}
 }

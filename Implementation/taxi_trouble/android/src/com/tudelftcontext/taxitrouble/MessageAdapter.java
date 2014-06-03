@@ -5,10 +5,12 @@ import java.util.Scanner;
 import com.google.android.gms.games.multiplayer.realtime.RealTimeMessage;
 import com.google.android.gms.games.multiplayer.realtime.RealTimeMessageReceivedListener;
 import com.taxi_trouble.game.model.GameWorld;
+import com.taxi_trouble.game.model.Taxi;
 
 public class MessageAdapter implements RealTimeMessageReceivedListener {
 	private GameWorld gameWorld;
 	private int count = 0;
+	private int unhandledMessages = 0;
 
 	public MessageAdapter(GameWorld gameWorld) {
 		this.gameWorld = gameWorld;
@@ -20,6 +22,8 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
 	}
 
 	public void onRealTimeMessageReceived(String rtm) {
+		unhandledMessages++;
+		//System.out.println("OPEN MESSAGES: " + unhandledMessages);
 		count++;
 		String message = rtm;
 
@@ -29,11 +33,7 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
 		System.out.println(message);
 
 		if (flag.equals("TAXI")) {
-			int id = sc.nextInt();
-			float x = Float.parseFloat(sc.next());
-			float y = Float.parseFloat(sc.next());
-			float a = Float.parseFloat(sc.next());
-			gameWorld.setTaxiLocation(id, x, y, a);
+			resolveTaxiMessage(sc);
 		} else if (flag.equals("SETUP")) {
 			boolean driver = sc.nextBoolean();
 			gameWorld.setDriver(driver);
@@ -51,5 +51,23 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
 		}
 
 		sc.close();
+		unhandledMessages--;
+	}
+	
+	private void resolveTaxiMessage(Scanner sc) {
+		//System.out.println("resolver called!");
+		int id = sc.nextInt();
+		Taxi taxi = gameWorld.getTeams().get(id).getTaxi();
+		float x = Float.parseFloat(sc.next());
+		
+		float y = Float.parseFloat(sc.next());
+		float angle = Float.parseFloat(sc.next());
+		float xSpeed = Float.parseFloat(sc.next());
+		float ySpeed = Float.parseFloat(sc.next());
+		/*int acceleration = sc.nextInt();
+		int steerDirection = sc.nextInt();*/
+		taxi.setInfo(x,y,angle, xSpeed, ySpeed); //,xSpeed, ySpeed, acceleration, steerDirection);
+		//System.out.println("resolving done!");
+		
 	}
 }

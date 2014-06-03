@@ -81,7 +81,21 @@ public class Spawner {
             random = (int) (Math.abs(Math.random()
                     * passengerspawnpoints.size() - 1));
         }
-        SpawnPoint spawnPoint = passengerspawnpoints.get(random);
+       return spawnPassenger(world, random);
+    }
+    
+    
+    /**
+     * Spawn a new passenger into a specified world at a chosen spawn
+     * point.
+     *
+     * @param world
+     *            : the world into which the passenger should be spawned
+     * @return the spawned passenger
+     */
+    public Passenger spawnPassenger(World world, int spawnId) {
+      
+        SpawnPoint spawnPoint = passengerspawnpoints.get(spawnId);
         // Assign a random character to the passenger
         Character character = getRandomCharacter();
         Passenger pass = new Passenger(world, 2, 2, spawnPoint.getAngle(),
@@ -132,7 +146,22 @@ public class Spawner {
             random = (int) (Math
                     .abs(Math.random() * taxispawnpoints.size() - 1));
         }
-        SpawnPoint spawnPoint = taxispawnpoints.get(random);
+       
+        return spawnTaxi(world, random);
+    }
+    
+    /**
+     * Spawn a new taxi into a specified world at a chosen spawn point.
+     * 
+     * @param world
+     *            : the world into which the passenger should be spawned
+     *        id
+     *        	  : the place of the spawnpoint in the list of spawnpoints
+     * @return
+     */
+    public Taxi spawnTaxi(World world, int pointId) {
+        // Pick a random taxi spawn point as location to spawn a taxi.
+        SpawnPoint spawnPoint = taxispawnpoints.get(pointId);
         spawnPoint.setActive(true);
         // Initialize the new Taxi spawned at the randomly chosen location
         Taxi taxi = new Taxi(2, 4, 20, 60, 60);
