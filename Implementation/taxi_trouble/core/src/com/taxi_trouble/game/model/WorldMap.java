@@ -1,5 +1,7 @@
 package com.taxi_trouble.game.model;
 
+import static com.taxi_trouble.game.properties.GameProperties.PIXELS_PER_METER;
+
 import java.util.Iterator;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -13,13 +15,11 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
-import static com.taxi_trouble.game.properties.GameProperties.*;
-
 /**
  * The map for the world in which a game can take place and its objects.
  *
  * @author Computer Games Project Group 8
- * 
+ *
  */
 public class WorldMap {
     private TiledMap map;
@@ -31,8 +31,8 @@ public class WorldMap {
      * Initializes a new WorldMap for a specified world using the specified
      * directory of the map file.
      *
-     * @param mapFile
-     *            : location/directory of the map (tmx-file)
+     * @param map
+     *            : the TiledMap to be used for the map
      * @param world
      *            : the world for which the map is created
      */
@@ -71,23 +71,69 @@ public class WorldMap {
                 Rectangle rect = ((RectangleMapObject) obj).getRectangle();
                 createSolidBox(rect);
             } else if (type.equals("spawn-passenger")) {
-                SpawnPoint spawn = new SpawnPoint(getXPosition(obj),
-                        getYPosition(obj), getAngle(obj));
-                spawner.addPassengerPoint(spawn);
+                createPassengerSpawnPoint((RectangleMapObject) obj);
             } else if (type.equals("spawn-taxi")) {
-                SpawnPoint spawn = new SpawnPoint(getXPosition(obj),
-                        getYPosition(obj), getAngle(obj));
-                spawner.addTaxiPoint(spawn);
+                createTaxiSpawnPoint(obj);
             } else if (type.equals("destination-point")) {
-                SpawnPoint spawn = new SpawnPoint(getXPosition(obj),
-                        getYPosition(obj), getAngle(obj));
-                spawn.setHeight(getHeight((RectangleMapObject) obj));
-                spawn.setWidth(getWidth((RectangleMapObject) obj));
-                spawner.addDestination(spawn);
+                createDestination((RectangleMapObject) obj);
             }
         }
     }
 
+    /**
+     * Creates a solid box in the map's world given a Rectangle.
+     *
+     * @param r
+     *            : rectangle specifying width, height and position
+     */
+    private void createSolidBox(Rectangle r) {
+        new SolidBox(world, (r.getWidth()) / PIXELS_PER_METER, (r.getHeight())
+                / PIXELS_PER_METER, new Vector2(r.getX() / PIXELS_PER_METER
+                + r.getWidth() / (2 * PIXELS_PER_METER), r.getY()
+                / PIXELS_PER_METER + r.getHeight() / (2 * PIXELS_PER_METER)));
+    }
+
+    /**
+     * Creates a new passenger spawnpoint where a passenger can spawn into
+     * the world.
+     * 
+     * @param obj : the mapobject specifying the properties of the
+     *              spawn point
+     */
+    private void createPassengerSpawnPoint(RectangleMapObject obj) {
+        SpawnPoint spawn = new SpawnPoint(getXPosition(obj),
+                getYPosition(obj), getAngle(obj));
+        spawn.setHeight(getHeight(obj));
+        spawn.setWidth(getWidth(obj));
+        spawner.addPassengerPoint(spawn);
+    }
+    /**
+     * Creates a new taxi spawnpoint where a taxi can spawn into
+     * the world.
+     * 
+     * @param obj : the mapobject specifying the properties of the
+     *              spawn point
+     */
+    private void createTaxiSpawnPoint(MapObject obj) {
+        SpawnPoint spawn = new SpawnPoint(getXPosition(obj),
+                getYPosition(obj), getAngle(obj));
+        spawner.addTaxiPoint(spawn);
+    }
+
+    /**
+     * Creates a new destination where a passenger can be dropped of into
+     * the world.
+     * 
+     * @param obj : the mapobject specifying the properties of the
+     *              spawn point
+     */
+    private void createDestination(RectangleMapObject obj) {
+        SpawnPoint spawn = new SpawnPoint(getXPosition(obj),
+                getYPosition(obj), getAngle(obj));
+        spawn.setHeight(getHeight(obj));
+        spawn.setWidth(getWidth(obj));
+        spawner.addDestination(spawn);
+    }
     /**
      * Returns the x-position of a given MapObject.
      *
@@ -129,9 +175,8 @@ public class WorldMap {
      * @return height of the mapobject
      */
     private float getHeight(RectangleMapObject obj) {
-       return obj.getRectangle().getHeight() / PIXELS_PER_METER;
+        return obj.getRectangle().getHeight() / PIXELS_PER_METER;
     }
-
 
     /**
      * Return the (spawning) angle of a given MapObject (default is zero).
@@ -142,24 +187,11 @@ public class WorldMap {
      */
     private float getAngle(MapObject obj) {
         if (obj.getProperties().get("angle") != null) {
-            return Float.parseFloat(
-                    obj.getProperties().get("angle", String.class));
+            return Float.parseFloat(obj.getProperties().get("angle",
+                    String.class));
         }
         // Default angle is zero
         return 0;
-    }
-
-    /**
-     * Creates a solid box in the map's world given a Rectangle.
-     *
-     * @param r
-     *            : rectangle specifying width, height and position
-     */
-    private void createSolidBox(Rectangle r) {
-        new SolidBox(world, (r.getWidth()) / PIXELS_PER_METER, (r.getHeight())
-                / PIXELS_PER_METER, new Vector2(r.getX() / PIXELS_PER_METER
-                + r.getWidth() / (2 * PIXELS_PER_METER), r.getY()
-                / PIXELS_PER_METER + r.getHeight() / (2 * PIXELS_PER_METER)));
     }
 
     /**
@@ -212,5 +244,15 @@ public class WorldMap {
      */
     public Spawner getSpawner() {
         return this.spawner;
+    }
+
+    /**
+     * Retrieves the World of the WorldMap. This is where all objects are placed
+     * of the game.
+     *
+     * @return world : the world
+     */
+    public World getWorld() {
+        return this.world;
     }
 }

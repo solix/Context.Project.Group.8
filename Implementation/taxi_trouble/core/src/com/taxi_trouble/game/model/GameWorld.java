@@ -24,19 +24,18 @@ import com.taxi_trouble.game.sound.TaxiJukebox;
 public class GameWorld extends Game {
 	private World world;
 	private WorldMap map;
-	// private List<Team> teams;
 	// Temporary: single team (may change when implementing multiplayer)
 	private Team ownTeam;
-	static AndroidMultiplayerInterface multiplayerInterface;
+	public static AndroidMultiplayerInterface multiplayerInterface;
 	private DriverScreen driverScreen;
 	private NavigatorScreen navigatorScreen;
 	private SetupInterface setupInterface;
 	private boolean driver;
 	private Map<Integer, Team> teams;
 	private boolean host = false;
+	final static int THREE = 3;
 
-	// private List<Passenger> passengers;
-	// private ScoreBoard score;
+
 
 	public GameWorld(AndroidMultiplayerInterface multiplayerInterface,
 			SetupInterface setupInterface) {
@@ -75,8 +74,8 @@ public class GameWorld extends Game {
 	 * 
 	 */
 	public void loadResources() {
-		TaxiJukebox.createMusicInGame("sound/bobmar.mp3", "BobMarley");
-		TaxiJukebox.createMusicInGame("sound/street.mp3", "street");
+		//TaxiJukebox.createMusicInGame("sound/bobmar.mp3", "BobMarley");
+		//TaxiJukebox.createMusicInGame("sound/street.mp3", "street");
 		ResourceManager.loadMap();
 		ResourceManager.loadSprites();
 		ResourceManager.loadFonts();
@@ -86,9 +85,10 @@ public class GameWorld extends Game {
 	public final void render() {
 		super.render();
 		// Spawn a new passenger if there are less than #taxis-1.
+		// TODO: Instead of '3' adapt to #taxis-1 in the game.
 		if(host){
 			List<Passenger> passengers = map.getSpawner().getActivePassengers();
-			if (passengers.size() < 3) {
+			if (passengers.size() < THREE) {
 				map.getSpawner().spawnPassenger(world);
 			}
 		}
@@ -126,14 +126,14 @@ public class GameWorld extends Game {
 		return this.ownTeam;
 	}
 
-	/**
-	 * Retrieves the world in which the game is played.
-	 * 
-	 * @return world
-	 */
-	public final World getWorld() {
-		return this.world;
-	}
+    /**
+     * Retrieves the world in which the game is played.
+     *
+     * @return world
+     */
+    public final World getWorld() {
+        return this.world;
+    }
 
 	/**
 	 * Retrieves the passengers that are currently in the game.
@@ -144,10 +144,7 @@ public class GameWorld extends Game {
 		return this.map.getSpawner().getActivePassengers();
 	}
 
-	public void setTaxiLocation(int id, float x, float y, float a) {
-		// System.out.println("received taxi location!!");
-		getTeams().get(id).getTaxi().getBody().setTransform(x, y, a);
-	}
+	
 
 	
 

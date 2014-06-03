@@ -88,3 +88,6 @@ sympy-plots-for-*.tex/
 # xindy
 *.xdy
 *.class
+*.classpath
+Implementation/taxi_trouble/android/.classpath
+Implementation/taxi_trouble/android/.classpath

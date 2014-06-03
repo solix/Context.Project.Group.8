@@ -7,6 +7,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.multiplayer.realtime.RealTimeMultiplayer.ReliableMessageSentCallback;
 import com.google.android.gms.games.multiplayer.realtime.Room;
+import com.taxi_trouble.game.model.Passenger;
+import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
 
 public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
@@ -95,6 +97,13 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 			Games.RealTimeMultiplayer.sendReliableMessage(apiClient, null,
 					messageBytes, roomId, id);
 		}
+	}
+
+	public void passengerPickedUp(Taxi taxi, Passenger passenger) {
+		String message = "PASSENGER";
+		//passenger.ge
+		
+		
 	}
 	
 }

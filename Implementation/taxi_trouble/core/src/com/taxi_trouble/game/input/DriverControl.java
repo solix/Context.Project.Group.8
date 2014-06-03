@@ -15,7 +15,7 @@ public class DriverControl implements InputProcessor {
 
     /**
      * New DriverControl.
-     * 
+     *
      * @param taxi
      *            the taxi to be controlled
      * @param controlsUI
@@ -74,7 +74,6 @@ public class DriverControl implements InputProcessor {
                     taxi.setAccelerate(Acceleration.ACC_BRAKE);
                     break;
                 default:
-                    // taxi.setAccelerate(Acceleration.ACC_NONE);
                     break;
                 }
 
@@ -86,7 +85,6 @@ public class DriverControl implements InputProcessor {
                     taxi.setSteer(SteerDirection.STEER_RIGHT);
                     break;
                 default:
-                    // taxi.setSteer(SteerDirection.STEER_NONE);
                     break;
                 }
             }

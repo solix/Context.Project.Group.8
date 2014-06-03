@@ -113,7 +113,7 @@ public class ControlsUI {
     }
 
     /**Sets the action of key pointer to inactive.
-     * 
+     *
      * @param pointer - key
      */
     public void setInActive(int pointer) {

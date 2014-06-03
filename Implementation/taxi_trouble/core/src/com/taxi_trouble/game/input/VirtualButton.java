@@ -9,7 +9,7 @@ public class VirtualButton {
     protected Rectangle body;
     protected Sprite sprite;
     protected ControlsUI.Action ACTION;
-    public boolean ACTIVE;
+    protected boolean ACTIVE;
     protected float scale = GameProperties.scale;
 
     public VirtualButton(Rectangle body, Sprite sprite, ControlsUI.Action action) {
@@ -18,7 +18,6 @@ public class VirtualButton {
         sprite.setPosition(body.x, body.y);
         sprite.setSize(body.width, body.height);
         this.ACTION = action;
-        // sprite.setOrigin(body.width / 2, body.height / 2);
     }
 
     public void render(SpriteBatch spriteBatch) {

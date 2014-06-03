@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.JointDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
@@ -16,9 +17,9 @@ import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 
 /**
  * A wheel as part of a Taxi which is controlled by a player.
- * 
+ *
  * @author Computer Games Project Group 8
- * 
+ *
  */
 public class Wheel {
 	private Taxi taxi;
@@ -40,7 +41,7 @@ public class Wheel {
 
 	/**
 	 * Creates the body of this wheel.
-	 * 
+	 *
 	 * @param world
 	 *            : the world for which the body should be created
 	 * @param position
@@ -58,7 +59,7 @@ public class Wheel {
 
 	/**
 	 * Creates the fixture of this wheel.
-	 * 
+	 *
 	 */
 	private void createFixture() {
 		FixtureDef fixtureDef = new FixtureDef();
@@ -74,29 +75,50 @@ public class Wheel {
 	}
 
 	/**
-	 * Creates joint to connect the wheel to the body.
+	 * Creates joint to connect the wheel to the taxi body.
 	 * 
+	 * @param world : the world into which the joint should
+	 *                be initialized
+	 *
 	 */
 	private void createJoint(World world) {
+	    JointDef jointdef = null;
 		if (this.getRevolving()) {
-			RevoluteJointDef jointdef = new RevoluteJointDef();
-			jointdef.initialize(this.taxi.getBody(), this.getBody(), this
-					.getBody().getWorldCenter());
-			jointdef.enableMotor = false;
-			world.createJoint(jointdef);
+			jointdef = createRevolvingWheelJoint();
 		} else {
-			PrismaticJointDef jointdef = new PrismaticJointDef();
-			jointdef.initialize(this.taxi.getBody(), this.getBody(), this
-					.getBody().getWorldCenter(), new Vector2(1, 0));
-			jointdef.enableLimit = true;
-			jointdef.lowerTranslation = jointdef.upperTranslation = 0;
-			world.createJoint(jointdef);
+		    jointdef = createNonRevolvingWheelJoint();
 		}
+		world.createJoint(jointdef);
+	}
+
+	/**Creates joint for a non-revolving wheel.
+	 * 
+	 * @return jointdef for a non-revolving wheel
+	 */
+	private JointDef createNonRevolvingWheelJoint() {
+	    PrismaticJointDef jointdef = new PrismaticJointDef();         
+        jointdef.initialize(this.taxi.getBody(), this.getBody(),
+                this.getBody().getWorldCenter(), new Vector2(1, 0));
+        jointdef.enableLimit = true;
+        jointdef.lowerTranslation = jointdef.upperTranslation = 0;
+        return jointdef;
+    }
+
+	/**Creates a joint for a revolving wheel.
+	 * 
+	 * @return jointdef for a revolving wheel
+	 */
+    private JointDef createRevolvingWheelJoint() {
+	    RevoluteJointDef jointdef = new RevoluteJointDef();
+        jointdef.initialize(this.taxi.getBody(), this.getBody(), 
+                this.getBody().getWorldCenter());
+        jointdef.enableMotor = false;
+        return jointdef;
 	}
 
 	/**
 	 * Retrieve whether the wheel revolves when steering.
-	 * 
+	 *
 	 * @return revolving
 	 */
 	public boolean getRevolving() {
@@ -105,7 +127,7 @@ public class Wheel {
 
 	/**
 	 * Retrieve whether the wheel is powered.
-	 * 
+	 *
 	 * @return powered
 	 */
 	public boolean getPowered() {
@@ -114,7 +136,7 @@ public class Wheel {
 
 	/**
 	 * Sets the sprite of the wheel to a given sprite.
-	 * 
+	 *
 	 * @param sprite
 	 *            : sprite of the wheel
 	 */
@@ -126,7 +148,7 @@ public class Wheel {
 
 	/**
 	 * Retrieves the box2d body of this wheel.
-	 * 
+	 *
 	 * @return
 	 */
 	public Body getBody() {
@@ -135,7 +157,7 @@ public class Wheel {
 
 	/**
 	 * Changes the body of the wheel to a given body.
-	 * 
+	 *
 	 * @param body
 	 *            : the new body of the wheel
 	 */
@@ -145,7 +167,7 @@ public class Wheel {
 
 	/**
 	 * Changes the angle (degrees) relative to the taxi the wheel belongs to.
-	 * 
+	 *
 	 * @param angle
 	 *            : angle of the wheel relative to the taxi
 	 */
@@ -156,7 +178,7 @@ public class Wheel {
 
 	/**
 	 * Retrieves the velocity vector relative to the taxi it belongs to
-	 * 
+	 *
 	 * @return
 	 */
 	public Vector2 getLocalVelocity() {
@@ -168,7 +190,7 @@ public class Wheel {
 	/**
 	 * Retrieves a world unit vector which is pointing in the direction the
 	 * wheel is moving.
-	 * 
+	 *
 	 * @return direction vector
 	 */
 	public Vector2 getDirectionVector() {
@@ -183,10 +205,10 @@ public class Wheel {
 
 	/**
 	 * Subtracts sideways velocity from the wheel's velocity vector.
-	 * 
+	 *
 	 * @return remaining front-facing velocity vector
 	 */
-	public Vector2 getKillVelocityVector() {
+	private Vector2 getKillVelocityVector() {
 		Vector2 velocity = this.getBody().getLinearVelocity();
 		Vector2 sidewaysAxis = this.getDirectionVector();
 		float dotprod = velocity.dot(sidewaysAxis);
@@ -195,7 +217,7 @@ public class Wheel {
 
 	/**
 	 * Removes all sideways velocity from the wheels velocity.
-	 * 
+	 *
 	 */
 	public void killSidewaysVelocity() {
 		this.getBody().setLinearVelocity(this.getKillVelocityVector());

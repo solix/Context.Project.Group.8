@@ -12,9 +12,9 @@ import com.taxi_trouble.game.screens.NavigatorScreen;
 
 /**
  * This is the controller class for MapScreen.
- * 
- * @author Aidan
- * 
+ *
+ * @author Computer Games Project Group 8
+ *
  */
 public class MapControls implements InputProcessor {
 
@@ -31,15 +31,13 @@ public class MapControls implements InputProcessor {
 
     /**
      * Constructor method for MapControlsUI.
-     * 
+     *
      * @param cam
-     * @param port
      * @param mapscreen
      */
     public MapControls(OrthographicCamera cam, NavigatorScreen mapscreen) {
         this.mapCamera = cam;
         this.mapscreen = mapscreen;
-        // this.map = map;
     }
 
     @Override
@@ -67,7 +65,6 @@ public class MapControls implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         // If the index of the touch is 0 then initialize/ modify the value of
         // old_x and old_y.
-        System.out.println("x = " + screenX + " y = " + screenY);
         if (pointer == 0) {
             old_x = screenX;
             old_y = screenY;
@@ -170,7 +167,7 @@ public class MapControls implements InputProcessor {
 
     /**
      * This method alters the camera.zoom value to zoom in and out of the map.
-     * 
+     *
      * @param cam
      *            The camera to be zoomed.
      * @param factor
@@ -180,10 +177,10 @@ public class MapControls implements InputProcessor {
         float factorThresh = Math.abs(factor - 1);
         float factorOldTresh = Math.abs(old_factor - 1);
         float dif = Math.abs(factorOldTresh - factorThresh);
-        
+
         int mapPixelHeight = mapscreen.getMap().getHeight();
         int mapPixelWidth = mapscreen.getMap().getWidth();
-        
+
 
         // If the distance between the 2 finger hasn't changed then do nothing.
         if (dif == 0) {
@@ -211,7 +208,5 @@ public class MapControls implements InputProcessor {
         cam.zoom = cam.zoom * factor;
         ZOOM = cam.zoom;
         mapscreen.setScale(factor * mapscreen.getScale());
-        System.out.println("zoom = " + cam.zoom);
-
     }
 }

@@ -26,9 +26,7 @@ public abstract class ViewObserver implements Screen {
 	protected static int PIXELS_PER_METER = GameProperties.PIXELS_PER_METER;
 	protected WorldMap cityMap;
 	private OrthographicCamera scoreCam;
-	final static int THREE = 3;
-	final static float ZERO_EIGHT_F = 0.8f;
-	final static float ZERO_FOUR_F = 0.4f;
+    private final static int THREE = 3;
 	protected Taxi ownTaxi;
 
 	/**
@@ -51,12 +49,12 @@ public abstract class ViewObserver implements Screen {
 		this.scoreCam = new OrthographicCamera();
 		scoreCam.setToOrtho(false, screenWidth, screenHeight);
 
-		TaxiJukebox.loopMusic("BobMarley", true);
-		TaxiJukebox.playMusic("BobMarley");
-		TaxiJukebox.loopMusic("street", true);
-		TaxiJukebox.playMusic("street");
-		TaxiJukebox.setMusicVolume("BobMarley", ZERO_EIGHT_F);
-		TaxiJukebox.setMusicVolume("street", ZERO_FOUR_F);
+        //TaxiJukebox.loopMusic("BobMarley", true);
+        //TaxiJukebox.playMusic("BobMarley");
+        //TaxiJukebox.loopMusic("street", true);
+        //TaxiJukebox.playMusic("street");
+        //TaxiJukebox.setMusicVolume("BobMarley", 0.8f);
+        //TaxiJukebox.setMusicVolume("street", 0.4f);
 
 		// TODO: Also retrieve and render the other taxis in the game.
 	}
@@ -69,10 +67,6 @@ public abstract class ViewObserver implements Screen {
 	 */
 	@Override
 	public void render(float delta) {
-		// Render the passengers into the game
-		for (Passenger pass : taxigame.getPassengers()) {
-			pass.render(getSpriteBatch());
-		}
 		// Update the taxi movement
 		for (Entry<Integer, Team> e : taxigame.getTeams().entrySet()) {
 			e.getValue().getTaxi().update(Gdx.app.getGraphics().getDeltaTime());
@@ -81,11 +75,17 @@ public abstract class ViewObserver implements Screen {
 		// Progress the physics of the game
 		taxigame.getWorld().step(Gdx.app.getGraphics().getDeltaTime(), THREE,
 				THREE);
+		
 		// Render the taxi sprites using the spriteBatch
 		for (Entry<Integer, Team> e : taxigame.getTeams().entrySet()) {
 			e.getValue().getTaxi().render(getSpriteBatch());
 		}
 
+		// Render the passengers into the game
+		for (Passenger pass : taxigame.getPassengers()) {
+			pass.render(getSpriteBatch());
+		}
+		
 		// Show the destination for a taxi picking up the corresponding
 		// passenger
 		if (ownTaxi.pickedUpPassenger()) {

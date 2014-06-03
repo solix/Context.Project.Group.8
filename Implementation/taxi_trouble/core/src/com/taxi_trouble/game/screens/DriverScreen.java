@@ -4,18 +4,20 @@ import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_HEIGHT;
 import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_WIDTH;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.taxi_trouble.game.Acceleration;
+import com.taxi_trouble.game.SteerDirection;
 import com.taxi_trouble.game.input.ControlsUI;
 import com.taxi_trouble.game.input.DriverControl;
 import com.taxi_trouble.game.model.GameWorld;
-
 /**
  * Provides the view of the game for the driver of a taxi.
- * 
+ *
  * @author Computer Games Project Group 8
- * 
+ *
  */
 public class DriverScreen extends ViewObserver {
 	private TaxiCamera taxiCamera;
@@ -23,7 +25,6 @@ public class DriverScreen extends ViewObserver {
 	private SpriteBatch spriteBatch;
 	private ControlsUI controlsUI;
 	private DriverControl driverControl;
-	private GameWorld game;
 
 	/**
 	 * Constructor, creates the Driver Screen.
@@ -32,7 +33,6 @@ public class DriverScreen extends ViewObserver {
 	 */
 	public DriverScreen(GameWorld game) {
 		super(game);
-		this.game = game;
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class DriverScreen extends ViewObserver {
 		controlsUI.render(spriteBatch);
 
 		if (ownTaxi.hasMoved()) {
-			game.getMultiplayerInterface().sendCarLocation(ownTaxi.networkMessage());
+			GameWorld.multiplayerInterface.sendCarLocation(ownTaxi.networkMessage());
 		}
 	}
 

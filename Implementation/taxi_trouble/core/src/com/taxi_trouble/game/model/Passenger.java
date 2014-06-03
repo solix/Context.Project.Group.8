@@ -32,24 +32,17 @@ public class Passenger {
     /**
      * Initializes a new passenger.
      * 
-     * @param world
-     *            : the world in which the passenger is placed
      * @param width
      *            : the width of the passenger
      * @param height
      *            : the height of the passenger
      * @param character
      *            : the character assigned to this passenger
-     * @param spawnPoint
-     *            : the spawnPoint of the passenger
      */
-    public Passenger(World world, float width, float height, float angle,
-            Character character, SpawnPoint spawnPoint) {
+    public Passenger(float width, float height, Character character) {
         this.width = width;
         this.height = height;
-        this.character = character;
-        this.spawnPoint = spawnPoint;
-        initializeBody(world, spawnPoint.getPosition(), angle);
+        this.setCharacter(character);
         setSprite(character.getStanding());
     }
 
@@ -58,24 +51,24 @@ public class Passenger {
      * 
      * @param world
      *            : the world in which the solid passenger is placed
-     * @param position
-     *            : the position at which the solid passenger is placed
+     * @param spawnPoint
+     *            : the spawnPoint of the passenger
      */
-    private void initializeBody(World world, Vector2 position, float angle) {
+    public void initializeBody(World world, SpawnPoint spawnPoint) {
+        this.spawnPoint = spawnPoint;
         BodyDef bodyDef = new BodyDef();
-        bodyDef.position.set(position);
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.angle = angle * MathUtils.degreesToRadians;
+        bodyDef.position.set(spawnPoint.getPosition());
+        bodyDef.angle = spawnPoint.getAngle() * MathUtils.degreesToRadians;
         bodyDef.fixedRotation = true;
         this.setBody(world.createBody(bodyDef));
-        InitFixtureDef();
+        initFixtureDef();
     }
 
     /**
      * Retrieves the fixture for the body of the solid passenger.
      * 
      */
-    private void InitFixtureDef() {
+    private void initFixtureDef() {
         FixtureDef fixtureDef = new FixtureDef();
 
         PolygonShape passengerShape = new PolygonShape();
@@ -130,15 +123,17 @@ public class Passenger {
      * @return x-position
      */
     public float getXPosition() {
+        assert (this.getBody() != null);
         return this.getBody().getPosition().x;
     }
 
     /**
      * Retrieves the y-position of the passenger.
      * 
-     * @return
+     * @return y-position
      */
     public float getYPosition() {
+        assert (this.getBody() != null);
         return this.getBody().getPosition().y;
     }
 
@@ -149,12 +144,40 @@ public class Passenger {
      *            : the position of the passenger
      */
     public void setPosition(Vector2 position) {
-        this.getBody().getPosition().x = position.x;
-        this.getBody().getPosition().y = position.y;
+        assert (this.getBody() != null);
+        this.getBody().setTransform(position, this.body.getAngle());
     }
 
+    /**
+     * Retrieves the current position of the passenger.
+     * 
+     * @return current position
+     */
     public Vector2 getPosition() {
+        assert (this.getBody() != null);
         return this.getBody().getPosition();
+    }
+
+    /**
+     * Retrieves the current angle in radians under which the passenger is
+     * placed in the world.
+     * 
+     * @return angle
+     */
+    public float getAngle() {
+        assert (this.getBody() != null);
+        return this.getBody().getAngle();
+    }
+
+    /**
+     * Sets the angle in radians of the passenger.
+     * 
+     * @param angle
+     *            : the new angle
+     */
+    public void setAngle(float angle) {
+        assert (this.getBody() != null);
+        this.getBody().setTransform(getPosition(), angle);
     }
 
     /**
@@ -181,15 +204,57 @@ public class Passenger {
      * 
      */
     public void cancelTransport() {
-        // this.transporter.dropOffPassenger();
-        // this.transporter = null;
+        this.transporter = null;
+    }
+
+    /**
+     * Retrieves whether the passenger is transported, i.e. it has a
+     * transporter/taxi.
+     * 
+     * @return boolean indicating whether the passenger is transported
+     */
+    public boolean isTransported() {
+        return this.transporter != null;
+    }
+
+    /**
+     * Deliver the passenger at its destination.
+     * 
+     * @param map
+     *            : the map to remove the passenger from
+     * @param destination
+     *            : the destination to deliver the passenger
+     * 
+     */
+    public void deliverAtDestination(WorldMap map, Destination destination) {
+        assert (this.getBody() != null);
+        // Check if the destination is the right location
+        if (this.getDestination().equals(destination) && isTransported()) {
+            // Despawn the passenger and remove it from the world
+            Spawner spawner = map.getSpawner();
+            spawner.despawnPassenger(this);
+            removePassengerFromWorld(map.getWorld());
+            cancelTransport();
+        }
+    }
+
+    /**
+     * Removes the passenger from the world.
+     * 
+     * @param world
+     *            : the world from which the passenger should be removed
+     */
+    private void removePassengerFromWorld(World world) {
+        world.step(0, 0, 0);
+        world.destroyBody(this.getBody());
     }
 
     /**
      * Resets the spawn point of the passenger.
      */
     public void resetSpawnPoint() {
-        spawnPoint.setActive(false);
+        assert (this.spawnPoint != null);
+        this.spawnPoint.setActive(true);
     }
 
     /**
@@ -214,8 +279,32 @@ public class Passenger {
         return this.destination;
     }
 
+    /**
+     * Retrieves the startposition of the passenger from its spawnpoint.
+     * 
+     * @return startposition
+     */
     public Vector2 getStartPosition() {
+        assert (this.spawnPoint != null);
         return this.spawnPoint.getPosition();
+    }
+
+    /**
+     * Retrieves the character of the passenger.
+     * 
+     * @return character
+     */
+    public Character getCharacter() {
+        return character;
+    }
+
+    /**
+     * Sets the character of the passenger to the given argument.
+     * 
+     * @param character
+     */
+    public void setCharacter(Character character) {
+        this.character = character;
     }
 
     /**
@@ -224,9 +313,9 @@ public class Passenger {
      * @param spriteBatch
      */
     public void render(SpriteBatch spriteBatch) {
-        if (this.transporter != null) {
-            this.body.setLinearVelocity(transporter.getBody()
-                    .getLinearVelocity());
+        if (this.isTransported()) {
+            setPosition(transporter.getPosition());
+            setAngle(transporter.getAngle());
         }
         spriteBatch.begin();
         passengerSprite.setPosition(this.getXPosition() * PIXELS_PER_METER,

@@ -11,29 +11,36 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.taxi_trouble.game.Character;
 
-/**Manages all the resources that are used in the game.
+/**
+ * Utility class managing all the resources that are used in the game.
  *
  * @author Computer Games Project Group 8
  *
  */
-public class ResourceManager {
-    
+public final class ResourceManager {
+
     public static Sprite taxiSprite;
     public static Sprite wheelSprite;
     public static Sprite throttleSprite;
     public static Sprite brakeSprite;
     public static Sprite dPadSprite;
+    public static Sprite destinationSprite;
     public static TiledMap mapFile;
     public static List<Character> charList;
     public static BitmapFont scoreFont;
 
-    /**Loads all of the required sprites that are used in the game.
+    private ResourceManager() {
+    }
+    
+    /**
+     * Loads all of the required sprites that are used in the game.
      *
      */
     public static void loadSprites() {
         loadTaxiAndWheelSprites();
         loadDriverControlSprites();
         loadCharSprites();
+        destinationSprite = new Sprite(new Texture("sprites/destination.png"));
     }
 
     /**
@@ -73,23 +80,17 @@ public class ResourceManager {
                     "sprites/characters/character-" + i + "-walk1.png"));
             Sprite walking2 = new Sprite(new Texture(
                     "sprites/characters/character-" + i + "-walk2.png"));
-            System.out.println(i);
             charList.add(new Character(standing, walking1, walking2));
         }
     }
 
-    /**Retrieve a random character to be used by a passenger.
-     *
+    /**
+     * Retrieve a random character to be used by a passenger.
+     * 
      * @return character
      */
-    public static int getRandomCharacterId() {
-        return (int) (Math.abs(Math.random() * charList.size()));
-       
-    }
-    
-    public static Character getCharacter(int id) {
-        return charList.get(id);
-       
+    public static Character getCharacter(int i) {
+        return charList.get(i);
     }
 
     /**
@@ -103,10 +104,12 @@ public class ResourceManager {
      * Loads the fonts of the game.
      */
     public static void loadFonts() {
-        scoreFont = new BitmapFont(
-                Gdx.files.internal("fonts/arial-24.fnt"),
-                Gdx.files.internal("fonts/arial-24.png"),
-                false);
+        scoreFont = new BitmapFont(Gdx.files.internal("fonts/arial-24.fnt"),
+                Gdx.files.internal("fonts/arial-24.png"), false);
     }
+
+	public static int getRandomCharacterId() {
+		return (int) (Math.abs(Math.random() * charList.size()));
+	}
 
 }

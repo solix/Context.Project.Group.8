@@ -2,7 +2,6 @@ package com.taxi_trouble.game.model;
 
 import static com.taxi_trouble.game.properties.GameProperties.PIXELS_PER_METER;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -25,11 +24,15 @@ public class Destination {
     private float height;
     private Sprite destinationSprite;
 
-    public Destination(World world, float x, float y, float width, float height) {
+    /**
+     * Initializes a new destination where a passenger can be dropped off.
+     * 
+     * @param width
+     * @param height
+     */
+    public Destination(float width, float height) {
         this.width = width;
         this.height = height;
-        initializeBody(world, new Vector2(x, y));
-        setSprite(new Sprite(new Texture("sprites/destination.png")));
     }
 
     /**
@@ -38,7 +41,7 @@ public class Destination {
      * @param world
      * @param vector2
      */
-    private void initializeBody(World world, Vector2 position) {
+    public void initializeBody(World world, Vector2 position) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(position);
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -67,6 +70,7 @@ public class Destination {
      * @return position
      */
     public Vector2 getPosition() {
+        assert (this.getBody() != null);
         return this.getBody().getPosition();
     }
 
@@ -76,6 +80,7 @@ public class Destination {
      * @return x-position
      */
     public float getXPosition() {
+        assert (this.getBody() != null);
         return this.getBody().getPosition().x;
     }
 
@@ -85,6 +90,7 @@ public class Destination {
      * @return y-position
      */
     public float getYPosition() {
+        assert (this.getBody() != null);
         return this.getBody().getPosition().y;
     }
 
