@@ -1,6 +1,8 @@
 package com.taxi_trouble.game.model;
 
-import static com.taxi_trouble.game.properties.GameProperties.getPowerUpTypes;
+import static com.taxi_trouble.game.properties.GameProperties.invincibleAnim;
+import static com.taxi_trouble.game.properties.GameProperties.powerupTypes;
+import static com.taxi_trouble.game.properties.GameProperties.speedAnim;
 import static com.taxi_trouble.game.properties.ResourceManager.destinationSprite;
 import static com.taxi_trouble.game.properties.ResourceManager.getRandomCharacter;
 
@@ -39,7 +41,7 @@ public class Spawner {
         destinationpoints = new ArrayList<SpawnPoint>();
         passengers = new ArrayList<Passenger>();
         powerups = new ArrayList<PowerUp>();
-        powTypes = getPowerUpTypes();
+        powTypes = powerupTypes;
         poweruppoints = new ArrayList<SpawnPoint>();
     }
 
@@ -176,13 +178,40 @@ public class Spawner {
         spawnPoint.setActive(true);
 
         // Get a random powerup
-        int random2 = random(powTypes.size());
+        /*
+         * hardcoded for testing purposes.
+         */
         String type = "speed";
         // powTypes.get(random2);
-        PowerUp power = new PowerUp(type, spawnPoint);
+        PowerUp power = new PowerUp(type, spawnPoint, speedAnim);
         power.initializeBody(world, spawnPoint.getPosition());
         powerups.add(power);
+        /*
+         * this is the real code for getting a random powerup.
+         */
+        // Powerup power = getRandomPowerUp(point, world);
         return power;
+    }
+
+    /**
+     * Generates a random powerup.
+     * 
+     * @param point
+     * @param world
+     * @return
+     */
+    public PowerUp getRandomPowerUp(SpawnPoint point, World world) {
+        int random = random(powTypes.size());
+        String type = powTypes.get(random);
+        PowerUp res;
+        if (type.equals("speed")) {
+            res = new PowerUp(type, point, speedAnim);
+        } else { // if(type.equals("invincible")){
+            res = new PowerUp(type, point, invincibleAnim);
+        }
+        res.initializeBody(world, point.getPosition());
+        powerups.add(res);
+        return res;
     }
 
     /**
@@ -192,7 +221,6 @@ public class Spawner {
      * @param world
      */
     public void despawnPowerup(PowerUp power, World world) {
-        powerups.remove(power);
         power.deSpawn(world);
     }
 

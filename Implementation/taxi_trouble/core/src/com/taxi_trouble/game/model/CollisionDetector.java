@@ -73,7 +73,7 @@ public class CollisionDetector implements ContactListener {
      */
     private void taxiAtPowerUp(Taxi taxi, PowerUp powerup) {
         taxi.handlePowerUp(powerup, map);
-        map.getSpawner().despawnPowerup(powerup, map.getWorld());
+        // map.getSpawner().despawnPowerup(powerup, map.getWorld());
         System.out.println("despawning powerup complete");
 
     }

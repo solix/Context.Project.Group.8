@@ -29,13 +29,12 @@ public class PowerUp {
      * @param type
      * @param point
      */
-    public PowerUp(String type, SpawnPoint point) {
+    public PowerUp(String type, SpawnPoint point, PowerUpAnimation anim) {
         this.type = type;
         this.width = point.getWidth();
         this.height = point.getHeight();
         this.point = point;
-        powerAnim = new PowerUpAnimation(type);
-        powerAnim.create();
+        powerAnim = anim;
     }
 
     /**
@@ -148,7 +147,6 @@ public class PowerUp {
      * @param world
      */
     public void deSpawn(World world) {
-        resetSpawnpoint();
         removePowerUpFromWorld(world);
         System.out.println("TEST");
     }
