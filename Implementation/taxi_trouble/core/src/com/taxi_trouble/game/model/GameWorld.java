@@ -27,19 +27,20 @@ public class GameWorld extends Game {
 	// private List<Team> teams;
 	// Temporary: single team (may change when implementing multiplayer)
 	private Team ownTeam;
-	private AndroidMultiplayerInterface multiplayerInterface;
+	static AndroidMultiplayerInterface multiplayerInterface;
 	private DriverScreen driverScreen;
 	private NavigatorScreen navigatorScreen;
 	private SetupInterface setupInterface;
 	private boolean driver;
 	private Map<Integer, Team> teams;
+	private boolean host = false;
 
 	// private List<Passenger> passengers;
 	// private ScoreBoard score;
 
 	public GameWorld(AndroidMultiplayerInterface multiplayerInterface,
 			SetupInterface setupInterface) {
-		this.setMultiplayerInterface(multiplayerInterface);
+		GameWorld.multiplayerInterface=multiplayerInterface;
 		this.setupInterface = setupInterface;
 		this.setupInterface.login();
 		this.teams = new HashMap<Integer, Team>();
@@ -85,9 +86,11 @@ public class GameWorld extends Game {
 	public final void render() {
 		super.render();
 		// Spawn a new passenger if there are less than #taxis-1.
-		List<Passenger> passengers = map.getSpawner().getActivePassengers();
-		if (passengers.size() < 3) {
-			map.getSpawner().spawnPassenger(world);
+		if(host){
+			List<Passenger> passengers = map.getSpawner().getActivePassengers();
+			if (passengers.size() < 3) {
+				map.getSpawner().spawnPassenger(world);
+			}
 		}
 	}
 
@@ -175,7 +178,11 @@ public class GameWorld extends Game {
 	}
 
 	public void setMultiplayerInterface(AndroidMultiplayerInterface multiplayerInterface) {
-		this.multiplayerInterface = multiplayerInterface;
+		GameWorld.multiplayerInterface = multiplayerInterface;
+	}
+	
+	public void setHost(boolean host){
+		this.host = host;
 	}
 
 	

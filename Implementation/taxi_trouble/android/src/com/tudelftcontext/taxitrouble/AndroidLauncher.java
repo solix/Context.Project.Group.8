@@ -244,6 +244,7 @@ public class AndroidLauncher extends AndroidApplication implements
 		} else {
 			iAmHost = false;
 		}
+		gameWorld.setHost(iAmHost);
 	}
 
 	// are we already playing?

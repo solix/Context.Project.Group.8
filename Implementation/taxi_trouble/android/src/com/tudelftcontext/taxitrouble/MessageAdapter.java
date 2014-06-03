@@ -34,6 +34,8 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
 
 		if (flag.equals("TAXI")) {
 			resolveTaxiMessage(sc);
+		} else if (flag.equals("NEWPASSENGER")){
+			gameWorld.getMap().getSpawner().spawnPassenger(gameWorld.getWorld(), sc.nextInt(), sc.nextInt(), sc.nextInt());
 		} else if (flag.equals("SETUP")) {
 			boolean driver = sc.nextBoolean();
 			gameWorld.setDriver(driver);

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
+import com.google.android.gms.games.multiplayer.realtime.RealTimeMultiplayer.ReliableMessageSentCallback;
 import com.google.android.gms.games.multiplayer.realtime.Room;
 import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
 
@@ -14,6 +15,7 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 	private String myId;
 	private int myTeamId;
 	private boolean driver;
+	private List<String> ids;
 
 	public AndroidMultiplayerAdapter(GoogleApiClient apiClient) {
 		this.apiClient = apiClient;
@@ -46,7 +48,7 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 	}
 
 	public String setTeams(Room room) {
-		List<String> ids = room.getParticipantIds();
+		ids = room.getParticipantIds();
 		Collections.sort(ids);
 		boolean role;
 		String mySetupMessage = "MessageCreationError";
@@ -85,12 +87,14 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 	public void setRoomId(String roomId) {
 		this.roomId = roomId;
 	}
-
-	public void reliableBroadcast(String message, Room room) {
+	@Override
+	public void reliableBroadcast(String message) {
 		byte[] messageBytes = message.getBytes();
-		for (String id : room.getParticipantIds()) {
+		for (String id : ids) {
+			if (! id.equals(myId))
 			Games.RealTimeMultiplayer.sendReliableMessage(apiClient, null,
-					messageBytes, room.getRoomId(), id);
+					messageBytes, roomId, id);
 		}
 	}
+	
 }

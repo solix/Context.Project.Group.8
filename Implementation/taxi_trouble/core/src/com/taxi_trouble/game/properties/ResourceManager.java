@@ -82,9 +82,14 @@ public class ResourceManager {
      *
      * @return character
      */
-    public static Character getRandomCharacter() {
-        int i = (int) (Math.abs(Math.random() * charList.size()));
-        return charList.get(i);
+    public static int getRandomCharacterId() {
+        return (int) (Math.abs(Math.random() * charList.size()));
+       
+    }
+    
+    public static Character getCharacter(int id) {
+        return charList.get(id);
+       
     }
 
     /**

@@ -1,6 +1,6 @@
 package com.taxi_trouble.game.model;
 
-import static com.taxi_trouble.game.properties.ResourceManager.getRandomCharacter;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +81,11 @@ public class Spawner {
             random = (int) (Math.abs(Math.random()
                     * passengerspawnpoints.size() - 1));
         }
-       return spawnPassenger(world, random);
+        int destinationId = (int) (Math.abs(Math.random() * destinationpoints.size()
+                - 1));
+        int charId = ResourceManager.getRandomCharacterId();
+        GameWorld.multiplayerInterface.reliableBroadcast("NEWPASSENGER  " + random + " " + destinationId + " " + charId);
+       return spawnPassenger(world, random, destinationId, charId);
     }
     
     
@@ -93,14 +97,13 @@ public class Spawner {
      *            : the world into which the passenger should be spawned
      * @return the spawned passenger
      */
-    public Passenger spawnPassenger(World world, int spawnId) {
+    public Passenger spawnPassenger(World world, int spawnId, int destinationId, int charId) {
       
         SpawnPoint spawnPoint = passengerspawnpoints.get(spawnId);
         // Assign a random character to the passenger
-        Character character = getRandomCharacter();
         Passenger pass = new Passenger(world, 2, 2, spawnPoint.getAngle(),
-                character, spawnPoint);
-        pass.setDestination(randomDestination(world));
+                ResourceManager.getCharacter(charId), spawnPoint);
+        pass.setDestination(destination(world, destinationId));
         //Add the new passenger to the list of active passengers
         passengers.add(pass);
         return pass;
@@ -124,12 +127,23 @@ public class Spawner {
         // passenger
         int random = (int) (Math.abs(Math.random() * destinationpoints.size()
                 - 1));
-        SpawnPoint spawnPoint = destinationpoints.get(random);
-        Destination dest = new Destination(world, spawnPoint.getXPosition(),
-                spawnPoint.getYPosition(), spawnPoint.getWidth(),
-                spawnPoint.getHeight());
-        return dest;
+        return destination(world, random);
     }
+    
+    /**Retrieves a random destination from the world.
+    *
+    * @param world
+    * @return random destination
+    */
+   public Destination destination(World world, int spawnId) {
+       // Pick a random destination spawn point as location to spawn a
+       // passenger
+       SpawnPoint spawnPoint = destinationpoints.get(spawnId);
+       Destination dest = new Destination(world, spawnPoint.getXPosition(),
+               spawnPoint.getYPosition(), spawnPoint.getWidth(),
+               spawnPoint.getHeight());
+       return dest;
+   }
 
     /**
      * Spawn a new taxi into a specified world at a randomly chosen spawn point.

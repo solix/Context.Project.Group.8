@@ -9,4 +9,6 @@ public interface AndroidMultiplayerInterface {
 	public void sendScore(int score);
 
 	public void sendCarLocation(String message);
+
+	public void reliableBroadcast(String message);
 }
