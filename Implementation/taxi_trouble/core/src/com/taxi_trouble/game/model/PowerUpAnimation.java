@@ -1,5 +1,7 @@
 package com.taxi_trouble.game.model;
 
+import static com.taxi_trouble.game.properties.GameProperties.PIXELS_PER_METER;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -8,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * Animation implementation of passenger moving towards taxi
+ * Animation implementation of powerups.
  * 
  * @author Context group 8
  * 
@@ -34,10 +36,15 @@ public class PowerUpAnimation {
     final int WIDTH = 64 * 4;
     final int HEIGHT = 64 * 3;
 
-    public PowerUpAnimation() {
-        powerSheet = new Texture(
-                Gdx.files
-                        .internal("sprites/powerups/invincible-spritesheet.png"));
+    public PowerUpAnimation(String type) {
+
+        /*
+         * Type shouldn't be modified here. But since there aren't any other
+         * spritesheets I've done it like this temporarly.
+         */
+        type = "invincible";
+        powerSheet = new Texture(Gdx.files.internal("sprites/powerups/" + type
+                + "-spritesheet.png"));
         powerframes = new TextureRegion[FRAME_COL * FRAME_ROW];
     }
 
@@ -62,21 +69,22 @@ public class PowerUpAnimation {
                 powerframes[index++] = tmp[i][j];
             }
         }
-        powerAnimation = new Animation(0.5f, powerframes);
+        powerAnimation = new Animation(0.25f, powerframes);
         stateTime = 0f;
     }
 
     /**
- * 
- */
-
+     * render the animation on the given location.
+     * 
+     * @param spriteBatch
+     * @param location
+     */
     public void render(SpriteBatch spriteBatch, Vector2 location) {
         stateTime += Gdx.graphics.getDeltaTime(); // #15
         currentFrame = powerAnimation.getKeyFrame(stateTime, true); // #16
         spriteBatch.begin();
-        spriteBatch.draw(currentFrame, location.x, location.y,
-                ((powerSheet.getWidth() / FRAME_COL) / 4),
-                ((powerSheet.getHeight() / FRAME_ROW) / 4)); // #17
+        spriteBatch.draw(currentFrame, location.x * PIXELS_PER_METER,
+                location.y * PIXELS_PER_METER, 32f, 32f); // #17
         spriteBatch.end();
     }
 
@@ -96,8 +104,6 @@ public class PowerUpAnimation {
     }
 
     public void dispose() {
-        // TODO Auto-generated method stub
-
     }
 
 }

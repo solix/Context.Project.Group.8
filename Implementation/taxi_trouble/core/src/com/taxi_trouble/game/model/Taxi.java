@@ -23,9 +23,9 @@ import com.taxi_trouble.game.SteerDirection;
  * A controllable taxi which can be steered and for which certain properties
  * hold. A Taxi has a width, length, maximum steering angle, maximum speed,
  * power, box2d body, sprite and a set of wheels.
- *
+ * 
  * @author Computer Games Project Group 8
- *
+ * 
  */
 public class Taxi {
     private float width;
@@ -45,7 +45,7 @@ public class Taxi {
 
     /**
      * Initializes a new Taxi which can be controlled by a player.
-     *
+     * 
      * @param width
      *            : the width of the taxi
      * @param length
@@ -75,7 +75,7 @@ public class Taxi {
     /**
      * Creates a body for this taxi in a world on a given position and placed
      * under a given angle(radian).
-     *
+     * 
      * @param world
      *            : the world used to create the Body
      * @param position
@@ -442,7 +442,7 @@ public class Taxi {
 
     /**
      * Picks up a passenger and places it into this taxi.
-     *
+     * 
      * @param passenger
      *            : the passenger to pickup
      */
@@ -456,8 +456,9 @@ public class Taxi {
         }
     }
 
-    /**Triggers invincibility for this taxi for a short period of five seconds.
-     *
+    /**
+     * Triggers invincibility for this taxi for a short period of five seconds.
+     * 
      */
     public void triggerInvincibility() {
         this.invincibility = true;
@@ -470,9 +471,10 @@ public class Taxi {
         }, 5);
     }
 
-    /**Disable invincibility of this taxi, i.e. another
-     * taxi can steal a passenger from this taxi.
-     *
+    /**
+     * Disable invincibility of this taxi, i.e. another taxi can steal a
+     * passenger from this taxi.
+     * 
      */
     private void turnOffInvincibility() {
         this.invincibility = false;
@@ -480,10 +482,10 @@ public class Taxi {
 
     /**
      * Drop off the passenger, i.e. get it out of the taxi.
-     *
+     * 
      * @param destination
      * @param map
-     *
+     * 
      */
     public void dropOffPassenger(Destination destination, WorldMap map) {
         if (pickedUpPassenger()
@@ -496,7 +498,7 @@ public class Taxi {
 
     /**
      * Updates the taxi's steer angle and acceleration.
-     *
+     * 
      * @param deltaTime
      */
     public void update(float deltaTime) {
@@ -506,7 +508,7 @@ public class Taxi {
 
     /**
      * Updates the direction in which the taxi's wheels should be pointed.
-     *
+     * 
      * @param deltaTime
      *            : difference in time in which the wheel angle updates
      */
@@ -534,7 +536,7 @@ public class Taxi {
 
     /**
      * Updates the angle of the wheels.
-     *
+     * 
      */
     private void updateRevolvingWheelsAngle() {
         for (Wheel wheel : this.getRevolvingWheels()) {
@@ -544,7 +546,7 @@ public class Taxi {
 
     /**
      * Updates the acceleration of the taxi.
-     *
+     * 
      * @param deltaTime
      */
     private void updateAcceleration(float deltaTime) {
@@ -582,7 +584,7 @@ public class Taxi {
 
     /**
      * Applies the force specified by a vector to the wheels of the taxi.
-     *
+     * 
      * @param forceVector
      */
     private void updatePoweredWheelsForce(Vector2 forceVector) {
@@ -597,7 +599,7 @@ public class Taxi {
 
     /**
      * Render the sprites of the taxi using a given SpriteBatch.
-     *
+     * 
      * @param spriteBatch
      */
     public void render(SpriteBatch spriteBatch) {
@@ -614,9 +616,11 @@ public class Taxi {
         spriteBatch.end();
     }
 
-    /**Let this taxi steal the passenger (if any) from the other specified taxi.
-     *
-     * @param taxi : the taxi from which the passenger is stolen
+    /**
+     * Let this taxi steal the passenger (if any) from the other specified taxi.
+     * 
+     * @param taxi
+     *            : the taxi from which the passenger is stolen
      */
     public void stealPassenger(Taxi taxi) {
         if (taxi.pickedUpPassenger() && !this.pickedUpPassenger()
@@ -628,20 +632,50 @@ public class Taxi {
 
     }
 
-    /**Retrieve whether the taxi is invincible, i.e. whether a passenger can be
+    /**
+     * Retrieve whether the taxi is invincible, i.e. whether a passenger can be
      * stolen from this taxi or not.
-     *
+     * 
      * @return invincibility
      */
     private boolean isInvincible() {
         return this.invincibility;
     }
 
-    /**Make the taxi lose its passenger.
-     *
+    /**
+     * Make the taxi lose its passenger.
+     * 
      */
     private void losePassenger() {
         this.getPassenger().cancelTransport();
         this.passenger = null;
+    }
+
+    /**
+     * This is the temporary powerUp handler.
+     * 
+     * @param powerup
+     */
+    public void handlePowerUp(PowerUp powerup, WorldMap map) {
+        if (powerup.getType().equals("invincibility")) {
+            System.out.println("invinsibility");
+            this.triggerInvincibility();
+        } else if (powerup.getType().equals("speed")) {
+            System.out.println("speed");
+            this.triggerSpeed();
+        }
+
+    }
+
+    private void triggerSpeed() {
+        final float original = this.getMaxSpeed();
+        this.setMaxSpeed(80);
+        final Taxi taxi = this;
+        Timer.schedule(new Task() {
+            @Override
+            public void run() {
+                taxi.setMaxSpeed(original);
+            }
+        }, 5);
     }
 }

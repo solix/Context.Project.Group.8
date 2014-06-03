@@ -1,5 +1,6 @@
 package com.taxi_trouble.game.model;
 
+import static com.taxi_trouble.game.properties.GameProperties.getPowerUpTypes;
 import static com.taxi_trouble.game.properties.ResourceManager.destinationSprite;
 import static com.taxi_trouble.game.properties.ResourceManager.getRandomCharacter;
 
@@ -27,6 +28,10 @@ public class Spawner {
     private List<PowerUp> powerups;
     private List<String> powTypes;
 
+    final static int TWENTY = 20;
+    final static int SIXTY = 60;
+    final static int FOUR = 4;
+
     /**
      * Initializes a new Spawner which can store spawn points and spawn taxis,
      * passengers and create destination points.
@@ -38,9 +43,8 @@ public class Spawner {
         destinationpoints = new ArrayList<SpawnPoint>();
         passengers = new ArrayList<Passenger>();
         powerups = new ArrayList<PowerUp>();
-        powTypes = new ArrayList<String>();
+        powTypes = getPowerUpTypes();
         poweruppoints = new ArrayList<SpawnPoint>();
-        powTypes.add("invincibility");
     }
 
     /**
@@ -95,6 +99,7 @@ public class Spawner {
             random = random(passengerspawnpoints.size());
         }
         SpawnPoint spawnPoint = passengerspawnpoints.get(random);
+        spawnPoint.setActive(true);
         // Assign a random character to the passenger
         Character character = getRandomCharacter();
         Passenger pass = new Passenger(2, 2, character);
@@ -150,7 +155,7 @@ public class Spawner {
         SpawnPoint spawnPoint = taxispawnpoints.get(random);
         spawnPoint.setActive(true);
         // Initialize the new Taxi spawned at the randomly chosen location
-        Taxi taxi = new Taxi(2, 4, 20, 60, 60);
+        Taxi taxi = new Taxi(2, FOUR, TWENTY, SIXTY, SIXTY);
         taxi.initializeBody(world, spawnPoint.getPosition(),
                 spawnPoint.getAngle());
         taxi.setSprite(ResourceManager.taxiSprite, ResourceManager.wheelSprite);
@@ -165,17 +170,30 @@ public class Spawner {
      */
     public PowerUp spawnPowerUp(World world) {
         int random = random(poweruppoints.size());
+
         while (poweruppoints.get(random).isActive()) {
             random = random(poweruppoints.size());
         }
         SpawnPoint spawnPoint = poweruppoints.get(random);
         spawnPoint.setActive(true);
+
         int random2 = random(powTypes.size());
         String type = powTypes.get(random2);
         PowerUp power = new PowerUp(type, spawnPoint);
         power.initializeBody(world, spawnPoint.getPosition());
         powerups.add(power);
         return power;
+    }
+
+    /**
+     * Despawns the powerup from the world.
+     * 
+     * @param power
+     * @param world
+     */
+    public void despawnPowerup(PowerUp power, World world) {
+        power.deSpawn(world);
+        powerups.remove(power);
     }
 
     /**
@@ -230,7 +248,7 @@ public class Spawner {
      * @return
      */
     public int random(int size) {
-        int res = (int) Math.abs(Math.random() * size - 1);
+        int res = (int) Math.abs(Math.random() * size);
         return res;
     }
 }

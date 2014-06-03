@@ -20,7 +20,6 @@ public class GameWorld extends Game {
     private WorldMap map;
     // Temporary: single team (may change when implementing multiplayer)
     private Team team;
-    private PowerUpAnimation powerAnim;
     final static int THREE = 3;
 
     /**
@@ -35,8 +34,7 @@ public class GameWorld extends Game {
         team = new Team(map.getSpawner().spawnTaxi(world));
         world.setContactListener(new CollisionDetector(map));
         setScreen(new DriverScreen(this));
-        powerAnim = new PowerUpAnimation();
-        powerAnim.create();
+
     }
 
     /**
@@ -100,15 +98,6 @@ public class GameWorld extends Game {
      */
     public final List<Passenger> getPassengers() {
         return this.map.getSpawner().getActivePassengers();
-    }
-
-    /**
-     * Retrieves the powerUpAnimation. THIS SHOULDN'T BE HERE.
-     * 
-     * @return
-     */
-    public PowerUpAnimation getPowerAnim() {
-        return powerAnim;
     }
 
     /**
