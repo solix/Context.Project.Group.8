@@ -659,17 +659,15 @@ public class Taxi {
      * @param powerup
      */
     public void handlePowerUp(PowerUp powerup, WorldMap map) {
-        powerup.resetSpawnpoint();
-        map.getSpawner().getActivePowerUps().remove(powerup);
+        Spawner spawner = map.getSpawner();
+        spawner.despawnPowerup(powerup, map.getWorld());
         if (powerup.getType().equals("invincibility")) {
-            System.out.println("invinsibility");
+            System.out.println("invincibility");
             this.triggerInvincibility();
         } else if (powerup.getType().equals("speed")) {
             System.out.println("speed");
             this.triggerSpeed();
         }
-        map.getSpawner().despawnPowerup(powerup, map.getWorld());
-
     }
 
     /**

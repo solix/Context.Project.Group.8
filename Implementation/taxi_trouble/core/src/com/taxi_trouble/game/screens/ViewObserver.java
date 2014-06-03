@@ -80,7 +80,6 @@ public abstract class ViewObserver implements Screen {
         }
 
         // render the powerups in the game
-        System.out.println("viewobserver");
         for (PowerUp pow : taxigame.getPowerUps()) {
             pow.render(getSpriteBatch());
         }
