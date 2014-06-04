@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.taxi_trouble.game.model.Invincibility;
 import com.taxi_trouble.game.model.PowerUpAnimation;
+import com.taxi_trouble.game.model.PowerUpBehaviour;
+import com.taxi_trouble.game.model.Speed;
 
 /**
  * Utility class defining properties of the game as the screenwidth and -height
@@ -22,10 +25,11 @@ public final class GameProperties {
     public static int VIRTUAL_HEIGHT = 320;
     public static int BUTTON_CAM_HEIGHT = 480;
     public static int BUTTON_CAM_WIDTH = 800;
-    public static List<String> powerupTypes = getPowerUpTypes();
 
     public static PowerUpAnimation invincibleAnim = getInvincibleAnimation();
     public static PowerUpAnimation speedAnim = getSpeedAnimation();
+
+    public static List<PowerUpBehaviour> powerupBehaviours = getBehaviour();
 
     private GameProperties() {
     }
@@ -52,11 +56,14 @@ public final class GameProperties {
         }
     }
 
-    private static List<String> getPowerUpTypes() {
-        List<String> res = new ArrayList<String>();
-        res.add("invincibility");
-        res.add("speed");
+    private static List<PowerUpBehaviour> getBehaviour() {
+        List<PowerUpBehaviour> res = new ArrayList<PowerUpBehaviour>();
+        // Add the powerup behaviours
+        res.add(new Speed(speedAnim));
+        res.add(new Invincibility(invincibleAnim));
+
         return res;
+
     }
 
     private static PowerUpAnimation getInvincibleAnimation() {

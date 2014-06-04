@@ -85,7 +85,7 @@ public abstract class ViewObserver implements Screen {
             taxi.getPassenger().getDestination().render(getSpriteBatch());
         }
 
-        for (PowerUp pow : taxigame.getPowerUps()) {
+        for (PowerUp pow : cityMap.getSpawner().getActivePowerUps()) {
             pow.render(getSpriteBatch());
         }
 

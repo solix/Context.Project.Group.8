@@ -663,19 +663,20 @@ public class Taxi {
     public void handlePowerUp(PowerUp powerup, WorldMap map) {
         if (map.getSpawner().getActivePowerUps().contains(powerup)) {
             powerup.resetSpawnpoint();
+            powerup.getBehaviour().triggerEvent(this);
+            /*
+             * NOTE: I have no idea why, but using the remove method once
+             * doesn't work. After removing it once it's still in the list.
+             */
             map.getSpawner().getActivePowerUps().remove(powerup);
-            if (powerup.getType().equals("invincibility")) {
-                this.triggerInvincibility();
-            } else { // (powerup.getType().equals("speed")){
-                this.triggerSpeed();
-            }
+            map.getSpawner().getActivePowerUps().remove(powerup);
         }
     }
 
     /**
      * Temporarly increases maxSpeed.
      */
-    private void triggerSpeed() {
+    public void triggerSpeed() {
         final float original = this.originalSpeed;
         this.setMaxSpeed(increasedMaxSpeed);
         final Taxi taxi = this;

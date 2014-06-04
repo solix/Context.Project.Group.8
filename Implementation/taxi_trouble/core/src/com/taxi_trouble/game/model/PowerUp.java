@@ -16,19 +16,20 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class PowerUp {
 
-    private String type;
     private Body body;
     private float width;
     private float height;
     private SpawnPoint spawnPoint;
-    private PowerUpAnimation powerAnim;
+    private PowerUpBehaviour behaviour;
 
-    public PowerUp(String type, SpawnPoint point, PowerUpAnimation anim) {
-        this.type = type;
+    /**
+     * 
+     * @param point
+     */
+    public PowerUp(SpawnPoint point) {
         this.width = point.getWidth();
         this.height = point.getHeight();
         this.spawnPoint = point;
-        powerAnim = anim;
     }
 
     public float getWidth() {
@@ -45,22 +46,6 @@ public class PowerUp {
 
     public void setHeight(float height) {
         this.height = height;
-    }
-
-    /**
-     * Initializes a new PowerUp with the given parameters.
-     * 
-     * @param type
-     * @param point
-     */
-
-    /**
-     * Retrieves the type of the powerup.
-     * 
-     * @return
-     */
-    public String getType() {
-        return this.type;
     }
 
     /**
@@ -148,24 +133,12 @@ public class PowerUp {
 
     }
 
-    /**
-     * Removes the powerup from the world.
-     * 
-     * @param world
-     */
-    private void removePowerUpFromWorld(World world) {
-        assert (this.getBody() != null);
-        world.step(0, 0, 0);
-        world.destroyBody(this.body);
+    public void setBehaviour(PowerUpBehaviour behaviour) {
+        this.behaviour = behaviour;
     }
 
-    /**
-     * Resets the spawnpoint and then removes the powerUp.
-     * 
-     * @param world
-     */
-    public void deSpawn(World world) {
-        removePowerUpFromWorld(world);
+    public PowerUpBehaviour getBehaviour() {
+        return this.behaviour;
     }
 
     /**
@@ -175,6 +148,6 @@ public class PowerUp {
      * @param spriteBatch
      */
     public void render(SpriteBatch spriteBatch) {
-        this.powerAnim.render(spriteBatch, getPosition());
+        this.behaviour.render(spriteBatch, getPosition());
     }
 }
