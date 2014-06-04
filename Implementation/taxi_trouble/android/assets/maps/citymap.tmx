@@ -595,7 +595,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="destination-point" width="116" height="124">
+ <objectgroup color="#ef18c8" name="destination-point" width="116" height="124">
   <object x="2080" y="448" width="96" height="64"/>
   <object x="704" y="1600" width="96" height="64"/>
   <object x="2368" y="1280" width="64" height="96"/>
