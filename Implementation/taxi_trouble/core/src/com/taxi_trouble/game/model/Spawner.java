@@ -188,16 +188,16 @@ public class Spawner {
      * @param world
      * @return
      */
-    public PowerUp getRandomPowerUp(SpawnPoint point, World world) {
+    public PowerUp getRandomPowerUp(SpawnPoint spawnPoint, World world) {
         int random = random(powTypes.size());
         String type = powTypes.get(random);
         PowerUp res;
         if (type.equals("speed")) {
-            res = new PowerUp(type, point, speedAnim);
+            res = new PowerUp(type, spawnPoint, speedAnim);
         } else { // if(type.equals("invincible")){
-            res = new PowerUp(type, point, invincibleAnim);
+            res = new PowerUp(type, spawnPoint, invincibleAnim);
         }
-        res.initializeBody(world, point.getPosition());
+        res.initializeBody(world);
         powerups.add(res);
         return res;
     }
@@ -205,11 +205,13 @@ public class Spawner {
     /**
      * Despawns the powerup from the world.
      * 
-     * @param power
+     * @param powerup
      * @param world
      */
-    public void despawnPowerup(PowerUp power, World world) {
-        power.deSpawn(world);
+    public void despawnPowerup(PowerUp powerup, World world) {
+        powerup.resetSpawnpoint();
+        powerups.remove(powerup);
+        powerup.deSpawn(world);
     }
 
     /**

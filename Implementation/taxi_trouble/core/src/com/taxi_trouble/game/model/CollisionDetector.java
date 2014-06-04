@@ -73,7 +73,6 @@ public class CollisionDetector implements ContactListener {
      */
     private void taxiAtPowerUp(Taxi taxi, PowerUp powerup) {
         taxi.handlePowerUp(powerup, map);
-
     }
 
     /**

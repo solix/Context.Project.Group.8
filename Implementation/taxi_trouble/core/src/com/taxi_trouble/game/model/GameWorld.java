@@ -20,7 +20,6 @@ public class GameWorld extends Game {
     private WorldMap map;
     // Temporary: single team (may change when implementing multiplayer)
     private Team team;
-    final static int THREE = 3;
 
     /**
      * Called when the game world is first created.
@@ -55,12 +54,12 @@ public class GameWorld extends Game {
         // Spawn a new passenger if there are less than #taxis-1.
         // TODO: Instead of '3' adapt to #taxis-1 in the game.
         List<Passenger> passengers = map.getSpawner().getActivePassengers();
-        if (passengers.size() < THREE) {
+        if (passengers.size() < 3) {
             map.getSpawner().spawnPassenger(world);
         }
 
         List<PowerUp> powerups = map.getSpawner().getActivePowerUps();
-        if (powerups.size() < THREE) {
+        if (powerups.size() < 3) {
             map.getSpawner().spawnPowerUp(world);
         }
 

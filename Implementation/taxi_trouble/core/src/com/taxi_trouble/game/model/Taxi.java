@@ -44,7 +44,7 @@ public class Taxi {
     private boolean invincibility;
     final float originalSpeed;
     final float increasedMaxSpeed = 80;
-    final int TIME = 10;
+    final int TIME = 5;
 
     /**
      * Initializes a new Taxi which can be controlled by a player.
@@ -666,7 +666,7 @@ public class Taxi {
             map.getSpawner().getActivePowerUps().remove(powerup);
             if (powerup.getType().equals("invincibility")) {
                 this.triggerInvincibility();
-            } else if (powerup.getType().equals("speed")) {
+            } else { // (powerup.getType().equals("speed")){
                 this.triggerSpeed();
             }
         }

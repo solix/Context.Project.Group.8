@@ -20,9 +20,16 @@ public class PowerUp {
     private Body body;
     private float width;
     private float height;
-    private SpawnPoint point;
-
+    private SpawnPoint spawnPoint;
     private PowerUpAnimation powerAnim;
+
+    public PowerUp(String type, SpawnPoint point, PowerUpAnimation anim) {
+        this.type = type;
+        this.width = point.getWidth();
+        this.height = point.getHeight();
+        this.spawnPoint = point;
+        powerAnim = anim;
+    }
 
     public float getWidth() {
         return width;
@@ -46,13 +53,6 @@ public class PowerUp {
      * @param type
      * @param point
      */
-    public PowerUp(String type, SpawnPoint point, PowerUpAnimation anim) {
-        this.type = type;
-        this.width = point.getWidth();
-        this.height = point.getHeight();
-        this.point = point;
-        powerAnim = anim;
-    }
 
     /**
      * Retrieves the type of the powerup.
@@ -67,11 +67,10 @@ public class PowerUp {
      * Initializes the body of the powerup.
      * 
      * @param world
-     * @param position
      */
-    public void initializeBody(World world, Vector2 position) {
+    public void initializeBody(World world) {
         BodyDef bodyDef = new BodyDef();
-        bodyDef.position.set(position);
+        bodyDef.position.set(spawnPoint.getPosition());
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         this.setBody(world.createBody(bodyDef));
         initFixtureDef();
@@ -111,13 +110,13 @@ public class PowerUp {
     }
 
     /**
-     * Retrieves the position of this destination.
+     * Retrieves the position of this powerup.
      * 
      * @return position
      */
     public Vector2 getPosition() {
-        // assert (this.getBody() != null);
-        return this.point.getPosition();
+        assert (this.getBody() != null);
+        return this.spawnPoint.getPosition();
     }
 
     /**
@@ -126,8 +125,8 @@ public class PowerUp {
      * @return x-position
      */
     public float getXPosition() {
-        // assert (this.getBody() != null);
-        return this.point.getPosition().x;
+        assert (this.getBody() != null);
+        return this.spawnPoint.getPosition().x;
     }
 
     /**
@@ -136,16 +135,17 @@ public class PowerUp {
      * @return y-position
      */
     public float getYPosition() {
-        // assert (this.getBody() != null);
-        return this.point.getPosition().y;
+        assert (this.getBody() != null);
+        return this.spawnPoint.getPosition().y;
     }
 
     /**
      * Sets the spawnpoint active to false, meaning it's free again.
      */
     public void resetSpawnpoint() {
-        // assert (this.point != null);
-        this.point.setActive(false);
+        assert (this.spawnPoint != null);
+        this.spawnPoint.setActive(false);
+
     }
 
     /**
@@ -154,6 +154,7 @@ public class PowerUp {
      * @param world
      */
     private void removePowerUpFromWorld(World world) {
+        assert (this.getBody() != null);
         world.step(0, 0, 0);
         world.destroyBody(this.body);
     }
@@ -165,16 +166,15 @@ public class PowerUp {
      */
     public void deSpawn(World world) {
         removePowerUpFromWorld(world);
-        System.out.println("TEST end of deSpawn");
     }
 
     /**
-     * render method for the powerup which calls the render method of
-     * powerupanimation.
+     * Render method for the powerup which calls the render method of
+     * powerupanimation for drawing the animation of the powerup.
      * 
      * @param spriteBatch
      */
     public void render(SpriteBatch spriteBatch) {
-        this.powerAnim.render(spriteBatch, point.getPosition());
+        this.powerAnim.render(spriteBatch, getPosition());
     }
 }
