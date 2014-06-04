@@ -79,20 +79,20 @@ public abstract class ViewObserver implements Screen {
             pass.render(getSpriteBatch());
         }
 
-        // render the powerups in the game
-        System.out.println("viewobserver");
-        for (PowerUp pow : taxigame.getPowerUps()) {
-            pow.render(getSpriteBatch());
-        }
-
         // Show the destination for a taxi picking up the corresponding
         // passenger
         if (taxi.pickedUpPassenger()) {
             taxi.getPassenger().getDestination().render(getSpriteBatch());
         }
 
+        for (PowerUp pow : taxigame.getPowerUps()) {
+            pow.render(getSpriteBatch());
+        }
+
         getSpriteBatch().setProjectionMatrix(scoreCam.combined);
         taxigame.getTeam().getScoreBoard().render(getSpriteBatch());
+        // render the powerups in the game
+
     }
 
     /**

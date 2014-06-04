@@ -42,8 +42,9 @@ public class Taxi {
     private Passenger passenger;
     private Team team;
     private boolean invincibility;
+    final float originalSpeed;
     final float increasedMaxSpeed = 80;
-    final int TIME = 100;
+    final int TIME = 10;
 
     /**
      * Initializes a new Taxi which can be controlled by a player.
@@ -65,6 +66,7 @@ public class Taxi {
         this.length = length;
         this.maxSteerAngle = maxSteerAngle;
         this.maxSpeed = maxSpeed;
+        this.originalSpeed = maxSpeed;
         this.power = power;
         this.wheels = new ArrayList<Wheel>();
         this.wheelAngle = 0;
@@ -659,24 +661,22 @@ public class Taxi {
      * @param powerup
      */
     public void handlePowerUp(PowerUp powerup, WorldMap map) {
-        powerup.resetSpawnpoint();
-        map.getSpawner().getActivePowerUps().remove(powerup);
-        if (powerup.getType().equals("invincibility")) {
-            System.out.println("invinsibility");
-            this.triggerInvincibility();
-        } else if (powerup.getType().equals("speed")) {
-            System.out.println("speed");
-            this.triggerSpeed();
+        if (map.getSpawner().getActivePowerUps().contains(powerup)) {
+            powerup.resetSpawnpoint();
+            map.getSpawner().getActivePowerUps().remove(powerup);
+            if (powerup.getType().equals("invincibility")) {
+                this.triggerInvincibility();
+            } else if (powerup.getType().equals("speed")) {
+                this.triggerSpeed();
+            }
         }
-        map.getSpawner().despawnPowerup(powerup, map.getWorld());
-
     }
 
     /**
      * Temporarly increases maxSpeed.
      */
     private void triggerSpeed() {
-        final float original = this.getMaxSpeed();
+        final float original = this.originalSpeed;
         this.setMaxSpeed(increasedMaxSpeed);
         final Taxi taxi = this;
         Timer.schedule(new Task() {

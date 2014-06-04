@@ -21,7 +21,24 @@ public class PowerUp {
     private float width;
     private float height;
     private SpawnPoint point;
+
     private PowerUpAnimation powerAnim;
+
+    public float getWidth() {
+        return width;
+    }
+
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
 
     /**
      * Initializes a new PowerUp with the given parameters.
@@ -99,8 +116,8 @@ public class PowerUp {
      * @return position
      */
     public Vector2 getPosition() {
-        assert (this.getBody() != null);
-        return this.getBody().getPosition();
+        // assert (this.getBody() != null);
+        return this.point.getPosition();
     }
 
     /**
@@ -109,8 +126,8 @@ public class PowerUp {
      * @return x-position
      */
     public float getXPosition() {
-        assert (this.getBody() != null);
-        return this.getBody().getPosition().x;
+        // assert (this.getBody() != null);
+        return this.point.getPosition().x;
     }
 
     /**
@@ -119,15 +136,15 @@ public class PowerUp {
      * @return y-position
      */
     public float getYPosition() {
-        assert (this.getBody() != null);
-        return this.getBody().getPosition().y;
+        // assert (this.getBody() != null);
+        return this.point.getPosition().y;
     }
 
     /**
      * Sets the spawnpoint active to false, meaning it's free again.
      */
     public void resetSpawnpoint() {
-        assert (this.point != null);
+        // assert (this.point != null);
         this.point.setActive(false);
     }
 
@@ -138,7 +155,7 @@ public class PowerUp {
      */
     private void removePowerUpFromWorld(World world) {
         world.step(0, 0, 0);
-        world.destroyBody(this.getBody());
+        world.destroyBody(this.body);
     }
 
     /**
@@ -148,7 +165,7 @@ public class PowerUp {
      */
     public void deSpawn(World world) {
         removePowerUpFromWorld(world);
-        System.out.println("TEST");
+        System.out.println("TEST end of deSpawn");
     }
 
     /**
