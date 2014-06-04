@@ -6,25 +6,24 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.properties.ResourceManager;
-import com.taxi_trouble.game.screens.NavigatorScreen;
+import com.taxi_trouble.game.screens.DriverScreen;
 
 /**
  * Provides the main model for all the elements of a game that is played.
  * (Please note: implementation will change when implementing multiplayer)
- *
+ * 
  * @author Computer Games Project Group 8
- *
+ * 
  */
 public class GameWorld extends Game {
     private World world;
     private WorldMap map;
     // Temporary: single team (may change when implementing multiplayer)
     private Team team;
-    final static int THREE = 3;
 
     /**
      * Called when the game world is first created.
-     *
+     * 
      */
     @Override
     public final void create() {
@@ -33,16 +32,17 @@ public class GameWorld extends Game {
         map = new WorldMap(ResourceManager.mapFile, world);
         team = new Team(map.getSpawner().spawnTaxi(world));
         world.setContactListener(new CollisionDetector(map));
-        setScreen(new NavigatorScreen(this));
+        setScreen(new DriverScreen(this));
+
     }
 
     /**
      * Loads the game resources.
-     *
+     * 
      */
     public void loadResources() {
-        //TaxiJukebox.createMusicInGame("sound/bobmar.mp3", "BobMarley");
-        //TaxiJukebox.createMusicInGame("sound/street.mp3", "street");
+        // TaxiJukebox.createMusicInGame("sound/bobmar.mp3", "BobMarley");
+        // TaxiJukebox.createMusicInGame("sound/street.mp3", "street");
         ResourceManager.loadMap();
         ResourceManager.loadSprites();
         ResourceManager.loadFonts();
@@ -54,14 +54,20 @@ public class GameWorld extends Game {
         // Spawn a new passenger if there are less than #taxis-1.
         // TODO: Instead of '3' adapt to #taxis-1 in the game.
         List<Passenger> passengers = map.getSpawner().getActivePassengers();
-        if (passengers.size() < THREE) {
+        if (passengers.size() < 3) {
             map.getSpawner().spawnPassenger(world);
         }
+
+        List<PowerUp> powerups = map.getSpawner().getActivePowerUps();
+        if (powerups.size() < 3) {
+            map.getSpawner().spawnPowerUp(world);
+        }
+
     }
 
     /**
      * Retrieves the game world map.
-     *
+     * 
      * @return map
      */
     public final WorldMap getMap() {
@@ -70,7 +76,7 @@ public class GameWorld extends Game {
 
     /**
      * Retrieves the single team.
-     *
+     * 
      * @return team
      */
     public final Team getTeam() {
@@ -79,7 +85,7 @@ public class GameWorld extends Game {
 
     /**
      * Retrieves the world in which the game is played.
-     *
+     * 
      * @return world
      */
     public final World getWorld() {
@@ -88,10 +94,19 @@ public class GameWorld extends Game {
 
     /**
      * Retrieves the passengers that are currently in the game.
-     *
+     * 
      * @return passengers
      */
     public final List<Passenger> getPassengers() {
         return this.map.getSpawner().getActivePassengers();
+    }
+
+    /**
+     * Retrieves the active powerups on the map.
+     * 
+     * @return
+     */
+    public final List<PowerUp> getPowerUps() {
+        return this.map.getSpawner().getActivePowerUps();
     }
 }

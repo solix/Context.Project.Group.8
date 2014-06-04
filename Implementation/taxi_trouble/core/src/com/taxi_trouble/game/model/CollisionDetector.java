@@ -7,9 +7,9 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 
 /**
  * Detects collisions on a map and performs the right actions accordingly.
- *
+ * 
  * @author Computer Games Project Group 8
- *
+ * 
  */
 public class CollisionDetector implements ContactListener {
 
@@ -18,7 +18,7 @@ public class CollisionDetector implements ContactListener {
     /**
      * Initializes a new CollisionDetector defining the behaviour for collisions
      * in a game.
-     *
+     * 
      * @param map
      *            : the map to which the collision detector applies
      */
@@ -30,7 +30,7 @@ public class CollisionDetector implements ContactListener {
     /**
      * Defines the actions that are taken when contact between two instances
      * begins.
-     *
+     * 
      */
     @Override
     public final void beginContact(final Contact contact) {
@@ -39,11 +39,14 @@ public class CollisionDetector implements ContactListener {
         collide(collider, collidee);
     }
 
-    /**Defines the behaviour of two instances that move into each other as
+    /**
+     * Defines the behaviour of two instances that move into each other as
      * collider and collidee.
-     *
-     * @param collider : the collider which moved into the other instance
-     * @param collidee : the collidee into which another instance has moved
+     * 
+     * @param collider
+     *            : the collider which moved into the other instance
+     * @param collidee
+     *            : the collidee into which another instance has moved
      */
     public void collide(Object collider, Object collidee) {
         if (collider instanceof Taxi) {
@@ -56,12 +59,25 @@ public class CollisionDetector implements ContactListener {
             if (collidee instanceof Passenger) {
                 taxiAtPassenger((Taxi) collider, (Passenger) collidee);
             }
+            if (collidee instanceof PowerUp) {
+                taxiAtPowerUp((Taxi) collider, (PowerUp) collidee);
+            }
         }
     }
 
     /**
+     * Defines the behaviour of a taxi colliding with a powerUp
+     * 
+     * @param collider
+     * @param collidee
+     */
+    private void taxiAtPowerUp(Taxi taxi, PowerUp powerup) {
+        taxi.handlePowerUp(powerup, map);
+    }
+
+    /**
      * Defines the behaviour of a taxi colliding with a destination.
-     *
+     * 
      * @param taxi
      * @param destination
      */
@@ -71,7 +87,7 @@ public class CollisionDetector implements ContactListener {
 
     /**
      * Defines the behaviour of a taxi colliding with a passenger.
-     *
+     * 
      * @param taxi
      * @param passenger
      */
@@ -81,7 +97,7 @@ public class CollisionDetector implements ContactListener {
 
     /**
      * Defines the behaviour of a taxi colliding with another taxi.
-     *
+     * 
      * @param taxi1
      * @param taxi2
      */
