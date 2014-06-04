@@ -192,7 +192,6 @@ public class Spawner {
         PowerUp res = new PowerUp(spawnPoint);
         res.setBehaviour(behaviour);
         res.initializeBody(world);
-        powerups.add(res);
         return res;
     }
 

@@ -664,11 +664,6 @@ public class Taxi {
         if (map.getSpawner().getActivePowerUps().contains(powerup)) {
             powerup.resetSpawnpoint();
             powerup.getBehaviour().triggerEvent(this);
-            /*
-             * NOTE: I have no idea why, but using the remove method once
-             * doesn't work. After removing it once it's still in the list.
-             */
-            map.getSpawner().getActivePowerUps().remove(powerup);
             map.getSpawner().getActivePowerUps().remove(powerup);
         }
     }
