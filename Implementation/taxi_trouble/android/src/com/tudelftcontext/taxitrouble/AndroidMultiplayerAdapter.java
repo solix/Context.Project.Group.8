@@ -18,6 +18,7 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 	private int myTeamId;
 	private boolean driver;
 	private List<String> ids;
+	private boolean host = false;
 
 	public AndroidMultiplayerAdapter(GoogleApiClient apiClient) {
 		this.apiClient = apiClient;
@@ -98,12 +99,22 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 					messageBytes, roomId, id);
 		}
 	}
-
-	public void passengerPickedUp(Taxi taxi, Passenger passenger) {
-		String message = "PASSENGER";
-		//passenger.ge
-		
-		
+	@Override
+	public void passengerMessage(Taxi taxi, Passenger passenger) {
+		if (host){
+		String message = "PASSENGER ";
+		message += taxi.getTeam().getTeamId() + " " + passenger.getId();
+		reliableBroadcast(message);		
+		}
+	}
+	@Override
+	public void setHost(boolean host){
+		this.host = host;
+	}
+	
+	@Override
+	public boolean isHost(){
+		return host;
 	}
 	
 }

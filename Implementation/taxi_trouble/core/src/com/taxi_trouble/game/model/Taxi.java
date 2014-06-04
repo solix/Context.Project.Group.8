@@ -457,6 +457,7 @@ public class Taxi {
             this.passenger = passenger;
             this.passenger.setTransporter(this);
             this.triggerInvincibility();
+            GameWorld.multiplayerInterface.passengerMessage(this, passenger);
         }
     }
 
@@ -482,6 +483,7 @@ public class Taxi {
         this.invincibility = false;
     }
 
+  
     /**
      * Drop off the passenger, i.e. get it out of the taxi.
      *
@@ -490,12 +492,43 @@ public class Taxi {
      *
      */
     public void dropOffPassenger(Destination destination, WorldMap map) {
-        if (pickedUpPassenger()
-                && this.passenger.getDestination().equals(destination)) {
             passenger.deliverAtDestination(map, destination);
             this.losePassenger();
             this.team.incScore();
-        }
+        
+    }
+    
+    public void dropOffDetected(Destination destination, WorldMap map){
+    	if (GameWorld.multiplayerInterface.isHost()){
+    		 if (pickedUpPassenger()
+    	                && this.passenger.getDestination().equals(destination)) {
+    			 String message = "DROP " + this.getTeam().getTeamId() + " " + getPassenger().getId();
+    			 GameWorld.multiplayerInterface.reliableBroadcast(message);
+    			 dropOffPassenger(destination, map);
+    		 }
+    	}
+    	
+    }
+    
+    /**
+     * synchronizes the binding between a taxi and passenger
+     * @param passenger
+     */
+    public void syncPassenger(Passenger passenger){
+    	
+		if(getPassenger() != passenger){
+			if(getPassenger() != null){
+    			getPassenger().cancelTransport();
+			}
+    		this.passenger = passenger;
+		}
+   	
+    	if (passenger.getTransporter() != this){
+    		if (passenger.getTransporter() != null){
+    			passenger.getTransporter().losePassenger();    			
+    		}
+    		passenger.setTransporter(this);
+    	}
     }
 
     /**
@@ -701,4 +734,5 @@ public String networkMessage(){
 		
 		
 	}
+
 }

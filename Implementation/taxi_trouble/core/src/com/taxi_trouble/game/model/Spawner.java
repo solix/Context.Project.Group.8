@@ -23,6 +23,8 @@ public class Spawner {
     private List<SpawnPoint> taxispawnpoints;
     private List<SpawnPoint> destinationpoints;
     private List<Passenger> passengers;
+    private int nextPassengerId = 0;
+    private List<Integer> takenIds;
 
     /**
      * Initializes a new Spawner which can store spawn points and spawn taxis,
@@ -34,6 +36,7 @@ public class Spawner {
         taxispawnpoints = new ArrayList<SpawnPoint>();
         destinationpoints = new ArrayList<SpawnPoint>();
         passengers = new ArrayList<Passenger>();
+        takenIds = new ArrayList<Integer>();
     }
 
     /**
@@ -87,10 +90,13 @@ public class Spawner {
         int destinationId = (int) (Math.abs(Math.random() * destinationpoints.size()
                 - 1));
         int charId = ResourceManager.getRandomCharacterId();
-        GameWorld.multiplayerInterface.reliableBroadcast("NEWPASSENGER  " + random + " " + destinationId + " " + charId);
-       return spawnPassenger(world, random, destinationId, charId);
+        int passengerId = getNextPassengerId();
+        GameWorld.multiplayerInterface.reliableBroadcast("NEWPASSENGER  " + random + " " + destinationId + " " + charId + " " + passengerId);
+       return spawnPassenger(world, random, destinationId, charId, passengerId);
     }
     
+    
+   
     
     /**
      * Spawn a new passenger into a specified world at a chosen spawn
@@ -100,14 +106,15 @@ public class Spawner {
      *            : the world into which the passenger should be spawned
      * @return the spawned passenger
      */
-    public Passenger spawnPassenger(World world, int spawnId, int destinationId, int charId) {
+    public Passenger spawnPassenger(World world, int spawnId, int destinationId, int charId, int passengerId) {
       
         SpawnPoint spawnPoint = passengerspawnpoints.get(spawnId);
-        Passenger pass = new Passenger(2, 2, ResourceManager.getCharacter(charId));
+        Passenger pass = new Passenger(2, 2, ResourceManager.getCharacter(charId), passengerId);
 		pass.initializeBody(world, spawnPoint);
         pass.setDestination(destination(world, destinationId));
         //Add the new passenger to the list of active passengers
         passengers.add(pass);
+    	takenIds.add(nextPassengerId);
         return pass;
     }
 
@@ -118,6 +125,7 @@ public class Spawner {
      */
     public void despawnPassenger(Passenger passenger) {
         passenger.resetSpawnPoint();
+        takenIds.remove(passenger.getId());
         passengers.remove(passenger);
     }
 
@@ -227,4 +235,14 @@ public class Spawner {
     public List<SpawnPoint> getDestinationpoints() {
         return destinationpoints;
     }
+    
+    private int getNextPassengerId(){
+    	while(takenIds.contains(nextPassengerId)){
+    		nextPassengerId++;
+    		if (nextPassengerId > 2)
+        		nextPassengerId = 0;
+    	}
+    	return nextPassengerId;
+    }
+
 }

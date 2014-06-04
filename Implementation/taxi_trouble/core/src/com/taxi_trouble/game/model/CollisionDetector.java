@@ -66,7 +66,7 @@ public class CollisionDetector implements ContactListener {
      * @param destination
      */
     private void taxiAtDestination(Taxi taxi, Destination destination) {
-        taxi.dropOffPassenger(destination, map);
+        taxi.dropOffDetected(destination, map);
     }
 
     /**

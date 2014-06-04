@@ -180,6 +180,23 @@ public class GameWorld extends Game {
 	
 	public void setHost(boolean host){
 		this.host = host;
+		this.multiplayerInterface.setHost(host);
+	}
+	
+	public Passenger getPassengerById(int id){
+		for (Passenger passenger :this.map.getSpawner().getActivePassengers()){
+			if (passenger.getId() == id)
+				return passenger;
+		}
+		return null;
+	}
+
+	public Taxi getTaxiById(int id) {
+		return getTeamById(id).getTaxi();
+	}
+
+	private Team getTeamById(int id) {
+		return getTeams().get(id);
 	}
 
 	

@@ -28,6 +28,7 @@ public class Passenger {
     private Sprite passengerSprite;
     private Taxi transporter;
     private Destination destination;
+    private int id;
 
     /**
      * Initializes a new passenger.
@@ -39,11 +40,12 @@ public class Passenger {
      * @param character
      *            : the character assigned to this passenger
      */
-    public Passenger(float width, float height, Character character) {
+    public Passenger(float width, float height, Character character, int id) {
         this.width = width;
         this.height = height;
         this.setCharacter(character);
         setSprite(character.getStanding());
+        this.id = id;
     }
 
     /**
@@ -198,6 +200,10 @@ public class Passenger {
     public void setTransporter(Taxi transporter) {
         this.transporter = transporter;
     }
+    
+    public Taxi getTransporter(){
+    	return this.transporter;
+    }
 
     /**
      * Make the passenger lose its transporter, i.e. get out of the taxi.
@@ -228,14 +234,12 @@ public class Passenger {
      */
     public void deliverAtDestination(WorldMap map, Destination destination) {
         assert (this.getBody() != null);
-        // Check if the destination is the right location
-        if (this.getDestination().equals(destination) && isTransported()) {
-            // Despawn the passenger and remove it from the world
+        	// Despawn the passenger and remove it from the world
             Spawner spawner = map.getSpawner();
             spawner.despawnPassenger(this);
             removePassengerFromWorld(map.getWorld());
             cancelTransport();
-        }
+        
     }
 
     /**
@@ -326,4 +330,10 @@ public class Passenger {
         passengerSprite.draw(spriteBatch);
         spriteBatch.end();
     }
+
+	public int getId() {
+		return id;
+	}
+
+	
 }
