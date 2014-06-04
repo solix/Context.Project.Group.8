@@ -23,6 +23,7 @@ public class PowerUp {
     private PowerUpBehaviour behaviour;
 
     /**
+     * Constructor for the powerup. NOTE: the behaviour has to be set apart.
      * 
      * @param point
      */
@@ -32,18 +33,38 @@ public class PowerUp {
         this.spawnPoint = point;
     }
 
+    /**
+     * Returns the width of the powerup.
+     * 
+     * @return
+     */
     public float getWidth() {
         return width;
     }
 
+    /**
+     * Sets the width of the powerup to the given parameter.
+     * 
+     * @param width
+     */
     public void setWidth(float width) {
         this.width = width;
     }
 
+    /**
+     * Returns the height of the powerup.
+     * 
+     * @return
+     */
     public float getHeight() {
         return height;
     }
 
+    /**
+     * Sets the height of the powerup to the given one.
+     * 
+     * @param height
+     */
     public void setHeight(float height) {
         this.height = height;
     }
@@ -133,17 +154,27 @@ public class PowerUp {
 
     }
 
+    /**
+     * Sets the behaviour of the powerup to the given argument.
+     * 
+     * @param behaviour
+     */
     public void setBehaviour(PowerUpBehaviour behaviour) {
         this.behaviour = behaviour;
     }
 
+    /**
+     * Returns the behaviour of the powerup.
+     * 
+     * @return
+     */
     public PowerUpBehaviour getBehaviour() {
         return this.behaviour;
     }
 
     /**
-     * Render method for the powerup which calls the render method of
-     * powerupanimation for drawing the animation of the powerup.
+     * Render method for the powerup which calls the render method of the
+     * behaviour for drawing the animation of the powerup.
      * 
      * @param spriteBatch
      */
