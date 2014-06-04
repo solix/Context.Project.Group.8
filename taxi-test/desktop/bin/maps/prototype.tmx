@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="80" height="101" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="Road-Aidan" tilewidth="32" tileheight="32">
+  <image source="tilesets/Road-Aidan.png" width="1024" height="1024"/>
+ </tileset>
+ <layer name="Road" width="80" height="101">
+  <data encoding="base64" compression="zlib">
+   eJztmmlqHUEMhG3sLNcIPknIeo2Q9RrZc41stq8Rst4j6zFSzSMwHpi2utUVaZgq+P4NGr2i4XVptLcnSTl0DVwHN8BNcAvcBlcCYPayVNuru+AeuA8egIfgEbgaALOXpdpePQXPwHPwArwEr8CdAJi9LNX26i14B96DY3ACTsHjAJi9LNX26iP4BD6DL+Ar+AZeB8DsZam2V9/BD/AT/AK/wR/wIQBmL0u1vToAh+ACuAgugcsD6o7s5Q2xdta6I3sp/j0h1fZqDf4VeT3cun9F8q+vl3++ec6g/Nup979E/u3UewZZv1PzA580P/BJ8wOfND/wSfMDnzQ/8CnT/aWmpXuL9T6zhfvfeVrySf7ZtOST5QzKv7pP5+U6+bdT7xmUfzvVPIrwz5o5R2XTqLxteW9PRrZmzlHZNCpvW97bk5GtmXNUNo3K25b39mRka+YclU2j8rblvT0Z2Zo5R2XTqLxteW9PRrZmzlHZNCpvW97LyshFo/7/R9Sxzu9bv5Uw73Jr9a/lW8lW/GvxpeUMbsW/Ivn3f/xr0Zb8G7GTNdeW/GNI/vm0Bv8y7TvMYe0oFI3yL9O+wxzWjkLRKP8y7TvMYe0oFI3yL9O+wxzWjkLRKP8y7TvMYe0oFI3yL9O+w5w1zF8yaw33l8ySfz7JP5/kn0/yz6ee38jaP2DkXHZ2zrR/wMi57Oycaf+AkXPZ2TnT/gEj57Kzc6b9A0bOZWfnTPsHjJzLzs49+XdNe5nsO1RPffnnqy//fPXln6++/PPVl3+++vLPV1/++erLP199+eerL/989eWfrz5rpsvYZYqaPx/sn2Uq1kyXscsUNX8+2j/LVKyZLmOXKWr+XDt/rJkuY5cpav5cO3+smS5jlylq/nxUOX+smS5jlylq/lw7f7q/+OrLP199+eerL/989eWfr77889WXf776rJ5asr71WcZMYqpM/rVkfeuzjJnEVJn8a8n61mcZM4mpMvnXkvWtzzJmElNl8q8l61ufZcwkpsrkX0vWtz7LmElMlcm/FmXoobePDL1n6KG3jwy9Z+ihtw/2Ny0LGXrovZ+zv2lZyNBDrY+a2N+0LGToodZHTexvWhYy9FDroyb2Ny0LGXqo9VET+5uWhQw91PqQpEz6C9syr5Q=
+  </data>
+ </layer>
+ <layer name="Pavement" width="80" height="101">
+  <data encoding="base64" compression="zlib">
+   eJzt11GqwjAUBuG6Ffe/SPFJEIkmc/4mpjOQp4uH5KPcpsdhFd1urucifldPP5Z+LP1Y+rH0Y6X8VrpHpGen/M4suRf91pytn34zZ+vn+3fV9+9V0o+lH0s/ln4s/Vg73V9m3Y1SfrukH0s/ln6sWX47LXrOavsrpR9LP5Z+LP1Y+rFafme9/6vnnH3HIVXNTu6Rph9LP5Z+LP1Y+rF28Ju9Ks44cu6KOSunH0s/ln4s/Vj6sVbyW3lVnLH39//6TL2nH0s/ln6skTNW/W/dZY342ff0Y+nH0o+lH0s/1ohf8i6w0szU/YU8m4m5qb2S+fqx+fqx+fqx+fqx+fqx+fqx+fqx+fqx+fqx+clvopF9tvq377dUCb90+rH0Y+nH0o+lH6vldz8+L3oXaM0dPUNqr6N79v7M5uvH5uvH5uvH5uvH5s/yO+v7vnLPVb+he0mkH0s/ln4s/Vj6sXb0q7qX0Bk9e+79W/pO9Usr7GF0H6l77oznL72PXj97pR9LP5Z+LP1Y+rFafi52t7H+HiTqDDU=
+  </data>
+ </layer>
+ <layer name="Buildings" width="80" height="101">
+  <data encoding="base64" compression="zlib">
+   eJzt1zGOwlAQBFH7ehyD+x+CwAHZDPxywxiqpJ+OmqcNvLdt224+/OxIP5Z+LP1Y+rH0Y+nH0o+V8qPfl1O2pG4nN0/akrqd3DxpS+p2cvOkLanbyc2TtqRu25F+LP1Y+rH0Y+nH0o+lH2vad+W0p59++l33fcvPnunH0o+lH0s/ln4s/Vj6sSZ8fyY3Tv3G1o9vO+t2cqN++umnX2LbWbevnH4s/Vj6sfRj6cfSj6Ufa4Lf5Kff3N+o39zbU97Kb7TX04+lH0s/ln4s/Vj6sd7123f2fq0Vv9Vv0c5v4jf8yv0q/fr7Vfr196v06+9X6dffr9Kvv1+lX3+/Sr/+fpV+/f0q/fr7Vcn/3xK/L92kTfqdv0U/tkU/tkU/tkU/tkU/tuWKfvfmrfzO1N3UVnJ/xfyMv5UpN+n91KbE3dRW/dhW/djWK/ol0o+lH0s/ln4s/Vj6sfRj/ZJfeveUHfZ6+rH0Y+nH0o+lH0s/ln6sT32H/sN7AOHceUY=
+  </data>
+ </layer>
+ <layer name="Crosswalk" width="80" height="101">
+  <data encoding="base64" compression="zlib">
+   eJzt3FtqAzEMheHMa7fRK11Kl9KldildRQcmJRCYYFuyLtb/gZ89Fkmro5i5XIB1/VxX1f2lfq+r6v5ST9uxqu4v9bkdq+r+Ul/bsaruL/W9Havq/oCV5/1z/rKv13297et9Xx9On/1Iz9Iq0jPPfJZI58yI+gH9Zmb57HOCFjOzfPY5QYuZWT77nKDFzCyffU7QYmaWzz4naDEzyzMnQHVVcs2sc1I/APc0smmFfHtGI5tWyLdnNLJphXx7RiObVsi3ZzSyaYV8e0Yjm5JvAbQi48lkqF+GZ5xB69zUr9a5AYnKMxwNlWc4GirPcDRUnuFoiDLDydq/RJnhZK0fkAXfMRnqh1X05EbNjGmRVy326MmNmhnTIq9a7NGTGzUzpkVetdijJzdqZkyLvGqxR09u1MyYFnnVYo+e3KiZMS3yapRMDHpuKep3Qy1kVq/f6uebrVL9Kp11BuoHAPi3yl0mr3OscpfJ6xyr3GXyOscqd5m8zhHlLpOU1zlWmduucg5gFuYHMtQPQHRef6e87sdp86qf1/24RzL9z/O6H/dIpvp53Y9bhdf9uFV43Y8DAInRfjbKOym9+/HRfjbKOym9f0cc7WejvJPS+3fE0X42yjspvfvx0X42yjspvfvx0X42yjsp6ceR2R/8w4Jv
+  </data>
+ </layer>
+ <objectgroup name="box2D" width="80" height="101">
+  <object x="0" y="32" width="64" height="1056"/>
+  <object x="0" y="1088" width="384" height="576"/>
+  <object x="640" y="1088" width="320" height="576"/>
+  <object x="960" y="1536" width="1248" height="128"/>
+  <object x="1216" y="1088" width="992" height="192"/>
+  <object x="320" y="704" width="1600" height="128"/>
+  <object x="1440" y="288" width="480" height="160"/>
+  <object x="320" y="288" width="864" height="160"/>
+  <object x="2176" y="32" width="384" height="800"/>
+  <object x="0" y="0" width="2560" height="32"/>
+  <object x="2464" y="832" width="96" height="2368"/>
+  <object x="320" y="1920" width="448" height="320"/>
+  <object x="1024" y="1920" width="416" height="736"/>
+  <object x="1696" y="1920" width="512" height="320"/>
+  <object x="1696" y="2496" width="512" height="416"/>
+  <object x="320" y="2496" width="448" height="448"/>
+  <object x="768" y="2912" width="352" height="32"/>
+  <object x="1376" y="2912" width="832" height="32"/>
+  <object x="0" y="1664" width="64" height="1568"/>
+  <object x="64" y="3200" width="2496" height="32"/>
+ </objectgroup>
+</map>
