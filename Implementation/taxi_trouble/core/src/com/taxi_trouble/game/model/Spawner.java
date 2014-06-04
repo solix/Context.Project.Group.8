@@ -168,28 +168,16 @@ public class Spawner {
      */
     public PowerUp spawnPowerUp(World world) {
         int random = random(poweruppoints.size());
-        System.out.println("Ik spawn een powerup");
 
         while (poweruppoints.get(random).isActive()) {
-            System.out.println("ik ben aan het zoekn");
             random = random(poweruppoints.size());
         }
         SpawnPoint spawnPoint = poweruppoints.get(random);
         spawnPoint.setActive(true);
 
         // Get a random powerup
-        /*
-         * hardcoded for testing purposes.
-         */
-        String type = "speed";
-        // powTypes.get(random2);
-        PowerUp power = new PowerUp(type, spawnPoint, speedAnim);
-        power.initializeBody(world, spawnPoint.getPosition());
+        PowerUp power = getRandomPowerUp(spawnPoint, world);
         powerups.add(power);
-        /*
-         * this is the real code for getting a random powerup.
-         */
-        // Powerup power = getRandomPowerUp(point, world);
         return power;
     }
 
