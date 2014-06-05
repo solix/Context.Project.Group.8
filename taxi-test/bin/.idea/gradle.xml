@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="C:\Users\5oheil\Documents\GitDocs\Context.Project\Context.Project.Group.8\taxi-test" />
+            <option value="C:\Users\5oheil\Documents\GitDocs\Context.Project\Context.Project.Group.8\taxi-test\android" />
+            <option value="C:\Users\5oheil\Documents\GitDocs\Context.Project\Context.Project.Group.8\taxi-test\core" />
+            <option value="C:\Users\5oheil\Documents\GitDocs\Context.Project\Context.Project.Group.8\taxi-test\desktop" />
+            <option value="C:\Users\5oheil\Documents\GitDocs\Context.Project\Context.Project.Group.8\taxi-test\html" />
+            <option value="C:\Users\5oheil\Documents\GitDocs\Context.Project\Context.Project.Group.8\taxi-test\ios" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
+
