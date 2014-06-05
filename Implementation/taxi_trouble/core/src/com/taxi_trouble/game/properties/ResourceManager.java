@@ -97,7 +97,7 @@ public final class ResourceManager {
      * Loads the map. Call his method before using the mapFile.
      */
     public static void loadMap() {
-        mapFile = new TmxMapLoader().load("maps/prototype.tmx");
+        mapFile = new TmxMapLoader().load("maps/citymap.tmx");
     }
 
     /**
