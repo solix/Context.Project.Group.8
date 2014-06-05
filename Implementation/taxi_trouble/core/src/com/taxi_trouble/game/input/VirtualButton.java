@@ -8,11 +8,17 @@ import com.taxi_trouble.game.properties.GameProperties;
 public class VirtualButton {
     protected Rectangle body;
     protected Sprite sprite;
-    protected ControlsUI.Action ACTION;
+    protected Action ACTION;
     protected boolean ACTIVE;
     protected float scale = GameProperties.scale;
 
-    public VirtualButton(Rectangle body, Sprite sprite, ControlsUI.Action action) {
+    /**Initializes a new VirtualButton.
+     * 
+     * @param body : rectangle describing the position and size
+     * @param sprite : the sprite to be used
+     * @param action : corresponding action
+     */
+    public VirtualButton(Rectangle body, Sprite sprite, Action action) {
         this.body = body;
         this.sprite = sprite;
         sprite.setPosition(body.x, body.y);

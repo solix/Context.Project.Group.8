@@ -1,14 +1,19 @@
 package com.taxi_trouble.game.screens;
 
+import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_HEIGHT;
+import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_WIDTH;
 import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_HEIGHT;
 import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_WIDTH;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.taxi_trouble.game.Acceleration;
+import com.taxi_trouble.game.SteerDirection;
 import com.taxi_trouble.game.input.MapControls;
 import com.taxi_trouble.game.input.PowerUpControlsUI;
 import com.taxi_trouble.game.model.GameWorld;
@@ -28,6 +33,8 @@ public class NavigatorScreen extends ViewObserver {
     private MapControls mapControl;
     private PowerUpControlsUI powerUpControlsUI;
     private float scale = 4;
+    
+    private OrthographicCamera virtualButtonsCamera;
 
     /**
      * Constructor, creates the game screen.
@@ -64,6 +71,10 @@ public class NavigatorScreen extends ViewObserver {
         powerUpControlsUI = new PowerUpControlsUI();
         mapControl = new MapControls(mapCamera, this, powerUpControlsUI, taxigame.getTeam());
         Gdx.input.setInputProcessor(mapControl);
+        
+        this.virtualButtonsCamera = new OrthographicCamera();
+        this.virtualButtonsCamera.setToOrtho(false, BUTTON_CAM_WIDTH,
+                BUTTON_CAM_HEIGHT);
     }
 
     /**
@@ -78,6 +89,20 @@ public class NavigatorScreen extends ViewObserver {
         // Update the mapCamera's view.
         mapCamera.update();
         stayInBounds(cityMap);
+        
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP))
+            taxi.setAccelerate(Acceleration.ACC_ACCELERATE);
+        else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN))
+            taxi.setAccelerate(Acceleration.ACC_BRAKE);
+        else
+            taxi.setAccelerate(Acceleration.ACC_NONE);
+
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT))
+            taxi.setSteer(SteerDirection.STEER_LEFT);
+        else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT))
+            taxi.setSteer(SteerDirection.STEER_RIGHT);
+        else
+            taxi.setSteer(SteerDirection.STEER_NONE);
 
         // Tell the camera to update its matrices and render the citymap.
         spriteBatch.setProjectionMatrix(mapCamera.combined);
@@ -90,6 +115,10 @@ public class NavigatorScreen extends ViewObserver {
         // Render the common game elements (taxis, passengers, etc.)
         spriteBatch.setProjectionMatrix(mapCamera.combined);
         super.render(delta);
+        
+        //Render the powerUp control interface.
+        spriteBatch.setProjectionMatrix(virtualButtonsCamera.combined);
+        this.powerUpControlsUI.render(spriteBatch);
     }
 
     /**

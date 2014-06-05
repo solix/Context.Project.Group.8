@@ -1,7 +1,10 @@
 package com.taxi_trouble.game.model;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+
+import static com.taxi_trouble.game.properties.ResourceManager.invincibilityButtonSprite;
 
 /**
  * This behaviour defines the behaviour for invincibility.
@@ -40,6 +43,11 @@ public class InvincibilityBehaviour implements PowerUpBehaviour {
     @Override
     public void render(SpriteBatch spriteBatch, Vector2 location) {
         this.powerAnim.render(spriteBatch, location);
+    }
+
+    @Override
+    public Sprite getActivationButtonSprite() {
+        return invincibilityButtonSprite;
     }
 
 }

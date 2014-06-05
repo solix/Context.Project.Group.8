@@ -656,12 +656,11 @@ public class Taxi {
      * 
      * @param powerup
      */
-    public void pickUpPowerUp(PowerUp powerup, WorldMap map) {
+    public void pickUpPowerUp(PowerUp powerUp, WorldMap map) {
         Spawner spawner = map.getSpawner();
-        if (spawner.powerUpIsAvailable(powerup)) {
-            //powerup.getBehaviour().triggerEvent(this);
-            spawner.despawnPowerup(powerup);
-            
+        if (spawner.powerUpIsAvailable(powerUp)) {
+            spawner.despawnPowerup(powerUp);
+            this.team.setPowerUp(powerUp);
         }
     }
 

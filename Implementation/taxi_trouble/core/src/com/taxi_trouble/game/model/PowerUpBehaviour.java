@@ -1,5 +1,6 @@
 package com.taxi_trouble.game.model;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
@@ -27,4 +28,10 @@ public interface PowerUpBehaviour {
      */
     public void render(SpriteBatch spriteBatch, Vector2 location);
 
+    /**
+     * Retrieves the right buttonSprite for activating the button in the navigator screen.
+     *
+     * @return 
+     */
+    public Sprite getActivationButtonSprite();
 }

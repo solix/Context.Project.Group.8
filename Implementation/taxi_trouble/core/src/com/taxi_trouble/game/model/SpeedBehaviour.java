@@ -1,9 +1,12 @@
 package com.taxi_trouble.game.model;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
+
+import static com.taxi_trouble.game.properties.ResourceManager.speedBoostButtonSprite;
 
 /**
  * This behaviour defines the behaviour for the speed powerup.
@@ -50,5 +53,10 @@ public class SpeedBehaviour implements PowerUpBehaviour {
     @Override
     public void render(SpriteBatch spriteBatch, Vector2 location) {
         powerAnim.render(spriteBatch, location);
+    }
+
+    @Override
+    public Sprite getActivationButtonSprite() {
+        return speedBoostButtonSprite;
     }
 }
