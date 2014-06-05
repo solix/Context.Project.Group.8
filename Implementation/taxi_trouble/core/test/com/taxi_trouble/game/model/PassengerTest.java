@@ -16,6 +16,7 @@ import org.mockito.stubbing.Answer;
 
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.verify;
@@ -56,7 +57,7 @@ public class PassengerTest {
     @Mock
     private Sprite sprite;
 
-    /**Initialize the passenger that should be tested.
+    /**Initialize the passenger that will be used for testing.
     *
     */
    @Before
@@ -66,11 +67,20 @@ public class PassengerTest {
        passenger = new Passenger(2, 2, character);
        world = new World(new Vector2(0, 0), false);
        spawnPoint = new SpawnPoint(0, 1, 0);
+       spawnPoint.setActive(true);
        passenger.initializeBody(world, spawnPoint);
        passenger.setDestination(destination);
 
        when(map.getSpawner()).thenReturn(spawner);
        when(map.getWorld()).thenReturn(world);
+   }
+
+   /**Verify that the passenger is successfully initialized.
+   *
+   */
+   @Test
+   public void passengerSuccessFullyInitializedTest() {
+       assertNotNull(passenger);
    }
 
    /**Tests that the position of the body of the passenger in the world
@@ -209,8 +219,8 @@ public class PassengerTest {
     */
    @Test
    public final void resetSpawnPointTest() {
-       assertFalse(spawnPoint.isActive());
-       passenger.resetSpawnPoint();
        assertTrue(spawnPoint.isActive());
+       passenger.resetSpawnPoint();
+       assertFalse(spawnPoint.isActive());
    }
 }

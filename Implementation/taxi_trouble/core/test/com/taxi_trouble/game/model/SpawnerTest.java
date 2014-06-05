@@ -19,6 +19,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.taxi_trouble.game.Character;
 
+/**This class tests the functionality of the Spawner class.
+*
+* @author Computer Games Project Group 8
+*
+*/
 @RunWith(MockitoJUnitRunner.class)
 public class SpawnerTest {
 

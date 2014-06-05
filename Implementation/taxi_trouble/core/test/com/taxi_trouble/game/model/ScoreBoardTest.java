@@ -1,4 +1,4 @@
-package com.taxi_trouble.game.properties;
+package com.taxi_trouble.game.model;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.taxi_trouble.game.model.ScoreBoard;
