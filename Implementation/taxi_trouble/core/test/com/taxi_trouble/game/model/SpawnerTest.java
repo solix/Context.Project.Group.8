@@ -4,6 +4,7 @@ import static com.taxi_trouble.game.properties.ResourceManager.charList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.spy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,6 @@ public class SpawnerTest {
 
     private Spawner spawner;
     private Vector2 vector2;
-    // private World world;
 
     @Mock
     private SpawnPoint spawnpoint;
@@ -42,18 +42,16 @@ public class SpawnerTest {
 
     @Mock
     private Destination destination;
+    
+    @Mock
+    private List<PowerUpBehaviour> powerUpBehaviours;
 
     @Before
     public void setup() {
-        spawner = new Spawner();
+        spawner = spy(new Spawner());
         charList = new ArrayList<Character>();
         vector2 = new Vector2();
-        // world = new World(vector2, true);
         when(spawnpoint.getPosition()).thenReturn(vector2);
-        // LwjglApplicationConfiguration config = new
-        // LwjglApplicationConfiguration();
-        // new LwjglApplication(new GameWorld(), config);
-        // when(spawner.spawnPassenger(world)).thenReturn(passenger);
     }
 
     @Test

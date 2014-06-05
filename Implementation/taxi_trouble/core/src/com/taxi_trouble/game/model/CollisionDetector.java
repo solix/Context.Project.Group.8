@@ -68,11 +68,11 @@ public class CollisionDetector implements ContactListener {
     /**
      * Defines the behaviour of a taxi colliding with a powerUp
      * 
-     * @param collider
-     * @param collidee
+     * @param taxi
+     * @param powerUp
      */
-    private void taxiAtPowerUp(Taxi taxi, PowerUp powerup) {
-        taxi.handlePowerUp(powerup, map);
+    private void taxiAtPowerUp(Taxi taxi, PowerUp powerUp) {
+        taxi.pickUpPowerUp(powerUp, map);
     }
 
     /**

@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.taxi_trouble.game.input.MapControls;
+import com.taxi_trouble.game.input.PowerUpControlsUI;
 import com.taxi_trouble.game.model.GameWorld;
 import com.taxi_trouble.game.model.WorldMap;
 
@@ -25,6 +26,7 @@ public class NavigatorScreen extends ViewObserver {
     private OrthographicCamera mapCamera;
     private OrthographicCamera scoreCamera;
     private MapControls mapControl;
+    private PowerUpControlsUI powerUpControlsUI;
     private float scale = 4;
 
     /**
@@ -59,7 +61,8 @@ public class NavigatorScreen extends ViewObserver {
         scoreCamera.setToOrtho(false, screenWidth, screenHeight);
 
         // Load the MapControls to enable navigating through the map.
-        mapControl = new MapControls(mapCamera, this);
+        powerUpControlsUI = new PowerUpControlsUI();
+        mapControl = new MapControls(mapCamera, this, powerUpControlsUI, taxigame.getTeam());
         Gdx.input.setInputProcessor(mapControl);
     }
 

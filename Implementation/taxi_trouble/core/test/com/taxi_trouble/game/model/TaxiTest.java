@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -70,7 +71,7 @@ public class TaxiTest {
         when(map.getSpawner()).thenReturn(spawner);
         when(passenger.getDestination()).thenReturn(destination);
         //Avoid the timer from being called
-        doNothing().when(taxi).triggerInvincibility();
+        doNothing().when(taxi).triggerInvincibility(anyInt());
     }
 
     /**Verify that the taxi is successfully initialized.

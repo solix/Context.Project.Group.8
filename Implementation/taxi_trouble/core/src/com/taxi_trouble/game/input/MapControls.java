@@ -8,6 +8,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.taxi_trouble.game.model.Team;
 import com.taxi_trouble.game.screens.NavigatorScreen;
 
 /**
@@ -18,6 +19,9 @@ import com.taxi_trouble.game.screens.NavigatorScreen;
  */
 public class MapControls implements InputProcessor {
 
+    private PowerUpControlsUI powerUpControlsUI;
+    private Team team;
+    
     private OrthographicCamera mapCamera;
     private int old_x;
     private int old_y;
@@ -35,9 +39,12 @@ public class MapControls implements InputProcessor {
      * @param cam
      * @param mapscreen
      */
-    public MapControls(OrthographicCamera cam, NavigatorScreen mapscreen) {
+    public MapControls(OrthographicCamera cam, NavigatorScreen mapscreen, 
+            PowerUpControlsUI powerUpControlsUI, Team team) {
         this.mapCamera = cam;
         this.mapscreen = mapscreen;
+        this.powerUpControlsUI = powerUpControlsUI;
+        this.team = team;
     }
 
     @Override

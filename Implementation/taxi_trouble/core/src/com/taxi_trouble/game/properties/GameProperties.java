@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.taxi_trouble.game.model.InvincibilityBehaviour;
 import com.taxi_trouble.game.model.PowerUpAnimation;
 import com.taxi_trouble.game.model.PowerUpBehaviour;
@@ -25,11 +26,6 @@ public final class GameProperties {
     public static int VIRTUAL_HEIGHT = 320;
     public static int BUTTON_CAM_HEIGHT = 480;
     public static int BUTTON_CAM_WIDTH = 800;
-
-    public static PowerUpAnimation invincibleAnim = getInvincibleAnimation();
-    public static PowerUpAnimation speedAnim = getSpeedAnimation();
-
-    public static List<PowerUpBehaviour> powerupBehaviours = getBehaviour();
 
     private GameProperties() {
     }
@@ -56,25 +52,33 @@ public final class GameProperties {
         }
     }
 
-    private static List<PowerUpBehaviour> getBehaviour() {
-        List<PowerUpBehaviour> res = new ArrayList<PowerUpBehaviour>();
+    public static List<PowerUpBehaviour> getPowerUpBehaviours() {
+        List<PowerUpBehaviour> behaviours = new ArrayList<PowerUpBehaviour>();
         // Add the powerup behaviours
-        res.add(new SpeedBehaviour(speedAnim));
-        res.add(new InvincibilityBehaviour(invincibleAnim));
+        behaviours.add(new SpeedBehaviour(getInvincibleAnimation()));
+        behaviours.add(new InvincibilityBehaviour(getSpeedAnimation()));
 
-        return res;
+        return behaviours;
 
     }
 
+    /**Retrieves the animation for the invincibility powerup.
+     * 
+     * @return
+     */
     private static PowerUpAnimation getInvincibleAnimation() {
-        PowerUpAnimation res = new PowerUpAnimation("invincible");
-        res.create();
-        return res;
+        PowerUpAnimation animation = new PowerUpAnimation(
+                new Texture(Gdx.files.internal("sprites/powerups/invincible-spritesheet.png")));
+        return animation;
     }
 
+    /**Retrieves the animation for the speed powerup.
+     * 
+     * @return
+     */
     private static PowerUpAnimation getSpeedAnimation() {
-        PowerUpAnimation res = new PowerUpAnimation("speed");
-        res.create();
-        return res;
+        PowerUpAnimation animation = new PowerUpAnimation(
+                new Texture(Gdx.files.internal("sprites/powerups/invincible-spritesheet.png")));
+        return animation;
     }
 }
