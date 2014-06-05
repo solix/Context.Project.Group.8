@@ -652,9 +652,10 @@ public class Taxi {
     }
 
     /**
-     * This is the temporary powerUp handler.
+     * Makes the taxi pickup a power-up which can be activated by
+     * the navigator of the team.
      * 
-     * @param powerup
+     * @param powerUp : the power-up to pick up
      */
     public void pickUpPowerUp(PowerUp powerUp, WorldMap map) {
         Spawner spawner = map.getSpawner();
@@ -664,10 +665,10 @@ public class Taxi {
         }
     }
 
-    /**Activates a given powerup for this taxi. The effects
+    /**Activates a given power-up for this taxi. The effects
      * of the powerup are defined by its behaviour.
      * 
-     * @param powerUp : the powerup that should be activated
+     * @param powerUp : the power-up that should be activated
      */
     public void activatePowerup(PowerUp powerUp) {
         powerUp.activatePowerUp(this);

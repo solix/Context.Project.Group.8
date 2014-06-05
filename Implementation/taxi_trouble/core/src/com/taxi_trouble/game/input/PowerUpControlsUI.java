@@ -4,6 +4,7 @@ import static com.taxi_trouble.game.properties.ResourceManager.noPowerUpButtonSp
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.taxi_trouble.game.model.Team;
 import com.taxi_trouble.game.properties.GameProperties;
 
 /**
@@ -30,7 +31,8 @@ public class PowerUpControlsUI {
     *
     * @param spriteBatch
     */
-   public void render(SpriteBatch spriteBatch) {
+   public void render(SpriteBatch spriteBatch, Team team) {
+       activatePowerUpButton.setSprite(team.getPowerUpButtonSprite());
        activatePowerUpButton.render(spriteBatch);
    }
 

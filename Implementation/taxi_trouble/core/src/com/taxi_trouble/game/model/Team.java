@@ -1,6 +1,9 @@
 package com.taxi_trouble.game.model;
 
 import static com.taxi_trouble.game.properties.ResourceManager.scoreFont;
+import static com.taxi_trouble.game.properties.ResourceManager.noPowerUpButtonSprite;
+
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Team {
     private Taxi taxi;
@@ -87,5 +90,15 @@ public class Team {
             powerUp.activatePowerUp(taxi);
             this.powerUp = null;
         }
+    }
+    
+    /**Retrieves the sprite of the button for the teams current powerup
+     * 
+     */
+    public Sprite getPowerUpButtonSprite() {
+        if(hasPowerUp()) {
+            return this.powerUp.getBehaviour().getActivationButtonSprite();
+        }
+        return noPowerUpButtonSprite;
     }
 }

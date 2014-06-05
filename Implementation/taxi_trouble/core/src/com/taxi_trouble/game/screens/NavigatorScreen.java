@@ -72,6 +72,7 @@ public class NavigatorScreen extends ViewObserver {
         mapControl = new MapControls(mapCamera, this, powerUpControlsUI, taxigame.getTeam());
         Gdx.input.setInputProcessor(mapControl);
         
+        //Set the camera for showing buttons for the navigator on the screen.
         this.virtualButtonsCamera = new OrthographicCamera();
         this.virtualButtonsCamera.setToOrtho(false, BUTTON_CAM_WIDTH,
                 BUTTON_CAM_HEIGHT);
@@ -118,7 +119,7 @@ public class NavigatorScreen extends ViewObserver {
         
         //Render the powerUp control interface.
         spriteBatch.setProjectionMatrix(virtualButtonsCamera.combined);
-        this.powerUpControlsUI.render(spriteBatch);
+        this.powerUpControlsUI.render(spriteBatch, taxi.getTeam());
     }
 
     /**
