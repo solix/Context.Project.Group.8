@@ -16,6 +16,7 @@ import org.mockito.stubbing.Answer;
 
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.verify;
@@ -43,6 +44,14 @@ public class DestinationTest {
         destination = new Destination(1, 2);
         World world = new World(new Vector2(0, 0), false);
         destination.initializeBody(world, new Vector2(2, 3));
+    }
+
+    /**Verify that the destination is successfully initialized.
+    *
+    */
+    @Test
+    public void destinationSuccessFullyInitializedTest() {
+        assertNotNull(destination);
     }
 
     /**Checks that the position is correctly retrieved from

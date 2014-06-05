@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.World;
 /**
  * PowerUp class for handling powerups.
  * 
- * @author Context group 8
+ * @author Computer Games Project Group 8
  * 
  */
 public class PowerUp {
@@ -23,7 +23,7 @@ public class PowerUp {
     private PowerUpBehaviour behaviour;
 
     /**
-     * Constructor for the powerup. NOTE: the behaviour has to be set apart.
+     * Creates a new PowerUp at the location of a spawnPoint.
      * 
      * @param point
      */
@@ -170,6 +170,14 @@ public class PowerUp {
      */
     public PowerUpBehaviour getBehaviour() {
         return this.behaviour;
+    }
+
+    /**Activate the powerup for the passed taxi.
+     * 
+     * @param taxi
+     */
+    public void activatePowerUp(Taxi taxi) {
+        this.behaviour.triggerEvent(taxi);
     }
 
     /**

@@ -42,9 +42,6 @@ public class Taxi {
     private Passenger passenger;
     private Team team;
     private boolean invincibility;
-    final float originalSpeed;
-    final float increasedMaxSpeed = 80;
-    final int TIME = 5;
 
     /**
      * Initializes a new Taxi which can be controlled by a player.
@@ -66,7 +63,6 @@ public class Taxi {
         this.length = length;
         this.maxSteerAngle = maxSteerAngle;
         this.maxSpeed = maxSpeed;
-        this.originalSpeed = maxSpeed;
         this.power = power;
         this.wheels = new ArrayList<Wheel>();
         this.wheelAngle = 0;
@@ -456,15 +452,15 @@ public class Taxi {
         if (!this.pickedUpPassenger() && !passenger.isTransported()) {
             this.passenger = passenger;
             this.passenger.setTransporter(this);
-            this.triggerInvincibility();
+            this.triggerInvincibility(5);
         }
     }
 
     /**
-     * Triggers invincibility for this taxi for a short period of five seconds.
+     * Triggers invincibility for this taxi for a specified period of time.
      * 
      */
-    public void triggerInvincibility() {
+    public void triggerInvincibility(int time) {
         this.invincibility = true;
         final Taxi taxi = this;
         Timer.schedule(new Task() {
@@ -472,7 +468,7 @@ public class Taxi {
             public void run() {
                 taxi.turnOffInvincibility();
             }
-        }, TIME);
+        }, time);
     }
 
     /**
@@ -656,30 +652,25 @@ public class Taxi {
     }
 
     /**
-     * This is the temporary powerUp handler.
+     * Makes the taxi pickup a power-up which can be activated by
+     * the navigator of the team.
      * 
-     * @param powerup
+     * @param powerUp : the power-up to pick up
      */
-    public void handlePowerUp(PowerUp powerup, WorldMap map) {
-        if (map.getSpawner().getActivePowerUps().contains(powerup)) {
-            powerup.resetSpawnpoint();
-            powerup.getBehaviour().triggerEvent(this);
-            map.getSpawner().getActivePowerUps().remove(powerup);
+    public void pickUpPowerUp(PowerUp powerUp, WorldMap map) {
+        Spawner spawner = map.getSpawner();
+        if (spawner.powerUpIsAvailable(powerUp)) {
+            spawner.despawnPowerup(powerUp);
+            this.team.setPowerUp(powerUp);
         }
     }
 
-    /**
-     * Temporarly increases maxSpeed.
+    /**Activates a given power-up for this taxi. The effects
+     * of the powerup are defined by its behaviour.
+     * 
+     * @param powerUp : the power-up that should be activated
      */
-    public void triggerSpeed() {
-        final float original = this.originalSpeed;
-        this.setMaxSpeed(increasedMaxSpeed);
-        final Taxi taxi = this;
-        Timer.schedule(new Task() {
-            @Override
-            public void run() {
-                taxi.setMaxSpeed(original);
-            }
-        }, TIME);
+    public void activatePowerup(PowerUp powerUp) {
+        powerUp.activatePowerUp(this);
     }
 }

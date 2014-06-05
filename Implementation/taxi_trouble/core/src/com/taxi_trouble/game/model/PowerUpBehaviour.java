@@ -1,12 +1,14 @@
 package com.taxi_trouble.game.model;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * PowerUpBehaviour interface. Contains 2 methods. triggerEvent and render.
+ * PowerUpBehaviour interface that can be used to define various behaviours
+ * for powerups. As well defines the rendering of the powerup.
  * 
- * @author Lboy
+ * @author Computer Games Project Group 8
  * 
  */
 public interface PowerUpBehaviour {
@@ -26,4 +28,10 @@ public interface PowerUpBehaviour {
      */
     public void render(SpriteBatch spriteBatch, Vector2 location);
 
+    /**
+     * Retrieves the right buttonSprite for activating the button in the navigator screen.
+     *
+     * @return 
+     */
+    public Sprite getActivationButtonSprite();
 }

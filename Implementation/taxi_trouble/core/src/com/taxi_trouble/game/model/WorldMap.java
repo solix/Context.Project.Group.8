@@ -41,6 +41,7 @@ public class WorldMap {
         this.map = map;
         this.renderer = new OrthogonalTiledMapRenderer(map);
         this.spawner = new Spawner();
+        this.spawner.setAvailablePowerUpBehaviours();
         this.loadMapObjects();
     }
 

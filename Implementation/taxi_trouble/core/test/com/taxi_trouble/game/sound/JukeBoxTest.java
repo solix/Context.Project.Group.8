@@ -31,12 +31,4 @@ public void startup(){
 	
 }
 
-
-	
-	
-	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
-
 }

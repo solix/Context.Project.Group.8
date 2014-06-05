@@ -8,6 +8,8 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.taxi_trouble.game.model.Team;
+import com.taxi_trouble.game.properties.GameProperties;
 import com.taxi_trouble.game.screens.NavigatorScreen;
 
 /**
@@ -18,6 +20,9 @@ import com.taxi_trouble.game.screens.NavigatorScreen;
  */
 public class MapControls implements InputProcessor {
 
+    private PowerUpControlsUI powerUpControlsUI;
+    private Team team;
+    
     private OrthographicCamera mapCamera;
     private int old_x;
     private int old_y;
@@ -35,9 +40,12 @@ public class MapControls implements InputProcessor {
      * @param cam
      * @param mapscreen
      */
-    public MapControls(OrthographicCamera cam, NavigatorScreen mapscreen) {
+    public MapControls(OrthographicCamera cam, NavigatorScreen mapscreen, 
+            PowerUpControlsUI powerUpControlsUI, Team team) {
         this.mapCamera = cam;
         this.mapscreen = mapscreen;
+        this.powerUpControlsUI = powerUpControlsUI;
+        this.team = team;
     }
 
     @Override
@@ -79,11 +87,24 @@ public class MapControls implements InputProcessor {
         if (Gdx.input.isTouched(1) && !Gdx.input.isTouched(0)) {
             mapCamera.position.set(0, 0, 0);
         }
+        checkPowerUpButtonPressed(screenX, screenY, button);
+        
         return true;
+    }
+
+    private void checkPowerUpButtonPressed(int screenX, int screenY, int button) {
+        screenX = (int) (screenX * ((float) GameProperties.BUTTON_CAM_WIDTH / GameProperties.screenWidth));
+        screenY = (int) (screenY * ((float) GameProperties.BUTTON_CAM_HEIGHT / GameProperties.screenHeight));
+        screenY = (int) (GameProperties.BUTTON_CAM_HEIGHT - screenY);
+
+        if (this.powerUpControlsUI.buttonPressed(screenX, screenY, button)) {
+            team.usePowerUp();
+        }
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        // TODO Auto-generated method stub
         return false;
     }
 

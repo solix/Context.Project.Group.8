@@ -1,6 +1,6 @@
 package com.taxi_trouble.game.model;
 
-import static com.taxi_trouble.game.properties.GameProperties.powerupBehaviours;
+import static com.taxi_trouble.game.properties.GameProperties.getPowerUpBehaviours;
 import static com.taxi_trouble.game.properties.ResourceManager.destinationSprite;
 import static com.taxi_trouble.game.properties.ResourceManager.getRandomCharacter;
 
@@ -39,8 +39,15 @@ public class Spawner {
         destinationpoints = new ArrayList<SpawnPoint>();
         passengers = new ArrayList<Passenger>();
         powerups = new ArrayList<PowerUp>();
-        this.behaviours = powerupBehaviours;
         poweruppoints = new ArrayList<SpawnPoint>();
+    }
+
+    /**Defines the available powerup behaviours.
+     * 
+     * @param behaviours
+     */
+    public void setAvailablePowerUpBehaviours() {
+        this.behaviours = getPowerUpBehaviours();
     }
 
     /**
@@ -222,6 +229,15 @@ public class Spawner {
      */
     public List<PowerUp> getActivePowerUps() {
         return this.powerups;
+    }
+
+    /**Retrieves whether the powerUp is available.
+     * 
+     * @param powerUp : the respective powerUp
+     * @return boolean indicating whether the powerUp is available
+     */
+    public boolean powerUpIsAvailable(PowerUp powerUp) {
+        return this.getActivePowerUps().contains(powerUp);
     }
 
     /**

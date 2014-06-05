@@ -8,6 +8,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.verify;
@@ -45,6 +46,14 @@ public class CollisionDetectorTest {
     @Before
     public final void setup() {
         collisionDetector = new CollisionDetector(map);
+    }
+
+    /**Verify that the collision detector is successfully initialized.
+    *
+    */
+    @Test
+    public void collisionDetectorSuccessFullyInitializedTest() {
+        assertNotNull(collisionDetector);
     }
 
     /**Check that when a taxi drives into a passenger, the passenger

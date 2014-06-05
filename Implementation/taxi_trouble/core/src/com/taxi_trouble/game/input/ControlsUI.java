@@ -21,10 +21,6 @@ public class ControlsUI {
     private Map<String, VirtualButton> buttons;
     private Map<Integer, Action> active;
 
-    public enum Action {
-        ACCELERATE, BRAKE, LEFT, RIGHT, DPAD_DEFAULT, NOT_ACTIVE
-    }
-
     /**Initializes the graphical interface for the driver controls.
      *
      */

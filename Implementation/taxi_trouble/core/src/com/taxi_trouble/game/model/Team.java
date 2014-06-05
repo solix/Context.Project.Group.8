@@ -1,14 +1,19 @@
 package com.taxi_trouble.game.model;
 
 import static com.taxi_trouble.game.properties.ResourceManager.scoreFont;
+import static com.taxi_trouble.game.properties.ResourceManager.noPowerUpButtonSprite;
+
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Team {
     private Taxi taxi;
+    private PowerUp powerUp;
     private ScoreBoard scoreBoard;
 
     public Team(Taxi taxi) {
         this.taxi = taxi;
         this.taxi.setTeam(this);
+        this.powerUp = null;
         setScoreBoard(new ScoreBoard(scoreFont));
     }
 
@@ -60,5 +65,40 @@ public class Team {
      */
     public void setScoreBoard(ScoreBoard scoreBoard) {
         this.scoreBoard = scoreBoard;
+    }
+    
+    /**Sets the powerUp of the team (when the taxi picks one up).
+     * 
+     * @param powerUp : the new PowerUp
+     */
+    public void setPowerUp(PowerUp powerUp) {
+        this.powerUp = powerUp;
+    }
+
+    /**Retrieves whether the team picked up a powerUp.
+     *
+     */
+    public boolean hasPowerUp() {
+        return this.powerUp != null;
+    }
+
+    /**Activates the powerUp of the team, if the team has a powerUp.
+     * 
+     */
+    public void usePowerUp() {
+        if(hasPowerUp()) {
+            powerUp.activatePowerUp(taxi);
+            this.powerUp = null;
+        }
+    }
+    
+    /**Retrieves the sprite of the button for the teams current powerup
+     * 
+     */
+    public Sprite getPowerUpButtonSprite() {
+        if(hasPowerUp()) {
+            return this.powerUp.getBehaviour().getActivationButtonSprite();
+        }
+        return noPowerUpButtonSprite;
     }
 }

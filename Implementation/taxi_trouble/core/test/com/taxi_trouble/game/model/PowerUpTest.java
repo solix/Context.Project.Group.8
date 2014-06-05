@@ -1,6 +1,7 @@
 package com.taxi_trouble.game.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
 import org.junit.Before;
@@ -12,6 +13,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
+/**This class tests the functionality of the PowerUp class.
+*
+* @author Computer Games Project Group 8
+*
+*/
 @RunWith(MockitoJUnitRunner.class)
 public class PowerUpTest {
 
@@ -20,7 +26,7 @@ public class PowerUpTest {
     @Mock
     private SpawnPoint spawnPoint;
 
-    /**Initialize the powerup to be used for testing.
+    /**Initialize the powerUp to be used for testing.
      *
      */
     @Before
@@ -31,8 +37,16 @@ public class PowerUpTest {
         powerUp.initializeBody(world);
     }
 
+    /**Verify that the powerUp is successfully initialized.
+    *
+    */
+    @Test
+    public void powerUpSuccessFullyInitializedTest() {
+        assertNotNull(powerUp);
+    }
+
     /**Checks that the position is correctly retrieved from
-     * the spawnpoint of the powerup.
+     * the spawnpoint of the powerUp.
      * 
      */
     @Test
@@ -41,20 +55,20 @@ public class PowerUpTest {
     }
 
     /**Checks that the x-position is correctly retrieved from the
-     * powerup spawnpoint.
+     * powerUp spawnpoint.
      * 
      */
     @Test
     public final void retrieveXPositionTest() {
-        assertEquals(2, powerUp.getXPosition(), 0);
+        assertEquals(1, powerUp.getXPosition(), 0);
     }
 
     /**Checks that the x-position is correctly retrieved from the
-     * powerup spawnpoint.
+     * powerUp spawnpoint.
      * 
      */
     @Test
     public final void retrieveYPositionTest() {
-        assertEquals(3, powerUp.getYPosition(), 0);
+        assertEquals(2, powerUp.getYPosition(), 0);
     }
 }
