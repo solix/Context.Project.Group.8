@@ -19,6 +19,7 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 	private boolean driver;
 	private List<String> ids;
 	private boolean host = false;
+	private String hostId;
 
 	public AndroidMultiplayerAdapter(GoogleApiClient apiClient) {
 		this.apiClient = apiClient;
@@ -107,6 +108,16 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 		reliableBroadcast(message);		
 		}
 	}
+	
+	public void sendToHost(String message){
+		byte[] messageBytes = message.getBytes();
+			if (!host)
+			Games.RealTimeMultiplayer.sendReliableMessage(apiClient, null,
+					messageBytes, roomId, hostId);
+	}
+	
+	
+	
 	@Override
 	public void setHost(boolean host){
 		this.host = host;
@@ -115,6 +126,14 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 	@Override
 	public boolean isHost(){
 		return host;
+	}
+	
+	public void setHostId(String id){
+		this.hostId = id;
+	}
+	
+	public String getHostId(){
+		return this.hostId;
 	}
 	
 }
