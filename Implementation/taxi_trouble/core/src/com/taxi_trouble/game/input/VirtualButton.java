@@ -20,6 +20,7 @@ public class VirtualButton {
      */
     public VirtualButton(Rectangle body, Sprite sprite, Action action) {
         this.body = body;
+        this.ACTION = action;
         setSprite(sprite);
     }
 
