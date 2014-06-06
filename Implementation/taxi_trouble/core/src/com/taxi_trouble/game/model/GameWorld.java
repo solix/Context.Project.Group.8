@@ -11,6 +11,7 @@ import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
 import com.taxi_trouble.game.multiplayer.SetupInterface;
 import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.screens.DriverScreen;
+import com.taxi_trouble.game.screens.MenuScreen;
 import com.taxi_trouble.game.screens.NavigatorScreen;
 import com.taxi_trouble.game.sound.TaxiJukebox;
 
@@ -30,6 +31,7 @@ public class GameWorld extends Game {
 	private AndroidMultiplayerInterface multiplayerInterface;
 	private DriverScreen driverScreen;
 	private NavigatorScreen navigatorScreen;
+	private MenuScreen menuScreen;
 	private SetupInterface setupInterface;
 	private boolean driver;
 	private Map<Integer, Team> teams;
@@ -37,11 +39,9 @@ public class GameWorld extends Game {
 	// private List<Passenger> passengers;
 	// private ScoreBoard score;
 
-	public GameWorld(AndroidMultiplayerInterface multiplayerInterface,
-			SetupInterface setupInterface) {
-		this.multiplayerInterface = multiplayerInterface;
+	public GameWorld(SetupInterface setupInterface) {
 		this.setupInterface = setupInterface;
-		this.setupInterface.login();
+		// this.setupInterface.login();
 		this.teams = new HashMap<Integer, Team>();
 	}
 
@@ -57,11 +57,10 @@ public class GameWorld extends Game {
 		ownTeam = new Team(map.getSpawner().spawnTaxi(world));
 		world.setContactListener(new CollisionDetector(map));
 		System.out.println("gameworld created!!!");
-		driverScreen = new DriverScreen(this);
-		navigatorScreen = new NavigatorScreen(this);
-		setScreen(new DriverScreen(this)); // this fixes invisible car and
-											// invisible controls. I do not know
-											// why?
+		menuScreen = new MenuScreen(setupInterface);
+		setScreen(menuScreen); // this fixes invisible car and
+								// invisible controls. I do not know
+								// why?
 	}
 
 	@Override
@@ -170,5 +169,9 @@ public class GameWorld extends Game {
 
 	public Map<Integer, Team> getTeams() {
 		return teams;
+	}
+
+	public void setMultiPlayerInterface(AndroidMultiplayerInterface i) {
+		this.multiplayerInterface = i;
 	}
 }

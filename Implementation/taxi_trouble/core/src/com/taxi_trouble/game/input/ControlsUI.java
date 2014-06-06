@@ -33,12 +33,12 @@ public class ControlsUI {
         this.active = new HashMap<Integer, Action>();
 
         buttons.put("throttle", new VirtualButton(new Rectangle(
-                GameProperties.BUTTON_CAM_WIDTH - 110, 10, 100, 120),
+                GameProperties.CONTROLS_WIDTH - 110, 10, 100, 120),
                 throttleSprite,
                 Action.ACCELERATE));
 
         buttons.put("brake", new VirtualButton(new Rectangle(
-                GameProperties.BUTTON_CAM_WIDTH - 210, 10, 100, 120),
+                GameProperties.CONTROLS_WIDTH - 210, 10, 100, 120),
                 brakeSprite,
                 Action.BRAKE));
 

@@ -34,6 +34,7 @@ public class AndroidLauncher extends AndroidApplication implements
 	private String roomId;
 	private AndroidMultiplayerAdapter multiplayerInterface;
 	private MessageAdapter messageAdapter;
+	private boolean doSetup;
 	// arbitrary request code for the waiting room UI.
 	// This can be any integer that's unique in your Activity.
 	private final static int RC_WAITING_ROOM = 10002;
@@ -42,12 +43,9 @@ public class AndroidLauncher extends AndroidApplication implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		aHelper = new GameHelper(this, GameHelper.CLIENT_GAMES);
-
+		doSetup = true;
 		AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
-		aHelper.setup(this);
-		multiplayerInterface = new AndroidMultiplayerAdapter(
-				aHelper.getApiClient());
-		gameWorld = new GameWorld(multiplayerInterface, this);
+		gameWorld = new GameWorld(this);
 		messageAdapter = new MessageAdapter(gameWorld);
 		initialize(gameWorld, cfg);
 	}
@@ -55,7 +53,6 @@ public class AndroidLauncher extends AndroidApplication implements
 	@Override
 	public void onStart() {
 		super.onStart();
-		aHelper.onStart(this);
 	}
 
 	@Override
@@ -86,7 +83,16 @@ public class AndroidLauncher extends AndroidApplication implements
 
 	@Override
 	public void login() {
-		System.out.println("started AL login");
+		if (doSetup) {
+			aHelper.setup(this);
+			System.out.println("started AL login");
+
+			doSetup = false;
+		}
+		aHelper.onStart(this);
+		multiplayerInterface = new AndroidMultiplayerAdapter(
+				aHelper.getApiClient());
+		gameWorld.setMultiPlayerInterface(multiplayerInterface);
 		aHelper.beginUserInitiatedSignIn();
 	}
 
@@ -94,7 +100,7 @@ public class AndroidLauncher extends AndroidApplication implements
 	public void logout() {
 		try {
 			runOnUiThread(new Runnable() {
-				// @Override
+				@Override
 				public void run() {
 					aHelper.signOut();
 				}
@@ -122,7 +128,13 @@ public class AndroidLauncher extends AndroidApplication implements
 		Games.RealTimeMultiplayer.create(aHelper.getApiClient(), roomConfig);
 
 		// prevent screen from sleeping during handshake
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				getWindow().addFlags(
+						WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+			}
+		});
 	}
 
 	private RoomConfig.Builder makeBasicRoomConfigBuilder() {
@@ -195,7 +207,7 @@ public class AndroidLauncher extends AndroidApplication implements
 		// get waiting room intent
 		Intent i = Games.RealTimeMultiplayer.getWaitingRoomIntent(
 				aHelper.getApiClient(), room, 2);
-		startActivityForResult(i, RC_WAITING_ROOM);
+		// startActivityForResult(i, RC_WAITING_ROOM);
 	}
 
 	@Override
@@ -231,7 +243,8 @@ public class AndroidLauncher extends AndroidApplication implements
 
 		setHost(room);
 		if (iAmHost) {
-			messageAdapter.onRealTimeMessageReceived(multiplayerInterface.setTeams(room));
+			messageAdapter.onRealTimeMessageReceived(multiplayerInterface
+					.setTeams(room));
 			System.out.println("done setting teams");
 		}
 	}
