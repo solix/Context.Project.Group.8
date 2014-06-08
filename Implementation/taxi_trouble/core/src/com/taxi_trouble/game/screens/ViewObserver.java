@@ -82,7 +82,7 @@ public abstract class ViewObserver implements Screen {
 		}
 
 		// Render the passengers into the game
-		for (Passenger pass : taxigame.getPassengers()) {
+		for (Passenger pass : taxigame.getPassengers().values()) {
 			pass.render(getSpriteBatch());
 		}
 		

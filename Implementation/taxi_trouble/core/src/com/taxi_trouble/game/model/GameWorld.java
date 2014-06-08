@@ -3,6 +3,7 @@ package com.taxi_trouble.game.model;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
@@ -26,7 +27,7 @@ public class GameWorld extends Game {
 	private WorldMap map;
 	// Temporary: single team (may change when implementing multiplayer)
 	private Team ownTeam;
-	public static AndroidMultiplayerInterface multiplayerInterface;
+	private AndroidMultiplayerInterface multiplayerInterface;
 	private DriverScreen driverScreen;
 	private NavigatorScreen navigatorScreen;
 	private SetupInterface setupInterface;
@@ -39,7 +40,7 @@ public class GameWorld extends Game {
 
 	public GameWorld(AndroidMultiplayerInterface multiplayerInterface,
 			SetupInterface setupInterface) {
-		GameWorld.multiplayerInterface=multiplayerInterface;
+		this.multiplayerInterface=multiplayerInterface;
 		this.setupInterface = setupInterface;
 		this.setupInterface.login();
 		this.teams = new HashMap<Integer, Team>();
@@ -53,9 +54,9 @@ public class GameWorld extends Game {
 	public final void create() {
 		loadResources();
 		world = new World(new Vector2(0.0f, 0.0f), true);
-		map = new WorldMap(ResourceManager.mapFile, world);
+		map = new WorldMap(ResourceManager.mapFile, world, multiplayerInterface);
 		ownTeam = new Team(map.getSpawner().spawnTaxi(world));
-		world.setContactListener(new CollisionDetector(map));
+		world.setContactListener(new CollisionDetector(map, multiplayerInterface));
 		System.out.println("gameworld created!!!");
 		driverScreen = new DriverScreen(this);
 		navigatorScreen = new NavigatorScreen(this);
@@ -87,7 +88,7 @@ public class GameWorld extends Game {
 		// Spawn a new passenger if there are less than #taxis-1.
 		// TODO: Instead of '3' adapt to #taxis-1 in the game.
 		if(host){
-			List<Passenger> passengers = map.getSpawner().getActivePassengers();
+			TreeMap<Integer,Passenger> passengers = map.getSpawner().getActivePassengers();
 			if (passengers.size() < THREE) {
 				map.getSpawner().spawnPassenger(world);
 			}
@@ -140,7 +141,7 @@ public class GameWorld extends Game {
 	 * 
 	 * @return passengers
 	 */
-	public final List<Passenger> getPassengers() {
+	public final TreeMap<Integer,Passenger> getPassengers() {
 		return this.map.getSpawner().getActivePassengers();
 	}
 
@@ -175,7 +176,7 @@ public class GameWorld extends Game {
 	}
 
 	public void setMultiplayerInterface(AndroidMultiplayerInterface multiplayerInterface) {
-		GameWorld.multiplayerInterface = multiplayerInterface;
+		this.multiplayerInterface = multiplayerInterface;
 	}
 	
 	public void setHost(boolean host){
@@ -184,11 +185,7 @@ public class GameWorld extends Game {
 	}
 	
 	public Passenger getPassengerById(int id){
-		for (Passenger passenger :this.map.getSpawner().getActivePassengers()){
-			if (passenger.getId() == id)
-				return passenger;
-		}
-		return null;
+		return map.getSpawner().getActivePassengers().get(id);
 	}
 
 	public Taxi getTaxiById(int id) {

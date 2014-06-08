@@ -5,10 +5,12 @@ import static com.taxi_trouble.game.properties.ResourceManager.getCharacter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.Character;
+import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
 import com.taxi_trouble.game.properties.ResourceManager;
 
 /**
@@ -22,21 +24,23 @@ public class Spawner {
     private List<SpawnPoint> passengerspawnpoints;
     private List<SpawnPoint> taxispawnpoints;
     private List<SpawnPoint> destinationpoints;
-    private List<Passenger> passengers;
+    private TreeMap<Integer,Passenger> passengers;
     private int nextPassengerId = 0;
-    private List<Integer> takenIds;
+    //private List<Integer> takenIds;
+    private AndroidMultiplayerInterface networkInterface;
 
     /**
      * Initializes a new Spawner which can store spawn points and spawn taxis,
      * passengers and create destination points.
      *
      */
-    public Spawner() {
+    public Spawner(AndroidMultiplayerInterface networkInterface) {
         passengerspawnpoints = new ArrayList<SpawnPoint>();
         taxispawnpoints = new ArrayList<SpawnPoint>();
         destinationpoints = new ArrayList<SpawnPoint>();
-        passengers = new ArrayList<Passenger>();
-        takenIds = new ArrayList<Integer>();
+        passengers = new TreeMap<Integer,Passenger>();
+       // takenIds = new ArrayList<Integer>();
+        this.networkInterface = networkInterface;
     }
 
     /**
@@ -91,7 +95,7 @@ public class Spawner {
                 - 1));
         int charId = ResourceManager.getRandomCharacterId();
         int passengerId = getNextPassengerId();
-        GameWorld.multiplayerInterface.reliableBroadcast("NEWPASSENGER  " + random + " " + destinationId + " " + charId + " " + passengerId);
+      networkInterface.reliableBroadcast("NEWPASSENGER  " + random + " " + destinationId + " " + charId + " " + passengerId);
        return spawnPassenger(world, random, destinationId, charId, passengerId);
     }
     
@@ -107,14 +111,13 @@ public class Spawner {
      * @return the spawned passenger
      */
     public Passenger spawnPassenger(World world, int spawnId, int destinationId, int charId, int passengerId) {
-      
+    	assert(!passengers.containsKey(passengerId));
         SpawnPoint spawnPoint = passengerspawnpoints.get(spawnId);
         Passenger pass = new Passenger(2, 2, ResourceManager.getCharacter(charId), passengerId);
 		pass.initializeBody(world, spawnPoint);
         pass.setDestination(destination(world, destinationId));
         //Add the new passenger to the list of active passengers
-        passengers.add(pass);
-    	takenIds.add(nextPassengerId);
+        passengers.put(passengerId, pass);
         return pass;
     }
 
@@ -125,8 +128,7 @@ public class Spawner {
      */
     public void despawnPassenger(Passenger passenger) {
         passenger.resetSpawnPoint();
-        takenIds.remove(passenger.getId());
-        passengers.remove(passenger);
+        passengers.remove(passenger.getId());
     }
 
     /**
@@ -205,7 +207,7 @@ public class Spawner {
      *
      * @return
      */
-    public List<Passenger> getActivePassengers() {
+    public TreeMap<Integer,Passenger> getActivePassengers() {
         return this.passengers;
     }
 
@@ -237,7 +239,7 @@ public class Spawner {
     }
     
     private int getNextPassengerId(){
-    	while(takenIds.contains(nextPassengerId)){
+    	while(passengers.containsKey(nextPassengerId)){
     		nextPassengerId++;
     		if (nextPassengerId > 2)
         		nextPassengerId = 0;

@@ -4,6 +4,7 @@ import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
 
 /**
  * Detects collisions on a map and performs the right actions accordingly.
@@ -14,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 public class CollisionDetector implements ContactListener {
 
     private WorldMap map;
+    private AndroidMultiplayerInterface networkInterface;
 
     /**
      * Initializes a new CollisionDetector defining the behaviour for collisions
@@ -22,9 +24,11 @@ public class CollisionDetector implements ContactListener {
      * @param map
      *            : the map to which the collision detector applies
      */
-    public CollisionDetector(WorldMap map) {
+    public CollisionDetector(WorldMap map, AndroidMultiplayerInterface networkInterface) {
         super();
         this.map = map;
+        this.networkInterface = networkInterface;
+        
     }
 
     /**
@@ -66,7 +70,14 @@ public class CollisionDetector implements ContactListener {
      * @param destination
      */
     private void taxiAtDestination(Taxi taxi, Destination destination) {
-        taxi.dropOffDetected(destination, map);
+    	if (networkInterface.isHost()){
+    		if (taxi.dropOffDetected(destination, map)){
+    			String message = "DROP " + taxi.getTeam().getTeamId() + " " + taxi.getPassenger().getId();
+    			 networkInterface.reliableBroadcast(message);
+    			 taxi.dropOffPassenger(destination, map);
+    		}
+    		
+    	}
     }
 
     /**
@@ -76,7 +87,12 @@ public class CollisionDetector implements ContactListener {
      * @param passenger
      */
     private void taxiAtPassenger(Taxi taxi, Passenger passenger) {
-        taxi.pickUpPassenger(passenger);
+    	if (networkInterface.isHost()){
+    		if (taxi.pickUpPassenger(passenger)){
+    			 networkInterface.passengerMessage(taxi, passenger);
+    		}
+    		
+    	}
     }
 
     /**

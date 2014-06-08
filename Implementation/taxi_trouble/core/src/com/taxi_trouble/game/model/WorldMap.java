@@ -2,6 +2,7 @@ package com.taxi_trouble.game.model;
 
 import static com.taxi_trouble.game.properties.GameProperties.PIXELS_PER_METER;
 
+import java.nio.channels.NetworkChannel;
 import java.util.Iterator;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
 
 /**
  * The map for the world in which a game can take place and its objects.
@@ -26,6 +28,7 @@ public class WorldMap {
     private OrthogonalTiledMapRenderer renderer;
     private World world;
     private Spawner spawner;
+    
 
     /**
      * Initializes a new WorldMap for a specified world using the specified
@@ -36,11 +39,11 @@ public class WorldMap {
      * @param world
      *            : the world for which the map is created
      */
-    public WorldMap(TiledMap map, World world) {
+    public WorldMap(TiledMap map, World world, AndroidMultiplayerInterface networkInterface) {
         this.world = world;
         this.map = map;
         this.renderer = new OrthogonalTiledMapRenderer(map);
-        this.spawner = new Spawner();
+        this.spawner = new Spawner(networkInterface);
         this.loadMapObjects();
     }
 

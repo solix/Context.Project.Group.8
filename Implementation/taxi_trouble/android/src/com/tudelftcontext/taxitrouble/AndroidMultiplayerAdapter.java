@@ -102,11 +102,9 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 	}
 	@Override
 	public void passengerMessage(Taxi taxi, Passenger passenger) {
-		if (host){
 		String message = "PASSENGER ";
 		message += taxi.getTeam().getTeamId() + " " + passenger.getId();
 		reliableBroadcast(message);		
-		}
 	}
 	
 	public void sendToHost(String message){

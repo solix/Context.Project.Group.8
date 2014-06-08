@@ -450,15 +450,16 @@ public class Taxi {
      * @param passenger
      *            : the passenger to pickup
      */
-    public void pickUpPassenger(Passenger passenger) {
+    public boolean pickUpPassenger(Passenger passenger) {
         assert (passenger != null);
         // Check if there is no passenger already picked up
         if (!this.pickedUpPassenger() && !passenger.isTransported()) {
             this.passenger = passenger;
             this.passenger.setTransporter(this);
             this.triggerInvincibility();
-            GameWorld.multiplayerInterface.passengerMessage(this, passenger);
+            return true;
         }
+        return false;
     }
 
     /**Triggers invincibility for this taxi for a short period of five seconds.
@@ -498,16 +499,12 @@ public class Taxi {
         
     }
     
-    public void dropOffDetected(Destination destination, WorldMap map){
-    	if (GameWorld.multiplayerInterface.isHost()){
+    public boolean dropOffDetected(Destination destination, WorldMap map){
     		 if (pickedUpPassenger()
     	                && this.passenger.getDestination().equals(destination)) {
-    			 String message = "DROP " + this.getTeam().getTeamId() + " " + getPassenger().getId();
-    			 GameWorld.multiplayerInterface.reliableBroadcast(message);
-    			 dropOffPassenger(destination, map);
-    		 }
+    			 return true;
     	}
-    	
+    	return false;
     }
     
     /**

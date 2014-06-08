@@ -83,7 +83,7 @@ public class DriverScreen extends ViewObserver {
 		controlsUI.render(spriteBatch);
 
 		if (ownTaxi.hasMoved()) {
-			GameWorld.multiplayerInterface.sendCarLocation(ownTaxi.networkMessage());
+			taxigame.getMultiplayerInterface().sendCarLocation(ownTaxi.networkMessage());
 		}
 	}
 
