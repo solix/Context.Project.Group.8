@@ -656,14 +656,17 @@ public class Taxi {
 	/**Let this taxi steal the passenger (if any) from the other specified taxi.
      *
      * @param taxi : the taxi from which the passenger is stolen
+	 * @return 
      */
-    public void stealPassenger(Taxi taxi) {
-        if (taxi.pickedUpPassenger() && !this.pickedUpPassenger()
+    public boolean stealPassenger(Taxi taxi) {
+    	if (taxi.pickedUpPassenger() && !this.pickedUpPassenger()
                 && !taxi.isInvincible()) {
             Passenger pas = taxi.getPassenger();
             taxi.losePassenger();
             this.pickUpPassenger(pas);
+            return true;
         }
+        return false;
 
     }
 

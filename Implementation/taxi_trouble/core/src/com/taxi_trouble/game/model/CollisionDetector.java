@@ -102,7 +102,14 @@ public class CollisionDetector implements ContactListener {
      * @param taxi2
      */
     private void taxiAtTaxi(Taxi taxi1, Taxi taxi2) {
-        taxi1.stealPassenger(taxi2);
+    	if (networkInterface.isHost()){
+    		if (taxi1.stealPassenger(taxi2)){
+    			networkInterface.passengerMessage(taxi1, taxi1.getPassenger());
+    		} else if (taxi2.stealPassenger(taxi1)){
+    			networkInterface.passengerMessage(taxi2, taxi2.getPassenger());
+    		}
+    		
+    	}
     }
 
     @Override
