@@ -78,7 +78,7 @@ public final class GameProperties {
      */
     private static PowerUpAnimation getSpeedAnimation() {
         PowerUpAnimation animation = new PowerUpAnimation(
-                new Texture(Gdx.files.internal("sprites/powerups/invincible-spritesheet.png")));
+                new Texture(Gdx.files.internal("sprites/powerups/speed-spritesheet.png")));
         return animation;
     }
 }
