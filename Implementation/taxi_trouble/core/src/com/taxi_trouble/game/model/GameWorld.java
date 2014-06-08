@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
@@ -88,7 +89,7 @@ public class GameWorld extends Game {
 		// Spawn a new passenger if there are less than #taxis-1.
 		// TODO: Instead of '3' adapt to #taxis-1 in the game.
 		if(host){
-			TreeMap<Integer,Passenger> passengers = map.getSpawner().getActivePassengers();
+			ConcurrentHashMap<Integer,Passenger> passengers = map.getSpawner().getActivePassengers();
 			if (passengers.size() < THREE) {
 				map.getSpawner().spawnPassenger(world);
 			}
@@ -141,7 +142,7 @@ public class GameWorld extends Game {
 	 * 
 	 * @return passengers
 	 */
-	public final TreeMap<Integer,Passenger> getPassengers() {
+	public final ConcurrentHashMap<Integer,Passenger> getPassengers() {
 		return this.map.getSpawner().getActivePassengers();
 	}
 

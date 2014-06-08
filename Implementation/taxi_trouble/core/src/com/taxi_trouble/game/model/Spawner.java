@@ -6,6 +6,7 @@ import static com.taxi_trouble.game.properties.ResourceManager.getCharacter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -24,7 +25,7 @@ public class Spawner {
     private List<SpawnPoint> passengerspawnpoints;
     private List<SpawnPoint> taxispawnpoints;
     private List<SpawnPoint> destinationpoints;
-    private TreeMap<Integer,Passenger> passengers;
+    private ConcurrentHashMap<Integer,Passenger> passengers;
     private int nextPassengerId = 0;
     //private List<Integer> takenIds;
     private AndroidMultiplayerInterface networkInterface;
@@ -38,7 +39,7 @@ public class Spawner {
         passengerspawnpoints = new ArrayList<SpawnPoint>();
         taxispawnpoints = new ArrayList<SpawnPoint>();
         destinationpoints = new ArrayList<SpawnPoint>();
-        passengers = new TreeMap<Integer,Passenger>();
+        passengers = new ConcurrentHashMap<Integer,Passenger>();
        // takenIds = new ArrayList<Integer>();
         this.networkInterface = networkInterface;
     }
@@ -207,7 +208,7 @@ public class Spawner {
      *
      * @return
      */
-    public TreeMap<Integer,Passenger> getActivePassengers() {
+    public ConcurrentHashMap<Integer,Passenger> getActivePassengers() {
         return this.passengers;
     }
 
