@@ -18,6 +18,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.taxi_trouble.game.Character;
+import com.taxi_trouble.game.model.powerups.PowerUpBehaviour;
 
 /**This class tests the functionality of the Spawner class.
 *

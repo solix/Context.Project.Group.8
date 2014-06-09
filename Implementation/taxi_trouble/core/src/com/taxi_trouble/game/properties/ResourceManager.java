@@ -19,8 +19,12 @@ import com.taxi_trouble.game.Character;
  */
 public final class ResourceManager {
 
-    public static Sprite taxiSprite;
+    public static Sprite yellowTaxiSprite;
+    public static Sprite blueTaxiSprite;
+    public static Sprite greenTaxiSprite;
+    public static Sprite redTaxiSprite;
     public static Sprite wheelSprite;
+
     public static Sprite throttleSprite;
     public static Sprite brakeSprite;
     public static Sprite dPadSprite;
@@ -30,7 +34,7 @@ public final class ResourceManager {
     public static Sprite speedBoostButtonSprite;
     public static TiledMap mapFile;
     public static List<Character> charList;
-    public static BitmapFont scoreFont;
+    public static BitmapFont hudFont;
 
     private ResourceManager() {
     }
@@ -48,12 +52,18 @@ public final class ResourceManager {
     }
 
     /**
-     * Loads the sprites needed for the rendering of the taxi. This method has
+     * Loads the sprites needed for the rendering of the taxis. This method has
      * to be called before using the sprites.
      */
     public static void loadTaxiAndWheelSprites() {
-        Texture taxiTexture = new Texture("sprites/taxi_frame.png");
-        taxiSprite = new Sprite(taxiTexture);
+        Texture yellowTaxiTexture = new Texture("sprites/taxi-frame-yellow.png");
+        yellowTaxiSprite = new Sprite(yellowTaxiTexture);
+        Texture blueTaxiTexture = new Texture("sprites/taxi-frame-blue.png");
+        blueTaxiSprite = new Sprite(blueTaxiTexture);
+        Texture greenTaxiTexture = new Texture("sprites/taxi-frame-green.png");
+        greenTaxiSprite = new Sprite(greenTaxiTexture);
+        Texture redTaxiTexture = new Texture("sprites/taxi-frame-red.png");
+        redTaxiSprite = new Sprite(redTaxiTexture);
         Texture wheelTexture = new Texture("sprites/wheel.png");
         wheelSprite = new Sprite(wheelTexture);
     }
@@ -122,7 +132,7 @@ public final class ResourceManager {
      * Loads the fonts of the game.
      */
     public static void loadFonts() {
-        scoreFont = new BitmapFont(Gdx.files.internal("fonts/hoboStd-24.fnt"),
+        hudFont = new BitmapFont(Gdx.files.internal("fonts/hoboStd-24.fnt"),
                 Gdx.files.internal("fonts/hoboStd-24.png"), false);
     }
 

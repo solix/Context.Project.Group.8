@@ -17,14 +17,14 @@ import static com.taxi_trouble.game.properties.ResourceManager.dPadSprite;
  * @author Computer Games Project Group 8
  *
  */
-public class ControlsUI {
+public class DriverControlsUI {
     private Map<String, VirtualButton> buttons;
     private Map<Integer, Action> active;
 
     /**Initializes the graphical interface for the driver controls.
      *
      */
-    public ControlsUI() {
+    public DriverControlsUI() {
         this.buttons = new HashMap<String, VirtualButton>();
         this.active = new HashMap<Integer, Action>();
 

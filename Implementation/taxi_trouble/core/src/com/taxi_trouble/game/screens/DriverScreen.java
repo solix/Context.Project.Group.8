@@ -7,8 +7,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.taxi_trouble.game.input.ControlsUI;
-import com.taxi_trouble.game.input.DriverControl;
+import com.taxi_trouble.game.input.DriverControlsUI;
+import com.taxi_trouble.game.input.DriverControls;
 import com.taxi_trouble.game.model.GameWorld;
 
 /**
@@ -19,10 +19,9 @@ import com.taxi_trouble.game.model.GameWorld;
  */
 public class DriverScreen extends ViewObserver {
     private TaxiCamera taxiCamera;
-    private OrthographicCamera virtualButtonsCamera;
     private SpriteBatch spriteBatch;
-    private ControlsUI controlsUI;
-    private DriverControl driverControl;
+    private DriverControls driverControl;
+    private DriverControlsUI controlsUI;
 
     /**
      * Constructor, creates the Driver Screen.
@@ -44,17 +43,12 @@ public class DriverScreen extends ViewObserver {
         // Initialize the spriteBatch that should be used
         spriteBatch = new SpriteBatch();
 
-        // Initialize the virtual buttons camera
-        this.virtualButtonsCamera = new OrthographicCamera();
-        this.virtualButtonsCamera.setToOrtho(false, BUTTON_CAM_WIDTH,
-                BUTTON_CAM_HEIGHT);
-
         // Initialize the taxiCamera to follow the driver its taxi
         this.taxiCamera = new TaxiCamera(taxi);
 
         // Load the UI for player input
-        this.controlsUI = new ControlsUI();
-        this.driverControl = new DriverControl(taxi, controlsUI);
+        this.controlsUI = new DriverControlsUI();
+        this.driverControl = new DriverControls(taxi, controlsUI);
         Gdx.input.setInputProcessor(driverControl);
     }
 
@@ -74,7 +68,7 @@ public class DriverScreen extends ViewObserver {
 
         super.render(delta);
 
-        spriteBatch.setProjectionMatrix(virtualButtonsCamera.combined);
+        spriteBatch.setProjectionMatrix(hudCamera.combined);
         controlsUI.render(spriteBatch);
 
     }

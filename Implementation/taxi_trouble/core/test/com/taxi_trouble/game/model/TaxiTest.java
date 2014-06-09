@@ -23,6 +23,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.Acceleration;
 import com.taxi_trouble.game.SteerDirection;
+import com.taxi_trouble.game.model.team.Team;
 
 
 /**This class tests the functionality of the Taxi class.

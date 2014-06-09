@@ -10,6 +10,8 @@ import java.util.List;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.Character;
+import com.taxi_trouble.game.model.powerups.PowerUp;
+import com.taxi_trouble.game.model.powerups.PowerUpBehaviour;
 import com.taxi_trouble.game.properties.ResourceManager;
 
 /**
@@ -161,7 +163,7 @@ public class Spawner {
         Taxi taxi = new Taxi(2, 4, 20, 60, 60);
         taxi.initializeBody(world, spawnPoint.getPosition(),
                 spawnPoint.getAngle());
-        taxi.setSprite(ResourceManager.taxiSprite, ResourceManager.wheelSprite);
+        taxi.setSprite(ResourceManager.yellowTaxiSprite, ResourceManager.wheelSprite);
         return taxi;
     }
 

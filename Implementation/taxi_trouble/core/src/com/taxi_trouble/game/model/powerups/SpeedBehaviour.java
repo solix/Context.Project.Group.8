@@ -1,10 +1,11 @@
-package com.taxi_trouble.game.model;
+package com.taxi_trouble.game.model.powerups;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
+import com.taxi_trouble.game.model.Taxi;
 
 import static com.taxi_trouble.game.properties.ResourceManager.speedBoostButtonSprite;
 

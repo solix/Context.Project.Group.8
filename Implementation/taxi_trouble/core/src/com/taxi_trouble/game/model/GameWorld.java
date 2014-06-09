@@ -5,6 +5,8 @@ import java.util.List;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.taxi_trouble.game.model.powerups.PowerUp;
+import com.taxi_trouble.game.model.team.Team;
 import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.screens.DriverScreen;
 import com.taxi_trouble.game.screens.NavigatorScreen;
@@ -31,10 +33,9 @@ public class GameWorld extends Game {
         loadResources();
         world = new World(new Vector2(0.0f, 0.0f), true);
         map = new WorldMap(ResourceManager.mapFile, world);
-        team = new Team(map.getSpawner().spawnTaxi(world));
+        team = new Team(2, map.getSpawner().spawnTaxi(world));
         world.setContactListener(new CollisionDetector(map));
         setScreen(new DriverScreen(this));
-
     }
 
     /**

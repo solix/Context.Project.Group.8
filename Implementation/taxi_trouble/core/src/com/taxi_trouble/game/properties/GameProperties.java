@@ -5,10 +5,10 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.taxi_trouble.game.model.InvincibilityBehaviour;
-import com.taxi_trouble.game.model.PowerUpAnimation;
-import com.taxi_trouble.game.model.PowerUpBehaviour;
-import com.taxi_trouble.game.model.SpeedBehaviour;
+import com.taxi_trouble.game.model.powerups.InvincibilityBehaviour;
+import com.taxi_trouble.game.model.powerups.PowerUpAnimation;
+import com.taxi_trouble.game.model.powerups.PowerUpBehaviour;
+import com.taxi_trouble.game.model.powerups.SpeedBehaviour;
 
 /**
  * Utility class defining properties of the game as the screenwidth and -height

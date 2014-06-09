@@ -4,6 +4,8 @@ import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_HEIGHT;
 import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_WIDTH;
 import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_HEIGHT;
 import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_WIDTH;
+import static com.taxi_trouble.game.properties.GameProperties.screenWidth;
+import static com.taxi_trouble.game.properties.GameProperties.screenHeight;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
@@ -11,8 +13,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.taxi_trouble.game.input.MapControls;
-import com.taxi_trouble.game.input.PowerUpControlsUI;
+import com.taxi_trouble.game.input.NavigatorControls;
+import com.taxi_trouble.game.input.NavigatorControlsUI;
 import com.taxi_trouble.game.model.GameWorld;
 import com.taxi_trouble.game.model.WorldMap;
 
@@ -27,11 +29,9 @@ public class NavigatorScreen extends ViewObserver {
     private Viewport viewport;
     private OrthographicCamera mapCamera;
     private OrthographicCamera scoreCamera;
-    private MapControls mapControl;
-    private PowerUpControlsUI powerUpControlsUI;
+    private NavigatorControls mapControl;
+    private NavigatorControlsUI powerUpControlsUI;
     private float scale = 4;
-    
-    private OrthographicCamera virtualButtonsCamera;
 
     /**
      * Constructor, creates the game screen.
@@ -60,19 +60,10 @@ public class NavigatorScreen extends ViewObserver {
         this.viewport = new StretchViewport(VIRTUAL_WIDTH * scale,
                 VIRTUAL_HEIGHT * scale, mapCamera);
 
-        // Set the camera to show the game scores
-        this.scoreCamera = new OrthographicCamera();
-        scoreCamera.setToOrtho(false, screenWidth, screenHeight);
-
         // Load the MapControls to enable navigating through the map.
-        powerUpControlsUI = new PowerUpControlsUI();
-        mapControl = new MapControls(mapCamera, this, powerUpControlsUI, taxigame.getTeam());
+        powerUpControlsUI = new NavigatorControlsUI();
+        mapControl = new NavigatorControls(mapCamera, this, powerUpControlsUI, this.team);
         Gdx.input.setInputProcessor(mapControl);
-        
-        //Set the camera for showing buttons for the navigator on the screen.
-        this.virtualButtonsCamera = new OrthographicCamera();
-        this.virtualButtonsCamera.setToOrtho(false, BUTTON_CAM_WIDTH,
-                BUTTON_CAM_HEIGHT);
     }
 
     /**
@@ -92,16 +83,12 @@ public class NavigatorScreen extends ViewObserver {
         spriteBatch.setProjectionMatrix(mapCamera.combined);
         cityMap.render(mapCamera);
 
-        // Draw the score board on screen
-        spriteBatch.setProjectionMatrix(scoreCamera.combined);
-        taxigame.getTeam().getScoreBoard().render(spriteBatch);
-
         // Render the common game elements (taxis, passengers, etc.)
         spriteBatch.setProjectionMatrix(mapCamera.combined);
         super.render(delta);
         
         //Render the powerUp control interface.
-        spriteBatch.setProjectionMatrix(virtualButtonsCamera.combined);
+        spriteBatch.setProjectionMatrix(hudCamera.combined);
         this.powerUpControlsUI.render(spriteBatch, taxi.getTeam());
     }
 
