@@ -13,6 +13,7 @@ import com.taxi_trouble.game.model.team.Team;
 import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.screens.hud.HeadUpDisplay;
 import com.taxi_trouble.game.screens.hud.ScoreHUD;
+import com.taxi_trouble.game.screens.hud.TeamHUD;
 
 import static com.taxi_trouble.game.properties.ResourceManager.hudFont;
 import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_HEIGHT;
@@ -101,10 +102,14 @@ public abstract class ViewObserver implements Screen {
         this.hud.render(getSpriteBatch());
     }
 
-
+    /**
+     * Initializes the HUD that should be displayed on screen together
+     * with all components.
+     */
     private void initializeHUD() {
         this.hud = new HeadUpDisplay(hudFont, team);
-        this.hud.add(new ScoreHUD("Score:", 10, 470));
+        this.hud.add(new TeamHUD("Team", 10, 470));
+        this.hud.add(new ScoreHUD("Score:", 10, 440));
     }
 
     /**

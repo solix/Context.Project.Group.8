@@ -33,9 +33,9 @@ public class GameWorld extends Game {
         loadResources();
         world = new World(new Vector2(0.0f, 0.0f), true);
         map = new WorldMap(ResourceManager.mapFile, world);
-        team = new Team(2, map.getSpawner().spawnTaxi(world));
+        team = new Team(1, map.getSpawner().spawnTaxi(world));
         world.setContactListener(new CollisionDetector(map));
-        setScreen(new DriverScreen(this));
+        setScreen(new NavigatorScreen(this));
     }
 
     /**
