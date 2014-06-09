@@ -188,7 +188,6 @@ public class Passenger {
     public void setSprite(Sprite passSprite) {
         passSprite.setSize(this.getWidth(), this.getHeight());
         passSprite.setOrigin(this.getWidth() / 2, this.getHeight() / 2);
-        passSprite.setScale(PIXELS_PER_METER);
         this.passengerSprite = passSprite;
     }
 
@@ -323,6 +322,7 @@ public class Passenger {
                 this.getYPosition() * PIXELS_PER_METER);
         passengerSprite.setRotation(this.getBody().getAngle()
                 * MathUtils.radiansToDegrees);
+        passengerSprite.setScale(PIXELS_PER_METER);
         passengerSprite.draw(spriteBatch);
         spriteBatch.end();
     }

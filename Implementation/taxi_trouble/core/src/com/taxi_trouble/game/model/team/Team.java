@@ -45,7 +45,6 @@ public class Team {
             case 2: this.teamTheme = new GreenTeamTheme(); break;
             default: this.teamTheme = new RedTeamTheme(); break;
         }
-        System.out.println(taxi + " " + teamTheme + " ");
         taxi.setSprite(teamTheme.getTaxiSprite(), wheelSprite);
     }
 
