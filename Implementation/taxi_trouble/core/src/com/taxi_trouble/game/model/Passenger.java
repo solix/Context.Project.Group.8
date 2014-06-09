@@ -258,7 +258,7 @@ public class Passenger {
      */
     public void resetSpawnPoint() {
         assert (this.spawnPoint != null);
-        this.spawnPoint.setActive(true);
+        this.spawnPoint.setActive(false);
     }
 
     /**

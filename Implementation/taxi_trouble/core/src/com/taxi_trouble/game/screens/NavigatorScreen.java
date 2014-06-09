@@ -1,5 +1,7 @@
 package com.taxi_trouble.game.screens;
 
+import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_HEIGHT;
+import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_WIDTH;
 import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_HEIGHT;
 import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_WIDTH;
 
@@ -10,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.taxi_trouble.game.input.MapControls;
+import com.taxi_trouble.game.input.PowerUpControlsUI;
 import com.taxi_trouble.game.model.GameWorld;
 import com.taxi_trouble.game.model.WorldMap;
 
@@ -25,7 +28,10 @@ public class NavigatorScreen extends ViewObserver {
     private OrthographicCamera mapCamera;
     private OrthographicCamera scoreCamera;
     private MapControls mapControl;
+    private PowerUpControlsUI powerUpControlsUI;
     private float scale = 4;
+    
+    private OrthographicCamera virtualButtonsCamera;
 
     /**
      * Constructor, creates the game screen.
@@ -59,8 +65,13 @@ public class NavigatorScreen extends ViewObserver {
         scoreCamera.setToOrtho(false, screenWidth, screenHeight);
 
         // Load the MapControls to enable navigating through the map.
-        mapControl = new MapControls(mapCamera, this);
+        powerUpControlsUI = new PowerUpControlsUI();
+        mapControl = new MapControls(mapCamera, this, powerUpControlsUI, taxigame.getTeam());
         Gdx.input.setInputProcessor(mapControl);
+		//Set the camera for showing buttons for the navigator on the screen.
+        this.virtualButtonsCamera = new OrthographicCamera();
+        this.virtualButtonsCamera.setToOrtho(false, BUTTON_CAM_WIDTH,
+                BUTTON_CAM_HEIGHT);
     }
 
 	@Override
@@ -92,6 +103,10 @@ public class NavigatorScreen extends ViewObserver {
         // Render the common game elements (taxis, passengers, etc.)
         spriteBatch.setProjectionMatrix(mapCamera.combined);
         super.render(delta);
+        
+        //Render the powerUp control interface.
+        spriteBatch.setProjectionMatrix(virtualButtonsCamera.combined);
+        this.powerUpControlsUI.render(spriteBatch, ownTaxi.getTeam());
     }
 
     /**
@@ -114,9 +129,10 @@ public class NavigatorScreen extends ViewObserver {
 
     }
 
-	@Override
-	public void dispose() {
-		spriteBatch.dispose();
+
+    @Override
+    public void dispose() {
+        spriteBatch.dispose();
 
     }
 
@@ -131,67 +147,66 @@ public class NavigatorScreen extends ViewObserver {
         int mapPixelHeight = map.getHeight();
         int mapPixelWidth = map.getWidth();
 
-		// Check if the camera is near the left border of the map
+        // Check if the camera is near the left border of the map
         if (mapCamera.position.x < VIRTUAL_WIDTH * scale / 2) {
             mapCamera.position.x = VIRTUAL_WIDTH * scale / 2;
-		}
-		// Check if the camera is near the right border of the map
+        }
+        // Check if the camera is near the right border of the map
         if (mapCamera.position.x >= mapPixelWidth - VIRTUAL_WIDTH * scale / 2) {
             mapCamera.position.x = mapPixelWidth - VIRTUAL_WIDTH * scale / 2;
-		}
-		// Check if the camera is near the bottom border of the map
+        }
+        // Check if the camera is near the bottom border of the map
         if (mapCamera.position.y < VIRTUAL_HEIGHT * scale / 2) {
             mapCamera.position.y = VIRTUAL_HEIGHT * scale / 2;
-		}
-		// Check if the camera is near the top border of the map
+        }
+        // Check if the camera is near the top border of the map
         if (mapCamera.position.y >= mapPixelHeight - VIRTUAL_HEIGHT * scale / 2) {
             mapCamera.position.y = mapPixelHeight - VIRTUAL_HEIGHT * scale / 2;
-		}
-	}
+        }
+    }
 
-	/**
-	 * This method changes the SCALE value.
-	 * 
-	 * @param sc
-	 *            sc is the new SCALE to be set.
-	 */
-	public void setScale(float sc) {
+    /**
+     * This method changes the scale value.
+     *
+     * @param sc
+     *            sc is the new scale to be set.
+     */
+    public void setScale(float sc) {
+        int mapPixelHeight = cityMap.getHeight();
+        int mapPixelWidth = cityMap.getWidth();
 
-		int mapPixelHeight = cityMap.getHeight();
-		int mapPixelWidth = cityMap.getWidth();
-
-		if (mapCamera.position.x < VIRTUAL_WIDTH * sc / 2
-				|| mapCamera.position.x >= mapPixelWidth - VIRTUAL_WIDTH * sc
-						/ 2
-				|| mapCamera.position.y < VIRTUAL_HEIGHT * sc / 2
-				|| mapCamera.position.y >= mapPixelHeight - VIRTUAL_HEIGHT * sc
-						/ 2) {
-			return;
-		}
+        if (mapCamera.position.x < VIRTUAL_WIDTH * sc / 2
+                || mapCamera.position.x >= mapPixelWidth - VIRTUAL_WIDTH * sc
+                        / 2
+                || mapCamera.position.y < VIRTUAL_HEIGHT * sc / 2
+                || mapCamera.position.y >= mapPixelHeight - VIRTUAL_HEIGHT * sc
+                        / 2) {
+            return;
+        }
         scale = sc;
-	}
+    }
 
-	/**
-	 * This method returns the SCALE value.
-	 * 
-	 * @return scale
-	 */
-	public float getScale() {
+    /**
+     * This method returns the scale value.
+     *
+     * @return scale
+     */
+    public float getScale() {
         return scale;
-	}
+    }
 
-	/**
-	 * Retrieves the map.
-	 * 
-	 * @return map
-	 */
-	public WorldMap getMap() {
-		return this.cityMap;
-	}
+    /**
+     * Retrieves the map.
+     *
+     * @return map
+     */
+    public WorldMap getMap() {
+        return this.cityMap;
+    }
 
-	@Override
-	public SpriteBatch getSpriteBatch() {
-		return this.spriteBatch;
-	}
+    @Override
+    public SpriteBatch getSpriteBatch() {
+        return this.spriteBatch;
+    }
 
 }

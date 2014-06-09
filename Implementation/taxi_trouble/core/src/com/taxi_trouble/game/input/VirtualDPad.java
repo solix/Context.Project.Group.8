@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 public class VirtualDPad extends VirtualButton {
     private List<VirtualButton> buttons;
 
-    public VirtualDPad(Rectangle body, Sprite sprite, ControlsUI.Action action) {
+    public VirtualDPad(Rectangle body, Sprite sprite, Action action) {
         super(body, sprite, action);
         this.buttons = new ArrayList<VirtualButton>();
         TextureRegion[][] splits = sprite.split((int) (sprite.getWidth() / 2),
@@ -19,12 +19,12 @@ public class VirtualDPad extends VirtualButton {
 
         buttons.add(new VirtualButton(new Rectangle(this.body.x, this.body.y,
                 this.body.width / 2, this.body.height),
-                new Sprite(splits[0][0]), ControlsUI.Action.LEFT));
+                new Sprite(splits[0][0]), Action.LEFT));
 
         buttons.add(new VirtualButton(new Rectangle(this.body.x
                 + this.body.width / 2, this.body.y, this.body.width / 2,
                 this.body.height), new Sprite(splits[0][1]),
-                ControlsUI.Action.RIGHT));
+                Action.RIGHT));
     }
 
     @Override

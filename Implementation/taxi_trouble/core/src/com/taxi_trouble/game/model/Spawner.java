@@ -1,5 +1,6 @@
 package com.taxi_trouble.game.model;
 
+import static com.taxi_trouble.game.properties.GameProperties.getPowerUpBehaviours;
 import static com.taxi_trouble.game.properties.ResourceManager.destinationSprite;
 import static com.taxi_trouble.game.properties.ResourceManager.getCharacter;
 
@@ -25,9 +26,12 @@ public class Spawner {
     private List<SpawnPoint> passengerspawnpoints;
     private List<SpawnPoint> taxispawnpoints;
     private List<SpawnPoint> destinationpoints;
+	 private List<SpawnPoint> poweruppoints;
     private ConcurrentHashMap<Integer,Passenger> passengers;
     private int nextPassengerId = 0;
     //private List<Integer> takenIds;
+	private List<PowerUp> powerups;
+    private List<PowerUpBehaviour> behaviours;
     private AndroidMultiplayerInterface networkInterface;
 
     /**
@@ -41,7 +45,17 @@ public class Spawner {
         destinationpoints = new ArrayList<SpawnPoint>();
         passengers = new ConcurrentHashMap<Integer,Passenger>();
        // takenIds = new ArrayList<Integer>();
+	   powerups = new ArrayList<PowerUp>();
+        poweruppoints = new ArrayList<SpawnPoint>();
         this.networkInterface = networkInterface;
+    }
+	
+	/**Defines the available powerup behaviours.
+     * 
+     * @param behaviours
+     */
+    public void setAvailablePowerUpBehaviours() {
+        this.behaviours = getPowerUpBehaviours();
     }
 
     /**
@@ -74,6 +88,11 @@ public class Spawner {
      */
     public void addDestination(SpawnPoint spawnPoint) {
         destinationpoints.add(spawnPoint);
+    }
+
+    public void addPowerup(SpawnPoint spawnPoint) {
+        poweruppoints.add(spawnPoint);
+
     }
 
     /**
@@ -204,12 +223,78 @@ public class Spawner {
     }
 
     /**
+     * Spawns a PowerUp at a random location on the map.
+     * 
+     * @param world
+     * @return
+     */
+    public PowerUp spawnPowerUp(World world) {
+        int random = random(poweruppoints.size());
+
+        while (poweruppoints.get(random).isActive()) {
+            random = random(poweruppoints.size());
+        }
+        SpawnPoint spawnPoint = poweruppoints.get(random);
+        spawnPoint.setActive(true);
+
+        // Get a random powerup
+        PowerUp power = getRandomPowerUp(spawnPoint, world);
+        powerups.add(power);
+        return power;
+    }
+
+    /**
+     * Generates a random powerup.
+     * 
+     * @param point
+     * @param world
+     * @return
+     */
+    public PowerUp getRandomPowerUp(SpawnPoint spawnPoint, World world) {
+        int random = random(behaviours.size());
+        PowerUpBehaviour behaviour = behaviours.get(random);
+        PowerUp res = new PowerUp(spawnPoint);
+        res.setBehaviour(behaviour);
+        res.initializeBody(world);
+        return res;
+    }
+
+    /**
+     * Despawns the powerup from the world.
+     * 
+     * @param powerup
+     * @param world
+     */
+    public void despawnPowerup(PowerUp powerup) {
+        powerup.resetSpawnpoint();
+        powerups.remove(powerup);
+    }
+
+    /**
      * Retrieves the active (spawned) passengers of the game.
      *
      * @return
      */
     public ConcurrentHashMap<Integer,Passenger> getActivePassengers() {
         return this.passengers;
+    }
+
+    /**
+     * Retrieves the active (spawned) powerups of the game.
+     * 
+     * @return
+     */
+    public List<PowerUp> getActivePowerUps() {
+        return this.powerups;
+    }
+
+    /**Retrieves whether the powerUp is available.
+     * 
+     * @param powerUp : the respective powerUp
+     * @return boolean indicating whether the powerUp is available
+     */
+    public boolean powerUpIsAvailable(PowerUp powerUp) {
+        return this.getActivePowerUps().contains(powerUp);
     }
 
     /**
@@ -248,4 +333,14 @@ public class Spawner {
     	return nextPassengerId;
     }
 
+/**
+     * Returns a random number smaller than the size.
+     * 
+     * @param size
+     * @return
+     */
+    public int random(int size) {
+        int res = (int) Math.abs(Math.random() * size);
+        return res;
+    }
 }

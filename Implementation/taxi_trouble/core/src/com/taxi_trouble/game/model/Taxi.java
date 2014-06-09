@@ -456,8 +456,7 @@ public class Taxi {
         if (!this.pickedUpPassenger() && !passenger.isTransported()) {
             this.passenger = passenger;
             this.passenger.setTransporter(this);
-            this.triggerInvincibility();
-            return true;
+            this.triggerInvincibility(5);
         }
         return false;
     }
@@ -465,7 +464,7 @@ public class Taxi {
     /**Triggers invincibility for this taxi for a short period of five seconds.
      *
      */
-    public void triggerInvincibility() {
+    public void triggerInvincibility(int time) {
         this.invincibility = true;
         final Taxi taxi = this;
         Timer.schedule(new Task() {
@@ -473,7 +472,7 @@ public class Taxi {
             public void run() {
                 taxi.turnOffInvincibility();
             }
-        }, 5);
+        }, time);
     }
 
     /**Disable invincibility of this taxi, i.e. another
@@ -707,6 +706,29 @@ public class Taxi {
 	public boolean hasMoved() {
 		return hasMoved;
 	}
+	
+	 /**
+     * Makes the taxi pickup a power-up which can be activated by
+     * the navigator of the team.
+     * 
+     * @param powerUp : the power-up to pick up
+     */
+    public void pickUpPowerUp(PowerUp powerUp, WorldMap map) {
+        Spawner spawner = map.getSpawner();
+        if (spawner.powerUpIsAvailable(powerUp)) {
+            spawner.despawnPowerup(powerUp);
+            this.team.setPowerUp(powerUp);
+        }
+    }
+
+    /**Activates a given power-up for this taxi. The effects
+     * of the powerup are defined by its behaviour.
+     * 
+     * @param powerUp : the power-up that should be activated
+     */
+    public void activatePowerup(PowerUp powerUp) {
+        powerUp.activatePowerUp(this);
+    }
 	
 public String networkMessage(){
     	

@@ -25,6 +25,9 @@ public final class ResourceManager {
     public static Sprite brakeSprite;
     public static Sprite dPadSprite;
     public static Sprite destinationSprite;
+    public static Sprite noPowerUpButtonSprite;
+    public static Sprite invincibilityButtonSprite;
+    public static Sprite speedBoostButtonSprite;
     public static TiledMap mapFile;
     public static List<Character> charList;
     public static BitmapFont scoreFont;
@@ -39,6 +42,7 @@ public final class ResourceManager {
     public static void loadSprites() {
         loadTaxiAndWheelSprites();
         loadDriverControlSprites();
+        loadPowerUpControlSprites();
         loadCharSprites();
         destinationSprite = new Sprite(new Texture("sprites/destination.png"));
     }
@@ -65,6 +69,19 @@ public final class ResourceManager {
         brakeSprite = new Sprite(brakeTexture);
         Texture dPadTexture = new Texture("sprites/dpad.png");
         dPadSprite = new Sprite(dPadTexture);
+    }
+
+    /**
+     * Loads the sprites needed for the rendering of the powerup activation
+     * buttons.
+     */
+    public static void loadPowerUpControlSprites() {
+        Texture noPowerUpTexture = new Texture(Gdx.files.internal("sprites/no-powerup.png"));
+        noPowerUpButtonSprite = new Sprite(noPowerUpTexture);
+        Texture invButtonTexture = new Texture(Gdx.files.internal("sprites/invincibility.png"));
+        invincibilityButtonSprite = new Sprite(invButtonTexture);
+        Texture speedButtonTexture = new Texture(Gdx.files.internal("sprites/speed.png"));
+        speedBoostButtonSprite = new Sprite(speedButtonTexture);
     }
 
     /**
@@ -104,8 +121,8 @@ public final class ResourceManager {
      * Loads the fonts of the game.
      */
     public static void loadFonts() {
-        scoreFont = new BitmapFont(Gdx.files.internal("fonts/arial-24.fnt"),
-                Gdx.files.internal("fonts/arial-24.png"), false);
+        scoreFont = new BitmapFont(Gdx.files.internal("fonts/hoboStd-24.fnt"),
+                Gdx.files.internal("fonts/hoboStd-24.png"), false);
     }
 
 	public static int getRandomCharacterId() {

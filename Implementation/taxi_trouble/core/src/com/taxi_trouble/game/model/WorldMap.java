@@ -44,6 +44,7 @@ public class WorldMap {
         this.map = map;
         this.renderer = new OrthogonalTiledMapRenderer(map);
         this.spawner = new Spawner(networkInterface);
+        this.spawner.setAvailablePowerUpBehaviours();
         this.loadMapObjects();
     }
 
@@ -56,6 +57,7 @@ public class WorldMap {
         loadMapObjectsOfType("spawn-passenger");
         loadMapObjectsOfType("spawn-taxi");
         loadMapObjectsOfType("destination-point");
+        loadMapObjectsOfType("powerups");
     }
 
     /**
@@ -79,6 +81,8 @@ public class WorldMap {
                 createTaxiSpawnPoint(obj);
             } else if (type.equals("destination-point")) {
                 createDestination((RectangleMapObject) obj);
+            } else if (type.equals("powerups")) {
+                createPowerup((RectangleMapObject) obj);
             }
         }
     }
@@ -104,8 +108,8 @@ public class WorldMap {
      *              spawn point
      */
     private void createPassengerSpawnPoint(RectangleMapObject obj) {
-        SpawnPoint spawn = new SpawnPoint(getXPosition(obj),
-                getYPosition(obj), getAngle(obj));
+        SpawnPoint spawn = new SpawnPoint(getXPosition(obj), getYPosition(obj),
+                getAngle(obj));
         spawn.setHeight(getHeight(obj));
         spawn.setWidth(getWidth(obj));
         spawner.addPassengerPoint(spawn);
@@ -118,8 +122,8 @@ public class WorldMap {
      *              spawn point
      */
     private void createTaxiSpawnPoint(MapObject obj) {
-        SpawnPoint spawn = new SpawnPoint(getXPosition(obj),
-                getYPosition(obj), getAngle(obj));
+        SpawnPoint spawn = new SpawnPoint(getXPosition(obj), getYPosition(obj),
+                getAngle(obj));
         spawner.addTaxiPoint(spawn);
     }
 
@@ -131,12 +135,27 @@ public class WorldMap {
      *              spawn point
      */
     private void createDestination(RectangleMapObject obj) {
-        SpawnPoint spawn = new SpawnPoint(getXPosition(obj),
-                getYPosition(obj), getAngle(obj));
+        SpawnPoint spawn = new SpawnPoint(getXPosition(obj), getYPosition(obj),
+                getAngle(obj));
         spawn.setHeight(getHeight(obj));
         spawn.setWidth(getWidth(obj));
         spawner.addDestination(spawn);
     }
+
+    /**
+     * Creates a new poweruppoint where a powerup can be spawned into the world
+     * 
+     * @param obj
+     */
+    private void createPowerup(RectangleMapObject obj) {
+        SpawnPoint spawn = new SpawnPoint(getXPosition(obj), getYPosition(obj),
+                getAngle(obj));
+        spawn.setHeight(getHeight(obj));
+        spawn.setWidth(getWidth(obj));
+        spawner.addPowerup(spawn);
+
+    }
+
     /**
      * Returns the x-position of a given MapObject.
      *

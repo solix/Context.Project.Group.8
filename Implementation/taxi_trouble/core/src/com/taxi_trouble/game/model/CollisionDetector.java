@@ -60,7 +60,20 @@ public class CollisionDetector implements ContactListener {
             if (collidee instanceof Passenger) {
                 taxiAtPassenger((Taxi) collider, (Passenger) collidee);
             }
+            if (collidee instanceof PowerUp) {
+                taxiAtPowerUp((Taxi) collider, (PowerUp) collidee);
+            }
         }
+    }
+
+    /**
+     * Defines the behaviour of a taxi colliding with a powerUp
+     * 
+     * @param taxi
+     * @param powerUp
+     */
+    private void taxiAtPowerUp(Taxi taxi, PowerUp powerUp) {
+        taxi.pickUpPowerUp(powerUp, map);
     }
 
     /**

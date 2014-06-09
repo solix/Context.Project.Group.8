@@ -93,8 +93,15 @@ public class GameWorld extends Game {
 			if (passengers.size() < THREE) {
 				map.getSpawner().spawnPassenger(world);
 			}
+			
+			List<PowerUp> powerups = map.getSpawner().getActivePowerUps();
+        	if (powerups.size() < 3) {
+            	map.getSpawner().spawnPowerUp(world);
+        	}
 		}
 	}
+	
+	
 
 	public void setDriver(boolean driver) {
 		System.out.println("setDriver called, driver = " + driver);
@@ -196,6 +203,10 @@ public class GameWorld extends Game {
 	private Team getTeamById(int id) {
 		return getTeams().get(id);
 	}
+	
+	public final List<PowerUp> getPowerUps() {
+        return this.map.getSpawner().getActivePowerUps();
+    }
 
 	
 }

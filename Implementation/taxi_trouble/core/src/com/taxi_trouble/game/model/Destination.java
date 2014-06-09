@@ -145,8 +145,8 @@ public class Destination {
 
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.begin();
-        destinationSprite.setPosition(this.getXPosition() * PIXELS_PER_METER,
-                this.getYPosition() * PIXELS_PER_METER);
+        destinationSprite.setPosition((this.getXPosition() + this.getWidth()/2) * PIXELS_PER_METER,
+                (this.getYPosition() + this.getHeight()/2) * PIXELS_PER_METER);
         destinationSprite.setScale(PIXELS_PER_METER);
         destinationSprite.draw(spriteBatch);
         spriteBatch.end();

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.taxi_trouble.game.model.GameWorld;
 import com.taxi_trouble.game.model.Passenger;
+import com.taxi_trouble.game.model.PowerUp;
 import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.Team;
 import com.taxi_trouble.game.model.WorldMap;
@@ -92,9 +93,15 @@ public abstract class ViewObserver implements Screen {
 			ownTaxi.getPassenger().getDestination().render(getSpriteBatch());
 		}
 
-		getSpriteBatch().setProjectionMatrix(scoreCam.combined);
-		taxigame.getTeam().getScoreBoard().render(getSpriteBatch());
-	}
+        for (PowerUp pow : cityMap.getSpawner().getActivePowerUps()) {
+            pow.render(getSpriteBatch());
+        }
+
+        getSpriteBatch().setProjectionMatrix(scoreCam.combined);
+        taxigame.getTeam().getScoreBoard().render(getSpriteBatch());
+        // render the powerups in the game
+
+    }
 
 	/**
 	 * Retrieve the spriteBatch that should be used.
