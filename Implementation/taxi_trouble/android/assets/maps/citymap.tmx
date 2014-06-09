@@ -367,7 +367,7 @@
   </object>
   <object x="224" y="3072" width="32" height="32">
    <properties>
-    <property name="angle" value="90"/>
+    <property name="angle" value="0"/>
    </properties>
   </object>
   <object x="128" y="3296" width="32" height="32">

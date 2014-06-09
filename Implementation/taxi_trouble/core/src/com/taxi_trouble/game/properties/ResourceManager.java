@@ -122,8 +122,8 @@ public final class ResourceManager {
      * Loads the fonts of the game.
      */
     public static void loadFonts() {
-        scoreFont = new BitmapFont(Gdx.files.internal("fonts/arial-24.fnt"),
-                Gdx.files.internal("fonts/arial-24.png"), false);
+        scoreFont = new BitmapFont(Gdx.files.internal("fonts/hoboStd-24.fnt"),
+                Gdx.files.internal("fonts/hoboStd-24.png"), false);
     }
 
 }
