@@ -51,7 +51,7 @@ public class DriverScreen extends ViewObserver {
 				BUTTON_CAM_HEIGHT);
 
 		// Initialize the taxiCamera to follow the driver its taxi
-		//this.taxiCamera = new TaxiCamera(ownTaxi);
+		this.taxiCamera = new TaxiCamera(ownTaxi);
 
 		// Load the UI for player input
 		this.controlsUI = new ControlsUI();
