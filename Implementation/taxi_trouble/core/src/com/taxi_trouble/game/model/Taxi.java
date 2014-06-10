@@ -452,11 +452,12 @@ public class Taxi {
      */
     public boolean pickUpPassenger(Passenger passenger) {
         assert (passenger != null);
-        // Check if there is no passenger already picked up
+        // Check if there is no passenger already picked up.
         if (!this.pickedUpPassenger() && !passenger.isTransported()) {
             this.passenger = passenger;
             this.passenger.setTransporter(this);
             this.triggerInvincibility(5);
+            return true;
         }
         return false;
     }

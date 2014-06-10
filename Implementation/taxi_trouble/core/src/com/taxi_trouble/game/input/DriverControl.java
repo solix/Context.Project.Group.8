@@ -59,9 +59,9 @@ public class DriverControl implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer,
             int mouseButton) {
-        screenX = (int) (screenX * ((float) GameProperties.BUTTON_CAM_WIDTH / GameProperties.screenWidth));
-        screenY = (int) (screenY * ((float) GameProperties.BUTTON_CAM_HEIGHT / GameProperties.screenHeight));
-        screenY = (int) (GameProperties.BUTTON_CAM_HEIGHT - screenY);
+		screenX = (int) (screenX * ((float) GameProperties.CONTROLS_WIDTH / GameProperties.screenWidth));
+		screenY = (int) (screenY * ((float) GameProperties.CONTROLS_HEIGHT / GameProperties.screenHeight));
+		screenY = (int) (GameProperties.CONTROLS_HEIGHT - screenY);
 
         for (VirtualButton button : controlsUI.getButtons().values()) {
             if (button.touchDown(screenX, screenY, mouseButton)) {

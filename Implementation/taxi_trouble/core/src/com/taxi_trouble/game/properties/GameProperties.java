@@ -18,14 +18,18 @@ import com.taxi_trouble.game.model.SpeedBehaviour;
  * 
  */
 public final class GameProperties {
-    public static int screenWidth = Gdx.graphics.getWidth();
-    public static int screenHeight = Gdx.graphics.getHeight();
-    public static int PIXELS_PER_METER = getPPM();
-    public static float scale = getScale();
-    public static int VIRTUAL_WIDTH = 480;
-    public static int VIRTUAL_HEIGHT = 320;
-    public static int BUTTON_CAM_HEIGHT = 480;
-    public static int BUTTON_CAM_WIDTH = 800;
+	public static int screenWidth = Gdx.graphics.getWidth();
+	public static int screenHeight = Gdx.graphics.getHeight();
+	public static int PIXELS_PER_METER = getPPM();
+	public static float scale = getScale();
+	public static int VIRTUAL_WIDTH = 480;
+	public static int VIRTUAL_HEIGHT = 320;
+	public static int BUTTON_CAM_HEIGHT = 480;
+	public static int BUTTON_CAM_WIDTH = 800;
+	public static int CONTROLS_HEIGHT = 480;
+	public static int CONTROLS_WIDTH = 800;
+	public static int UI_HEIGHT = 720;
+	public static int UI_WIDTH = 1280;
 
     private GameProperties() {
     }
@@ -62,23 +66,27 @@ public final class GameProperties {
 
     }
 
-    /**Retrieves the animation for the invincibility powerup.
-     * 
-     * @return
-     */
-    private static PowerUpAnimation getInvincibleAnimation() {
-        PowerUpAnimation animation = new PowerUpAnimation(
-                new Texture(Gdx.files.internal("sprites/powerups/invincible-spritesheet.png")));
-        return animation;
-    }
+	/**
+	 * Retrieves the animation for the invincibility powerup.
+	 * 
+	 * @return
+	 */
+	private static PowerUpAnimation getInvincibleAnimation() {
+		PowerUpAnimation animation = new PowerUpAnimation(
+				new Texture(
+						Gdx.files
+								.internal("sprites/powerups/invincible-spritesheet.png")));
+		return animation;
+	}
 
-    /**Retrieves the animation for the speed powerup.
-     * 
-     * @return
-     */
-    private static PowerUpAnimation getSpeedAnimation() {
-        PowerUpAnimation animation = new PowerUpAnimation(
-                new Texture(Gdx.files.internal("sprites/powerups/speed-spritesheet.png")));
-        return animation;
-    }
+	/**
+	 * Retrieves the animation for the speed powerup.
+	 * 
+	 * @return
+	 */
+	private static PowerUpAnimation getSpeedAnimation() {
+		PowerUpAnimation animation = new PowerUpAnimation(new Texture(
+				Gdx.files.internal("sprites/powerups/speed-spritesheet.png")));
+		return animation;
+	}
 }

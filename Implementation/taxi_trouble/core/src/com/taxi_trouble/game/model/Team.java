@@ -4,20 +4,17 @@ import static com.taxi_trouble.game.properties.ResourceManager.scoreFont;
 import static com.taxi_trouble.game.properties.ResourceManager.noPowerUpButtonSprite;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
 
 public class Team {
     private Taxi taxi;
     private PowerUp powerUp;
     private ScoreBoard scoreBoard;
 	private int teamId;
-	private AndroidMultiplayerInterface networkInterface;
 
-    public Team(Taxi taxi, AndroidMultiplayerInterface networkInterface) {
+    public Team(Taxi taxi) {
         this.taxi = taxi;
         this.taxi.setTeam(this);
         this.powerUp = null;
-        this.networkInterface = networkInterface;
         setScoreBoard(new ScoreBoard(scoreFont));
     }
 

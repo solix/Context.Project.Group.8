@@ -3,7 +3,6 @@ package com.taxi_trouble.game.model;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.badlogic.gdx.Game;
@@ -13,6 +12,7 @@ import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
 import com.taxi_trouble.game.multiplayer.SetupInterface;
 import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.screens.DriverScreen;
+import com.taxi_trouble.game.screens.MenuScreen;
 import com.taxi_trouble.game.screens.NavigatorScreen;
 import com.taxi_trouble.game.sound.TaxiJukebox;
 
@@ -31,20 +31,20 @@ public class GameWorld extends Game {
 	private AndroidMultiplayerInterface multiplayerInterface;
 	private DriverScreen driverScreen;
 	private NavigatorScreen navigatorScreen;
+	private MenuScreen menuScreen;
 	private SetupInterface setupInterface;
 	private boolean driver;
 	private Map<Integer, Team> teams;
 	private boolean host = false;
 	final static int THREE = 3;
+	private CollisionDetector collisionDetector;
+	private boolean multiplayerIntitialized;
 
-
-
-	public GameWorld(AndroidMultiplayerInterface multiplayerInterface,
-			SetupInterface setupInterface) {
-		this.multiplayerInterface=multiplayerInterface;
+	public GameWorld(SetupInterface setupInterface) {
 		this.setupInterface = setupInterface;
-		this.setupInterface.login();
+		// this.setupInterface.login();
 		this.teams = new HashMap<Integer, Team>();
+		multiplayerIntitialized = false;
 	}
 
 	/**
@@ -55,15 +55,17 @@ public class GameWorld extends Game {
 	public final void create() {
 		loadResources();
 		world = new World(new Vector2(0.0f, 0.0f), true);
-		map = new WorldMap(ResourceManager.mapFile, world, multiplayerInterface);
-		ownTeam = new Team(map.getSpawner().spawnTaxi(world), multiplayerInterface);
-		world.setContactListener(new CollisionDetector(map, multiplayerInterface));
+		map = new WorldMap(ResourceManager.mapFile, world);
+		ownTeam = new Team(map.getSpawner().spawnTaxi(world));
+		collisionDetector = new CollisionDetector(map);
+		world.setContactListener(collisionDetector);
 		System.out.println("gameworld created!!!");
+
 		driverScreen = new DriverScreen(this);
 		navigatorScreen = new NavigatorScreen(this);
-		setScreen(new DriverScreen(this)); // this fixes invisible car and
-											// invisible controls. I do not know
-											// why?
+
+		menuScreen = new MenuScreen(setupInterface);
+		setScreen(menuScreen);
 	}
 
 	@Override
@@ -76,8 +78,8 @@ public class GameWorld extends Game {
 	 * 
 	 */
 	public void loadResources() {
-		//TaxiJukebox.createMusicInGame("sound/bobmar.mp3", "BobMarley");
-		//TaxiJukebox.createMusicInGame("sound/street.mp3", "street");
+		// TaxiJukebox.createMusicInGame("sound/bobmar.mp3", "BobMarley");
+		// TaxiJukebox.createMusicInGame("sound/street.mp3", "street");
 		ResourceManager.loadMap();
 		ResourceManager.loadSprites();
 		ResourceManager.loadFonts();
@@ -88,8 +90,9 @@ public class GameWorld extends Game {
 		super.render();
 		// Spawn a new passenger if there are less than #taxis-1.
 		// TODO: Instead of '3' adapt to #taxis-1 in the game.
-		if(host){
-			ConcurrentHashMap<Integer,Passenger> passengers = map.getSpawner().getActivePassengers();
+		if (host && multiplayerIntitialized) {
+			ConcurrentHashMap<Integer, Passenger> passengers = map.getSpawner()
+					.getActivePassengers();
 			if (passengers.size() < THREE) {
 				map.getSpawner().spawnPassenger(world);
 			}
@@ -115,6 +118,10 @@ public class GameWorld extends Game {
 		} else {
 			setScreen(navigatorScreen);
 		}
+	}
+
+	public void returnToMenu() {
+		setScreen(menuScreen);
 	}
 
 	/**
@@ -165,7 +172,7 @@ public class GameWorld extends Game {
 				team = ownTeam;
 				System.out.println("ownteam!");
 			} else {
-				team = new Team(map.getSpawner().spawnTaxi(world), multiplayerInterface);
+				team = new Team(map.getSpawner().spawnTaxi(world));
 				team.setTeamId(i);
 			}
 			teams.put(i, team);
@@ -183,16 +190,17 @@ public class GameWorld extends Game {
 		return multiplayerInterface;
 	}
 
-	public void setMultiplayerInterface(AndroidMultiplayerInterface multiplayerInterface) {
+	public void setMultiplayerInterface(
+			AndroidMultiplayerInterface multiplayerInterface) {
 		this.multiplayerInterface = multiplayerInterface;
 	}
-	
-	public void setHost(boolean host){
+
+	public void setHost(boolean host) {
 		this.host = host;
 		this.multiplayerInterface.setHost(host);
 	}
-	
-	public Passenger getPassengerById(int id){
+
+	public Passenger getPassengerById(int id) {
 		return map.getSpawner().getActivePassengers().get(id);
 	}
 
@@ -215,6 +223,11 @@ public class GameWorld extends Game {
 	public final ConcurrentHashMap<Integer,PowerUp> getPowerUps() {
         return this.map.getSpawner().getActivePowerUps();
     }
-
+	public void setMultiPlayerInterface(AndroidMultiplayerInterface i) {
+		multiplayerInterface = i;
+		collisionDetector.setMultiPlayerInterface(i);
+		map.setMultiplayerInterface(i);
+		multiplayerIntitialized = true;
+	}
 	
 }

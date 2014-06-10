@@ -24,10 +24,9 @@ public class CollisionDetector implements ContactListener {
      * @param map
      *            : the map to which the collision detector applies
      */
-    public CollisionDetector(WorldMap map, AndroidMultiplayerInterface networkInterface) {
+	public CollisionDetector(WorldMap map) {
         super();
         this.map = map;
-        this.networkInterface = networkInterface;
         
     }
 
@@ -89,7 +88,8 @@ public class CollisionDetector implements ContactListener {
     private void taxiAtDestination(Taxi taxi, Destination destination) {
     	if (networkInterface.isHost()){
     		if (taxi.dropOffDetected(destination, map)){
-    			String message = "DROP " + taxi.getTeam().getTeamId() + " " + taxi.getPassenger().getId();
+				String message = "DROP " + taxi.getTeam().getTeamId() + " "
+						+ taxi.getPassenger().getId();
     			 networkInterface.reliableBroadcast(message);
     			 taxi.dropOffPassenger(destination, map);
     		}
@@ -127,6 +127,9 @@ public class CollisionDetector implements ContactListener {
     		}
     		
     	}
+	}
+	public void setMultiPlayerInterface(AndroidMultiplayerInterface i) {
+		this.networkInterface = i;
     }
 
     @Override

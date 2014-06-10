@@ -34,7 +34,7 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
 		if (flag.equals("TAXI")) {
 			resolveTaxiMessage(sc);
 		} else if (flag.equals("PASSENGER")){
-			//System.out.println(message);
+			System.out.println(message);
 			resolvePassengerMessage(sc);
 		} else if (flag.equals("POWERUP")){
 			System.out.println(message);
@@ -46,7 +46,7 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
 			System.out.println(message);
 			resolvePassengerDrop(sc);
 		} else if (flag.equals("NEWPASSENGER")){
-			//System.out.println(message);
+			System.out.println(message);
 			gameWorld.getMap().getSpawner().spawnPassenger(gameWorld.getWorld(), sc.nextInt(), sc.nextInt(), sc.nextInt(), sc.nextInt());
 		} else if (flag.equals("NEWPOWERUP")){
 			System.out.println(message);
