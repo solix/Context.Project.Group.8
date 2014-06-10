@@ -1,7 +1,7 @@
 package com.taxi_trouble.game.screens;
 
-import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_HEIGHT;
-import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_WIDTH;
+import static com.taxi_trouble.game.properties.GameProperties.CONTROLS_HEIGHT;
+import static com.taxi_trouble.game.properties.GameProperties.CONTROLS_WIDTH;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -47,8 +47,8 @@ public class DriverScreen extends ViewObserver {
 
 		// Initialize the virtual buttons camera
 		this.virtualButtonsCamera = new OrthographicCamera();
-		this.virtualButtonsCamera.setToOrtho(false, BUTTON_CAM_WIDTH,
-				BUTTON_CAM_HEIGHT);
+		this.virtualButtonsCamera.setToOrtho(false, CONTROLS_WIDTH,
+				CONTROLS_HEIGHT);
 
 		// Initialize the taxiCamera to follow the driver its taxi
 		this.taxiCamera = new TaxiCamera(ownTaxi);
