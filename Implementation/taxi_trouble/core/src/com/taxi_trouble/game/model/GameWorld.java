@@ -115,6 +115,10 @@ public class GameWorld extends Game {
         return this.map.getSpawner().getActivePowerUps();
     }
 
+    /**Retrieves the game countdown-timer.
+     * 
+     * @return timer
+     */
     public final CountDownTimer getTimer() {
         return this.timer;
     }

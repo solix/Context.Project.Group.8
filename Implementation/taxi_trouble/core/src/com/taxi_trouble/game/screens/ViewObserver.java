@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.taxi_trouble.game.model.CountDownTimer;
 import com.taxi_trouble.game.model.GameWorld;
 import com.taxi_trouble.game.model.Passenger;
 import com.taxi_trouble.game.model.Taxi;
@@ -32,6 +33,7 @@ public abstract class ViewObserver implements Screen {
     protected WorldMap cityMap;
     protected OrthographicCamera hudCamera;
     protected HeadUpDisplay hud;
+    protected TimerHUD dropOffTimerHUD;
 
     /**
      * Constructor for creating game Screen.
@@ -93,6 +95,10 @@ public abstract class ViewObserver implements Screen {
         // passenger
         if (taxi.pickedUpPassenger()) {
             taxi.getPassenger().getDestination().render(getSpriteBatch());
+            showDropOffTimer(taxi.getPassenger().getDropOffTimer());
+        }
+        else {
+            hideDropOffTimer();
         }
 
         for (PowerUp pow : cityMap.getSpawner().getActivePowerUps()) {
@@ -101,6 +107,18 @@ public abstract class ViewObserver implements Screen {
 
         getSpriteBatch().setProjectionMatrix(hudCamera.combined);
         this.hud.render(getSpriteBatch());
+    }
+
+    private void showDropOffTimer(CountDownTimer dropOffTimer) {
+        if (!this.hud.contains(dropOffTimerHUD)) {
+            dropOffTimerHUD = new TimerHUD("Drop-off time-limit:", 300, 100, 
+                dropOffTimer);
+            this.hud.add(dropOffTimerHUD);
+        }
+    }
+
+    private void hideDropOffTimer() {
+        this.hud.remove(this.dropOffTimerHUD);
     }
 
     /**

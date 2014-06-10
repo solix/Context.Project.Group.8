@@ -455,6 +455,7 @@ public class Taxi {
         if (!this.pickedUpPassenger() && !passenger.isTransported()) {
             this.passenger = passenger;
             this.passenger.setTransporter(this);
+            this.passenger.setUpDropOffTimer();
             this.triggerInvincibility(5);
         }
     }
@@ -494,8 +495,8 @@ public class Taxi {
         if (pickedUpPassenger()
                 && this.passenger.getDestination().equals(destination)) {
             passenger.deliverAtDestination(map, destination);
+            this.team.addScore(this.passenger.remainingDropOffTime());
             this.losePassenger();
-            this.team.incScore();
         }
     }
 
@@ -649,7 +650,7 @@ public class Taxi {
      * Make the taxi lose its passenger.
      * 
      */
-    private void losePassenger() {
+    public void losePassenger() {
         this.getPassenger().cancelTransport();
         this.passenger = null;
     }

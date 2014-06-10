@@ -94,6 +94,7 @@ public class TaxiTest {
         taxi.pickUpPassenger(passenger);
         verify(passenger).isTransported();
         verify(passenger).setTransporter(taxi);
+        verify(passenger).setUpDropOffTimer();
         assertTrue(taxi.pickedUpPassenger());
         verifyNoMoreInteractions(passenger);
     }

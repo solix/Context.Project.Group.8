@@ -40,6 +40,15 @@ public class HeadUpDisplay implements HUDComponent {
         this.hudComponents.add(hudComponent);
     }
 
+    /**Retrieves whether the component is in the hud.
+     * 
+     * @param hudComponent
+     * @return
+     */
+    public boolean contains(HUDComponent hudComponent) {
+        return this.hudComponents.contains(hudComponent);
+    }
+
     /**Removes a component from the hud.
      * 
      * @param hudComponent

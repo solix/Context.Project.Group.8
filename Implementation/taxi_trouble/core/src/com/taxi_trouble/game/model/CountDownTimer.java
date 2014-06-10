@@ -53,6 +53,14 @@ public class CountDownTimer {
         return this.timeLeftSeconds;
     }
 
+    /**Retrieves whether the countdown of the timer has finished.
+     * 
+     * @return boolean indicating whether timer is finished
+     */
+    public boolean timerEnded() {
+        return this.getTimeRemaining() == 0;
+    }
+
     /**Retrieves the remaining time in minutes format.
      * E.g. for 100 seconds left the output will be "1:40"
      *

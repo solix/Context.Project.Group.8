@@ -82,6 +82,13 @@ public class Team {
     }
 
     /**
+     * Adds a specified amount to the score.
+     */
+    public void addScore(int add) {
+        this.score += add;
+    }
+
+    /**
      * Retrieve the score of the team.
      *
      */
