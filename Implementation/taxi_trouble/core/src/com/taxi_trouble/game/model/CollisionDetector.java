@@ -28,6 +28,7 @@ public class CollisionDetector implements ContactListener {
     public CollisionDetector(WorldMap map) {
         super();
         this.map = map;
+        ResourceManager.loadFx();
     }
 
     /**
@@ -55,6 +56,7 @@ public class CollisionDetector implements ContactListener {
         if (collider instanceof Taxi) {
             if (collidee instanceof Destination) {
                 taxiAtDestination((Taxi) collider, (Destination) collidee);
+                TaxiJukebox.playSound("dropoff");
             }
             if (collidee instanceof Taxi) {
                 taxiAtTaxi((Taxi) collider, (Taxi) collidee);
@@ -63,12 +65,12 @@ public class CollisionDetector implements ContactListener {
             
             if (collidee instanceof Passenger) {
                 taxiAtPassenger((Taxi) collider, (Passenger) collidee);
-                ResourceManager.loadYohooFx();
                 TaxiJukebox.playSound("yohoo");
                 
             }
             if (collidee instanceof PowerUp) {
                 taxiAtPowerUp((Taxi) collider, (PowerUp) collidee);
+                TaxiJukebox.playSound("powerup");
             }
         }
     }

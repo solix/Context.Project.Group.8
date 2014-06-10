@@ -17,6 +17,7 @@ public class Team {
         this.taxi.setTeam(this);
         this.powerUp = null;
         setScoreBoard(new ScoreBoard(scoreFont));
+        ResourceManager.loadFx();
     }
 
     /**
@@ -91,8 +92,7 @@ public class Team {
         if(hasPowerUp()) {
             powerUp.activatePowerUp(taxi);
             this.powerUp = null;
-        ResourceManager.loadFx();
-        TaxiJukebox.playSound("pufx");
+            TaxiJukebox.playSound("pufx");
         }
     }
     

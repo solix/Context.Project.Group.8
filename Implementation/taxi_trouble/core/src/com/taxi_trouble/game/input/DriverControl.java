@@ -5,6 +5,8 @@ import com.taxi_trouble.game.Acceleration;
 import com.taxi_trouble.game.SteerDirection;
 import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.properties.GameProperties;
+import com.taxi_trouble.game.properties.ResourceManager;
+import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**
  * InputProcessor for controlling the taxi using the virtual buttons.
@@ -12,6 +14,7 @@ import com.taxi_trouble.game.properties.GameProperties;
 public class DriverControl implements InputProcessor {
     private ControlsUI controlsUI;
     private Taxi taxi;
+    
 
     /**
      * New DriverControl.
@@ -24,6 +27,7 @@ public class DriverControl implements InputProcessor {
     public DriverControl(Taxi taxi, ControlsUI controlsUI) {
         this.controlsUI = controlsUI;
         this.taxi = taxi;
+        ResourceManager.loadFx();
     }
 
     /**

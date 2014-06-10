@@ -18,6 +18,9 @@ import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.taxi_trouble.game.Acceleration;
 import com.taxi_trouble.game.SteerDirection;
+import com.taxi_trouble.game.properties.ResourceManager;
+import com.taxi_trouble.game.sound.JukeBoxTest;
+import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**
  * A controllable taxi which can be steered and for which certain properties
@@ -69,6 +72,7 @@ public class Taxi {
         this.steer = SteerDirection.STEER_NONE;
         this.acceleration = Acceleration.ACC_NONE;
         this.invincibility = false;
+        ResourceManager.loadFx();
 
     }
 
@@ -673,4 +677,6 @@ public class Taxi {
     public void activatePowerup(PowerUp powerUp) {
         powerUp.activatePowerUp(this);
     }
+    
+      
 }

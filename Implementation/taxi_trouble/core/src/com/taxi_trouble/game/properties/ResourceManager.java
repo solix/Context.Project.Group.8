@@ -121,28 +121,49 @@ public final class ResourceManager {
         mapFile = new TmxMapLoader().load("maps/citymap.tmx");
     }
 
+    	
     /**
      * Loads the fonts of the game.
      */
-    public static void loadFonts() {
+     public static void loadFonts() {
         scoreFont = new BitmapFont(Gdx.files.internal("fonts/hoboStd-24.fnt"),
                 Gdx.files.internal("fonts/hoboStd-24.png"), false);
     }
-    /**
+ 
+     /**
      * loads the sound when powerup is released
      */
-    public static void loadFx(){
+     public static void loadFx(){
+    	 loadPowerUpSFX();
+    	 loadTaxiSFX();
+    	 loadPassengerSFX();     }
+     
+     
+     private static void loadPowerUpSFX(){
         final String powerupfx="sound/powerupfx.ogg";
         TaxiJukebox.loadSound(powerupfx, "pufx");
-        
-        final String passengerfx="sound/yohoo.ogg";
-        TaxiJukebox.loadSound(passengerfx, "yohoo");
-        
-        final String carcrashfx="sound/CarCrash.ogg";
-        TaxiJukebox.loadSound(carcrashfx, "carcrashfx");
-        
-        
+        final String powerupfx2="sound/powerfx.ogg";
+        TaxiJukebox.loadSound(powerupfx2, "powerup");
 
+    }
+    
+     private static void loadTaxiSFX(){
+    	final String carcrashfx="sound/CarCrash.ogg";
+        TaxiJukebox.loadSound(carcrashfx, "carcrashfx");
+        final String revivingFx="sound/EngineOn.ogg";
+        TaxiJukebox.loadSound(revivingFx, "reviving");
+        final String startEngine="sound/startengine.ogg";
+        TaxiJukebox.loadSound(startEngine, "startEngine");
+    	
+    }
+     private static void loadPassengerSFX(){
+	final String passengerfx="sound/yohoo.ogg";
+    TaxiJukebox.loadSound(passengerfx, "yohoo");
+    
+    final String dropfx="sound/dropoff.ogg";
+    TaxiJukebox.loadSound(dropfx, "dropoff");
+    
+    	
     }
     /**
      * load fx passanger calling taxi when taxi approach
