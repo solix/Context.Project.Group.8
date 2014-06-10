@@ -55,30 +55,34 @@ public final class GameProperties {
     public static List<PowerUpBehaviour> getPowerUpBehaviours() {
         List<PowerUpBehaviour> behaviours = new ArrayList<PowerUpBehaviour>();
         // Add the powerup behaviours
-        behaviours.add(new SpeedBehaviour(getInvincibleAnimation()));
-        behaviours.add(new InvincibilityBehaviour(getSpeedAnimation()));
+        behaviours.add(new SpeedBehaviour(getSpeedAnimation()));
+        behaviours.add(new InvincibilityBehaviour(getInvincibleAnimation()));
 
         return behaviours;
 
     }
 
-    /**Retrieves the animation for the invincibility powerup.
+    /**
+     * Retrieves the animation for the invincibility powerup.
      * 
      * @return
      */
     private static PowerUpAnimation getInvincibleAnimation() {
         PowerUpAnimation animation = new PowerUpAnimation(
-                new Texture(Gdx.files.internal("sprites/powerups/invincible-spritesheet.png")));
+                new Texture(
+                        Gdx.files
+                                .internal("sprites/powerups/invincible-spritesheet.png")));
         return animation;
     }
 
-    /**Retrieves the animation for the speed powerup.
+    /**
+     * Retrieves the animation for the speed powerup.
      * 
      * @return
      */
     private static PowerUpAnimation getSpeedAnimation() {
-        PowerUpAnimation animation = new PowerUpAnimation(
-                new Texture(Gdx.files.internal("sprites/powerups/speed-spritesheet.png")));
+        PowerUpAnimation animation = new PowerUpAnimation(new Texture(
+                Gdx.files.internal("sprites/powerups/speed-spritesheet.png")));
         return animation;
     }
 }
