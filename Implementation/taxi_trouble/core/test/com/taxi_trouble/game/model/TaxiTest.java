@@ -113,7 +113,7 @@ public class TaxiTest {
         taxi.dropOffPassenger(destination, map);
         verify(passenger).getDestination();
         verify(passenger).deliverAtDestination(map, destination);
-        verify(team).incScore();
+        verify(team).addScore(anyInt());
         assertFalse(taxi.pickedUpPassenger());
     }
 
