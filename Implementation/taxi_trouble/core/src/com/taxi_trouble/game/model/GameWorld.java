@@ -23,6 +23,7 @@ public class GameWorld extends Game {
     private WorldMap map;
     // Temporary: single team (may change when implementing multiplayer)
     private Team team;
+    private CountDownTimer timer;
 
     /**
      * Called when the game world is first created.
@@ -33,8 +34,10 @@ public class GameWorld extends Game {
         loadResources();
         world = new World(new Vector2(0.0f, 0.0f), true);
         map = new WorldMap(ResourceManager.mapFile, world);
-        team = new Team(1, map.getSpawner().spawnTaxi(world));
+        team = new Team(3, map.getSpawner().spawnTaxi(world));
         world.setContactListener(new CollisionDetector(map));
+        timer = new CountDownTimer(300);
+        timer.startTimer();
         setScreen(new NavigatorScreen(this));
     }
 
@@ -110,5 +113,9 @@ public class GameWorld extends Game {
      */
     public final List<PowerUp> getPowerUps() {
         return this.map.getSpawner().getActivePowerUps();
+    }
+
+    public final CountDownTimer getTimer() {
+        return this.timer;
     }
 }

@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.Timer.Task;
  */
 public class CountDownTimer {
     private Timer timer;
-    private int timeleftSeconds;
+    private int timeLeftSeconds;
 
     /**Initializes a new CountDownTimer which will count down to zero
      * for a specified amount of time in seconds.
@@ -21,14 +21,14 @@ public class CountDownTimer {
      */
     public CountDownTimer(int timeSeconds) {
         this.timer = new Timer();
-        this.timeleftSeconds = timeSeconds;
+        this.timeLeftSeconds = timeSeconds;
         this.timer.stop();
         this.timer.scheduleTask(new Task() {
             @Override
             public void run() {
-                timeleftSeconds--;
+                timeLeftSeconds--;
             }
-        }, 1, 1, timeleftSeconds - 1);
+        }, 1, 1, timeLeftSeconds - 1);
     }
 
     /**Starts the timer and continues the countdown.
@@ -50,6 +50,17 @@ public class CountDownTimer {
      * @return remaining time
      */
     public int getTimeRemaining() {
-        return this.timeleftSeconds;
+        return this.timeLeftSeconds;
+    }
+
+    /**Retrieves the remaining time in minutes format.
+     * E.g. for 100 seconds left the output will be "1:40"
+     *
+     * @return
+     */
+    public String getMinutesFormat() {
+        int minutes = timeLeftSeconds / 60;
+        int seconds = timeLeftSeconds % 60;
+        return String.format("%d:%02d", minutes, seconds);
     }
 }

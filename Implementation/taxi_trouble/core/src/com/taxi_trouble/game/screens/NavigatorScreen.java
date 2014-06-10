@@ -8,11 +8,14 @@ import static com.taxi_trouble.game.properties.GameProperties.screenWidth;
 import static com.taxi_trouble.game.properties.GameProperties.screenHeight;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.taxi_trouble.game.Acceleration;
+import com.taxi_trouble.game.SteerDirection;
 import com.taxi_trouble.game.input.NavigatorControls;
 import com.taxi_trouble.game.input.NavigatorControlsUI;
 import com.taxi_trouble.game.model.GameWorld;
@@ -86,10 +89,6 @@ public class NavigatorScreen extends ViewObserver {
         // Render the common game elements (taxis, passengers, etc.)
         spriteBatch.setProjectionMatrix(mapCamera.combined);
         super.render(delta);
-        
-        //Render the powerUp control interface.
-        spriteBatch.setProjectionMatrix(hudCamera.combined);
-        this.powerUpControlsUI.render(spriteBatch, taxi.getTeam());
     }
 
     /**
