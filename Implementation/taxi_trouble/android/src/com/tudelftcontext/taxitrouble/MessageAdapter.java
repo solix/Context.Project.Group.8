@@ -1,18 +1,18 @@
 package com.tudelftcontext.taxitrouble;
 
 import java.util.Scanner;
-
 import com.google.android.gms.games.multiplayer.realtime.RealTimeMessage;
 import com.google.android.gms.games.multiplayer.realtime.RealTimeMessageReceivedListener;
 import com.taxi_trouble.game.model.GameWorld;
 import com.taxi_trouble.game.model.Passenger;
+import com.taxi_trouble.game.model.PowerUp;
 import com.taxi_trouble.game.model.Taxi;
+import com.taxi_trouble.game.model.Team;
+import com.taxi_trouble.game.model.PowerUp;
 
 public class MessageAdapter implements RealTimeMessageReceivedListener {
 	private GameWorld gameWorld;
 	private int count = 0;
-	private int unhandledMessages = 0;
-
 	public MessageAdapter(GameWorld gameWorld) {
 		this.gameWorld = gameWorld;
 	}
@@ -23,8 +23,6 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
 	}
 
 	public void onRealTimeMessageReceived(String rtm) {
-		unhandledMessages++;
-		//System.out.println("OPEN MESSAGES: " + unhandledMessages);
 		count++;
 		String message = rtm;
 
@@ -38,12 +36,21 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
 		} else if (flag.equals("PASSENGER")){
 			System.out.println(message);
 			resolvePassengerMessage(sc);
+		} else if (flag.equals("POWERUP")){
+			System.out.println(message);
+			resolvePowerUpMessage(sc);
+		} else if (flag.equals("ACTIVATE")){
+			System.out.println(message);
+			resolveActivateMessage(sc);
 		} else if (flag.equals("DROP")) {
 			System.out.println(message);
 			resolvePassengerDrop(sc);
 		} else if (flag.equals("NEWPASSENGER")){
 			System.out.println(message);
 			gameWorld.getMap().getSpawner().spawnPassenger(gameWorld.getWorld(), sc.nextInt(), sc.nextInt(), sc.nextInt(), sc.nextInt());
+		} else if (flag.equals("NEWPOWERUP")){
+			System.out.println(message);
+			gameWorld.getMap().getSpawner().spawnPowerUp(sc.nextInt(), sc.nextInt(), sc.nextInt(), gameWorld.getWorld());
 		} else if (flag.equals("SETUP")) {
 			boolean driver = sc.nextBoolean();
 			gameWorld.setDriver(driver);
@@ -62,9 +69,29 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
 		}
 
 		sc.close();
-		unhandledMessages--;
-	}
+		}
 	
+	private void resolveActivateMessage(Scanner sc) {
+		int teamId = sc.nextInt();
+		int behaviourId = sc.nextInt();
+		Team team = gameWorld.getTeams().get(teamId);
+		if (!team.hasPowerUp() ||team.getPowerUp().getBehaviour().getId() != behaviourId){
+			System.out.println("UNOBTAINED POWERUP ACTIVATED!! --> RESYNCING AND ACTIVATING!!");
+			PowerUp powerUp = gameWorld.getMap().getSpawner().spawnPowerUp(behaviourId, gameWorld.getWorld());
+			team.setPowerUp(powerUp);
+		}
+		team.forcePowerUpUse();
+		
+	}
+
+	private void resolvePowerUpMessage(Scanner sc) {
+		int taxiId = sc.nextInt();
+		int powerUpId = sc.nextInt();
+		Taxi taxi = gameWorld.getTaxiById(taxiId);
+		PowerUp powerUp = gameWorld.getPowerUpById(powerUpId);
+		taxi.pickUpPowerUp(powerUp, gameWorld.getMap());
+	}
+
 	private void resolvePassengerDrop(Scanner sc) {
 		Taxi taxi = gameWorld.getTaxiById(sc.nextInt());
 		Passenger passenger = gameWorld.getPassengerById(sc.nextInt());

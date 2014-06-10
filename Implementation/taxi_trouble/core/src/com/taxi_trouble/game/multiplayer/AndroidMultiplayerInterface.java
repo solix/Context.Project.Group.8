@@ -1,7 +1,9 @@
 package com.taxi_trouble.game.multiplayer;
 
 import com.taxi_trouble.game.model.Passenger;
+import com.taxi_trouble.game.model.PowerUp;
 import com.taxi_trouble.game.model.Taxi;
+import com.taxi_trouble.game.model.Team;
 
 public interface AndroidMultiplayerInterface {
 
@@ -20,4 +22,10 @@ public interface AndroidMultiplayerInterface {
 	void passengerMessage(Taxi taxi, Passenger passenger);
 
 	public boolean isHost();
+
+	public void newPowerUpMessage(int spawnId, int behaviourId, int powerUpId);
+
+	public void powerUpMessage(Taxi taxi, PowerUp powerUp);
+	
+	void activateMessage(Team team, PowerUp powerUp);
 }

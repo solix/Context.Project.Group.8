@@ -75,6 +75,10 @@ public class Team {
     public void setPowerUp(PowerUp powerUp) {
         this.powerUp = powerUp;
     }
+    
+    public PowerUp getPowerUp(){
+    	return this.powerUp;
+    }
 
  /**Retrieves whether the team picked up a powerUp.
      *
@@ -91,6 +95,11 @@ public class Team {
             powerUp.activatePowerUp(taxi);
             this.powerUp = null;
         }
+    }
+    
+    public void forcePowerUpUse(){
+    	powerUp.forceActivatePowerUp(taxi);
+        this.powerUp = null;
     }
     
     /**Retrieves the sprite of the button for the teams current powerup

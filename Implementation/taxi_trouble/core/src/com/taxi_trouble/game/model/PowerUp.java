@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
 
 /**
  * PowerUp class for handling powerups.
@@ -21,18 +22,30 @@ public class PowerUp {
     private float height;
     private SpawnPoint spawnPoint;
     private PowerUpBehaviour behaviour;
+    private int id;
+    private AndroidMultiplayerInterface networkInterface;
+    private boolean taken;
 
     /**
      * Creates a new PowerUp at the location of a spawnPoint.
      * 
      * @param point
      */
-    public PowerUp(SpawnPoint point) {
+    public PowerUp(SpawnPoint point, int id, AndroidMultiplayerInterface networkInterface) {
         this.width = point.getWidth();
         this.height = point.getHeight();
         this.spawnPoint = point;
+        this.networkInterface = networkInterface;
+        this.id = id;
+        this.taken = false;
     }
 
+    public PowerUp(AndroidMultiplayerInterface networkinterface){
+    	this.taken = true;
+    	this.networkInterface = networkinterface;
+    }
+    
+    
     /**
      * Returns the width of the powerup.
      * 
@@ -177,9 +190,9 @@ public class PowerUp {
      * @param taxi
      */
     public void activatePowerUp(Taxi taxi) {
-        this.behaviour.triggerEvent(taxi);
+    	networkInterface.activateMessage(taxi.getTeam(), this);
     }
-
+    
     /**
      * Render method for the powerup which calls the render method of the
      * behaviour for drawing the animation of the powerup.
@@ -189,4 +202,21 @@ public class PowerUp {
     public void render(SpriteBatch spriteBatch) {
         this.behaviour.render(spriteBatch, getPosition());
     }
+    
+    public int getId(){
+    	return this.id;
+    }
+
+	public void setTaken(boolean isTaken) {
+		this.taken = isTaken;
+		
+	}
+	
+	public boolean getTaken(){
+		return this.taken;
+	}
+
+	public void forceActivatePowerUp(Taxi taxi) {
+		this.behaviour.triggerEvent(taxi);
+	}
 }

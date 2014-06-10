@@ -52,12 +52,14 @@ public class DriverControl implements InputProcessor {
 		return false;
 	}
 
-	/**
-	 * Handles the input for the buttons.
-	 */
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer,
-			int mouseButton) {
+
+    /**
+     * Handles the input for the buttons.
+     */
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer,
+            int mouseButton) {
+
 		screenX = (int) (screenX * ((float) GameProperties.CONTROLS_WIDTH / GameProperties.screenWidth));
 		screenY = (int) (screenY * ((float) GameProperties.CONTROLS_HEIGHT / GameProperties.screenHeight));
 		screenY = (int) (GameProperties.CONTROLS_HEIGHT - screenY);

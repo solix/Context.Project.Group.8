@@ -96,10 +96,11 @@ public class GameWorld extends Game {
 				map.getSpawner().spawnPassenger(world);
 			}
 
-			List<PowerUp> powerups = map.getSpawner().getActivePowerUps();
-			if (powerups.size() < 3) {
-				map.getSpawner().spawnPowerUp(world);
-			}
+			
+			ConcurrentHashMap<Integer,PowerUp> powerups = map.getSpawner().getActivePowerUps();
+        	if (powerups.size() < 3) {
+            	map.getSpawner().spawnPowerUp(world);
+        	}
 		}
 	}
 
@@ -205,9 +206,18 @@ public class GameWorld extends Game {
 		return getTeams().get(id);
 	}
 
-	public final List<PowerUp> getPowerUps() {
-		return this.map.getSpawner().getActivePowerUps();
+	
+	public PowerUp getPowerUpById(int id){
+		PowerUp result = map.getSpawner().getActivePowerUps().get(id);
+		if (result == null){
+			System.out.println("DESYNC DETECTED: POWERUP #" +id + " NOT FOUND");
+		}
+		return result;
 	}
+	
+	public final ConcurrentHashMap<Integer,PowerUp> getPowerUps() {
+        return this.map.getSpawner().getActivePowerUps();
+    }
 
 	public void setMultiPlayerInterface(AndroidMultiplayerInterface i) {
 		multiplayerInterface = i;
@@ -215,4 +225,5 @@ public class GameWorld extends Game {
 		map.setMultiplayerInterface(i);
 		multiplayerIntitialized = true;
 	}
+
 }
