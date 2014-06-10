@@ -314,9 +314,20 @@ public class Passenger {
      */
     public void setUpDropOffTimer() {
         if(this.dropOffTimer == null) {
-            this.dropOffTimer = new CountDownTimer(30);
+            this.dropOffTimer = new CountDownTimer(computeDropOffTimeLimit());
             dropOffTimer.startTimer();
         }
+    }
+
+    /**Computes the drop-off time limit for this passenger to its destination.
+     * 
+     * @return drop-off time limit
+     */
+    private int computeDropOffTimeLimit() {
+        float dist = this.getPosition().dst(this.destination.getPosition());
+        System.out.println("DISTANCE: " + dist);
+        int timeLimit = (int) (dist / 10) + 15;
+        return timeLimit;
     }
 
     /**Retrieves the remaining time to drop-off the passenger.
