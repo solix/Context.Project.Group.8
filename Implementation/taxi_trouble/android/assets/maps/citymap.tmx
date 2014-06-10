@@ -168,6 +168,7 @@
   <object x="2286" y="1537" width="5" height="26"/>
   <object x="2304" y="1217" width="31" height="30"/>
   <object x="1349" y="3586" width="55" height="27"/>
+  <object x="1838" y="2465" width="29" height="20"/>
  </objectgroup>
  <objectgroup color="#a4271b" name="spawn-passenger" width="116" height="124">
   <object x="416" y="480" width="32" height="32">
@@ -613,14 +614,14 @@
   <object x="704" y="1600" width="96" height="64"/>
   <object x="2368" y="1280" width="64" height="96"/>
   <object x="3200" y="960" width="64" height="96"/>
-  <object x="3136" y="1600" width="96" height="64"/>
-  <object x="896" y="3808" width="96" height="64"/>
-  <object x="1952" y="3424" width="64" height="96"/>
-  <object x="2560" y="2304" width="96" height="64"/>
-  <object x="640" y="3040" width="64" height="96"/>
-  <object x="2688" y="3328" width="96" height="64"/>
-  <object x="1824" y="1056" width="64" height="96"/>
-  <object x="1504" y="288" width="96" height="64"/>
+  <object x="3136" y="1568" width="96" height="64"/>
+  <object x="896" y="3776" width="96" height="64"/>
+  <object x="1920" y="3424" width="64" height="96"/>
+  <object x="2560" y="2272" width="96" height="64"/>
+  <object x="608" y="3040" width="64" height="96"/>
+  <object x="2688" y="3296" width="96" height="64"/>
+  <object x="1856" y="1056" width="64" height="96"/>
+  <object x="1504" y="256" width="96" height="64"/>
  </objectgroup>
  <objectgroup color="#124aa4" name="powerups" width="116" height="124">
   <object x="1120" y="832" width="32" height="32"/>

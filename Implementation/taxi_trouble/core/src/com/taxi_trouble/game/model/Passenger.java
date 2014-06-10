@@ -325,8 +325,7 @@ public class Passenger {
      */
     private int computeDropOffTimeLimit() {
         float dist = this.getPosition().dst(this.destination.getPosition());
-        System.out.println("DISTANCE: " + dist);
-        int timeLimit = (int) (dist / 10) + 15;
+        int timeLimit = (int) (dist / 5) + 15;
         return timeLimit;
     }
 
