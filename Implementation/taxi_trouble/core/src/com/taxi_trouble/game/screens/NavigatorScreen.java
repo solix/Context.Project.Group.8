@@ -85,10 +85,12 @@ public class NavigatorScreen extends ViewObserver {
         // Tell the camera to update its matrices and render the citymap.
         spriteBatch.setProjectionMatrix(mapCamera.combined);
         cityMap.render(mapCamera);
-
         // Render the common game elements (taxis, passengers, etc.)
-        spriteBatch.setProjectionMatrix(mapCamera.combined);
         super.render(delta);
+        
+        //Render the powerUp control interface.
+        spriteBatch.setProjectionMatrix(hudCamera.combined);
+        this.powerUpControlsUI.render(spriteBatch, taxi.getTeam());
     }
 
     /**
