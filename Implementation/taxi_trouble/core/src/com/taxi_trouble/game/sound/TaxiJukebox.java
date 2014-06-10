@@ -16,13 +16,22 @@ import com.badlogic.gdx.audio.Sound;
 public final class TaxiJukebox {
     private static HashMap<String,Sound> sounds;
     private static HashMap<String,Music> musics;
-
-    private TaxiJukebox() {};
+    
+    final String pufx="sound/powerupfx.ogg"; 
+    
+    private TaxiJukebox() {
+    	TaxiJukebox.loadSound(pufx, "pufx");
+    };
 
     static{
         sounds = new HashMap<String,Sound>();
         musics = new HashMap<String,Music>();
     }
+    
+    public static void loadFx(){
+    	
+    }
+
 
     public static void loadSound(String path,String name) {
         Sound sound = Gdx.audio.newSound(Gdx.files.internal(path));

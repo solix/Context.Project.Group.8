@@ -33,7 +33,7 @@ public class GameWorld extends Game {
         map = new WorldMap(ResourceManager.mapFile, world);
         team = new Team(map.getSpawner().spawnTaxi(world));
         world.setContactListener(new CollisionDetector(map));
-        setScreen(new DriverScreen(this));
+        setScreen(new NavigatorScreen(this));
 
     }
 

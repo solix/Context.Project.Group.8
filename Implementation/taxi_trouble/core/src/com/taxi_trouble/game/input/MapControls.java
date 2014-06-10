@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.taxi_trouble.game.model.Team;
 import com.taxi_trouble.game.properties.GameProperties;
 import com.taxi_trouble.game.screens.NavigatorScreen;
+import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**
  * This is the controller class for MapScreen.
@@ -99,6 +100,7 @@ public class MapControls implements InputProcessor {
 
         if (this.powerUpControlsUI.buttonPressed(screenX, screenY, button)) {
             team.usePowerUp();
+
         }
     }
 

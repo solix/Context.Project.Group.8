@@ -4,6 +4,8 @@ import static com.taxi_trouble.game.properties.ResourceManager.scoreFont;
 import static com.taxi_trouble.game.properties.ResourceManager.noPowerUpButtonSprite;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.taxi_trouble.game.properties.ResourceManager;
+import com.taxi_trouble.game.sound.TaxiJukebox;
 
 public class Team {
     private Taxi taxi;
@@ -89,6 +91,8 @@ public class Team {
         if(hasPowerUp()) {
             powerUp.activatePowerUp(taxi);
             this.powerUp = null;
+        ResourceManager.loadFx();
+        TaxiJukebox.playSound("pufx");
         }
     }
     

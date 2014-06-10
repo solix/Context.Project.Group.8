@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.taxi_trouble.game.Character;
+import com.taxi_trouble.game.sound.JukeBoxTest;
+import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**
  * Utility class managing all the resources that are used in the game.
@@ -31,6 +33,7 @@ public final class ResourceManager {
     public static TiledMap mapFile;
     public static List<Character> charList;
     public static BitmapFont scoreFont;
+    
 
     private ResourceManager() {
     }
@@ -124,6 +127,29 @@ public final class ResourceManager {
     public static void loadFonts() {
         scoreFont = new BitmapFont(Gdx.files.internal("fonts/hoboStd-24.fnt"),
                 Gdx.files.internal("fonts/hoboStd-24.png"), false);
+    }
+    /**
+     * loads the sound when powerup is released
+     */
+    public static void loadFx(){
+        final String powerupfx="sound/powerupfx.ogg";
+        TaxiJukebox.loadSound(powerupfx, "pufx");
+        
+        final String passengerfx="sound/yohoo.ogg";
+        TaxiJukebox.loadSound(passengerfx, "yohoo");
+        
+        final String carcrashfx="sound/CarCrash.ogg";
+        TaxiJukebox.loadSound(carcrashfx, "carcrashfx");
+        
+        
+
+    }
+    /**
+     * load fx passanger calling taxi when taxi approach
+     */
+    public static void loadYohooFx(){
+        
+
     }
 
 }
