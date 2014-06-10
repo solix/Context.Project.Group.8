@@ -47,7 +47,8 @@ public class DriverScreen extends ViewObserver {
 
 		// Initialize the virtual buttons camera
 		this.virtualButtonsCamera = new OrthographicCamera();
-		this.virtualButtonsCamera.setToOrtho(false, CONTROLS_WIDTH, CONTROLS_HEIGHT);
+		this.virtualButtonsCamera.setToOrtho(false, CONTROLS_WIDTH,
+				CONTROLS_HEIGHT);
 
 		// Initialize the taxiCamera to follow the driver its taxi
 		this.taxiCamera = new TaxiCamera(ownTaxi);

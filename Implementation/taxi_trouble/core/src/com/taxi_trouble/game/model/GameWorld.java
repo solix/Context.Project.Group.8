@@ -56,11 +56,12 @@ public class GameWorld extends Game {
 		map = new WorldMap(ResourceManager.mapFile, world);
 		ownTeam = new Team(map.getSpawner().spawnTaxi(world));
 		world.setContactListener(new CollisionDetector(map));
-		System.out.println("gameworld created!!!");
+
+		driverScreen = new DriverScreen(this);
+		navigatorScreen = new NavigatorScreen(this);
+
 		menuScreen = new MenuScreen(setupInterface);
-		setScreen(menuScreen); // this fixes invisible car and
-								// invisible controls. I do not know
-								// why?
+		setScreen(menuScreen);
 	}
 
 	@Override
@@ -102,6 +103,10 @@ public class GameWorld extends Game {
 		} else {
 			setScreen(navigatorScreen);
 		}
+	}
+
+	public void returnToMenu() {
+		setScreen(menuScreen);
 	}
 
 	/**

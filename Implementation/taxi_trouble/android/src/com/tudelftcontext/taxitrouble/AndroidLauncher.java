@@ -66,9 +66,12 @@ public class AndroidLauncher extends AndroidApplication implements
 		super.onActivityResult(request, response, data);
 		aHelper.onActivityResult(request, response, data);
 		if (request == RC_WAITING_ROOM) {
-			Log.d("MULTI", "game started trough activityResult");
-			gameWorld.setScreen();
-			System.out.println("teamID = " + gameWorld.getTeam().getTeamId());
+			if (response == RESULT_OK) {
+				Log.d("MULTI", "game started trough activityResult");
+				gameWorld.setScreen();
+				System.out.println("teamID = "
+						+ gameWorld.getTeam().getTeamId());
+			}
 		}
 	}
 

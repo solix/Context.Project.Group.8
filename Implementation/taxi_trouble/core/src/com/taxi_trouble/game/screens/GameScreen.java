@@ -2,8 +2,10 @@ package com.taxi_trouble.game.screens;
 
 import static com.taxi_trouble.game.properties.GameProperties.CONTROLS_HEIGHT;
 import static com.taxi_trouble.game.properties.GameProperties.CONTROLS_WIDTH;
+import static com.taxi_trouble.game.properties.GameProperties.PIXELS_PER_METER;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -21,7 +23,7 @@ import com.taxi_trouble.game.model.WorldMap;
 import com.taxi_trouble.game.properties.ResourceManager;
 
 //THIS CLASS IS NO LONGER USED BUT IS KEPT FOR REFERENCE
-public class GameScreen extends BasicScreen {
+public class GameScreen implements Screen {
 	private Taxi taxi;
 	private World world;
 	private TaxiCamera taxiCamera;
@@ -35,7 +37,8 @@ public class GameScreen extends BasicScreen {
 	@Override
 	public void show() {
 		this.virtualButtonsCamera = new OrthographicCamera();
-		this.virtualButtonsCamera.setToOrtho(false, CONTROLS_WIDTH, CONTROLS_HEIGHT);
+		this.virtualButtonsCamera.setToOrtho(false, CONTROLS_WIDTH,
+				CONTROLS_HEIGHT);
 		spriteBatch = new SpriteBatch();
 
 		// Box2d World init
@@ -44,15 +47,15 @@ public class GameScreen extends BasicScreen {
 		// Initialize the taxi
 		this.taxi = new Taxi(2, 4, 20, 60, 60);
 		taxi.createBody(world, new Vector2(10, 10), (float) Math.PI);
-		
-		//Load the Sprites
-        ResourceManager.loadTaxiAndWheelSprites();
-        taxi.setSprite(ResourceManager.taxiSprite,ResourceManager.wheelSprite);
 
-        // Load the UI for player input
-        this.controlsUI = new ControlsUI();
-        this.driverControl = new DriverControl(taxi, controlsUI);
-        Gdx.input.setInputProcessor(driverControl);
+		// Load the Sprites
+		ResourceManager.loadTaxiAndWheelSprites();
+		taxi.setSprite(ResourceManager.taxiSprite, ResourceManager.wheelSprite);
+
+		// Load the UI for player input
+		this.controlsUI = new ControlsUI();
+		this.driverControl = new DriverControl(taxi, controlsUI);
+		Gdx.input.setInputProcessor(driverControl);
 
 		taxiCamera = new TaxiCamera(taxi);
 		spriteBatch = new SpriteBatch();
@@ -74,19 +77,19 @@ public class GameScreen extends BasicScreen {
 
 		spriteBatch.setProjectionMatrix(taxiCamera.combined);
 
-		/*if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP))
-			taxi.setAccelerate(Acceleration.ACC_ACCELERATE);
-		else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN))
-			taxi.setAccelerate(Acceleration.ACC_BRAKE);
-		else
-			taxi.setAccelerate(Acceleration.ACC_NONE);
-
-		if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT))
-			taxi.setSteer(SteerDirection.STEER_LEFT);
-		else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT))
-			taxi.setSteer(SteerDirection.STEER_RIGHT);
-		else
-			taxi.setSteer(SteerDirection.STEER_NONE);*/
+		/*
+		 * if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP))
+		 * taxi.setAccelerate(Acceleration.ACC_ACCELERATE); else if
+		 * (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN))
+		 * taxi.setAccelerate(Acceleration.ACC_BRAKE); else
+		 * taxi.setAccelerate(Acceleration.ACC_NONE);
+		 * 
+		 * if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT))
+		 * taxi.setSteer(SteerDirection.STEER_LEFT); else if
+		 * (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT))
+		 * taxi.setSteer(SteerDirection.STEER_RIGHT); else
+		 * taxi.setSteer(SteerDirection.STEER_NONE);
+		 */
 
 		taxi.update(Gdx.app.getGraphics().getDeltaTime());
 
