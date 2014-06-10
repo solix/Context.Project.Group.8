@@ -19,6 +19,7 @@ public class SpeedBehaviour implements PowerUpBehaviour {
     private PowerUpAnimation powerAnim;
     private float increasedMaxSpeed = 80;
     private final int POWERUPTIME = 5;
+    private final int id = 0;
 
     /**
      * Constructor for the speed powerup behaviour.
@@ -37,6 +38,7 @@ public class SpeedBehaviour implements PowerUpBehaviour {
      */
     @Override
     public void triggerEvent(final Taxi taxi) {
+    	System.out.println("SPEEDBOOST");
         final float originalSpeed = taxi.getMaxSpeed();
         taxi.setMaxSpeed(increasedMaxSpeed);
         Timer.schedule(new Task() {
@@ -58,5 +60,10 @@ public class SpeedBehaviour implements PowerUpBehaviour {
     @Override
     public Sprite getActivationButtonSprite() {
         return speedBoostButtonSprite;
+    }
+    
+    @Override
+    public int getId(){
+    	return this.id;
     }
 }

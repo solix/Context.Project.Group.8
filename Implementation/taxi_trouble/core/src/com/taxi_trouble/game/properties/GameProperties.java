@@ -55,8 +55,8 @@ public final class GameProperties {
     public static List<PowerUpBehaviour> getPowerUpBehaviours() {
         List<PowerUpBehaviour> behaviours = new ArrayList<PowerUpBehaviour>();
         // Add the powerup behaviours
-        behaviours.add(new SpeedBehaviour(getInvincibleAnimation()));
-        behaviours.add(new InvincibilityBehaviour(getSpeedAnimation()));
+        behaviours.add(new SpeedBehaviour(getSpeedAnimation()));
+        behaviours.add(new InvincibilityBehaviour(getInvincibleAnimation())); 
 
         return behaviours;
 

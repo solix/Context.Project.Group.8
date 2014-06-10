@@ -93,8 +93,10 @@ public abstract class ViewObserver implements Screen {
 			ownTaxi.getPassenger().getDestination().render(getSpriteBatch());
 		}
 
-        for (PowerUp pow : cityMap.getSpawner().getActivePowerUps()) {
-            pow.render(getSpriteBatch());
+        for (PowerUp pow : cityMap.getSpawner().getActivePowerUps().values()) {
+        	if (!pow.getTaken()){
+        		pow.render(getSpriteBatch());
+        	}
         }
 
         getSpriteBatch().setProjectionMatrix(scoreCam.combined);

@@ -4,17 +4,20 @@ import static com.taxi_trouble.game.properties.ResourceManager.scoreFont;
 import static com.taxi_trouble.game.properties.ResourceManager.noPowerUpButtonSprite;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
 
 public class Team {
     private Taxi taxi;
     private PowerUp powerUp;
     private ScoreBoard scoreBoard;
 	private int teamId;
+	private AndroidMultiplayerInterface networkInterface;
 
-    public Team(Taxi taxi) {
+    public Team(Taxi taxi, AndroidMultiplayerInterface networkInterface) {
         this.taxi = taxi;
         this.taxi.setTeam(this);
         this.powerUp = null;
+        this.networkInterface = networkInterface;
         setScoreBoard(new ScoreBoard(scoreFont));
     }
 
@@ -75,6 +78,10 @@ public class Team {
     public void setPowerUp(PowerUp powerUp) {
         this.powerUp = powerUp;
     }
+    
+    public PowerUp getPowerUp(){
+    	return this.powerUp;
+    }
 
  /**Retrieves whether the team picked up a powerUp.
      *
@@ -91,6 +98,11 @@ public class Team {
             powerUp.activatePowerUp(taxi);
             this.powerUp = null;
         }
+    }
+    
+    public void forcePowerUpUse(){
+    	powerUp.forceActivatePowerUp(taxi);
+        this.powerUp = null;
     }
     
     /**Retrieves the sprite of the button for the teams current powerup

@@ -126,7 +126,7 @@ public final class ResourceManager {
     }
 
 	public static int getRandomCharacterId() {
-		return (int) (Math.abs(Math.random() * charList.size()));
+		return (int) Math.floor(Math.abs(Math.random() * charList.size()));
 	}
 
 }

@@ -56,7 +56,7 @@ public class GameWorld extends Game {
 		loadResources();
 		world = new World(new Vector2(0.0f, 0.0f), true);
 		map = new WorldMap(ResourceManager.mapFile, world, multiplayerInterface);
-		ownTeam = new Team(map.getSpawner().spawnTaxi(world));
+		ownTeam = new Team(map.getSpawner().spawnTaxi(world), multiplayerInterface);
 		world.setContactListener(new CollisionDetector(map, multiplayerInterface));
 		System.out.println("gameworld created!!!");
 		driverScreen = new DriverScreen(this);
@@ -94,7 +94,7 @@ public class GameWorld extends Game {
 				map.getSpawner().spawnPassenger(world);
 			}
 			
-			List<PowerUp> powerups = map.getSpawner().getActivePowerUps();
+			ConcurrentHashMap<Integer,PowerUp> powerups = map.getSpawner().getActivePowerUps();
         	if (powerups.size() < 3) {
             	map.getSpawner().spawnPowerUp(world);
         	}
@@ -165,7 +165,7 @@ public class GameWorld extends Game {
 				team = ownTeam;
 				System.out.println("ownteam!");
 			} else {
-				team = new Team(map.getSpawner().spawnTaxi(world));
+				team = new Team(map.getSpawner().spawnTaxi(world), multiplayerInterface);
 				team.setTeamId(i);
 			}
 			teams.put(i, team);
@@ -204,7 +204,15 @@ public class GameWorld extends Game {
 		return getTeams().get(id);
 	}
 	
-	public final List<PowerUp> getPowerUps() {
+	public PowerUp getPowerUpById(int id){
+		PowerUp result = map.getSpawner().getActivePowerUps().get(id);
+		if (result == null){
+			System.out.println("DESYNC DETECTED: POWERUP #" +id + " NOT FOUND");
+		}
+		return result;
+	}
+	
+	public final ConcurrentHashMap<Integer,PowerUp> getPowerUps() {
         return this.map.getSpawner().getActivePowerUps();
     }
 

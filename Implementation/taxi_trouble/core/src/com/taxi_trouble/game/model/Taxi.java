@@ -715,11 +715,24 @@ public class Taxi {
      */
     public void pickUpPowerUp(PowerUp powerUp, WorldMap map) {
         Spawner spawner = map.getSpawner();
-        if (spawner.powerUpIsAvailable(powerUp)) {
-            spawner.despawnPowerup(powerUp);
-            this.team.setPowerUp(powerUp);
-        }
+        spawner.despawnPowerup(powerUp);
+        this.team.setPowerUp(powerUp);
+        powerUp.setTaken(true);
+    
     }
+    
+    public boolean powerUpAvailable(PowerUp powerUp, WorldMap map){
+    	Spawner spawner = map.getSpawner();
+       if(spawner.powerUpIsAvailable(powerUp)){
+    	   pickUpPowerUp(powerUp, map);
+    	   return true;
+       }
+       return false;
+    }
+    
+    
+    
+    
 
     /**Activates a given power-up for this taxi. The effects
      * of the powerup are defined by its behaviour.

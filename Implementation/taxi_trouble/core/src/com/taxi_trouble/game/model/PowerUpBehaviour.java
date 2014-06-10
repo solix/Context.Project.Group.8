@@ -34,4 +34,11 @@ public interface PowerUpBehaviour {
      * @return 
      */
     public Sprite getActivationButtonSprite();
+    
+    /**
+     * This function will be the same for every implementation, consider making this an abstract class instead of an interface.
+     * @return
+     * behaviour ID
+     */
+	public int getId(); 
 }

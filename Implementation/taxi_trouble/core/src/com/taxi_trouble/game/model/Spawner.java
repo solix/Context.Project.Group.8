@@ -30,7 +30,7 @@ public class Spawner {
     private ConcurrentHashMap<Integer,Passenger> passengers;
     private int nextPassengerId = 0;
     //private List<Integer> takenIds;
-	private List<PowerUp> powerups;
+	private ConcurrentHashMap<Integer,PowerUp> powerups;
     private List<PowerUpBehaviour> behaviours;
     private AndroidMultiplayerInterface networkInterface;
 
@@ -45,7 +45,7 @@ public class Spawner {
         destinationpoints = new ArrayList<SpawnPoint>();
         passengers = new ConcurrentHashMap<Integer,Passenger>();
        // takenIds = new ArrayList<Integer>();
-	   powerups = new ArrayList<PowerUp>();
+	   powerups = new ConcurrentHashMap<Integer,PowerUp>();
         poweruppoints = new ArrayList<SpawnPoint>();
         this.networkInterface = networkInterface;
     }
@@ -57,6 +57,7 @@ public class Spawner {
     public void setAvailablePowerUpBehaviours() {
         this.behaviours = getPowerUpBehaviours();
     }
+    
 
     /**
      * Add a new Passenger spawn point.
@@ -114,7 +115,7 @@ public class Spawner {
         int destinationId = (int) (Math.abs(Math.random() * destinationpoints.size()
                 - 1));
         int charId = ResourceManager.getRandomCharacterId();
-        int passengerId = getNextPassengerId();
+        int passengerId = getNextId(passengers);
       networkInterface.reliableBroadcast("NEWPASSENGER  " + random + " " + destinationId + " " + charId + " " + passengerId);
        return spawnPassenger(world, random, destinationId, charId, passengerId);
     }
@@ -229,35 +230,39 @@ public class Spawner {
      * @return
      */
     public PowerUp spawnPowerUp(World world) {
-        int random = random(poweruppoints.size());
+        int spawnId = random(poweruppoints.size());
 
-        while (poweruppoints.get(random).isActive()) {
-            random = random(poweruppoints.size());
+        while (poweruppoints.get(spawnId).isActive()) {
+            spawnId = random(poweruppoints.size());
         }
-        SpawnPoint spawnPoint = poweruppoints.get(random);
+        
+        int behaviourId = random(behaviours.size());
+        int powerUpId = getNextId(powerups);
+        networkInterface.newPowerUpMessage(spawnId, behaviourId, powerUpId);
+        return spawnPowerUp(spawnId, behaviourId, powerUpId, world);
+    }
+    
+    
+    
+    public PowerUp spawnPowerUp(int spawnId, int behaviourId, int powerUpId, World world){
+        SpawnPoint spawnPoint = poweruppoints.get(spawnId);
         spawnPoint.setActive(true);
-
-        // Get a random powerup
-        PowerUp power = getRandomPowerUp(spawnPoint, world);
-        powerups.add(power);
+        PowerUpBehaviour behaviour = behaviours.get(behaviourId);
+        PowerUp power = new PowerUp(spawnPoint, powerUpId, networkInterface);
+        power.setBehaviour(behaviour);
+        power.initializeBody(world);
+        powerups.put(powerUpId, power);
+        System.out.println(powerups);
         return power;
     }
-
-    /**
-     * Generates a random powerup.
-     * 
-     * @param point
-     * @param world
-     * @return
-     */
-    public PowerUp getRandomPowerUp(SpawnPoint spawnPoint, World world) {
-        int random = random(behaviours.size());
-        PowerUpBehaviour behaviour = behaviours.get(random);
-        PowerUp res = new PowerUp(spawnPoint);
-        res.setBehaviour(behaviour);
-        res.initializeBody(world);
-        return res;
+    
+    public PowerUp spawnPowerUp(int behaviourId, World world){
+    	 PowerUpBehaviour behaviour = behaviours.get(behaviourId);
+         PowerUp power = new PowerUp(networkInterface);
+         power.setBehaviour(behaviour);
+         return power;
     }
+
 
     /**
      * Despawns the powerup from the world.
@@ -267,7 +272,7 @@ public class Spawner {
      */
     public void despawnPowerup(PowerUp powerup) {
         powerup.resetSpawnpoint();
-        powerups.remove(powerup);
+        powerups.remove(powerup.getId());
     }
 
     /**
@@ -284,7 +289,7 @@ public class Spawner {
      * 
      * @return
      */
-    public List<PowerUp> getActivePowerUps() {
+    public ConcurrentHashMap<Integer,PowerUp> getActivePowerUps() {
         return this.powerups;
     }
 
@@ -324,13 +329,12 @@ public class Spawner {
         return destinationpoints;
     }
     
-    private int getNextPassengerId(){
-    	while(passengers.containsKey(nextPassengerId)){
-    		nextPassengerId++;
-    		if (nextPassengerId > 2)
-        		nextPassengerId = 0;
+    private <T> int getNextId(ConcurrentHashMap<Integer,T> map){
+    	int res = 0;
+    	while(map.containsKey(res)){
+    		res++;
     	}
-    	return nextPassengerId;
+    	return res;
     }
 
 /**

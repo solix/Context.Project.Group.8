@@ -16,6 +16,7 @@ public class InvincibilityBehaviour implements PowerUpBehaviour {
 
     private PowerUpAnimation powerAnim;
     private final int POWERUPTIME = 10;
+    private final int id = 1;
 
     /**
      * Constructor for the behaviour of the invicibility powerup.
@@ -34,6 +35,7 @@ public class InvincibilityBehaviour implements PowerUpBehaviour {
      */
     @Override
     public void triggerEvent(Taxi taxi) {
+    	System.out.println("INVINCIBLE"); 
         taxi.triggerInvincibility(POWERUPTIME);
     }
 
@@ -47,7 +49,12 @@ public class InvincibilityBehaviour implements PowerUpBehaviour {
 
     @Override
     public Sprite getActivationButtonSprite() {
-        return invincibilityButtonSprite;
+        return invincibilityButtonSprite; 
+    }
+    
+    @Override
+    public int getId(){
+    	return this.id;
     }
 
 }

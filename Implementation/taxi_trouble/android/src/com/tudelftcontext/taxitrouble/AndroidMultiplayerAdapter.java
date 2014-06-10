@@ -1,5 +1,4 @@
 package com.tudelftcontext.taxitrouble;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -8,7 +7,9 @@ import com.google.android.gms.games.Games;
 import com.google.android.gms.games.multiplayer.realtime.RealTimeMultiplayer.ReliableMessageSentCallback;
 import com.google.android.gms.games.multiplayer.realtime.Room;
 import com.taxi_trouble.game.model.Passenger;
+import com.taxi_trouble.game.model.PowerUp;
 import com.taxi_trouble.game.model.Taxi;
+import com.taxi_trouble.game.model.Team;
 import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
 
 public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
@@ -126,12 +127,35 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 		return host;
 	}
 	
-	public void setHostId(String id){
-		this.hostId = id;
+	public void setIds(List<String> ids){
+		this.hostId = ids.get(0);
+		this.ids = ids;
 	}
 	
 	public String getHostId(){
 		return this.hostId;
+	}
+
+	@Override
+	public void newPowerUpMessage(int spawnId, int behaviourId, int powerUpId) {
+		String message = "NEWPOWERUP " + spawnId + " " + behaviourId + " " + powerUpId;
+		reliableBroadcast(message);
+		
+	}
+
+	@Override
+	public void powerUpMessage(Taxi taxi, PowerUp powerUp) {
+		String message = "POWERUP " + taxi.getTeam().getTeamId() + " " + powerUp.getId();
+		reliableBroadcast(message);
+		
+	}
+
+	@Override
+	public void activateMessage(Team team, PowerUp powerUp) {
+		System.out.println("activateMessage called!");
+		
+		String message = "ACTIVATE " + team.getTeamId() + " " + powerUp.getBehaviour().getId();
+		reliableBroadcast(message);
 	}
 	
 }

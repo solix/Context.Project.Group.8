@@ -73,7 +73,11 @@ public class CollisionDetector implements ContactListener {
      * @param powerUp
      */
     private void taxiAtPowerUp(Taxi taxi, PowerUp powerUp) {
-        taxi.pickUpPowerUp(powerUp, map);
+    	if (networkInterface.isHost()){
+    		if(taxi.powerUpAvailable(powerUp, map)){
+    			networkInterface.powerUpMessage(taxi, powerUp);
+    		}
+    	}
     }
 
     /**
