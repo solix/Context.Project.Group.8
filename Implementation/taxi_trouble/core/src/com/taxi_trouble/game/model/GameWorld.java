@@ -5,6 +5,8 @@ import java.util.List;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.taxi_trouble.game.model.powerups.PowerUp;
+import com.taxi_trouble.game.model.team.Team;
 import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.screens.DriverScreen;
 import com.taxi_trouble.game.screens.NavigatorScreen;
@@ -21,6 +23,7 @@ public class GameWorld extends Game {
     private WorldMap map;
     // Temporary: single team (may change when implementing multiplayer)
     private Team team;
+    private CountDownTimer timer;
 
     /**
      * Called when the game world is first created.
@@ -31,10 +34,11 @@ public class GameWorld extends Game {
         loadResources();
         world = new World(new Vector2(0.0f, 0.0f), true);
         map = new WorldMap(ResourceManager.mapFile, world);
-        team = new Team(map.getSpawner().spawnTaxi(world));
+        team = new Team(3, map.getSpawner().spawnTaxi(world));
         world.setContactListener(new CollisionDetector(map));
-        setScreen(new DriverScreen(this));
-
+        timer = new CountDownTimer(300);
+        timer.startTimer();
+        setScreen(new NavigatorScreen(this));
     }
 
     /**
@@ -109,5 +113,13 @@ public class GameWorld extends Game {
      */
     public final List<PowerUp> getPowerUps() {
         return this.map.getSpawner().getActivePowerUps();
+    }
+
+    /**Retrieves the game countdown-timer.
+     * 
+     * @return timer
+     */
+    public final CountDownTimer getTimer() {
+        return this.timer;
     }
 }

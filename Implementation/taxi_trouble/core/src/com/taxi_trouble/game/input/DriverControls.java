@@ -9,8 +9,8 @@ import com.taxi_trouble.game.properties.GameProperties;
 /**
  * InputProcessor for controlling the taxi using the virtual buttons.
  */
-public class DriverControl implements InputProcessor {
-    private ControlsUI controlsUI;
+public class DriverControls implements InputProcessor {
+    private DriverControlsUI controlsUI;
     private Taxi taxi;
 
     /**
@@ -21,7 +21,7 @@ public class DriverControl implements InputProcessor {
      * @param controlsUI
      *            the virtual buttons that will catch the input
      */
-    public DriverControl(Taxi taxi, ControlsUI controlsUI) {
+    public DriverControls(Taxi taxi, DriverControlsUI controlsUI) {
         this.controlsUI = controlsUI;
         this.taxi = taxi;
     }

@@ -12,7 +12,11 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.WorldMap;
 
-
+/**Orthographic camera following a taxi in the game.
+ * 
+ * @author Computer Games Project Group 8
+ *
+ */
 public class TaxiCamera extends OrthographicCamera {
     private Viewport viewport;
     private Taxi taxi;

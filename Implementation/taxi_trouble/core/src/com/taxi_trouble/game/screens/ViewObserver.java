@@ -4,12 +4,22 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.taxi_trouble.game.model.CountDownTimer;
 import com.taxi_trouble.game.model.GameWorld;
 import com.taxi_trouble.game.model.Passenger;
-import com.taxi_trouble.game.model.PowerUp;
 import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.WorldMap;
-import com.taxi_trouble.game.properties.GameProperties;
+import com.taxi_trouble.game.model.powerups.PowerUp;
+import com.taxi_trouble.game.model.team.Team;
+import com.taxi_trouble.game.properties.ResourceManager;
+import com.taxi_trouble.game.screens.hud.HeadUpDisplay;
+import com.taxi_trouble.game.screens.hud.ScoreHUD;
+import com.taxi_trouble.game.screens.hud.TeamHUD;
+import com.taxi_trouble.game.screens.hud.TimerHUD;
+
+import static com.taxi_trouble.game.properties.ResourceManager.hudFont;
+import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_HEIGHT;
+import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_WIDTH;
 
 /**
  * Basic class for extending independent screen of the game.
@@ -18,21 +28,21 @@ import com.taxi_trouble.game.properties.GameProperties;
  */
 public abstract class ViewObserver implements Screen {
     protected final GameWorld taxigame;
-    protected int screenWidth = GameProperties.screenWidth;
-    protected int screenHeight = GameProperties.screenHeight;
-    protected static int PIXELS_PER_METER = GameProperties.PIXELS_PER_METER;
+    protected Team team;
     protected Taxi taxi;
     protected WorldMap cityMap;
-    private OrthographicCamera scoreCam;
-    private final static int THREE = 3;
+    protected OrthographicCamera hudCamera;
+    protected HeadUpDisplay hud;
+    protected TimerHUD dropOffTimerHUD;
 
     /**
      * Constructor for creating game Screen.
      * 
      * @param taxigame
      */
-    public ViewObserver(GameWorld taxigame) {
-        this.taxigame = taxigame;
+    public ViewObserver(GameWorld taxiGame) {
+        this.taxigame = taxiGame;
+        this.team = taxiGame.getTeam();
     }
 
     /**
@@ -43,8 +53,11 @@ public abstract class ViewObserver implements Screen {
     public void show() {
         this.taxi = taxigame.getTeam().getTaxi();
         this.cityMap = taxigame.getMap();
-        this.scoreCam = new OrthographicCamera();
-        scoreCam.setToOrtho(false, screenWidth, screenHeight);
+        this.hudCamera = new OrthographicCamera();
+        this.hudCamera.setToOrtho(false, BUTTON_CAM_WIDTH,
+                BUTTON_CAM_HEIGHT);
+        
+        this.initializeHUD();
 
         // TaxiJukebox.loopMusic("BobMarley", true);
         // TaxiJukebox.playMusic("BobMarley");
@@ -68,8 +81,7 @@ public abstract class ViewObserver implements Screen {
         taxi.update(Gdx.app.getGraphics().getDeltaTime());
 
         // Progress the physics of the game
-        taxigame.getWorld().step(Gdx.app.getGraphics().getDeltaTime(), THREE,
-                THREE);
+        taxigame.getWorld().step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
 
         // Render the taxi sprites using the spriteBatch
         taxi.render(getSpriteBatch());
@@ -83,16 +95,41 @@ public abstract class ViewObserver implements Screen {
         // passenger
         if (taxi.pickedUpPassenger()) {
             taxi.getPassenger().getDestination().render(getSpriteBatch());
+            showDropOffTimer(taxi.getPassenger().getDropOffTimer());
+        }
+        else {
+            hideDropOffTimer();
         }
 
         for (PowerUp pow : cityMap.getSpawner().getActivePowerUps()) {
             pow.render(getSpriteBatch());
         }
 
-        getSpriteBatch().setProjectionMatrix(scoreCam.combined);
-        taxigame.getTeam().getScoreBoard().render(getSpriteBatch());
-        // render the powerups in the game
+        getSpriteBatch().setProjectionMatrix(hudCamera.combined);
+        this.hud.render(getSpriteBatch());
+    }
 
+    private void showDropOffTimer(CountDownTimer dropOffTimer) {
+        if (!this.hud.contains(dropOffTimerHUD)) {
+            dropOffTimerHUD = new TimerHUD("Drop-off time-limit:", 300, 100, 
+                dropOffTimer);
+            this.hud.add(dropOffTimerHUD);
+        }
+    }
+
+    private void hideDropOffTimer() {
+        this.hud.remove(this.dropOffTimerHUD);
+    }
+
+    /**
+     * Initializes the HUD that should be displayed on screen together
+     * with all components.
+     */
+    private void initializeHUD() {
+        this.hud = new HeadUpDisplay(hudFont, team);
+        this.hud.add(new TeamHUD("Team", 10, 470));
+        this.hud.add(new ScoreHUD("Score:", 10, 440));
+        this.hud.add(new TimerHUD("Time:", 680, 470, taxigame.getTimer()));
     }
 
     /**

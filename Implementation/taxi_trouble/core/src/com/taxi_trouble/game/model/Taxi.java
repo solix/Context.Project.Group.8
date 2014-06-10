@@ -18,6 +18,8 @@ import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.taxi_trouble.game.Acceleration;
 import com.taxi_trouble.game.SteerDirection;
+import com.taxi_trouble.game.model.powerups.PowerUp;
+import com.taxi_trouble.game.model.team.Team;
 
 /**
  * A controllable taxi which can be steered and for which certain properties
@@ -301,6 +303,7 @@ public class Taxi {
     public void setSprite(Sprite taxisprite, Sprite wheelsprite) {
         taxisprite.setSize(this.getWidth(), this.getLength());
         taxisprite.setOrigin(this.getWidth() / 2, this.getLength() / 2);
+        taxisprite.setScale(PIXELS_PER_METER);
         this.taxiSprite = taxisprite;
         setWheelSprite(wheelsprite);
     }
@@ -452,6 +455,7 @@ public class Taxi {
         if (!this.pickedUpPassenger() && !passenger.isTransported()) {
             this.passenger = passenger;
             this.passenger.setTransporter(this);
+            this.passenger.setUpDropOffTimer();
             this.triggerInvincibility(5);
         }
     }
@@ -491,8 +495,8 @@ public class Taxi {
         if (pickedUpPassenger()
                 && this.passenger.getDestination().equals(destination)) {
             passenger.deliverAtDestination(map, destination);
+            this.team.addScore(this.passenger.remainingDropOffTime());
             this.losePassenger();
-            this.team.incScore();
         }
     }
 
@@ -611,7 +615,7 @@ public class Taxi {
                 taxiBody.getPosition().y * PIXELS_PER_METER);
         taxiSprite
                 .setRotation(taxiBody.getAngle() * MathUtils.radiansToDegrees);
-        taxiSprite.setScale(PIXELS_PER_METER);
+        //taxiSprite.setScale(PIXELS_PER_METER);
         taxiSprite.draw(spriteBatch);
         spriteBatch.end();
     }
@@ -646,7 +650,7 @@ public class Taxi {
      * Make the taxi lose its passenger.
      * 
      */
-    private void losePassenger() {
+    public void losePassenger() {
         this.getPassenger().cancelTransport();
         this.passenger = null;
     }

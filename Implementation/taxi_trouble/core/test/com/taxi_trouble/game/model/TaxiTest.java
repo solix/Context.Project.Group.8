@@ -23,6 +23,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.Acceleration;
 import com.taxi_trouble.game.SteerDirection;
+import com.taxi_trouble.game.model.team.Team;
 
 
 /**This class tests the functionality of the Taxi class.
@@ -93,6 +94,7 @@ public class TaxiTest {
         taxi.pickUpPassenger(passenger);
         verify(passenger).isTransported();
         verify(passenger).setTransporter(taxi);
+        verify(passenger).setUpDropOffTimer();
         assertTrue(taxi.pickedUpPassenger());
         verifyNoMoreInteractions(passenger);
     }
@@ -111,7 +113,7 @@ public class TaxiTest {
         taxi.dropOffPassenger(destination, map);
         verify(passenger).getDestination();
         verify(passenger).deliverAtDestination(map, destination);
-        verify(team).incScore();
+        verify(team).addScore(anyInt());
         assertFalse(taxi.pickedUpPassenger());
     }
 

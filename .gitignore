@@ -91,3 +91,4 @@ sympy-plots-for-*.tex/
 *.lock
 *.lock
 *.bin
+Implementation/taxi_trouble/.gradle/1.10/taskArtifacts/cache.properties

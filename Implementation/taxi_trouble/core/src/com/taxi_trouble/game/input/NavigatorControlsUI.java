@@ -4,7 +4,7 @@ import static com.taxi_trouble.game.properties.ResourceManager.noPowerUpButtonSp
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.taxi_trouble.game.model.Team;
+import com.taxi_trouble.game.model.team.Team;
 import com.taxi_trouble.game.properties.GameProperties;
 
 /**
@@ -13,14 +13,14 @@ import com.taxi_trouble.game.properties.GameProperties;
  * @author Computer Games Project Group 8
  *
  */
-public class PowerUpControlsUI {
+public class NavigatorControlsUI {
 
     private VirtualButton activatePowerUpButton;
 
     /**Initializes a new PowerUpControlsUI.
      * 
      */
-    public PowerUpControlsUI() {
+    public NavigatorControlsUI() {
         this.activatePowerUpButton = new VirtualButton(new Rectangle(
                 GameProperties.BUTTON_CAM_WIDTH - 140, 20, 120, 120),
                 noPowerUpButtonSprite,

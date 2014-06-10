@@ -28,6 +28,7 @@ public class Passenger {
     private Sprite passengerSprite;
     private Taxi transporter;
     private Destination destination;
+    private CountDownTimer dropOffTimer;
 
     /**
      * Initializes a new passenger.
@@ -305,6 +306,44 @@ public class Passenger {
      */
     public void setCharacter(Character character) {
         this.character = character;
+    }
+
+    /**Sets up the dropoff timer for the passenger indicating the remaining time
+     * for dropping off the passenger.
+     * 
+     */
+    public void setUpDropOffTimer() {
+        if(this.dropOffTimer == null) {
+            this.dropOffTimer = new CountDownTimer(computeDropOffTimeLimit());
+            dropOffTimer.startTimer();
+        }
+    }
+
+    /**Computes the drop-off time limit for this passenger to its destination.
+     * 
+     * @return drop-off time limit
+     */
+    private int computeDropOffTimeLimit() {
+        float dist = this.getPosition().dst(this.destination.getPosition());
+        int timeLimit = (int) (dist / 5) + 15;
+        return timeLimit;
+    }
+
+    /**Retrieves the remaining time to drop-off the passenger.
+     * 
+     * @return remaining drop-off time in seconds
+     */
+    public int remainingDropOffTime() {
+        return this.dropOffTimer.getTimeRemaining();
+    }
+
+    /**Retrieves the drop-off timer indicating the remaining time
+     * to drop off the passenger.
+     * 
+     * @return drop-off Timer
+     */
+    public CountDownTimer getDropOffTimer() {
+        return this.dropOffTimer;
     }
 
     /**
