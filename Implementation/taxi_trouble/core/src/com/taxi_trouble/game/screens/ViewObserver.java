@@ -44,7 +44,6 @@ public abstract class ViewObserver implements Screen {
      */
     public ViewObserver(GameWorld taxiGame) {
         this.taxigame = taxiGame;
-        this.team = taxiGame.getTeam();
     }
 
 	/**
@@ -53,6 +52,7 @@ public abstract class ViewObserver implements Screen {
 	 */
 	@Override
 	public void show() {
+		this.team = taxigame.getTeam();
 		this.ownTaxi = taxigame.getTeam().getTaxi();
 		this.cityMap = taxigame.getMap();
         this.hudCamera = new OrthographicCamera();

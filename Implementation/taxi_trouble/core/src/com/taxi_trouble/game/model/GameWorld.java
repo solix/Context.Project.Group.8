@@ -172,8 +172,7 @@ public class GameWorld extends Game {
 			teams.put(i, team);
 			}
 
-		System.out.println("Teams");
-		System.out.println(teams);
+		System.out.println(ownTeam.toString());
 		}
 	}
 

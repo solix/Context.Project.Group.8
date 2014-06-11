@@ -26,6 +26,10 @@ public class HeadUpDisplay implements HUDComponent {
      * @param team : the team to which the hud applies
      */
     public HeadUpDisplay(BitmapFont hudFont, Team team) {
+    	if (team == null){
+    		System.out.println("CONSTRUCTOR CALLED WITH NULLPOINTER TEAM");
+    		team.toString();
+    	}
         this.team = team;
         this.hudFont = hudFont;
         this.hudComponents = new ArrayList<HUDComponent>();
@@ -61,6 +65,10 @@ public class HeadUpDisplay implements HUDComponent {
      * 
      */
     private void setColorTheme() {
+    	System.out.println("setting collor theme!!");
+    	System.out.println(this.hudComponents.toString());
+    	System.out.println(this.team.toString());
+    	System.out.println(this.team.getTeamTheme().toString());
         this.hudFont.setColor(this.team.getTeamTheme().getTeamColor());
     }
 
