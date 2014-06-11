@@ -35,8 +35,6 @@ public class Team {
         this.powerUp = null;
         this.score = 0;
         setTeamTheme();
-        ResourceManager.loadFx();
-
     }
 
     /**Sets the theme of the team based on the id.
