@@ -65,10 +65,6 @@ public class HeadUpDisplay implements HUDComponent {
      * 
      */
     private void setColorTheme() {
-    	System.out.println("setting collor theme!!");
-    	System.out.println(this.hudComponents.toString());
-    	System.out.println(this.team.toString());
-    	System.out.println(this.team.getTeamTheme().toString());
         this.hudFont.setColor(this.team.getTeamTheme().getTeamColor());
     }
 

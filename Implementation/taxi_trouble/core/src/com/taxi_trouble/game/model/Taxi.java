@@ -498,8 +498,8 @@ public class Taxi {
      */
     public void dropOffPassenger(Destination destination, WorldMap map) {
             passenger.deliverAtDestination(map, destination);
+            this.team.addScore(this.passenger.remainingDropOffTime());
             this.losePassenger();
-            this.team.incScore();
         
     }
     
@@ -517,6 +517,7 @@ public class Taxi {
      */
     public void syncPassenger(Passenger passenger){
     	
+    	passenger.setUpDropOffTimer();
 		if(getPassenger() != passenger){
 			if(getPassenger() != null){
     			getPassenger().cancelTransport();
@@ -711,19 +712,20 @@ public class Taxi {
 		return hasMoved;
 	}
 	
-	 /**
-     * Makes the taxi pickup a power-up which can be activated by
-     * the navigator of the team.
-     * 
-     * @param powerUp : the power-up to pick up
-     */
-    public void pickUpPowerUp(PowerUp powerUp, WorldMap map) {
-        Spawner spawner = map.getSpawner();
-        spawner.despawnPowerup(powerUp);
-        this.team.setPowerUp(powerUp);
-        powerUp.setTaken(true);
-    
-    }
+	/**
+	 * Makes the taxi pickup a power-up which can be activated by the navigator
+	 * of the team.
+	 * 
+	 * @param powerUp
+	 *            : the power-up to pick up
+	 */
+	public void pickUpPowerUp(PowerUp powerUp, WorldMap map) {
+		Spawner spawner = map.getSpawner();
+		spawner.despawnPowerup(powerUp);
+		this.team.setPowerUp(powerUp);
+		powerUp.setTaken(true);
+
+	}
     
     public boolean powerUpAvailable(PowerUp powerUp, WorldMap map){
     	Spawner spawner = map.getSpawner();

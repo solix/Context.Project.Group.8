@@ -193,6 +193,7 @@ public class PowerUp {
      */
     public void activatePowerUp(Taxi taxi) {
     	networkInterface.activateMessage(taxi.getTeam(), this);
+    	forceActivatePowerUp(taxi);
     }
     
     /**
