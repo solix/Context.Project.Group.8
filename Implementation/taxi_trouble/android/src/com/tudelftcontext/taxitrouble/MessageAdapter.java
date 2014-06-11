@@ -52,6 +52,7 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
 			System.out.println(message);
 			gameWorld.getMap().getSpawner().spawnPowerUp(sc.nextInt(), sc.nextInt(), sc.nextInt(), gameWorld.getWorld());
 		} else if (flag.equals("SETUP")) {
+			System.out.println(message);
 			boolean driver = sc.nextBoolean();
 			gameWorld.setDriver(driver);
 			int teamId = sc.nextInt();

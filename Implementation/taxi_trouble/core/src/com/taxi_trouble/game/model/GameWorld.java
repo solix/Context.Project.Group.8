@@ -168,12 +168,14 @@ public class GameWorld extends Game {
 			if (i == teamId) {
 				this.ownTeam = team;
 				System.out.println("ownteam!");
+			}
 				
 			teams.put(i, team);
-			}
+			
 
-		System.out.println(ownTeam.toString());
 		}
+		System.out.println(ownTeam.toString());
+		System.out.println(teams.toString());
 	}
 
 	public Map<Integer, Team> getTeams() {
