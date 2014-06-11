@@ -6,6 +6,8 @@ import static com.taxi_trouble.game.properties.ResourceManager.wheelSprite;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.powerups.PowerUp;
+import com.taxi_trouble.game.properties.ResourceManager;
+import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**The team class defines a team to which a driver and navigator can belong.
  * Each team has a team id with theme, score, taxi and a power-up.
@@ -33,6 +35,8 @@ public class Team {
         this.powerUp = null;
         this.score = 0;
         setTeamTheme();
+        ResourceManager.loadFx();
+
     }
 
     /**Sets the theme of the team based on the id.
@@ -127,6 +131,7 @@ public class Team {
         if(hasPowerUp()) {
             powerUp.activatePowerUp(taxi);
             this.powerUp = null;
+            TaxiJukebox.playSound("pufx");
         }
     }
     

@@ -229,6 +229,7 @@ public class Passenger {
      */
     public void deliverAtDestination(WorldMap map, Destination destination) {
         assert (this.getBody() != null);
+        
         // Check if the destination is the right location
         if (this.getDestination().equals(destination) && isTransported()) {
             // Despawn the passenger and remove it from the world

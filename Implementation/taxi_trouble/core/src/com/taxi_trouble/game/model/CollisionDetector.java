@@ -5,6 +5,8 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.taxi_trouble.game.model.powerups.PowerUp;
+import com.taxi_trouble.game.properties.ResourceManager;
+import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**
  * Detects collisions on a map and performs the right actions accordingly.
@@ -15,6 +17,7 @@ import com.taxi_trouble.game.model.powerups.PowerUp;
 public class CollisionDetector implements ContactListener {
 
     private WorldMap map;
+    
 
     /**
      * Initializes a new CollisionDetector defining the behaviour for collisions
@@ -26,6 +29,7 @@ public class CollisionDetector implements ContactListener {
     public CollisionDetector(WorldMap map) {
         super();
         this.map = map;
+        ResourceManager.loadFx();
     }
 
     /**
@@ -53,15 +57,21 @@ public class CollisionDetector implements ContactListener {
         if (collider instanceof Taxi) {
             if (collidee instanceof Destination) {
                 taxiAtDestination((Taxi) collider, (Destination) collidee);
+                TaxiJukebox.playSound("dropoff");
             }
             if (collidee instanceof Taxi) {
                 taxiAtTaxi((Taxi) collider, (Taxi) collidee);
+                TaxiJukebox.playSound("carcrashfx");
             }
+            
             if (collidee instanceof Passenger) {
                 taxiAtPassenger((Taxi) collider, (Passenger) collidee);
+                TaxiJukebox.playSound("yohoo");
+                
             }
             if (collidee instanceof PowerUp) {
                 taxiAtPowerUp((Taxi) collider, (PowerUp) collidee);
+                TaxiJukebox.playSound("powerup");
             }
         }
     }

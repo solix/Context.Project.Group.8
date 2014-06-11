@@ -8,7 +8,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.model.powerups.PowerUp;
 import com.taxi_trouble.game.model.team.Team;
 import com.taxi_trouble.game.properties.ResourceManager;
-import com.taxi_trouble.game.screens.DriverScreen;
 import com.taxi_trouble.game.screens.NavigatorScreen;
 
 /**
@@ -39,6 +38,7 @@ public class GameWorld extends Game {
         timer = new CountDownTimer(300);
         timer.startTimer();
         setScreen(new NavigatorScreen(this));
+
     }
 
     /**

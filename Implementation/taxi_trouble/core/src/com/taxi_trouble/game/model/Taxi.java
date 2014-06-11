@@ -20,6 +20,9 @@ import com.taxi_trouble.game.Acceleration;
 import com.taxi_trouble.game.SteerDirection;
 import com.taxi_trouble.game.model.powerups.PowerUp;
 import com.taxi_trouble.game.model.team.Team;
+import com.taxi_trouble.game.properties.ResourceManager;
+import com.taxi_trouble.game.sound.TaxiJukebox;
+
 
 /**
  * A controllable taxi which can be steered and for which certain properties
@@ -71,6 +74,7 @@ public class Taxi {
         this.steer = SteerDirection.STEER_NONE;
         this.acceleration = Acceleration.ACC_NONE;
         this.invincibility = false;
+        ResourceManager.loadFx();
 
     }
 
@@ -93,6 +97,9 @@ public class Taxi {
         this.setBody(world.createBody(bodyDef));
         this.createFixture();
         this.initializeWheels(world);
+        TaxiJukebox.playSound("startEngine");
+        
+
     }
 
     /**
@@ -677,4 +684,8 @@ public class Taxi {
     public void activatePowerup(PowerUp powerUp) {
         powerUp.activatePowerUp(this);
     }
+    
+    
+    
+      
 }
