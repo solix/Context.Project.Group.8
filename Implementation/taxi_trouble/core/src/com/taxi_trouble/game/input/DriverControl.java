@@ -112,6 +112,7 @@ public class DriverControl implements InputProcessor {
         controlsUI.setInActive(pointer);
         if (controlsUI.steering() && !controlsUI.driving()) {
             taxi.setAccelerate(Acceleration.ACC_NONE);
+            TaxiJukebox.stopSound("EngineOn");
             return true;
         }
         if (!controlsUI.steering() && controlsUI.driving()) {

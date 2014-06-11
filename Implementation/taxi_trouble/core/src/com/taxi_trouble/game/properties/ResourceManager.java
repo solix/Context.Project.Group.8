@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.taxi_trouble.game.Character;
-import com.taxi_trouble.game.sound.JukeBoxTest;
 import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**
@@ -136,7 +135,8 @@ public final class ResourceManager {
      public static void loadFx(){
     	 loadPowerUpSFX();
     	 loadTaxiSFX();
-    	 loadPassengerSFX();     }
+    	 loadPassengerSFX();     
+    	 }
      
      
      private static void loadPowerUpSFX(){
@@ -151,7 +151,8 @@ public final class ResourceManager {
     	final String carcrashfx="sound/CarCrash.ogg";
         TaxiJukebox.loadSound(carcrashfx, "carcrashfx");
         final String revivingFx="sound/EngineOn.ogg";
-        TaxiJukebox.loadSound(revivingFx, "reviving");
+        TaxiJukebox.loadSound(revivingFx, "EngineOn");
+        //TaxiJukebox.loopSound("EngineOn");
         final String startEngine="sound/startengine.ogg";
         TaxiJukebox.loadSound(startEngine, "startEngine");
     	
@@ -165,12 +166,6 @@ public final class ResourceManager {
     
     	
     }
-    /**
-     * load fx passanger calling taxi when taxi approach
-     */
-    public static void loadYohooFx(){
-        
-
-    }
+    
 
 }
