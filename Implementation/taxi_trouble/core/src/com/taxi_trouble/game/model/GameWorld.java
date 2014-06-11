@@ -9,6 +9,7 @@ import com.taxi_trouble.game.model.powerups.PowerUp;
 import com.taxi_trouble.game.model.team.Team;
 import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.screens.NavigatorScreen;
+import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**
  * Provides the main model for all the elements of a game that is played.
@@ -20,7 +21,6 @@ import com.taxi_trouble.game.screens.NavigatorScreen;
 public class GameWorld extends Game {
     private World world;
     private WorldMap map;
-    // Temporary: single team (may change when implementing multiplayer)
     private Team team;
     private CountDownTimer timer;
 
@@ -39,6 +39,8 @@ public class GameWorld extends Game {
         timer.startTimer();
         setScreen(new NavigatorScreen(this));
 
+        //TODO: Make a start game method (also for initiating timer and playing starting sound)
+        TaxiJukebox.playSound("startEngine");
     }
 
     /**
@@ -46,11 +48,10 @@ public class GameWorld extends Game {
      * 
      */
     public void loadResources() {
-        // TaxiJukebox.createMusicInGame("sound/bobmar.mp3", "BobMarley");
-        // TaxiJukebox.createMusicInGame("sound/street.mp3", "street");
         ResourceManager.loadMap();
         ResourceManager.loadSprites();
         ResourceManager.loadFonts();
+        ResourceManager.loadFx();
     }
 
     @Override

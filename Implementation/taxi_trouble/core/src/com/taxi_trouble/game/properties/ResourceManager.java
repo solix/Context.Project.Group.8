@@ -167,19 +167,13 @@ public final class ResourceManager {
 		TaxiJukebox.loadSound(carcrashfx, "carcrashfx");
 		final String revivingFx = "sound/EngineOn.ogg";
 		TaxiJukebox.loadSound(revivingFx, "EngineOn");
-		// TaxiJukebox.loopSound("EngineOn");
 		final String startEngine = "sound/startengine.ogg";
 		TaxiJukebox.loadSound(startEngine, "startEngine");
 
 	}
 
 	private static void loadPassengerSFX() {
-		final String passengerfx = "sound/yohoo.ogg";
-		TaxiJukebox.loadSound(passengerfx, "yohoo");
-
 		final String dropfx = "sound/dropoff.ogg";
 		TaxiJukebox.loadSound(dropfx, "dropoff");
-
 	}
-
 }

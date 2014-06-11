@@ -20,7 +20,6 @@ import com.taxi_trouble.game.Acceleration;
 import com.taxi_trouble.game.SteerDirection;
 import com.taxi_trouble.game.model.powerups.PowerUp;
 import com.taxi_trouble.game.model.team.Team;
-import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.sound.TaxiJukebox;
 
 
@@ -74,8 +73,6 @@ public class Taxi {
         this.steer = SteerDirection.STEER_NONE;
         this.acceleration = Acceleration.ACC_NONE;
         this.invincibility = false;
-        ResourceManager.loadFx();
-
     }
 
     /**
@@ -97,9 +94,6 @@ public class Taxi {
         this.setBody(world.createBody(bodyDef));
         this.createFixture();
         this.initializeWheels(world);
-        TaxiJukebox.playSound("startEngine");
-        
-
     }
 
     /**
@@ -503,6 +497,7 @@ public class Taxi {
                 && this.passenger.getDestination().equals(destination)) {
             passenger.deliverAtDestination(map, destination);
             this.team.addScore(this.passenger.remainingDropOffTime());
+            TaxiJukebox.playSound("dropoff");
             this.losePassenger();
         }
     }
@@ -622,7 +617,6 @@ public class Taxi {
                 taxiBody.getPosition().y * PIXELS_PER_METER);
         taxiSprite
                 .setRotation(taxiBody.getAngle() * MathUtils.radiansToDegrees);
-        //taxiSprite.setScale(PIXELS_PER_METER);
         taxiSprite.draw(spriteBatch);
         spriteBatch.end();
     }
@@ -675,17 +669,4 @@ public class Taxi {
             this.team.setPowerUp(powerUp);
         }
     }
-
-    /**Activates a given power-up for this taxi. The effects
-     * of the powerup are defined by its behaviour.
-     * 
-     * @param powerUp : the power-up that should be activated
-     */
-    public void activatePowerup(PowerUp powerUp) {
-        powerUp.activatePowerUp(this);
-    }
-    
-    
-    
-      
 }
