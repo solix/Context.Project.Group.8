@@ -58,7 +58,7 @@ public final class GameProperties {
         // Add the powerup behaviours
         behaviours.add(new SpeedBehaviour(getSpeedAnimation()));
         behaviours.add(new InvincibilityBehaviour(getInvincibleAnimation()));
-        behaviours.add(new IncreaseTimeBehaviour(getInvincibleAnimation()));
+        behaviours.add(new IncreaseTimeBehaviour(getTimerAnimation()));
 
         return behaviours;
 
@@ -85,6 +85,12 @@ public final class GameProperties {
     private static PowerUpAnimation getSpeedAnimation() {
         PowerUpAnimation animation = new PowerUpAnimation(new Texture(
                 Gdx.files.internal("sprites/powerups/speed-spritesheet.png")));
+        return animation;
+    }
+    
+    private static PowerUpAnimation getTimerAnimation() {
+        PowerUpAnimation animation = new PowerUpAnimation(new Texture(
+                Gdx.files.internal("sprites/powerups/timer-spritesheet.png")));
         return animation;
     }
 }

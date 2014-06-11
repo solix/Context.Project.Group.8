@@ -32,6 +32,7 @@ public final class ResourceManager {
     public static Sprite noPowerUpButtonSprite;
     public static Sprite invincibilityButtonSprite;
     public static Sprite speedBoostButtonSprite;
+    public static Sprite increaseTimeButtonSprite;
     public static TiledMap mapFile;
     public static List<Character> charList;
     public static BitmapFont hudFont;
@@ -92,6 +93,8 @@ public final class ResourceManager {
         invincibilityButtonSprite = new Sprite(invButtonTexture);
         Texture speedButtonTexture = new Texture(Gdx.files.internal("sprites/speed.png"));
         speedBoostButtonSprite = new Sprite(speedButtonTexture);
+        Texture increasetimeButtonTexture = new Texture(Gdx.files.internal("sprites/increasetime.png"));
+        increaseTimeButtonSprite = new Sprite(increasetimeButtonTexture);
     }
 
     /**
