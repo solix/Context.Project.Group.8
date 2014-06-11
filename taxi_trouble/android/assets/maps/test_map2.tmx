@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="65" height="75" tilewidth="32" tileheight="32" backgroundcolor="#ffffff">
+ <tileset firstgid="1" name="example_tileset" tilewidth="32" tileheight="32">
+  <image source="tilesets/example_tileset.png" width="480" height="736"/>
+ </tileset>
+ <tileset firstgid="346" name="Road-Aidan" tilewidth="32" tileheight="32">
+  <image source="tilesets/Road-Aidan.png" width="1024" height="1024"/>
+ </tileset>
+ <tileset firstgid="1370" name="example_tileset2" tilewidth="32" tileheight="32">
+  <image source="tilesets/example_tileset2.png" width="256" height="128"/>
+ </tileset>
+ <layer name="Road" width="65" height="75">
+  <data encoding="base64" compression="zlib">
+   eJztnEFugzAQRd0Fq1yg7QXaLHohmlUTtVLaNPffFaRGIpYNY2aMsXiRvpCSMHw+D3tYmJ1z7rHT80b11GnXaf+/jemzce4jo76a8ePn1N7bxvTeeWwz6lBZBt/G2xoz2DoHx4Hvs0KtV2+NGfgfnwOtZ+t6S2Zgdd2s68GBbQaxPsC/f9vI/6SyrKftLfwMco//a5xTxjLI0QfkqKdlKJbBMXAcraxrWtQ7jGQwlKYPOEeObV1vLkNjGQznrLeHe/n3k/+7r9zzqoYhCQeWGbTGGczhKuVeqImDlHqhfSUcaDz39dbUX4X2lXCg8Zuj5tIc9LrNpadm3hwcGpM0fV/Io9TbnPFgqEvkfFLH4ilNXdeQx1RvUg78OfUS+d66T5RmoPFWigOpUjLQekvtE38aXX8n1XUig9/APnO9XQUclHyuX0qS/qC0x1IZwAEcwAEcwAEZkMF9BowHcAAHcAAHcAAHcAAHcAAHcAAHcAAHcAAHcAAHcAAHcAAHcAAHcAAHcAAHcAAHcAAHcAAHcGDNQa+a33ViwYGF1s7SEuuda85gqxyE1ojkXpdSWrdzf3Hl31dVSq+d/gBd7331
+  </data>
+ </layer>
+ <layer name="Solid" width="65" height="75">
+  <data encoding="base64" compression="zlib">
+   eJzt28EJgDAQAMH4sI1Ei7NBrUArMyBCkLwEDegMLAQuj2vgQgCAZ8y5pfUSja25rfUSAAC8YuxCSLmYG7r6PBal4l37DwAAAAAAAPAHU38EAAAAAAB3Xe92ztsdNzsAfMkO56wGHA==
+  </data>
+ </layer>
+ <layer name="Buildings" width="65" height="75">
+  <data encoding="base64" compression="zlib">
+   eJzt2jlSAgEQhlHufwGWA4CIhIILIauGKgKn4c/IjGaqneK9qi/t6rCD7vUA+MtjmqWnNC/epcprekvvaVW8S5V9OqSP9Fm8S5XfdErndCneBeA/66dBGqZR8S5VxmmSHtK0eJcqz2mRlumloZldu0vXaZO2adfQzK7dpV/pO/2kY0Mz3aXuUgAAAAAAAAAAAADgpmu/9m3o2q99G/za+7UHALgHV8qRMqM=
+  </data>
+ </layer>
+ <objectgroup name="box2D" width="65" height="75">
+  <object x="160" y="175" width="127" height="112"/>
+  <object x="384" y="416" width="128" height="160"/>
+  <object x="256" y="544" width="128" height="32"/>
+  <object x="512" y="544" width="256" height="32"/>
+  <object x="608" y="192" width="64" height="64"/>
+  <object x="1056" y="495" width="126" height="113"/>
+  <object x="417" y="2000" width="125" height="112"/>
+  <object x="64" y="2368" width="2016" height="32"/>
+  <object x="32" y="0" width="32"/>
+  <object x="32" y="32" width="32" height="2400"/>
+  <object x="32" y="0" width="2048" height="32"/>
+  <object x="2048" y="32" width="32" height="2304"/>
+  <object x="2048" y="2336" width="32" height="32"/>
+  <object x="192" y="1472" width="64" height="32"/>
+  <object x="352" y="2176" width="224" height="32"/>
+ </objectgroup>
+</map>

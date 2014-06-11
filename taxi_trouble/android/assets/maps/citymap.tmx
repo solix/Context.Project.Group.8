@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="116" height="124" tilewidth="32" tileheight="32" backgroundcolor="#1e2824">
+ <tileset firstgid="1" name="Buildings" tilewidth="32" tileheight="32">
+  <image source="tilesets/buildings.png" width="512" height="256"/>
+ </tileset>
+ <tileset firstgid="129" name="Park and Water" tilewidth="32" tileheight="32">
+  <image source="tilesets/park-and-water.png" width="256" height="128"/>
+ </tileset>
+ <tileset firstgid="161" name="Roads and Pavements" tilewidth="32" tileheight="32">
+  <image source="tilesets/roads-pavements.png" width="256" height="224"/>
+ </tileset>
+ <tileset firstgid="217" name="Traffic Signs and Various" tilewidth="32" tileheight="32">
+  <image source="tilesets/traffic-signs-and-various.png" width="384" height="224"/>
+ </tileset>
+ <layer name="water" width="116" height="124">
+  <data encoding="base64" compression="zlib">
+   eJzt3dFKwmAAhmFvPegGLKksL7Z1IETk+ifTwdvzwHc6B++J08G/27HUadrjhR02vC+uo2eLni16tujZomeLni16tujZ8lfPh5XGfejZsp/2dGHPG94XAAAAAPdxnPYy7fXH3qZ9bHhfXMf/Ky16tujZomeLni16tujZMtdz7t2F7xt9Tj0OXu88lpvrObrT4GcdFl6X5fRs0bNFz5a5nl/fX94HNvpe537weuexnOeVFj1b9GzRs0XPFj1b9GzRs0XPFj1b9GzRs0XPFj1b9GzRs0XPFj1b9GzRs0XPFj1b9GzRs0XPFj1b9GzRs0XPFj1bnO8AAAAA8L8536HF77cterbo2aJni54terbo2aJni54terascZ7OrcZya5zvcKuxnJ4terbo2aJni54tWz6TOO8KAAAAAAAAAAAAAAAAgN98AtrXJBE=
+  </data>
+ </layer>
+ <layer name="roads" width="116" height="124">
+  <data encoding="base64" compression="zlib">
+   eJztnU2PDUEUhnuHBZbDAkss8JsREhnG52BImGHPyv/RnbjR01Mf56vqVNV93+SEhFtV3c89davOOdU9TRAEQRAEtazXs70oYM+Fn3tT9nKH15PZHhewI+Hnnpa93OEFnjLF5jXv+WXL872RHWX+vXeeMT/wHv96XIeTzKe0/rnu1/t+UAWe4/JsafyxcR3P9lZhHzP//iHSr/f9oKo3nqXH1er9oKrV8YOnTK2O32JclJjENr7wMtLvK+LnveMesfGPwJOyh02tjyjrMOl+tka74LnfPDkxVu78YTFvUGISqfhC7DOc+EQqRqGNe3D6pdw3TkxO833z8s9afiRpl7snB0/w1M5LVvNGaHyxOEQuvsCJT6xjEak+pXGPWKyD0s9n5v3KfV+8/bPG+m7X32681n2W3luCZ7i/0XiG/J87r1nEUcGznfa/zfY9YKfC8YGnb/uxtkNxt9jedr2HHYGnxXc8JQ+e0t/mEXiO4p+LSfZC689bxNNzNTjgSWs7Z5q1M+ezuesCz7g+Tfqag+3+XhK/BU//3MxO1vmVlniWWBu0zpPi46l4HXi2xZOr7f0Cz7F5xtbI2/0ueLahHE+q9cqzdLyitkL3S5Pf640n/DNt2K/4KseTkjf+Ndvvf/an4PjAMy/t+nbbBvzTV+AJnqk2RuJ5MtsXo35qCTzBM9UGePoKPMEz1QZ4+go8wTPVhvVZ1dzZ1FTtDOV5NeCZbsP6rE1qbIulcvPcscd4cs1TsfwCJ8/QM89UfuVsth8C81RL/knJ4eRqoaz8c5nPSz1XoOQzCNa/T548pXmdrX9y10ypMZQ6F6m5Pq5x6xM0NfngWZ8n1yx4cs6QLrVtmnNcqTlfc36XWwtQ4gzxYs8mf57cvaWmnRb8M+VD1v7JPW9NOROdu5fgWY5nyTygVS1WCZ7L91j7XALJWd+t/2jOENfm2bJ/ls5nl+rXYv9p0Td4Xuz36mzXCHY90i54tsXz1my3CXYn0i54gqdG4AmeIWnWyV48KWN+MNtDgj1afWYEnqP656XZLhPsyuozFvkyqVrg6XUeiTLmg9luEOxmpF345/+/U/IQmvwW5dm4d2e7R7D7kesBz/PXLjFJfC42ZklNBHi2y1Mi8Dx/vdoclyS/te6fM8+H5vZcfYL0d8TqN4QiS54Sn7L0T+u5wGLO0d4f8ARPaTucZ3hRclzU/BbluV85o76XwaJ+4l3mz5TV5OnVT4naqZbMyz+9+gFP/r3pkSe3Fk5bH3Eo6Jf7e7TPPGud89/1v+vbot8W9p9e/YzIs4V6MK9+RuQJ/9wPnpz3H1jGmaTj7ZHndm48NWiTs2anrs3Bk9d/Df/cB57ez/UszXMxbWxrm6tomefo/pkzSSwEPPP9g2c9npJnN3DrGCx5WryfxOqsG0U1eJbMN4f2BJY8e5PlGsYifmsRa91nnphvx5J0jgzFQmrtsXLXAp4XGWjXcuDpI2ktYGjvXGtNnrsW8IR/jiLpmjS01wJPfyE+NJbAcyyB51iqER/qOZ/dm5D/7EOU555b17V4++fIPCVnksCzXbXEk5svkz5De5svq5WnCxnlvQ0cSeJ46//PrUdMzd1c837esYXVqjvQGOc+g6ettDxD8b5cPYXF+U/p+X7r86HSfmvzpNYKLHUt3Lyy9Fy4tX+2YDXrvLjv1MkJPMvzTO3tS/Hk1MJxczfbuXxntWqTKL8xXnXvJ8Z9lagJWtvXzPV4qoVzY9Y8Sws8wbOWwJMv8ATPWgJPvsDTdv/pbeCZ7udskr3T1ct+Tv658phqjYuau+rl/a65d45b5964OTov/9xaC7E17hgs674tDTzBkypqPrvW+10t82Op6/G8vvX9Ls2zhe+vxxi8rg88+2u7Jk9q7qrk+101+bEe2k6Z9XMuIAiCIHv9BeQSEPk=
+  </data>
+ </layer>
+ <layer name="pavement" width="116" height="124">
+  <data encoding="base64" compression="zlib">
+   eJztnUlu3DAQRZUR2WZwkG1G5JrtGyQ3yDHsrJxcLGooArrbTbKqWFUki/8Bf2GgRVF6EEWRlLwsgMphza3j/l4x8m7NjWPdIuDt8wMj8MnH2+d3Rjx93v/Pnw6z142Ct897Rlr47BH4lNerR0bwSWlf4HNjBJ+U38DnBnzygU8Z8MmH6/NgWJdL4JMPfPLR9Mnpw3POh1Z5WnDrP6pPyZiBdnneyTG6T3BOyufdImt7emunZqPks1W7AWSUfIKxgM9YwGcs4DMW0Xxa9st/J/ZpXb7k2OCz/CxVOt81cHw+X/OikJulL5/S8z6DTwmUbS3O2Y70GRY+5dta+pSi0a7M7pOLpc+HRWeN3zXgU3c7L+CTx2w+qfcfzeeVy3MMn4+Bz/x2Vv3QWlq0t5Ty7yrKntln6jqAz/x2LUIh1Uf+KzhWDqP6BNeBz1jAZyzgMw6c5xUJ8OkLfNpxPPbbTCyATzuOx35IBD7HI9fvsBpT6MGnNqlrohRt4FMH+MwDnzLgUwepT+0+irZP6jyX5nxZaltPol6f1He7SuP9lLU08PkYK58e9OSzlzlQ+JTtU3tOU8s9fPLo9dsDO7l+B3yOR67fIVmjAJ+xgM9YwKcfvxz2QTmXWmMOs/v0AD7bwl2HTi2v9BsK8MlnVp9W3yqweI+D8+xYs44uV1+NfUb2yQE+aXXIrZuSBj7TePiUzouk5jLhMw18bsAn2lstRvKJ/hCtvBF8UtY/SFKaw4DPNDU+WwGfaeAzXT41GvWd2ae0nafORVvcRyj3EAoRfUYEPmMBn7GAz1h4+dQeA9AoKyKpd4jvL/6W+rQa04HP61j75KLx7fOXy9w+f6z5eZJTn/vfvfnc/+/Atbxf9K91zfHjmv1qHRN86vqUAJ+0sqTk5upa+aSOSZXGmWb0mZtPb+VTC/iEz2tQHXxZ8zWRb4uPzxzwuUF18GTN00SeLfBZi7fP12veJPJ2gc9a4PMc+NygOvi45lMinxf4rMXbp8YzcytqfHqnFvhME9EnZ02OxXpNKhbt7Yh4XlPwaQ98xgI+YwGfsYDPWHg+r8CnPRQHLd//pAKfG1Sfrd7PpjK6z8trY4c7HgGffZD6dvfp/U5rTAc+7Un51BwLPGLh0yrwWUazP2T1nn+prbHeby5UF14+NcfjZ6Q3n6AOqgtK/xa0Bz5jgfY2FvAZC/iMBXzKoD4jWyQHfMqgjGFZBD5tgM9YwGcsRveJ8YRzRvdZ2n5Gn3tS573n/m1p+9l8Pixt5sOsv3Mxq89egc9YwGcs4DMW8BkL+IwFfMZC0yfST6S0rjei6xPE4B8Dz9ke
+  </data>
+ </layer>
+ <layer name="greenery" width="116" height="124">
+  <data encoding="base64" compression="zlib">
+   eJzt3e1OwjAYBtDduqAmmugP9Gq4OiChsSnb7FjHunJO0h/yoc2evR1SWrqOXPu1OwDwJIy3AI9hvIV6vZ3b+9qdoJivc/vOfOyU7ONxPDxvN6FfLK8v+5zrb3iePOvxUqABAAAAAAAAAAAAAAAw325GO67QX5Yhz20YWk+XrqWUZ51Cfv+tfU3XUsqzbmPrnvtqVp5tkWdb5NmWYyfPlsgTAAAAAMoamrPM2cfXPs/1CXOWl/nJOJ90LjO+bz/wGOoythfz1LlqAAAAAIAt+h24/fL9Za8j91OnOK/4vWx5btPHuX1G7XC9/XD9+WelfgHcy+ch2uLzEAAAAAAAAEAp6Xyy+eVtC/PJIcd4rT7zPbI+hvZWUKPlPLI+0r+V1ihlrFUfcizLnjFQP68tAZYVXtcab9uQvlfD9l1q0/8rbVCX/bZ6XOK6dA39M2W8qi372vpTs313e97nZD90jJeoIdfOW/Fxvvd8j3/HGsfYeNsvN4vc7/8OjIv1GDv3c/dUNy4CAAAAADyvE3f0cqg=
+  </data>
+ </layer>
+ <layer name="buildings" width="116" height="124">
+  <data encoding="base64" compression="zlib">
+   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
+  </data>
+ </layer>
+ <layer name="environment" width="116" height="124">
+  <data encoding="base64" compression="zlib">
+   eJzt3clu1DAAgGEXThXLleXKci+LkOAN4ASvVIHEVHDjyIMBBU4VBU7sJxZbE6seYzu2x0ns5P8kd5JMJrXkxEm8CgGkOZw6AgE1x02pMX7HU0cgoOa4KTXG72jqCATUHDel9vgBwNT2jODathexP+qT8nxa47MsNrmeTx/L8CRyX2yn9DXiej59JsPzyH2xHfMa+SnDL2N91YVQmpc6Hz4WOo5yV4Z7BbeVti/D7s7Julr2bUtlXiOn5DFO73h39VoZ4aDb9tTa3vddiWtVn1v3ZXggNs81vU04tvXtN0cvHNteyrCTkf5Dse/Het3Od0K/ey3DFxm+FoxXjXzpWRP7GtfrffnOkbX8W4Y/RWNWnxbSE/FIz3khPeeF9JwX0nNeSM90tZZP/xCkZ6x3Mrzvlu334Q8jx8UntbzvmwzfB4pL7T7J8Llb9r0Pt+av+lNRuVEr7LLj2PVa8/Wls8uOY9epd5yXsfPx1PyA/KMOdjsEvZ6aH4T297V1wFrJ+lu7HYJeT80PzP33xWa9rq+tA9b52lLqb5eA56J5afX9FgDgF/tOybtnG2KfvXhGa0PssxfPaMD/KEebB12WpsvRXk0YF5RXy/1rz/MJ1KSF9zEVx762EbnHrVlq/FQfwFryvxD1zhhqG/Fmi+MqQ/T5ssd5iPnO3k+lze4M20n1nXO55+SR8bmEPl+Yhs5nXf2S+8KBfTBR7r4SGk9mCVLy8VA76W0NUcZZ+7PHEFLy8VA76RLxKMHsh67OkVra4yOP2Q/9SLTxLA0AAAAAY1pyf+45oj83AAzvpvU5Jca+b0+orURKvVWN7fj75tgYw9jXZ6jOIaU+opW6izPyOfOsDOdkOM8zZ3Ex+XSJvFwf44JMw4syXJLh8gjpWdP9cwyh+Rdc+2z7f67INLwqwzUZrnfpOcb8DksRM/9Ciby8lfsByigxv8NDsZm/PhLLy29rwXip81IqPe3rketzGlyf81IyPek7PL0S6amP4RuDj+t9PCXSs+89lvQcT4n0VGUWqk+O7guy6ravuu9cfXVQXqn5HXSZhdkXxP4Ow6O8D8DQWmpH2FJcp9JSO8KW4grUoFTbDddYPilzH5Wcw2HJ7LYbqc/2b7tPPZaP2T6hb+4jc/wG5nAQ4o4RUpjtAe22G6ntQux37L552s3fuN7Zka5Ue0CUlXt9Ahge1ycAlGPnqa5l8ltgGlyf80P9+vDGrMtzlcHZ49zmjn+OtTHr8lxlcPY4t1OX05n1I75lO5/x7YfpmfUjvmWVz/jqX3LqV0Lnw2HmPq5jm+vc+06oPCSm/iVW6Hw4ztzHdWxzvcYxJpYg5v6Tc4+a+r4GAAAAAAAAYK2leYdviPX4VbfFug7glrGuubaZzDGCD4V/HOHQb83fu7bnaCkdhmDXAZj9fnKPYeubN9b3+yHq3XPrsFqp+7LrAHL6/cTMHx6aN9b3+9T6CTX/84Fj2ZRbh0XdV522nZseAAAAAAAAGNI/dGE97A==
+  </data>
+ </layer>
+ <objectgroup color="#5da459" name="box2D" width="116" height="124">
+  <object x="0" y="0" width="800" height="448"/>
+  <object x="800" y="0" width="1312" height="96"/>
+  <object x="2112" y="0" width="1184" height="352"/>
+  <object x="2190" y="352" width="4" height="28"/>
+  <object x="2278" y="352" width="54" height="32"/>
+  <object x="2464" y="352" width="381" height="32"/>
+  <object x="2688" y="384" width="32" height="32"/>
+  <object x="2464" y="640" width="32" height="32"/>
+  <object x="2464" y="672" width="544" height="704"/>
+  <object x="3008" y="928" width="32" height="189"/>
+  <object x="3296" y="0" width="416" height="96"/>
+  <object x="3648" y="96" width="64" height="576"/>
+  <object x="3360" y="672" width="352" height="704"/>
+  <object x="3328" y="928" width="30" height="189"/>
+  <object x="3437" y="1376" width="6" height="31"/>
+  <object x="3500" y="1377" width="6" height="27"/>
+  <object x="3648" y="1376" width="64" height="1376"/>
+  <object x="3040" y="1728" width="288" height="640"/>
+  <object x="2720" y="1376" width="18" height="28"/>
+  <object x="2464" y="1376" width="256" height="736"/>
+  <object x="2688" y="2112" width="32" height="32"/>
+  <object x="2464" y="2368" width="32" height="32"/>
+  <object x="2304" y="2400" width="416" height="352"/>
+  <object x="2304" y="2752" width="1408" height="384"/>
+  <object x="3328" y="3136" width="384" height="800"/>
+  <object x="0" y="3936" width="3712" height="32"/>
+  <object x="2048" y="3392" width="160" height="224"/>
+  <object x="2208" y="3392" width="832" height="192"/>
+  <object x="2240" y="3584" width="800" height="32"/>
+  <object x="2893" y="3616" width="5" height="26"/>
+  <object x="2445" y="3618" width="6" height="24"/>
+  <object x="3104" y="2368" width="59" height="26"/>
+  <object x="3053" y="2367" width="4" height="30"/>
+  <object x="3278" y="2370" width="5" height="29"/>
+  <object x="2988" y="1376" width="6" height="29"/>
+  <object x="1729" y="371" width="31" height="13"/>
+  <object x="1760" y="357" width="30" height="27"/>
+  <object x="1602" y="357" width="30" height="28"/>
+  <object x="1632" y="371" width="32" height="13"/>
+  <object x="1569" y="372" width="32" height="13"/>
+  <object x="1442" y="358" width="29" height="26"/>
+  <object x="1472" y="370" width="31" height="13"/>
+  <object x="1088" y="352" width="320" height="352"/>
+  <object x="1156" y="704" width="55" height="27"/>
+  <object x="1262" y="704" width="5" height="27"/>
+  <object x="1391" y="705" width="4" height="26"/>
+  <object x="652" y="450" width="6" height="24"/>
+  <object x="557" y="448" width="5" height="26"/>
+  <object x="292" y="448" width="55" height="31"/>
+  <object x="237" y="448" width="4" height="28"/>
+  <object x="110" y="448" width="5" height="29"/>
+  <object x="0" y="448" width="64" height="3488"/>
+  <object x="1600" y="672" width="512" height="128"/>
+  <object x="2112" y="672" width="160" height="288"/>
+  <object x="2158" y="961" width="4" height="28"/>
+  <object x="2094" y="800" width="5" height="27"/>
+  <object x="2112" y="1184" width="223" height="32"/>
+  <object x="2112" y="1248" width="192" height="288"/>
+  <object x="2149" y="1537" width="55" height="30"/>
+  <object x="2253" y="1537" width="5" height="27"/>
+  <object x="416" y="1024" width="576" height="480"/>
+  <object x="992" y="1024" width="480" height="448"/>
+  <object x="1504" y="1024" width="288" height="480"/>
+  <object x="1472" y="1024" width="32" height="256"/>
+  <object x="494" y="1505" width="4" height="27"/>
+  <object x="832" y="1504" width="60" height="30"/>
+  <object x="942" y="1505" width="6" height="27"/>
+  <object x="384" y="1856" width="672" height="128"/>
+  <object x="973" y="1984" width="5" height="27"/>
+  <object x="622" y="1984" width="4" height="29"/>
+  <object x="399" y="1984" width="3" height="26"/>
+  <object x="1376" y="1824" width="352" height="256"/>
+  <object x="1422" y="2081" width="4" height="29"/>
+  <object x="1511" y="2080" width="51" height="30"/>
+  <object x="1711" y="2080" width="4" height="30"/>
+  <object x="64" y="2336" width="384" height="704"/>
+  <object x="324" y="3039" width="55" height="29"/>
+  <object x="429" y="3041" width="4" height="29"/>
+  <object x="142" y="3040" width="5" height="28"/>
+  <object x="736" y="2976" width="320" height="192"/>
+  <object x="768" y="2336" width="256" height="352"/>
+  <object x="782" y="2689" width="5" height="29"/>
+  <object x="1006" y="2688" width="4" height="30"/>
+  <object x="1376" y="2432" width="448" height="224"/>
+  <object x="1390" y="2655" width="4" height="29"/>
+  <object x="1509" y="2656" width="55" height="31"/>
+  <object x="1807" y="2657" width="4" height="27"/>
+  <object x="1856" y="2656" width="60" height="29"/>
+  <object x="1376" y="2784" width="672" height="320"/>
+  <object x="1764" y="3104" width="55" height="30"/>
+  <object x="416" y="3392" width="608" height="192"/>
+  <object x="1024" y="3424" width="768" height="160"/>
+  <object x="768" y="3328" width="256" height="64"/>
+  <object x="640" y="3584" width="64" height="32"/>
+  <object x="525" y="3584" width="6" height="28"/>
+  <object x="1070" y="3585" width="5" height="25"/>
+  <object x="1326" y="3585" width="4" height="28"/>
+  <object x="1582" y="3584" width="4" height="29"/>
+  <object x="1774" y="3585" width="5" height="26"/>
+  <object x="3310" y="3136" width="4" height="30"/>
+  <object x="2894" y="3138" width="4" height="24"/>
+  <object x="2606" y="3136" width="5" height="28"/>
+  <object x="2112" y="1792" width="352" height="288"/>
+  <object x="2254" y="2080" width="4" height="27"/>
+  <object x="3342" y="95" width="5" height="30"/>
+  <object x="416" y="800" width="384" height="224"/>
+  <object x="1581" y="1505" width="6" height="28"/>
+  <object x="2313" y="1250" width="11" height="26"/>
+  <object x="2061" y="96" width="6" height="30"/>
+  <object x="800" y="96" width="17" height="28"/>
+  <object x="1824" y="2528" width="224" height="128"/>
+  <object x="1824" y="2432" width="224" height="32"/>
+  <object x="302" y="3042" width="4" height="26"/>
+  <object x="1742" y="3106" width="5" height="27"/>
+  <object x="3525" y="1377" width="53" height="28"/>
+  <object x="3021" y="1119" width="7" height="29"/>
+  <object x="3342" y="1120" width="4" height="27"/>
+  <object x="2881" y="353" width="188" height="30"/>
+  <object x="3105" y="353" width="158" height="29"/>
+  <object x="3278" y="353" width="4" height="29"/>
+  <object x="676" y="449" width="55" height="27"/>
+  <object x="516" y="1505" width="55" height="28"/>
+  <object x="2286" y="1537" width="5" height="26"/>
+  <object x="2304" y="1217" width="31" height="30"/>
+  <object x="1349" y="3586" width="55" height="27"/>
+ </objectgroup>
+ <objectgroup color="#a4271b" name="spawn-passenger" width="116" height="124">
+  <object x="416" y="480" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="96" y="864" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="704" y="736" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="1312" y="736" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="768" y="480" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="832" y="192" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="1280" y="96" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="1760" y="96" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="2048" y="192" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="1632" y="640" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="1792" y="800" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="1280" y="928" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="960" y="928" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="416" y="736" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="352" y="1152" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="96" y="1408" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="544" y="1536" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="96" y="1920" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="800" y="1792" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="1024" y="1536" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="1504" y="1536" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="2176" y="1728" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="2240" y="992" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="2080" y="1280" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="2304" y="1408" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="2080" y="1888" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="1760" y="1920" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="2144" y="2112" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="2400" y="2112" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="1600" y="2112" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="1312" y="2016" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="1312" y="1824" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="864" y="2016" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="480" y="2016" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="704" y="2400" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="288" y="2272" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="448" y="2656" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="832" y="2752" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="800" y="2944" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="224" y="3072" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="128" y="3296" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="128" y="3712" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="928" y="3168" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="1056" y="3008" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="576" y="3872" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="768" y="3616" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="1184" y="3872" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="1440" y="3616" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="1824" y="3872" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="2240" y="3616" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="2656" y="3872" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="2976" y="3616" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="3264" y="3488" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="3072" y="3136" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="2368" y="3136" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="1952" y="3136" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="1472" y="3136" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="1600" y="3392" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="1312" y="2848" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="1312" y="2496" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="1056" y="2624" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="1888" y="2368" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="2080" y="2592" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="2080" y="2912" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="2752" y="2464" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="2944" y="2688" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="3232" y="2432" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="3456" y="2688" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+  <object x="3584" y="2304" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="3328" y="2016" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="3584" y="1728" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="2880" y="1408" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="2752" y="1824" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="3008" y="2048" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="3488" y="160" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="2400" y="384" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="3584" y="448" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="2816" y="384" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="3040" y="832" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="3296" y="704" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="3296" y="1248" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="3040" y="1344" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="544" y="3328" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#efdd17" name="spawn-taxi" width="116" height="124">
+  <object x="224" y="544" width="32" height="32">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
+  <object x="3424" y="352" width="32" height="32">
+   <properties>
+    <property name="angle" value="0"/>
+   </properties>
+  </object>
+  <object x="3008" y="3680" width="32" height="32">
+   <properties>
+    <property name="angle" value="270"/>
+   </properties>
+  </object>
+  <object x="320" y="3616" width="32" height="32">
+   <properties>
+    <property name="angle" value="180"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ef18c8" name="destination-point" width="116" height="124">
+  <object x="2080" y="448" width="96" height="64"/>
+  <object x="704" y="1600" width="96" height="64"/>
+  <object x="2368" y="1280" width="64" height="96"/>
+  <object x="3200" y="960" width="64" height="96"/>
+  <object x="3136" y="1600" width="96" height="64"/>
+  <object x="896" y="3808" width="96" height="64"/>
+  <object x="1952" y="3424" width="64" height="96"/>
+  <object x="2560" y="2304" width="96" height="64"/>
+  <object x="640" y="3040" width="64" height="96"/>
+  <object x="2688" y="3328" width="96" height="64"/>
+  <object x="1824" y="1056" width="64" height="96"/>
+  <object x="1504" y="288" width="96" height="64"/>
+ </objectgroup>
+ <objectgroup color="#124aa4" name="powerups" width="116" height="124">
+  <object x="1120" y="832" width="32" height="32"/>
+  <object x="1664" y="2720" width="32" height="32"/>
+  <object x="3488" y="2144" width="32" height="32"/>
+  <object x="1952" y="2464" width="32" height="32"/>
+  <object x="1696" y="224" width="32" height="32"/>
+  <object x="2816" y="512" width="32" height="32"/>
+  <object x="2368" y="1536" width="32" height="32"/>
+  <object x="2336" y="3712" width="32" height="32"/>
+  <object x="1024" y="3712" width="32" height="32"/>
+  <object x="3136" y="1088" width="32" height="32"/>
+  <object x="192" y="1312" width="32" height="32"/>
+  <object x="1184" y="2144" width="32" height="32"/>
+  <object x="576" y="2848" width="32" height="32"/>
+ </objectgroup>
+</map>
