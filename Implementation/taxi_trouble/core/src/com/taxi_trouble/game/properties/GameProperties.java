@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.taxi_trouble.game.model.powerups.IncreaseTimeBehaviour;
 import com.taxi_trouble.game.model.powerups.InvincibilityBehaviour;
 import com.taxi_trouble.game.model.powerups.PowerUpAnimation;
 import com.taxi_trouble.game.model.powerups.PowerUpBehaviour;
@@ -57,6 +58,7 @@ public final class GameProperties {
         // Add the powerup behaviours
         behaviours.add(new SpeedBehaviour(getSpeedAnimation()));
         behaviours.add(new InvincibilityBehaviour(getInvincibleAnimation()));
+        behaviours.add(new IncreaseTimeBehaviour(getInvincibleAnimation()));
 
         return behaviours;
 
