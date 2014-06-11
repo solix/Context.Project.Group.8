@@ -29,7 +29,6 @@ public class AndroidLauncher extends AndroidApplication implements
 	private GameHelper aHelper;
 	private boolean iAmHost = false;
 	private String myId;
-	private boolean driver;
 	private GameWorld gameWorld;
 	private String roomId;
 	private AndroidMultiplayerAdapter multiplayerInterface;
@@ -207,8 +206,8 @@ public class AndroidLauncher extends AndroidApplication implements
 		}
 
 		// get waiting room intent
-		Intent i = Games.RealTimeMultiplayer.getWaitingRoomIntent(
-				aHelper.getApiClient(), room, 2);
+		//Intent i = Games.RealTimeMultiplayer.getWaitingRoomIntent(
+		//		aHelper.getApiClient(), room, 2);
 		// startActivityForResult(i, RC_WAITING_ROOM);
 	}
 

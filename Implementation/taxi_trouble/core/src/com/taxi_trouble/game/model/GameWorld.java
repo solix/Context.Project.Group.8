@@ -1,10 +1,8 @@
 package com.taxi_trouble.game.model;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -55,7 +53,6 @@ public class GameWorld extends Game {
 		loadResources();
 		world = new World(new Vector2(0.0f, 0.0f), true);
 		map = new WorldMap(ResourceManager.mapFile, world);
-		ownTeam = new Team(map.getSpawner().spawnTaxi(world));
 		collisionDetector = new CollisionDetector(map);
 		world.setContactListener(collisionDetector);
 		System.out.println("gameworld created!!!");
@@ -158,17 +155,14 @@ public class GameWorld extends Game {
 		return this.map.getSpawner().getActivePassengers();
 	}
 
-	public void setTeams(int totalTeams) {
+	public void setTeams(int teamId, int totalTeams) {
 		for (int i = 0; i < totalTeams; i++) {
-			Team team;
+			Team team =  new Team(map.getSpawner().spawnTaxi(world));
 
-			if (i == ownTeam.getTeamId()) {
-				team = ownTeam;
+			if (i == teamId) {
+				this.ownTeam = team;
 				System.out.println("ownteam!");
-			} else {
-				team = new Team(map.getSpawner().spawnTaxi(world));
-				team.setTeamId(i);
-			}
+				
 			teams.put(i, team);
 		}
 

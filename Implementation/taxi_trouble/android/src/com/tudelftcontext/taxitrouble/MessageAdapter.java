@@ -1,6 +1,7 @@
 package com.tudelftcontext.taxitrouble;
 
 import java.util.Scanner;
+
 import com.google.android.gms.games.multiplayer.realtime.RealTimeMessage;
 import com.google.android.gms.games.multiplayer.realtime.RealTimeMessageReceivedListener;
 import com.taxi_trouble.game.model.GameWorld;
@@ -8,7 +9,6 @@ import com.taxi_trouble.game.model.Passenger;
 import com.taxi_trouble.game.model.PowerUp;
 import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.Team;
-import com.taxi_trouble.game.model.PowerUp;
 
 public class MessageAdapter implements RealTimeMessageReceivedListener {
 	private GameWorld gameWorld;
@@ -55,9 +55,8 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
 			boolean driver = sc.nextBoolean();
 			gameWorld.setDriver(driver);
 			int teamId = sc.nextInt();
-			gameWorld.getTeam().setTeamId(teamId);
 			int totalTeams = sc.nextInt();
-			gameWorld.setTeams(totalTeams);
+			gameWorld.setTeams(teamId, totalTeams);
 		} else if (flag.equals("NAVIGATOR")) {
 			gameWorld.setDriver(false);
 		}

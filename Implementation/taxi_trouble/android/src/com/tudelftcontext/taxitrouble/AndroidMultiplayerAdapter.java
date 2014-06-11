@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
-import com.google.android.gms.games.multiplayer.realtime.RealTimeMultiplayer.ReliableMessageSentCallback;
 import com.google.android.gms.games.multiplayer.realtime.Room;
 import com.taxi_trouble.game.model.Passenger;
 import com.taxi_trouble.game.model.PowerUp;
@@ -16,8 +15,6 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 	private String roomId;
 	private GoogleApiClient apiClient;
 	private String myId;
-	private int myTeamId;
-	private boolean driver;
 	private List<String> ids;
 	private boolean host = false;
 	private String hostId;
