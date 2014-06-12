@@ -111,9 +111,9 @@ public abstract class ViewObserver implements Screen {
         	if (!pow.getTaken()){
         		pow.render(getSpriteBatch());
         	}
-        getSpriteBatch().setProjectionMatrix(hudCamera.combined);
-        this.hud.render(getSpriteBatch());
         }
+        this.hud.render(getSpriteBatch());
+        getSpriteBatch().setProjectionMatrix(hudCamera.combined);
 	}
     private void showDropOffTimer(CountDownTimer dropOffTimer) {
         if (!this.hud.contains(dropOffTimerHUD)) {
