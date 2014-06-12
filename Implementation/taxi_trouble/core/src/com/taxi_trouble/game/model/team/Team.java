@@ -6,7 +6,6 @@ import static com.taxi_trouble.game.properties.ResourceManager.wheelSprite;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.powerups.PowerUp;
-import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**The team class defines a team to which a driver and navigator can belong.

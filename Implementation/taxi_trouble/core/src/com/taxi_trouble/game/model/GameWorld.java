@@ -5,11 +5,11 @@ import java.util.List;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Timer.Task;
 import com.taxi_trouble.game.model.powerups.PowerUp;
 import com.taxi_trouble.game.model.team.Team;
 import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.screens.NavigatorScreen;
-import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**
  * Provides the main model for all the elements of a game that is played.
@@ -36,10 +36,13 @@ public class GameWorld extends Game {
         team = new Team(3, map.getSpawner().spawnTaxi(world));
         world.setContactListener(new CollisionDetector(map));
         timer = new CountDownTimer(300);
-        timer.startTimer();
-        setScreen(new NavigatorScreen(this));
 
-        //TODO: Make a start game method (also for initiating timer and playing starting sound)
+        startGame();
+    }
+
+    public final void startGame() {
+        setScreen(new NavigatorScreen(this));
+        timer.startTimer();
     }
 
     /**

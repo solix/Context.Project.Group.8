@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Timer.Task;
 import com.taxi_trouble.game.model.CountDownTimer;
 import com.taxi_trouble.game.model.GameWorld;
 import com.taxi_trouble.game.model.Passenger;
@@ -12,6 +13,8 @@ import com.taxi_trouble.game.model.WorldMap;
 import com.taxi_trouble.game.model.powerups.PowerUp;
 import com.taxi_trouble.game.model.team.Team;
 import com.taxi_trouble.game.properties.ResourceManager;
+import com.taxi_trouble.game.screens.hud.EndGameHUD;
+import com.taxi_trouble.game.screens.hud.HUDComponent;
 import com.taxi_trouble.game.screens.hud.HeadUpDisplay;
 import com.taxi_trouble.game.screens.hud.ScoreHUD;
 import com.taxi_trouble.game.screens.hud.TeamHUD;
@@ -58,15 +61,22 @@ public abstract class ViewObserver implements Screen {
                 BUTTON_CAM_HEIGHT);
         
         this.initializeHUD();
+        taxigame.getTimer().setEndCountDownEvent(new Task() {
+            @Override
+            public void run() {
+                showEndResultsBoard();
+            }
+        });
+    }
 
-        // TaxiJukebox.loopMusic("BobMarley", true);
-        // TaxiJukebox.playMusic("BobMarley");
-        // TaxiJukebox.loopMusic("street", true);
-        // TaxiJukebox.playMusic("street");
-        // TaxiJukebox.setMusicVolume("BobMarley", 0.8f);
-        // TaxiJukebox.setMusicVolume("street", 0.4f);
-
-        // TODO: Also retrieve and render the other taxis in the game.
+    /**Displays the winner of the game at the end.
+     * 
+     */
+    private void showEndResultsBoard() {
+        this.hud.removeAll();
+        Team winner = taxigame.getTeam();
+        HUDComponent endGameHud = new EndGameHUD(winner, 340, 300);
+        this.hud.add(endGameHud);
     }
 
     /**

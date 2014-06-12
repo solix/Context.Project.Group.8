@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Timer.Task;
 public class CountDownTimer {
     private Timer timer;
     private int timeLeftSeconds;
+    private Task endCountDownTask;
 
     /**
      * Initializes a new CountDownTimer which will count down to zero for a
@@ -91,8 +92,30 @@ public class CountDownTimer {
             @Override
             public void run() {
                 timeLeftSeconds--;
+                if(hasEndCountDownTask() && timeLeftSeconds == 0) {
+                    endCountDownTask.run();
+                }
             }
         };
         return res;
+    }
+
+    /**Retrieve whether this timer has a task when the countdown has
+     * ended (i.e. whether it has to perform an action when the time
+     * left is equal to zero).
+     * 
+     * @return boolean indicating whether there is and end countdown task
+     */
+    private boolean hasEndCountDownTask() {
+        return endCountDownTask != null;
+    }
+
+    /**Sets the task to be performed when the countdown of the timer
+     * has ended, i.e. when the time left is equal to zero.
+     * 
+     * @param task
+     */
+    public void setEndCountDownEvent(Task task) {
+        this.endCountDownTask = task;
     }
 }
