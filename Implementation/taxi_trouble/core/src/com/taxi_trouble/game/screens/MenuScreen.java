@@ -35,11 +35,11 @@ public class MenuScreen implements Screen {
 		elements.put("background", new UIElement(new Rectangle(0, 0, UI_WIDTH,
 				UI_HEIGHT), menuBgSprite));
 		elements.put("play", new UIButton(new Rectangle(UI_WIDTH / 2 - 220,
-				320, 441, 91), menuPlaySprite, menuPlayActiveSprite));
-		elements.put("title", new UIElement(new Rectangle(UI_WIDTH / 2 - 334,
-				UI_HEIGHT - 220, 668, 168), menuTitleSprite));
+				220, 441, 91), menuPlaySprite, menuPlayActiveSprite));
+		elements.put("title", new UIElement(new Rectangle(UI_WIDTH / 2 - 425,
+				UI_HEIGHT - 250, 850, 250), menuTitleSprite));
 		elements.put("board", new UIButton(new Rectangle(UI_WIDTH / 2 - 220,
-				200, 441, 91), menuBoardSprite, menuBoardActiveSprite));
+				100, 441, 91), menuBoardSprite, menuBoardActiveSprite));
 
 		menuControl = new MenuControl(elements, setupInterface);
 	}

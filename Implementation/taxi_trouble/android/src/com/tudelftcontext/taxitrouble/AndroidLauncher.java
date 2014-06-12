@@ -1,5 +1,6 @@
 package com.tudelftcontext.taxitrouble;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.GamesStatusCodes;
+import com.google.android.gms.games.multiplayer.Multiplayer;
 import com.google.android.gms.games.multiplayer.Participant;
 import com.google.android.gms.games.multiplayer.realtime.Room;
 import com.google.android.gms.games.multiplayer.realtime.RoomConfig;
@@ -29,7 +31,6 @@ public class AndroidLauncher extends AndroidApplication implements
 	private GameHelper aHelper;
 	private boolean iAmHost = false;
 	private String myId;
-	private boolean driver;
 	private GameWorld gameWorld;
 	private String roomId;
 	private AndroidMultiplayerAdapter multiplayerInterface;
@@ -38,6 +39,7 @@ public class AndroidLauncher extends AndroidApplication implements
 	// arbitrary request code for the waiting room UI.
 	// This can be any integer that's unique in your Activity.
 	private final static int RC_WAITING_ROOM = 10002;
+	private final static int RC_SELECT_PLAYERS = 10000;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,73 @@ public class AndroidLauncher extends AndroidApplication implements
 						+ gameWorld.getTeam().getTeamId());
 			}
 		}
+
+		if (request == RC_SELECT_PLAYERS) {
+			if (response != RESULT_OK) {
+				// user canceled
+				return;
+			}
+
+			// get the invitee list
+			Bundle extras = data.getExtras();
+			final ArrayList<String> invitees = data
+					.getStringArrayListExtra(Games.EXTRA_PLAYER_IDS);
+
+			// get auto-match criteria
+			Bundle autoMatchCriteria = null;
+			int minAutoMatchPlayers = data.getIntExtra(
+					Multiplayer.EXTRA_MIN_AUTOMATCH_PLAYERS, 0);
+			int maxAutoMatchPlayers = data.getIntExtra(
+					Multiplayer.EXTRA_MAX_AUTOMATCH_PLAYERS, 0);
+
+			if (minAutoMatchPlayers > 0) {
+				autoMatchCriteria = RoomConfig.createAutoMatchCriteria(
+						minAutoMatchPlayers, maxAutoMatchPlayers, 0);
+			} else {
+				autoMatchCriteria = null;
+			}
+
+			// create the room and specify a variant if appropriate
+			RoomConfig.Builder roomConfigBuilder = makeBasicRoomConfigBuilder();
+			roomConfigBuilder.addPlayersToInvite(invitees);
+			if (autoMatchCriteria != null) {
+				roomConfigBuilder.setAutoMatchCriteria(autoMatchCriteria);
+			}
+			RoomConfig roomConfig = roomConfigBuilder.build();
+			Games.RealTimeMultiplayer
+					.create(aHelper.getApiClient(), roomConfig);
+
+			// prevent screen from sleeping during handshake
+			getWindow()
+					.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+		}
+		// if (request == RC_WAITING_ROOM) {
+		// if (response == RESULT_OK) {
+		// gameWorld.setScreen();
+		// } else if (response == RESULT_CANCELED) {
+		// // Waiting room was dismissed with the back button. The meaning
+		// // of this
+		// // action is up to the game. You may choose to leave the room
+		// // and cancel the
+		// // match, or do something else like minimize the waiting room
+		// // and
+		// // continue to connect in the background.
+		//
+		// // in this example, we take the simple approach and just leave
+		// // the room:
+		// Games.RealTimeMultiplayer.leave(aHelper.getApiClient(), null,
+		// roomId);
+		// getWindow().clearFlags(
+		// WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		// } else if (response == GamesActivityResultCodes.RESULT_LEFT_ROOM) {
+		// // player wants to leave the room.
+		// Games.RealTimeMultiplayer.leave(aHelper.getApiClient(), null,
+		// roomId);
+		// getWindow().clearFlags(
+		// WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		// }
+		// }
 	}
 
 	public void onSignInFailed() {
@@ -81,7 +150,8 @@ public class AndroidLauncher extends AndroidApplication implements
 
 	public void onSignInSucceeded() {
 		System.out.println("sign in succeeded");
-		startQuickGame();
+		// startQuickGame();
+		startGame();
 	}
 
 	@Override
@@ -119,7 +189,7 @@ public class AndroidLauncher extends AndroidApplication implements
 	private void startQuickGame() {
 		// auto-match criteria to invite one random automatch opponent.
 		// You can also specify more opponents (up to 3).
-		Bundle am = RoomConfig.createAutoMatchCriteria(1, 3, 0);
+		Bundle am = RoomConfig.createAutoMatchCriteria(1, 7, 0);
 
 		// build the room config:
 		RoomConfig.Builder roomConfigBuilder = makeBasicRoomConfigBuilder();
@@ -137,6 +207,12 @@ public class AndroidLauncher extends AndroidApplication implements
 						WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 			}
 		});
+	}
+
+	private void startGame() {
+		Intent intent = Games.RealTimeMultiplayer.getSelectOpponentsIntent(
+				aHelper.getApiClient(), 1, 7);
+		startActivityForResult(intent, RC_SELECT_PLAYERS);
 	}
 
 	private RoomConfig.Builder makeBasicRoomConfigBuilder() {
@@ -209,13 +285,12 @@ public class AndroidLauncher extends AndroidApplication implements
 		// get waiting room intent
 		Intent i = Games.RealTimeMultiplayer.getWaitingRoomIntent(
 				aHelper.getApiClient(), room, 2);
-		// startActivityForResult(i, RC_WAITING_ROOM);
+		startActivityForResult(i, RC_WAITING_ROOM);
 	}
 
 	@Override
 	public void onLeftRoom(int arg0, String arg1) {
-		// TODO Auto-generated method stub
-
+		Log.d("ROOM", "left");
 	}
 
 	@Override
@@ -228,7 +303,7 @@ public class AndroidLauncher extends AndroidApplication implements
 
 		// get waiting room intent
 		Intent i = Games.RealTimeMultiplayer.getWaitingRoomIntent(
-				aHelper.getApiClient(), room, 2);
+				aHelper.getApiClient(), room, Integer.MAX_VALUE);
 		startActivityForResult(i, RC_WAITING_ROOM);
 	}
 
@@ -261,8 +336,7 @@ public class AndroidLauncher extends AndroidApplication implements
 		}
 		gameWorld.setHost(iAmHost);
 		multiplayerInterface.setIds(room.getParticipantIds());
-	
-		
+
 	}
 
 	// are we already playing?
