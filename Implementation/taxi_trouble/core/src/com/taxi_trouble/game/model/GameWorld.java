@@ -37,7 +37,6 @@ public class GameWorld extends Game {
 	private boolean driver;
 	private Map<Integer, Team> teams;
 	private boolean host = false;
-	final static int THREE = 3;
 	private CollisionDetector collisionDetector;
 	private boolean multiplayerIntitialized;
 
@@ -95,7 +94,7 @@ public class GameWorld extends Game {
 		if (host && multiplayerIntitialized) {
 			ConcurrentHashMap<Integer, Passenger> passengers = map.getSpawner()
 					.getActivePassengers();
-			if (passengers.size() < THREE) {
+			if (passengers.size() < 3) {
 				map.getSpawner().spawnPassenger(world);
 			}
 
