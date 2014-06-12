@@ -458,6 +458,7 @@ public class Taxi {
             this.passenger.setTransporter(this);
             this.passenger.setUpDropOffTimer();
             this.triggerInvincibility(5);
+            TaxiJukebox.playSound("yoohoo");
         }
     }
 

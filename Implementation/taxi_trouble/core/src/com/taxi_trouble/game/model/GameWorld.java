@@ -40,7 +40,6 @@ public class GameWorld extends Game {
         setScreen(new NavigatorScreen(this));
 
         //TODO: Make a start game method (also for initiating timer and playing starting sound)
-        TaxiJukebox.playSound("startEngine");
     }
 
     /**
