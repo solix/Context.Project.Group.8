@@ -92,3 +92,13 @@ sympy-plots-for-*.tex/
 *.lock
 *.bin
 Implementation/taxi_trouble/.gradle/1.10/taskArtifacts/cache.properties
+*.lock
+*.bin
+Implementation/taxi_trouble/.gradle/1.10/taskArtifacts/fileSnapshots.bin
+Implementation/taxi_trouble/core/build/classes/main/com/taxi_trouble/game/Acceleration.class
+Implementation/taxi_trouble/core/build/classes/main/com/taxi_trouble/game/SteerDirection.class
+Implementation/taxi_trouble/core/build/libs/core-1.0.jar
+*.jar
+*.classpath
+*.class
+*.prefs
