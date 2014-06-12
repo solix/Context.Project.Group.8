@@ -28,4 +28,6 @@ public interface AndroidMultiplayerInterface {
 	public void powerUpMessage(Taxi taxi, PowerUp powerUp);
 	
 	void activateMessage(Team team, PowerUp powerUp);
+
+	public void sendEndMessage(Team team);
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.WindowManager;
 
@@ -118,7 +119,8 @@ public class AndroidLauncher extends AndroidApplication implements
 	private void startQuickGame() {
 		// auto-match criteria to invite one random automatch opponent.
 		// You can also specify more opponents (up to 3).
-		Bundle am = RoomConfig.createAutoMatchCriteria(1, 3, 0);
+		// The arguments for this call should be: minmum players -1, maximum players -1, 0
+		Bundle am = RoomConfig.createAutoMatchCriteria(3, 7, 0);
 
 		// build the room config:
 		RoomConfig.Builder roomConfigBuilder = makeBasicRoomConfigBuilder();

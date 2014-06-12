@@ -36,7 +36,6 @@ public class InvincibilityBehaviour implements PowerUpBehaviour {
      */
     @Override
     public void triggerEvent(Taxi taxi) {
-    	System.out.println("INVINCIBLE"); 
         taxi.triggerInvincibility(POWERUPTIME);
     }
 

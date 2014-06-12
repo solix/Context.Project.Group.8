@@ -2,6 +2,7 @@ package com.taxi_trouble.game.screens.hud;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -15,7 +16,7 @@ import com.taxi_trouble.game.model.team.Team;
  *
  */
 public class HeadUpDisplay implements HUDComponent {
-    private ArrayList<HUDComponent> hudComponents;
+    private CopyOnWriteArrayList<HUDComponent> hudComponents;
     private BitmapFont hudFont;
     private Team team;
 
@@ -26,13 +27,9 @@ public class HeadUpDisplay implements HUDComponent {
      * @param team : the team to which the hud applies
      */
     public HeadUpDisplay(BitmapFont hudFont, Team team) {
-    	if (team == null){
-    		System.out.println("CONSTRUCTOR CALLED WITH NULLPOINTER TEAM");
-    		team.toString();
-    	}
         this.team = team;
         this.hudFont = hudFont;
-        this.hudComponents = new ArrayList<HUDComponent>();
+        this.hudComponents = new CopyOnWriteArrayList<HUDComponent>();
         this.setColorTheme();
     }
 
@@ -59,6 +56,16 @@ public class HeadUpDisplay implements HUDComponent {
      */
     public void remove(HUDComponent hudComponent) {
         this.hudComponents.remove(hudComponent);
+    }
+
+    /**Removes all components of the hud.
+     * 
+     */
+    public void removeAll() {
+        Iterator<HUDComponent> compIterator = this.hudComponents.iterator();
+        while(compIterator.hasNext()) {
+            remove(compIterator.next());
+        }
     }
 
     /**Sets the color of the hudFont to the team theme color.

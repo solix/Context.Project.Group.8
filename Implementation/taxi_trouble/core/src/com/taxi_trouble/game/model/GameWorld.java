@@ -53,6 +53,7 @@ public class GameWorld extends Game {
 	 */
 	@Override
 	public final void create() {
+		System.out.println("RUNNING BETA 0.9");
 		loadResources();
 		world = new World(new Vector2(0.0f, 0.0f), true);
 		map = new WorldMap(ResourceManager.mapFile, world);
@@ -63,8 +64,6 @@ public class GameWorld extends Game {
 		driverScreen = new DriverScreen(this);
 		navigatorScreen = new NavigatorScreen(this);
 		timer = new CountDownTimer(300);
-		timer.startTimer();
-
 		menuScreen = new MenuScreen(setupInterface);
 		setScreen(menuScreen);
 	}
@@ -73,18 +72,22 @@ public class GameWorld extends Game {
 	public void resume() {
 		loadResources();
 	}
+	
+	 public final void startGame() {
+		 System.out.println("timer started");
+        timer.startTimer();
+    }
 
-	/**
-	 * Loads the game resources.
-	 * 
-	 */
-	public void loadResources() {
-		// TaxiJukebox.createMusicInGame("sound/bobmar.mp3", "BobMarley");
-		// TaxiJukebox.createMusicInGame("sound/street.mp3", "street");
-		ResourceManager.loadMap();
-		ResourceManager.loadSprites();
-		ResourceManager.loadFonts();
-	}
+    /**
+     * Loads the game resources.
+     * 
+     */
+    public void loadResources() {
+        ResourceManager.loadMap();
+        ResourceManager.loadSprites();
+        ResourceManager.loadFonts();
+       // ResourceManager.loadFx();
+    }
 
 	@Override
 	public final void render() {
@@ -118,6 +121,7 @@ public class GameWorld extends Game {
 		} else {
 			setScreen(navigatorScreen);
 		}
+		startGame();
 	}
 
 	public void returnToMenu() {
@@ -162,7 +166,7 @@ public class GameWorld extends Game {
 
 	public void setTeams(int teamId, int totalTeams) {
 		for (int i = 0; i < totalTeams; i++) {
-			Team team =  new Team(i, map.getSpawner().spawnTaxi(world));
+			Team team =  new Team(i, map.getSpawner().spawnTaxi(world, i));
 
 			if (i == teamId) {
 				this.ownTeam = team;
@@ -203,7 +207,7 @@ public class GameWorld extends Game {
 		return getTeamById(id).getTaxi();
 	}
 
-	private Team getTeamById(int id) {
+	public Team getTeamById(int id) {
 		return getTeams().get(id);
 	}
 
@@ -234,5 +238,17 @@ public class GameWorld extends Game {
     public final CountDownTimer getTimer() {
         return this.timer;
     }
+
+public Team getWinner() {
+	Team team = null;
+	int highscore = -1;
+	for (Team t: teams.values()){
+		if (t.getScore() > highscore){
+			team = t;
+			highscore = t.getScore();
+		}
+	}
+	return team;
+}
 }
 

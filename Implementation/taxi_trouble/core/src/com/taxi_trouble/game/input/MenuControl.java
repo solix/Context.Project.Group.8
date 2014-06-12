@@ -67,7 +67,7 @@ public class MenuControl implements InputProcessor {
 		if (entry == null) {
 			return false;
 		} else if (entry.getKey().equals("play")) {
-			setupInterface.login();
+			//setupInterface.login();
 			((UIButton) entry.getValue()).setActive(false);
 		} else if (entry.getKey().equals("board")) {
 			System.out.println("board");

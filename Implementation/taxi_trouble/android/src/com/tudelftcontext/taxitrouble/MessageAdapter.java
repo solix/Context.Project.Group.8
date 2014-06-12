@@ -9,6 +9,7 @@ import com.taxi_trouble.game.model.Passenger;
 import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.powerups.PowerUp;
 import com.taxi_trouble.game.model.team.Team;
+import com.taxi_trouble.game.screens.ViewObserver;
 
 public class MessageAdapter implements RealTimeMessageReceivedListener {
 	private GameWorld gameWorld;
@@ -58,6 +59,8 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
 			int teamId = sc.nextInt();
 			int totalTeams = sc.nextInt();
 			gameWorld.setTeams(teamId, totalTeams);
+		} else if (flag.equals("END")){
+			resolveEndMesage(sc);
 		} else if (flag.equals("NAVIGATOR")) {
 			gameWorld.setDriver(false);
 		}
@@ -71,6 +74,13 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
 		sc.close();
 		}
 	
+	private void resolveEndMesage(Scanner sc) {
+		Team winner = gameWorld.getTeamById(sc.nextInt());
+		((ViewObserver) gameWorld.getScreen()).showEndResultsBoard(winner);
+
+		
+	}
+
 	private void resolveActivateMessage(Scanner sc) {
 		int teamId = sc.nextInt();
 		int behaviourId = sc.nextInt();

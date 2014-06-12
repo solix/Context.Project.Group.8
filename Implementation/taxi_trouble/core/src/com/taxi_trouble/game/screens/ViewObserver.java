@@ -10,6 +10,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Timer.Task;
 import com.taxi_trouble.game.model.CountDownTimer;
 import com.taxi_trouble.game.model.GameWorld;
 import com.taxi_trouble.game.model.Passenger;
@@ -17,10 +18,17 @@ import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.WorldMap;
 import com.taxi_trouble.game.model.powerups.PowerUp;
 import com.taxi_trouble.game.model.team.Team;
+import com.taxi_trouble.game.properties.ResourceManager;
+import com.taxi_trouble.game.screens.hud.EndGameHUD;
+import com.taxi_trouble.game.screens.hud.HUDComponent;
 import com.taxi_trouble.game.screens.hud.HeadUpDisplay;
 import com.taxi_trouble.game.screens.hud.ScoreHUD;
 import com.taxi_trouble.game.screens.hud.TeamHUD;
 import com.taxi_trouble.game.screens.hud.TimerHUD;
+
+import static com.taxi_trouble.game.properties.ResourceManager.hudFont;
+import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_HEIGHT;
+import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_WIDTH;
 
 /**
  * Basic class for extending independent screen of the game.
@@ -59,16 +67,26 @@ public abstract class ViewObserver implements Screen {
         this.hudCamera.setToOrtho(false, BUTTON_CAM_WIDTH,
                 BUTTON_CAM_HEIGHT);
         this.initializeHUD();
+        taxigame.getTimer().setEndCountDownEvent(new Task() {
+            @Override
+            public void run() {
+            	if (taxigame.getMultiplayerInterface().isHost()){
+            		Team winner = taxigame.getWinner();
+            		taxigame.getMultiplayerInterface().sendEndMessage(winner);
+            		showEndResultsBoard(winner);
+            	}
+            }
+        });
+    }
 
-        //TaxiJukebox.loopMusic("BobMarley", true);
-        //TaxiJukebox.playMusic("BobMarley");
-        //TaxiJukebox.loopMusic("street", true);
-        //TaxiJukebox.playMusic("street");
-        //TaxiJukebox.setMusicVolume("BobMarley", 0.8f);
-        //TaxiJukebox.setMusicVolume("street", 0.4f);
-
-		// TODO: Also retrieve and render the other taxis in the game.
-	}
+    /**Displays the winner of the game at the end.
+     * 
+     */
+    public void showEndResultsBoard(Team winner) {
+        this.hud.removeAll();
+        HUDComponent endGameHud = new EndGameHUD(winner, 340, 300);
+        this.hud.add(endGameHud);
+    }
 
 	/**
 	 * Update the world and draw the sprites of the world.
@@ -112,9 +130,10 @@ public abstract class ViewObserver implements Screen {
         		pow.render(getSpriteBatch());
         	}
         }
-        this.hud.render(getSpriteBatch());
         getSpriteBatch().setProjectionMatrix(hudCamera.combined);
-	}
+        this.hud.render(getSpriteBatch());
+    }
+
     private void showDropOffTimer(CountDownTimer dropOffTimer) {
         if (!this.hud.contains(dropOffTimerHUD)) {
             dropOffTimerHUD = new TimerHUD("Drop-off time-limit:", 300, 100, 

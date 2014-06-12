@@ -39,7 +39,6 @@ public class SpeedBehaviour implements PowerUpBehaviour {
      */
     @Override
     public void triggerEvent(final Taxi taxi) {
-    	System.out.println("SPEEDBOOST");
         final float originalSpeed = taxi.getMaxSpeed();
         taxi.setMaxSpeed(increasedMaxSpeed);
         Timer.schedule(new Task() {

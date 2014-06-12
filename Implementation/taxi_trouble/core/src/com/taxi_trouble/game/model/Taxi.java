@@ -20,6 +20,7 @@ import com.taxi_trouble.game.Acceleration;
 import com.taxi_trouble.game.SteerDirection;
 import com.taxi_trouble.game.model.powerups.PowerUp;
 import com.taxi_trouble.game.model.team.Team;
+import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**
  * A controllable taxi which can be steered and for which certain properties
@@ -461,6 +462,7 @@ public class Taxi {
             this.passenger.setTransporter(this);
 			this.passenger.setUpDropOffTimer();
             this.triggerInvincibility(5);
+			 TaxiJukebox.playSound("yoohoo");
             return true;
         }
         return false;
@@ -499,6 +501,7 @@ public class Taxi {
     public void dropOffPassenger(Destination destination, WorldMap map) {
             passenger.deliverAtDestination(map, destination);
             this.team.addScore(this.passenger.remainingDropOffTime());
+            TaxiJukebox.playSound("dropoff");
             this.losePassenger();
         
     }

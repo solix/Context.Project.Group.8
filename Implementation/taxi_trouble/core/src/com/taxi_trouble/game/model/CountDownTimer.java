@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Timer.Task;
 public class CountDownTimer {
     private Timer timer;
     private int timeLeftSeconds;
+    private Task endCountDownTask;
 
     /**
      * Initializes a new CountDownTimer which will count down to zero for a
@@ -25,12 +26,7 @@ public class CountDownTimer {
         this.timer = new Timer();
         this.timeLeftSeconds = timeSeconds;
         this.timer.stop();
-        this.timer.scheduleTask(new Task() {
-            @Override
-            public void run() {
-                timeLeftSeconds--;
-            }
-        }, 1, 1, timeLeftSeconds - 1);
+        this.timer.scheduleTask(countDownTask(), 1, 1, timeLeftSeconds - 1);
     }
 
     /**
@@ -80,11 +76,46 @@ public class CountDownTimer {
     }
 
     /**
-     * Increases the time left of the timer by extra
+     * Increases the time left of the timer by extra if the timer hasn't ended yet.
      * 
      * @param extra
      */
     public void increaseTime(int extra) {
-        this.timeLeftSeconds += extra;
+        if(!timerEnded()){
+            this.timeLeftSeconds += extra;
+            this.timer.scheduleTask(countDownTask(), this.timeLeftSeconds - extra, 1, extra - 1);
+        }
+    }
+
+    private Task countDownTask(){
+        Task res = new Task() {
+            @Override
+            public void run() {
+                timeLeftSeconds--;
+                if(hasEndCountDownTask() && timeLeftSeconds == 0) {
+                    endCountDownTask.run();
+                }
+            }
+        };
+        return res;
+    }
+
+    /**Retrieve whether this timer has a task when the countdown has
+     * ended (i.e. whether it has to perform an action when the time
+     * left is equal to zero).
+     * 
+     * @return boolean indicating whether there is and end countdown task
+     */
+    private boolean hasEndCountDownTask() {
+        return endCountDownTask != null;
+    }
+
+    /**Sets the task to be performed when the countdown of the timer
+     * has ended, i.e. when the time left is equal to zero.
+     * 
+     * @param task
+     */
+    public void setEndCountDownEvent(Task task) {
+        this.endCountDownTask = task;
     }
 }

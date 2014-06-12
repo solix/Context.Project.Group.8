@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.taxi_trouble.game.Character;
+import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**
  * Utility class managing all the resources that are used in the game.
@@ -31,6 +32,7 @@ public final class ResourceManager {
 	public static Sprite noPowerUpButtonSprite;
 	public static Sprite invincibilityButtonSprite;
 	public static Sprite speedBoostButtonSprite;
+	public static Sprite increaseTimeButtonSprite;
 	public static TiledMap mapFile;
 	public static List<Character> charList;
     public static BitmapFont hudFont;
@@ -85,6 +87,10 @@ public final class ResourceManager {
 		Texture speedButtonTexture = new Texture(
 				Gdx.files.internal("sprites/speed.png"));
 		speedBoostButtonSprite = new Sprite(speedButtonTexture);
+		Texture increaseTimeButtonSpriteTexture = new Texture(
+			Gdx.files.internal("sprites/increasetime.png"));
+			increaseTimeButtonSprite = new Sprite(increaseTimeButtonSpriteTexture);
+		
 	}
 
 	/**
@@ -171,6 +177,37 @@ public final class ResourceManager {
 
 	public static int getRandomCharacterId() {
 		return (int) Math.floor(Math.abs(Math.random() * charList.size()));
+	}
+	/**
+	 * loads the sound when powerup is released
+	 */
+	public static void loadFx() {
+		loadPowerUpSFX();
+		loadTaxiSFX();
+		loadPassengerSFX();
+	}
+
+	private static void loadPowerUpSFX() {
+		final String powerupfx = "sound/powerupfx.ogg";
+		TaxiJukebox.loadSound(powerupfx, "pufx");
+		final String powerupfx2 = "sound/powerfx.ogg";
+		TaxiJukebox.loadSound(powerupfx2, "powerup");
+
+	}
+
+	private static void loadTaxiSFX() {
+		final String carcrashfx = "sound/CarCrash.ogg";
+		TaxiJukebox.loadSound(carcrashfx, "carcrashfx");
+		//final String revivingFx = "sound/EngineOn.ogg";
+		//TaxiJukebox.loadSound(revivingFx, "EngineOn");
+		
+	}
+
+	private static void loadPassengerSFX() {
+		final String dropfx = "sound/dropoff.ogg";
+		TaxiJukebox.loadSound(dropfx, "dropoff");
+		final String yoohoofx = "sound/yoohoo.ogg";
+		TaxiJukebox.loadSound(yoohoofx, "yoohoo");
 	}
 
 }

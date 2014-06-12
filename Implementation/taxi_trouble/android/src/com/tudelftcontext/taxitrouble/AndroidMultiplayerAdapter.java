@@ -91,6 +91,7 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 	}
 	@Override
 	public void reliableBroadcast(String message) {
+		log(message);
 		byte[] messageBytes = message.getBytes();
 		for (String id : ids) {
 			if (! id.equals(myId))
@@ -154,5 +155,15 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 		String message = "ACTIVATE " + team.getTeamId() + " " + powerUp.getBehaviour().getId();
 		reliableBroadcast(message);
 	}
+
+	@Override
+	public void sendEndMessage(Team team) {
+		String message = "END " + team.getTeamId();
+		reliableBroadcast(message);
+		
+	}
 	
+	public void log(String message){
+		System.out.println("BROADCASTED: " + message);
+	}
 }

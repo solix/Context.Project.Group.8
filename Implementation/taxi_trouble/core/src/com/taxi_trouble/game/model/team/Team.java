@@ -6,6 +6,7 @@ import static com.taxi_trouble.game.properties.ResourceManager.wheelSprite;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.powerups.PowerUp;
+import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**
  * The team class defines a team to which a driver and navigator can belong.
@@ -37,27 +38,18 @@ public class Team {
 		setTeamTheme();
 	}
 
-	/**
-	 * Sets the theme of the team based on the id.
-	 * 
-	 */
-	private void setTeamTheme() {
-		switch (teamId) {
-		case 0:
-			this.teamTheme = new YellowTeamTheme();
-			break;
-		case 1:
-			this.teamTheme = new BlueTeamTheme();
-			break;
-		case 2:
-			this.teamTheme = new GreenTeamTheme();
-			break;
-		default:
-			this.teamTheme = new RedTeamTheme();
-			break;
-		}
-		taxi.setSprite(teamTheme.getTaxiSprite(), wheelSprite);
-	}
+    /**Sets the theme of the team based on the id.
+     * 
+     */
+    private void setTeamTheme() {
+        switch (teamId) {
+            case 0: this.teamTheme = new YellowTeamTheme(); break;
+            case 1: this.teamTheme = new BlueTeamTheme(); break;
+            case 2: this.teamTheme = new GreenTeamTheme(); break;
+            default: this.teamTheme = new RedTeamTheme(); break;
+        }
+        taxi.setSprite(teamTheme.getTaxiSprite(), wheelSprite);
+    }
 
 	/**
 	 * Retrieve the theme of this team.
@@ -148,12 +140,14 @@ public class Team {
 		if (hasPowerUp()) {
 			powerUp.activatePowerUp(taxi);
 			this.powerUp = null;
+			TaxiJukebox.playSound("pufx");
 		}
 	}
 
 	public void forcePowerUpUse() {
 		powerUp.forceActivatePowerUp(taxi);
 		this.powerUp = null;
+		TaxiJukebox.playSound("pufx");
 	}
 
 	/**

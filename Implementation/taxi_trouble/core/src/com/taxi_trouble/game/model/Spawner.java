@@ -42,7 +42,6 @@ public class Spawner {
 		taxispawnpoints = new ArrayList<SpawnPoint>();
 		destinationpoints = new ArrayList<SpawnPoint>();
 		passengers = new ConcurrentHashMap<Integer, Passenger>();
-		// takenIds = new ArrayList<Integer>();
 		powerups = new ConcurrentHashMap<Integer, PowerUp>();
 		poweruppoints = new ArrayList<SpawnPoint>();
 	}
@@ -181,25 +180,6 @@ public class Spawner {
 				spawnPoint.getYPosition()));
 		dest.setSprite(destinationSprite);
 		return dest;
-	}
-
-	/**
-	 * Spawn a new taxi into a specified world at a randomly chosen spawn point.
-	 * 
-	 * @param world
-	 *            : the world into which the passenger should be spawned
-	 * @return
-	 */
-	public Taxi spawnTaxi(World world) {
-		// Pick a random taxi spawn point as location to spawn a taxi.
-		int random = (int) (Math
-				.abs(Math.random() * taxispawnpoints.size() - 1));
-		while (taxispawnpoints.get(random).isActive()) {
-			random = (int) (Math
-					.abs(Math.random() * taxispawnpoints.size() - 1));
-		}
-
-		return spawnTaxi(world, random);
 	}
 
 	/**
