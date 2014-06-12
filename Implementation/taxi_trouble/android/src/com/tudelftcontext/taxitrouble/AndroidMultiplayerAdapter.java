@@ -1,4 +1,5 @@
 package com.tudelftcontext.taxitrouble;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -89,72 +90,76 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 	public void setRoomId(String roomId) {
 		this.roomId = roomId;
 	}
+
 	@Override
 	public void reliableBroadcast(String message) {
 		log(message);
 		byte[] messageBytes = message.getBytes();
 		for (String id : ids) {
-			if (! id.equals(myId))
-			Games.RealTimeMultiplayer.sendReliableMessage(apiClient, null,
-					messageBytes, roomId, id);
+			if (!id.equals(myId))
+				Games.RealTimeMultiplayer.sendReliableMessage(apiClient, null,
+						messageBytes, roomId, id);
 		}
 	}
+
 	@Override
 	public void passengerMessage(Taxi taxi, Passenger passenger) {
 		String message = "PASSENGER ";
 		message += taxi.getTeam().getTeamId() + " " + passenger.getId();
-		reliableBroadcast(message);		
+		reliableBroadcast(message);
 	}
-	
-	public void sendToHost(String message){
+
+	public void sendToHost(String message) {
 		byte[] messageBytes = message.getBytes();
-			if (!host)
+		if (!host)
 			Games.RealTimeMultiplayer.sendReliableMessage(apiClient, null,
 					messageBytes, roomId, hostId);
 	}
-	
-	
-	
+
 	@Override
-	public void setHost(boolean host){
+	public void setHost(boolean host) {
 		this.host = host;
 	}
-	
+
 	@Override
-	public boolean isHost(){
+	public boolean isHost() {
 		return host;
 	}
-	
-	public void setIds(List<String> ids){
+
+	public void setIds(List<String> ids) {
 		this.hostId = ids.get(0);
 		this.ids = ids;
 	}
-	
-	public String getHostId(){
+
+	public String getHostId() {
 		return this.hostId;
 	}
 
 	@Override
 	public void newPowerUpMessage(int spawnId, int behaviourId, int powerUpId) {
-		String message = "NEWPOWERUP " + spawnId + " " + behaviourId + " " + powerUpId;
+		String message = "NEWPOWERUP " + spawnId + " " + behaviourId + " "
+				+ powerUpId;
 		reliableBroadcast(message);
-		
+
 	}
 
 	@Override
 	public void powerUpMessage(Taxi taxi, PowerUp powerUp) {
-		String message = "POWERUP " + taxi.getTeam().getTeamId() + " " + powerUp.getId();
+		String message = "POWERUP " + taxi.getTeam().getTeamId() + " "
+				+ powerUp.getId();
 		reliableBroadcast(message);
-		
+
 	}
 
 	@Override
 	public void activateMessage(Team team, PowerUp powerUp) {
 		System.out.println("activateMessage called!");
-		
-		String message = "ACTIVATE " + team.getTeamId() + " " + powerUp.getBehaviour().getId();
+
+		String message = "ACTIVATE " + team.getTeamId() + " "
+				+ powerUp.getBehaviour().getId();
 		reliableBroadcast(message);
 	}
+
 
 	@Override
 	public void sendEndMessage(Team team) {
@@ -167,3 +172,4 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 		System.out.println("BROADCASTED: " + message);
 	}
 }
+
