@@ -1,13 +1,13 @@
 package com.taxi_trouble.game.model.powerups;
 
+import static com.taxi_trouble.game.properties.ResourceManager.speedBoostButtonSprite;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.taxi_trouble.game.model.Taxi;
-
-import static com.taxi_trouble.game.properties.ResourceManager.speedBoostButtonSprite;
 
 /**
  * This behaviour defines the behaviour for the speed powerup.
@@ -22,18 +22,20 @@ public class SpeedBehaviour implements PowerUpBehaviour {
     private final int POWERUPTIME = 5;
 
     /**
-     * Constructor for the speed powerup behaviour.
-     * Activating this powerup temporarily increases the maximum
-     * speed of a taxi, i.e. gives it a speed boost.
+     * Constructor for the speed powerup behaviour. Activating this powerup
+     * temporarily increases the maximum speed of a taxi, i.e. gives it a speed
+     * boost.
      * 
-     * @param anim : the animation to be used for the powerup
+     * @param anim
+     *            : the animation to be used for the powerup
      */
     public SpeedBehaviour(PowerUpAnimation anim) {
         powerAnim = anim;
     }
 
-    /**Activate the speed powerup which temporarily increases
-     * the maximum speed of the taxi.
+    /**
+     * Activate the speed powerup which temporarily increases the maximum speed
+     * of the taxi.
      * 
      */
     @Override
@@ -48,7 +50,8 @@ public class SpeedBehaviour implements PowerUpBehaviour {
         }, POWERUPTIME);
     }
 
-    /**Renders the corresponding animation of the powerup.
+    /**
+     * Renders the corresponding animation of the powerup.
      * 
      */
     @Override
@@ -60,4 +63,9 @@ public class SpeedBehaviour implements PowerUpBehaviour {
     public Sprite getActivationButtonSprite() {
         return speedBoostButtonSprite;
     }
+
+    public String toString() {
+        return "Speed";
+    }
+
 }

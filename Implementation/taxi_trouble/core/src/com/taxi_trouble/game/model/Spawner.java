@@ -44,7 +44,8 @@ public class Spawner {
         poweruppoints = new ArrayList<SpawnPoint>();
     }
 
-    /**Defines the available powerup behaviours.
+    /**
+     * Defines the available powerup behaviours.
      * 
      * @param behaviours
      */
@@ -163,7 +164,8 @@ public class Spawner {
         Taxi taxi = new Taxi(2, 4, 20, 60, 60);
         taxi.initializeBody(world, spawnPoint.getPosition(),
                 spawnPoint.getAngle());
-        taxi.setSprite(ResourceManager.yellowTaxiSprite, ResourceManager.wheelSprite);
+        taxi.setSprite(ResourceManager.yellowTaxiSprite,
+                ResourceManager.wheelSprite);
         return taxi;
     }
 
@@ -177,6 +179,7 @@ public class Spawner {
         int random = random(poweruppoints.size());
 
         while (poweruppoints.get(random).isActive()) {
+            System.out.println("Im already in use");
             random = random(poweruppoints.size());
         }
         SpawnPoint spawnPoint = poweruppoints.get(random);
@@ -185,6 +188,9 @@ public class Spawner {
         // Get a random powerup
         PowerUp power = getRandomPowerUp(spawnPoint, world);
         powerups.add(power);
+        System.out.println("Position of powerup: "
+                + power.getPosition().toString());
+        System.out.println("Type: " + power.getBehaviour().toString());
         return power;
     }
 
@@ -233,9 +239,11 @@ public class Spawner {
         return this.powerups;
     }
 
-    /**Retrieves whether the powerUp is available.
+    /**
+     * Retrieves whether the powerUp is available.
      * 
-     * @param powerUp : the respective powerUp
+     * @param powerUp
+     *            : the respective powerUp
      * @return boolean indicating whether the powerUp is available
      */
     public boolean powerUpIsAvailable(PowerUp powerUp) {

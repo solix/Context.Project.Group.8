@@ -1,11 +1,11 @@
 package com.taxi_trouble.game.model.powerups;
 
+import static com.taxi_trouble.game.properties.ResourceManager.invincibilityButtonSprite;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.taxi_trouble.game.model.Taxi;
-
-import static com.taxi_trouble.game.properties.ResourceManager.invincibilityButtonSprite;
 
 /**
  * This behaviour defines the behaviour for invincibility.
@@ -19,18 +19,19 @@ public class InvincibilityBehaviour implements PowerUpBehaviour {
     private final int POWERUPTIME = 10;
 
     /**
-     * Constructor for the behaviour of the invicibility powerup.
-     * Activating the powerup prevents passenger stealing from a
-     * taxi for a short time.
+     * Constructor for the behaviour of the invicibility powerup. Activating the
+     * powerup prevents passenger stealing from a taxi for a short time.
      * 
-     * @param anim : the animation to be used for the powerup
+     * @param anim
+     *            : the animation to be used for the powerup
      */
     public InvincibilityBehaviour(PowerUpAnimation anim) {
         this.powerAnim = anim;
     }
 
-    /**Activate the invicibility powerup which prevents passenger
-     * stealing from this taxi for a short period of time.
+    /**
+     * Activate the invicibility powerup which prevents passenger stealing from
+     * this taxi for a short period of time.
      * 
      */
     @Override
@@ -38,7 +39,8 @@ public class InvincibilityBehaviour implements PowerUpBehaviour {
         taxi.triggerInvincibility(POWERUPTIME);
     }
 
-    /**Renders the corresponding animation of the powerup.
+    /**
+     * Renders the corresponding animation of the powerup.
      * 
      */
     @Override
@@ -49,6 +51,10 @@ public class InvincibilityBehaviour implements PowerUpBehaviour {
     @Override
     public Sprite getActivationButtonSprite() {
         return invincibilityButtonSprite;
+    }
+
+    public String toString() {
+        return "Invincibility";
     }
 
 }

@@ -22,7 +22,6 @@ import com.taxi_trouble.game.model.powerups.PowerUp;
 import com.taxi_trouble.game.model.team.Team;
 import com.taxi_trouble.game.sound.TaxiJukebox;
 
-
 /**
  * A controllable taxi which can be steered and for which certain properties
  * hold. A Taxi has a width, length, maximum steering angle, maximum speed,
@@ -658,14 +657,16 @@ public class Taxi {
     }
 
     /**
-     * Makes the taxi pickup a power-up which can be activated by
-     * the navigator of the team.
+     * Makes the taxi pickup a power-up which can be activated by the navigator
+     * of the team.
      * 
-     * @param powerUp : the power-up to pick up
+     * @param powerUp
+     *            : the power-up to pick up
      */
     public void pickUpPowerUp(PowerUp powerUp, WorldMap map) {
         Spawner spawner = map.getSpawner();
         if (spawner.powerUpIsAvailable(powerUp)) {
+            TaxiJukebox.playSound("powerup");
             spawner.despawnPowerup(powerUp);
             this.team.setPowerUp(powerUp);
         }
