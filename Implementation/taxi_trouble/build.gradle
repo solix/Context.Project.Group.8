@@ -91,7 +91,12 @@ project(":testing") {
 		compile project(":core") 
 		testCompile fileTree (dir: "libs", includes: ['*.jar']), 'junit:junit:4.8', "org.mockito:mockito-core:1.9.5"
 	}
+test{
+	outputs.upToDateWhen{ false }
 }
+}
+
+
 
 tasks.eclipse.doLast {
     delete ".project"
