@@ -1,7 +1,7 @@
 package com.taxi_trouble.game;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-
+//.
 public class Character {
 
     private Sprite standing;
