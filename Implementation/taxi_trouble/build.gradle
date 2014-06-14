@@ -76,6 +76,9 @@ project(":android") {
                         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
 			
                     }
+test{
+	outputs.upToDateWhen{ false }
+}
 }
 
 project(":testing") {
