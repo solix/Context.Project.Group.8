@@ -2,12 +2,15 @@ package com.taxi_trouble.game.model;
 
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
 
 /**This class tests the functionality of the Passenger class.
 *
@@ -33,6 +36,10 @@ public class CollisionDetectorTest {
 
     @Mock
     private WorldMap map;
+    
+    @Mock 
+    private AndroidMultiplayerInterface AndroidMultiplayerMock;
+    
 
     /**Initializes the collision detector that should be used to test
      * the different types of collisions that may occur.
@@ -41,6 +48,8 @@ public class CollisionDetectorTest {
     @Before
     public final void setup() {
         collisionDetector = new CollisionDetector(map);
+        when(AndroidMultiplayerMock.isHost()).thenReturn(true);
+        collisionDetector.setMultiPlayerInterface(AndroidMultiplayerMock);
     }
 
     /**Verify that the collision detector is successfully initialized.
@@ -70,7 +79,7 @@ public class CollisionDetectorTest {
     @Test
     public final void collideTaxiWithDestination() {
         collisionDetector.collide(taxi, destination);
-        verify(taxi).dropOffPassenger(destination, map);
+        verify(taxi).dropOffDetected(destination, map);
     }
 
     /**Check that when a taxi drives into another taxi, the taxi will

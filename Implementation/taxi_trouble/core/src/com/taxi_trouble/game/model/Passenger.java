@@ -235,11 +235,16 @@ public class Passenger {
      */
     public void deliverAtDestination(WorldMap map, Destination destination) {
         assert (this.getBody() != null);
+        if (destination == this.destination){
         	// Despawn the passenger and remove it from the world
             Spawner spawner = map.getSpawner();
             spawner.despawnPassenger(this);
             removePassengerFromWorld(map.getWorld());
             cancelTransport();
+        }
+        else{
+        	System.out.println("POSSIBLE DESYNC: TRIED TO DROP OF PASSENGER AT WRONG DESTINATION");
+        }
         
     }
 

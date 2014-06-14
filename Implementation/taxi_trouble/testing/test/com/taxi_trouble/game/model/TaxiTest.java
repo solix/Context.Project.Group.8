@@ -104,34 +104,17 @@ public class TaxiTest {
      *
      */
     @Test
-    public final void dropOffPassengerRightDestinationTest() {
+    public final void dropOfPassengerTest() {
         //First let the taxi pick up the passenger
         taxi.pickUpPassenger(passenger);
         assertTrue(taxi.pickedUpPassenger());
-
         //Drop the passenger off at the right destination of the map
         taxi.dropOffPassenger(destination, map);
-        verify(passenger).getDestination();
         verify(passenger).deliverAtDestination(map, destination);
         verify(team).addScore(anyInt());
         assertFalse(taxi.pickedUpPassenger());
     }
 
-    /**Given the taxi has a passenger, check that the passenger
-     * can not be dropped off at the wrong destination.
-     *
-     */
-    @Test
-    public final void dropOffPassengerWrongDestination() {
-        //First the taxi should have picked up a passenger
-        taxi.pickUpPassenger(passenger);
-        assertTrue(taxi.pickedUpPassenger());
-
-        taxi.dropOffPassenger(secondDestination, map);
-        verifyNoMoreInteractions(map);
-        verifyNoMoreInteractions(spawner);
-        assertTrue(taxi.pickedUpPassenger());
-    }
 
     /**Given the game starts and the taxi is initialized for
      * the first time, then check that the taxi is not steered
