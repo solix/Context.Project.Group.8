@@ -47,7 +47,9 @@ project(":android") {
     configurations { natives }
 
     dependencies {
-        compile project(":core")
+        compile (project(":core")){
+
+		}
         compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
@@ -110,11 +112,23 @@ project(":html") {
                     dependencies {
                         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
                         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
-			testRuntime fileTree (dir: "libs", includes: ['*.jar'])
-                        testCompile 'junit:junit:4.8'
-                        //testCompile "org.mockito:mockito-core:1.9.5"
-                        
+			
                     }
+}
+
+project(":testing") {
+	apply plugin: "java"
+	sourceSets{
+		test{
+			java{
+				srcDir 'test'
+			}
+		}
+	}
+	dependencies {
+		compile project(":core") 
+		testCompile fileTree (dir: "libs", includes: ['*.jar']), 'junit:junit:4.8', "org.mockito:mockito-core:1.9.5"
+	}
 }
 
 tasks.eclipse.doLast {
