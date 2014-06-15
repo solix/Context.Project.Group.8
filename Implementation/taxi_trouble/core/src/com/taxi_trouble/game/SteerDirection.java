@@ -20,4 +20,10 @@ public enum SteerDirection {
      * Steering in no direction.
      */
     STEER_NONE;
+    
+    /**
+     * Storing the values so they don't have to be generated everytime SteerDirection.values() is needed. 
+     * Steerdirection.values can now be used instead.
+     */
+    public static SteerDirection[] values = SteerDirection.values();
 }

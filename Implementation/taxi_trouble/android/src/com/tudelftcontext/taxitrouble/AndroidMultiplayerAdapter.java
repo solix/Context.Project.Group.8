@@ -27,6 +27,7 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 	@Override
 	public void sendCarLocation(String message) {
 		if (roomId != null) {
+			//reliableBroadcast(message);
 			Games.RealTimeMultiplayer.sendUnreliableMessageToOthers(apiClient,
 					message.getBytes(), roomId);
 		}
@@ -56,7 +57,7 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 		boolean role;
 		String mySetupMessage = "MessageCreationError";
 		int teamId;
-		int totalTeams = room.getParticipantIds().size() / 2;
+		int totalTeams = (int) Math.ceil(room.getParticipantIds().size() / 2);
 		for (int i = 0; i < ids.size(); i++) {
 			teamId = (int) Math.floor(i / 2.0);
 			if (i % 2 == 0) {

@@ -21,6 +21,7 @@ public class DriverScreen extends ViewObserver {
 	private SpriteBatch spriteBatch;
     private DriverControls driverControl;
     private DriverControlsUI controlsUI;
+    private double lastCarUpdate;
 
 	/**
 	 * Constructor, creates the Driver Screen.
@@ -29,6 +30,7 @@ public class DriverScreen extends ViewObserver {
 	 */
 	public DriverScreen(GameWorld game) {
 		super(game);
+		lastCarUpdate = System.currentTimeMillis();
 	}
 
 	/**
@@ -73,9 +75,9 @@ public class DriverScreen extends ViewObserver {
 
         spriteBatch.setProjectionMatrix(hudCamera.combined);
         controlsUI.render(spriteBatch);
-
-		if (ownTaxi.hasMoved()) {
+		if (System.currentTimeMillis() - lastCarUpdate > 50) {
 			taxigame.getMultiplayerInterface().sendCarLocation(ownTaxi.networkMessage());
+			lastCarUpdate = System.currentTimeMillis();
 		}
 	}
 

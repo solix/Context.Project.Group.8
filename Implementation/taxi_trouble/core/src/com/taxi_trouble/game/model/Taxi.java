@@ -751,32 +751,35 @@ public class Taxi {
     public void activatePowerup(PowerUp powerUp) {
         powerUp.activatePowerUp(this);
     }
-	
-public String networkMessage(){
+    
+    public String networkMessage(){
     	
-		int teamId = getTeam().getTeamId();
-		float x = getXPosition();
-		float y = getYPosition();
-		float orientation = getBody().getAngle();
-		float xSpeed = getBody().getLinearVelocity().x;
-		float ySpeed = getBody().getLinearVelocity().y;
-		/*int acceleration = getAccelerate().ordinal();
-		int steerDirection = getSteer().ordinal();*/
-		return "TAXI " + " " + teamId + " " + x + " " + y + " " + orientation + " " 
-				+ xSpeed + " " + ySpeed; //+ " " + acceleration + " " + steerDirection + " ";
+    	int teamId = getTeam().getTeamId();
+    	float x = getXPosition();
+    	float y = getYPosition();
+    	float orientation = getBody().getAngle();
+    	float xSpeed = getBody().getLinearVelocity().x;
+    	float ySpeed = getBody().getLinearVelocity().y;
+    	int acceleration = getAccelerate().ordinal();
+    	int steerDirection = getSteer().ordinal();
+    	return "TAXI " + " " + teamId + " " + x + " " + y + " " + orientation + " " 
+    			+ xSpeed + " " + ySpeed + " " + acceleration + " " + steerDirection + " ";
     }
 
 
-	public void setInfo(float x, float y, float angle, float xSpeed, float ySpeed)//,
-			//int acceleration, int steerDirection) 
-	{
-		
-		getBody().setTransform(x, y, angle);
-		getBody().setLinearVelocity(xSpeed, ySpeed); 
-		//setAccelerate(Acceleration.values[acceleration]);
-		//setSteer(SteerDirection.values[steerDirection]);
-		
-		
-	}
 
+    public void setInfo(float x, float y, float angle, float xSpeed, float ySpeed,
+    		int acceleration, int steerDirection) 
+    {
+    	
+    	getBody().setTransform(x, y, angle);
+    	getBody().setLinearVelocity(xSpeed, ySpeed);
+    	setAccelerate(Acceleration.values[acceleration]);
+    	setSteer(SteerDirection.values[steerDirection]);
+    	
+    	
+    }
+
+
+	
 }
