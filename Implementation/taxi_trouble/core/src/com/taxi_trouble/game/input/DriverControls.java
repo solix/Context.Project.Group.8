@@ -80,7 +80,7 @@ public class DriverControls extends InputAdapter {
 	 */
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		controlsUI.setInActive(pointer);
+		controlsUI.setInactive(pointer);
 		if (controlsUI.steering() && !controlsUI.driving()) {
 			taxi.setAccelerate(Acceleration.ACC_NONE);
 			TaxiJukebox.stopSound("EngineOn");

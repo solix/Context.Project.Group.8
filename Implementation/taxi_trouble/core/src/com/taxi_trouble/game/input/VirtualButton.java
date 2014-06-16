@@ -4,6 +4,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
+/**
+ * Virtual, on-screen button.
+ */
 public class VirtualButton {
 	protected Rectangle body;
 	protected Sprite sprite;
@@ -26,15 +29,27 @@ public class VirtualButton {
 		setSprite(sprite);
 	}
 
+	/**
+	 * Draw the button on screen.
+	 * 
+	 * @param spriteBatch
+	 */
 	public void render(SpriteBatch spriteBatch) {
 		spriteBatch.begin();
 		sprite.draw(spriteBatch);
 		spriteBatch.end();
 	}
 
-	public boolean inBound(int screenX, int screenY) {
-		return screenX > body.x && screenX < body.x + body.width
-				&& screenY > body.y && screenY < body.y + body.height;
+	/**
+	 * @param x
+	 *            pointer x-coord
+	 * @param y
+	 *            pointer y-coord
+	 * @return true iff the pointer is within the bounds of this button
+	 */
+	protected boolean inBound(int x, int y) {
+		return x > body.x && x < body.x + body.width && y > body.y
+				&& y < body.y + body.height;
 	}
 
 	public boolean touchDown(int screenX, int screenY, int mouseButton) {
