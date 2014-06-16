@@ -9,6 +9,11 @@ import com.taxi_trouble.game.properties.GameProperties;
 import com.taxi_trouble.game.ui.UIButton;
 import com.taxi_trouble.game.ui.UIElement;
 
+import static com.taxi_trouble.game.properties.GameProperties.UI_HEIGHT;
+import static com.taxi_trouble.game.properties.GameProperties.UI_WIDTH;
+import static com.taxi_trouble.game.properties.GameProperties.getScreenWidth;
+import static com.taxi_trouble.game.properties.GameProperties.getScreenHeight;
+
 public class MenuControl implements InputProcessor {
 	private Map<String, UIElement> elements;
 	private SetupInterface setupInterface;
@@ -39,9 +44,9 @@ public class MenuControl implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int b) {
-		screenX = (int) (screenX * ((float) GameProperties.UI_WIDTH / GameProperties.screenWidth));
-		screenY = (int) (screenY * ((float) GameProperties.UI_HEIGHT / GameProperties.screenHeight));
-		screenY = (int) (GameProperties.UI_HEIGHT - screenY);
+		screenX = (int) (screenX * ((float) UI_WIDTH / getScreenWidth()));
+		screenY = (int) (screenY * ((float) UI_HEIGHT / getScreenHeight()));
+		screenY = (int) (UI_HEIGHT - screenY);
 
 		Entry<String, UIElement> entry = getTouchedElement(screenX, screenY);
 		if (entry == null) {
@@ -59,9 +64,9 @@ public class MenuControl implements InputProcessor {
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		screenX = (int) (screenX * ((float) GameProperties.UI_WIDTH / GameProperties.screenWidth));
-		screenY = (int) (screenY * ((float) GameProperties.UI_HEIGHT / GameProperties.screenHeight));
-		screenY = (int) (GameProperties.UI_HEIGHT - screenY);
+		screenX = (int) (screenX * ((float) UI_WIDTH / getScreenWidth()));
+		screenY = (int) (screenY * ((float) UI_HEIGHT / getScreenHeight()));
+		screenY = (int) (UI_HEIGHT - screenY);
 
 		Entry<String, UIElement> entry = getTouchedElement(screenX, screenY);
 		if (entry == null) {

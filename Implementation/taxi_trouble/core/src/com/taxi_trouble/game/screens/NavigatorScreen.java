@@ -1,21 +1,16 @@
 package com.taxi_trouble.game.screens;
 
-import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_HEIGHT;
-import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_WIDTH;
 import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_HEIGHT;
 import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_WIDTH;
-import static com.taxi_trouble.game.properties.GameProperties.screenWidth;
-import static com.taxi_trouble.game.properties.GameProperties.screenHeight;
+import static com.taxi_trouble.game.properties.GameProperties.getScreenHeight;
+import static com.taxi_trouble.game.properties.GameProperties.getScreenWidth;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.taxi_trouble.game.Acceleration;
-import com.taxi_trouble.game.SteerDirection;
 import com.taxi_trouble.game.input.NavigatorControls;
 import com.taxi_trouble.game.input.NavigatorControlsUI;
 import com.taxi_trouble.game.model.GameWorld;
@@ -31,7 +26,6 @@ public class NavigatorScreen extends ViewObserver {
     private SpriteBatch spriteBatch;
     private Viewport viewport;
     private OrthographicCamera mapCamera;
-    private OrthographicCamera scoreCamera;
     private NavigatorControls mapControl;
     private NavigatorControlsUI powerUpControlsUI;
     private float scale = 4;
@@ -59,7 +53,7 @@ public class NavigatorScreen extends ViewObserver {
 
         // Initialize the camera for the navigator view.
         this.mapCamera = new OrthographicCamera();
-        mapCamera.setToOrtho(false, screenWidth, screenHeight);
+        mapCamera.setToOrtho(false, getScreenWidth(), getScreenHeight());
         this.viewport = new StretchViewport(VIRTUAL_WIDTH * scale,
                 VIRTUAL_HEIGHT * scale, mapCamera);
 

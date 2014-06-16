@@ -32,8 +32,8 @@ public class Passenger extends Entity {
      *            : the width of the passenger
      * @param height
      *            : the height of the passenger
-     * @param character
-     *            : the character assigned to this passenger
+     * @param id
+     *            : the identifier of the passenger
      */
     public Passenger(float width, float height, int id) {
         super(id, width, height);

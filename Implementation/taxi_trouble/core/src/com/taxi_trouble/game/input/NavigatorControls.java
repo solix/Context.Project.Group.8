@@ -1,7 +1,11 @@
 package com.taxi_trouble.game.input;
 
+import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_HEIGHT;
+import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_WIDTH;
 import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_HEIGHT;
 import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_WIDTH;
+import static com.taxi_trouble.game.properties.GameProperties.getScreenHeight;
+import static com.taxi_trouble.game.properties.GameProperties.getScreenWidth;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -9,9 +13,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.taxi_trouble.game.model.team.Team;
-import com.taxi_trouble.game.properties.GameProperties;
 import com.taxi_trouble.game.screens.NavigatorScreen;
-import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**
  * This is the controller class for MapScreen.
@@ -94,9 +96,9 @@ public class NavigatorControls implements InputProcessor {
     }
 
     private void checkPowerUpButtonPressed(int screenX, int screenY, int button) {
-        screenX = (int) (screenX * ((float) GameProperties.BUTTON_CAM_WIDTH / GameProperties.screenWidth));
-        screenY = (int) (screenY * ((float) GameProperties.BUTTON_CAM_HEIGHT / GameProperties.screenHeight));
-        screenY = (int) (GameProperties.BUTTON_CAM_HEIGHT - screenY);
+        screenX = (int) (screenX * ((float) BUTTON_CAM_WIDTH / getScreenWidth()));
+        screenY = (int) (screenY * ((float) BUTTON_CAM_HEIGHT / getScreenHeight()));
+        screenY = (int) (BUTTON_CAM_HEIGHT - screenY);
 
         if (this.powerUpControlsUI.buttonPressed(screenX, screenY, button)) {
             team.usePowerUp();

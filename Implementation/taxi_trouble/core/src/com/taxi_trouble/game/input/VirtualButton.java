@@ -3,14 +3,14 @@ package com.taxi_trouble.game.input;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.taxi_trouble.game.properties.GameProperties;
+import static com.taxi_trouble.game.properties.GameProperties.getScale;;
 
 public class VirtualButton {
     protected Rectangle body;
     protected Sprite sprite;
     protected Action ACTION;
     protected boolean ACTIVE;
-    protected float scale = GameProperties.scale;
+    protected float scale = getScale();
 
     /**Initializes a new VirtualButton.
      * 

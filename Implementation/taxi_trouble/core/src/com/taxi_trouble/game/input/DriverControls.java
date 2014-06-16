@@ -8,6 +8,11 @@ import com.taxi_trouble.game.properties.GameProperties;
 import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.sound.TaxiJukebox;
 
+import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_HEIGHT;
+import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_WIDTH;
+import static com.taxi_trouble.game.properties.GameProperties.getScreenWidth;
+import static com.taxi_trouble.game.properties.GameProperties.getScreenHeight;
+
 /**
  * InputProcessor for controlling the taxi using the virtual buttons.
  */
@@ -63,9 +68,9 @@ public class DriverControls implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer,
             int mouseButton) {
-        screenX = (int) (screenX * ((float) GameProperties.BUTTON_CAM_WIDTH / GameProperties.screenWidth));
-        screenY = (int) (screenY * ((float) GameProperties.BUTTON_CAM_HEIGHT / GameProperties.screenHeight));
-        screenY = (int) (GameProperties.BUTTON_CAM_HEIGHT - screenY);
+        screenX = (int) (screenX * ((float) BUTTON_CAM_WIDTH / getScreenWidth()));
+        screenY = (int) (screenY * ((float) BUTTON_CAM_HEIGHT / getScreenHeight()));
+        screenY = (int) (BUTTON_CAM_HEIGHT - screenY);
 
         for (VirtualButton button : controlsUI.getButtons().values()) {
             if (button.touchDown(screenX, screenY, mouseButton)) {

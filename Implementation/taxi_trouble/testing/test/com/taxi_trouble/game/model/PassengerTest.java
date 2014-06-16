@@ -56,9 +56,6 @@ public class PassengerTest {
     private Spawner spawner;
 
     @Mock
-    private Character character;
-
-    @Mock
     private Sprite sprite;
 
     /**Initialize the passenger that will be used for testing.
@@ -66,9 +63,7 @@ public class PassengerTest {
     */
    @Before
    public void initPassenger() {
-       when(character.getStanding()).thenReturn(sprite);
-
-       passenger = new Passenger(2, 2, character,0);
+       passenger = new Passenger(2, 2, 1);
        world = new World(new Vector2(0, 0), false);
        spawnPoint = new SpawnPoint(0, 1, 0);
        spawnPoint.setActive(true);

@@ -1,12 +1,10 @@
 package com.taxi_trouble.game.model;
 
-import static com.taxi_trouble.game.properties.ResourceManager.charList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
@@ -39,13 +37,7 @@ public class SpawnerTest {
     private Passenger passenger;
 
     @Mock
-    private Character character;
-
-    @Mock
-    private Sprite sprite;
-
-    @Mock
-    private List<Character> charlist;
+    private List<Sprite> charlist;
 
     @Mock
     private Destination destination;
@@ -88,21 +80,6 @@ public class SpawnerTest {
         spawner.addTaxiPoint(spawnpoint);
         assertEquals(2, spawner.getTaxispawnpoints().size());
     }
-
-    // @Test
-    // public void spawnPassengerTest() {
-    //
-    // spawner.addPassengerPoint(spawnpoint);
-    // spawner.getDestinationpoints().add(spawnpoint);
-    // charList = charlist;
-    // when(charList.size()).thenReturn(0);
-    // when(getRandomCharacter()).thenReturn(character);
-    // when(character.getStanding()).thenReturn(sprite);
-    // // when(spawner.randomDestination(world)).thenReturn(destination);
-    //
-    // Passenger pas = spawner.spawnPassenger(world);
-    //
-    // }
 
     @Test
     public void despawnPassengerTest() {
