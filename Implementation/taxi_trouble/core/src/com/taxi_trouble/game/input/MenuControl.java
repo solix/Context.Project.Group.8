@@ -3,13 +3,16 @@ package com.taxi_trouble.game.input;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.InputAdapter;
 import com.taxi_trouble.game.multiplayer.SetupInterface;
 import com.taxi_trouble.game.properties.GameProperties;
 import com.taxi_trouble.game.ui.UIButton;
 import com.taxi_trouble.game.ui.UIElement;
 
-public class MenuControl implements InputProcessor {
+/**
+ * The InputProcessor for the MenuScreen.
+ */
+public class MenuControl extends InputAdapter {
 	private Map<String, UIElement> elements;
 	private SetupInterface setupInterface;
 
@@ -19,29 +22,13 @@ public class MenuControl implements InputProcessor {
 		this.setupInterface = setupInterface;
 	}
 
-	@Override
-	public boolean keyDown(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+	/**
+	 * Handles actions when a UIElement is touched.
+	 */
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int b) {
-		screenX = (int) (screenX * ((float) GameProperties.UI_WIDTH / GameProperties.screenWidth));
-		screenY = (int) (screenY * ((float) GameProperties.UI_HEIGHT / GameProperties.screenHeight));
-		screenY = (int) (GameProperties.UI_HEIGHT - screenY);
+		screenX = GameProperties.translateScreenX(screenX);
+		screenY = GameProperties.translateScreenY(screenY);
 
 		Entry<String, UIElement> entry = getTouchedElement(screenX, screenY);
 		if (entry == null) {
@@ -57,25 +44,30 @@ public class MenuControl implements InputProcessor {
 		return true;
 	}
 
+	/**
+	 * Resets the UIElement states ones they are not touched anymore.
+	 */
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		screenX = (int) (screenX * ((float) GameProperties.UI_WIDTH / GameProperties.screenWidth));
-		screenY = (int) (screenY * ((float) GameProperties.UI_HEIGHT / GameProperties.screenHeight));
-		screenY = (int) (GameProperties.UI_HEIGHT - screenY);
+		screenX = GameProperties.translateScreenX(screenX);
+		screenY = GameProperties.translateScreenY(screenY);
 
 		Entry<String, UIElement> entry = getTouchedElement(screenX, screenY);
 		if (entry == null) {
 			return false;
 		} else if (entry.getKey().equals("play")) {
-			//setupInterface.login();
 			((UIButton) entry.getValue()).setActive(false);
 		} else if (entry.getKey().equals("board")) {
 			System.out.println("board");
 			((UIButton) entry.getValue()).setActive(false);
 		}
+
 		return true;
 	}
 
+	/**
+	 * @return the UIElement that is currently being touched.
+	 */
 	public Entry<String, UIElement> getTouchedElement(int screenX, int screenY) {
 		for (Entry<String, UIElement> entry : elements.entrySet()) {
 			UIElement element = entry.getValue();
@@ -89,23 +81,4 @@ public class MenuControl implements InputProcessor {
 
 		return null;
 	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(int amount) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }

@@ -21,8 +21,7 @@ import com.taxi_trouble.game.model.powerups.SpeedBehaviour;
 public final class GameProperties {
 	public static int screenWidth = Gdx.graphics.getWidth();
 	public static int screenHeight = Gdx.graphics.getHeight();
-	public static int PIXELS_PER_METER = getPPM();
-	public static float scale = getScale();
+	public static int PIXELS_PER_METER = 15;
 	public static int VIRTUAL_WIDTH = 480;
 	public static int VIRTUAL_HEIGHT = 320;
 	public static int BUTTON_CAM_HEIGHT = 480;
@@ -35,35 +34,38 @@ public final class GameProperties {
 	private GameProperties() {
 	}
 
-	private static int getPPM() {
-		switch (Gdx.app.getType()) {
-		case Android:
-			return 15;
-		case Desktop:
-			return 15;
-		default:
-			return 15;
-		}
+	/**
+	 * Translates an x-coordinate of the screen to an x-coordinate of the
+	 * virtual screen.
+	 * 
+	 * @param screenX
+	 *            x-coordinate of the screen
+	 * @return x-coordinate of the virtual screen
+	 */
+	public static int translateScreenX(int screenX) {
+		return (int) (screenX * ((float) BUTTON_CAM_WIDTH / screenWidth));
 	}
 
-	private static float getScale() {
-		switch (Gdx.app.getType()) {
-		case Android:
-			return 2.0f;
-		case Desktop:
-			return 1.0f;
-		default:
-			return 1.0f;
-		}
+	/**
+	 * Translates an y-coordinate of the screen to an y-coordinate of the
+	 * virtual screen.
+	 * 
+	 * @param screenY
+	 *            y-coordinate of the screen
+	 * @return y-coordinate of the virtual screen
+	 */
+	public static int translateScreenY(int screenY) {
+		int translated = (int) (screenY * ((float) GameProperties.BUTTON_CAM_HEIGHT / GameProperties.screenHeight));
+		int flipped = (int) (GameProperties.BUTTON_CAM_HEIGHT - translated);
+		return flipped;
 	}
 
-
-    public static List<PowerUpBehaviour> getPowerUpBehaviours() {
-        List<PowerUpBehaviour> behaviours = new ArrayList<PowerUpBehaviour>();
-        // Add the powerup behaviours
-        behaviours.add(new SpeedBehaviour(getSpeedAnimation()));
-        behaviours.add(new InvincibilityBehaviour(getInvincibleAnimation()));
-        behaviours.add(new IncreaseTimeBehaviour(getTimerAnimation()));
+	public static List<PowerUpBehaviour> getPowerUpBehaviours() {
+		List<PowerUpBehaviour> behaviours = new ArrayList<PowerUpBehaviour>();
+		// Add the powerup behaviours
+		behaviours.add(new SpeedBehaviour(getSpeedAnimation()));
+		behaviours.add(new InvincibilityBehaviour(getInvincibleAnimation()));
+		behaviours.add(new IncreaseTimeBehaviour(getTimerAnimation()));
 
 		return behaviours;
 
@@ -82,20 +84,20 @@ public final class GameProperties {
 		return animation;
 	}
 
-    /**
-     * Retrieves the animation for the speed powerup.
-     * 
-     * @return
-     */
-    private static PowerUpAnimation getSpeedAnimation() {
-        PowerUpAnimation animation = new PowerUpAnimation(new Texture(
-                Gdx.files.internal("sprites/powerups/speed-spritesheet.png")));
-        return animation;
-    }
-    
-    private static PowerUpAnimation getTimerAnimation() {
-        PowerUpAnimation animation = new PowerUpAnimation(new Texture(
-                Gdx.files.internal("sprites/powerups/timer-spritesheet.png")));
-        return animation;
-    }
+	/**
+	 * Retrieves the animation for the speed powerup.
+	 * 
+	 * @return
+	 */
+	private static PowerUpAnimation getSpeedAnimation() {
+		PowerUpAnimation animation = new PowerUpAnimation(new Texture(
+				Gdx.files.internal("sprites/powerups/speed-spritesheet.png")));
+		return animation;
+	}
+
+	private static PowerUpAnimation getTimerAnimation() {
+		PowerUpAnimation animation = new PowerUpAnimation(new Texture(
+				Gdx.files.internal("sprites/powerups/timer-spritesheet.png")));
+		return animation;
+	}
 }
