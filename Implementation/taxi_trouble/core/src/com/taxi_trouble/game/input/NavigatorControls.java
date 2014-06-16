@@ -38,9 +38,6 @@ public class NavigatorControls implements InputProcessor {
     private NavigatorScreen mapscreen;
     private float old_factor = 1;
     private float ZOOM = 1;
-    private static final double ZERO_POINT_FIVE = 0.5;
-    private static final double ZERO_POINT_EIGHT = 0.8;
-    private static final double ONE_POINT_FIVE = 1.5;
 
     /**
      * Constructor method for MapControlsUI.
@@ -216,13 +213,13 @@ public class NavigatorControls implements InputProcessor {
             return;
         }
         if (factor > 1) {
-            factor = (float) (1 + factorThresh * ZERO_POINT_EIGHT);
+            factor = (float) (1 + factorThresh * 0.8);
         } else if (factor < 1) {
-            factor = (float) (1 - factorThresh * ZERO_POINT_EIGHT);
+            factor = (float) (1 - factorThresh * 0.8);
         }
         // If after the zoom * factor camera.zoom < 0.5 or > 1.5 then do
         // nothing.
-        if (cam.zoom * factor > ONE_POINT_FIVE
+        if (cam.zoom * factor > 1.5
                 || ((mapCamera.position.x < VIRTUAL_WIDTH
                         * mapscreen.getScale() / 2
                         || mapCamera.position.x >= mapPixelWidth
@@ -230,7 +227,7 @@ public class NavigatorControls implements InputProcessor {
                         || mapCamera.position.y < VIRTUAL_HEIGHT
                                 * mapscreen.getScale() / 2 || mapCamera.position.y >= mapPixelHeight
                         - VIRTUAL_HEIGHT * mapscreen.getScale() / 2) && factor > 1)
-                || cam.zoom * factor < ZERO_POINT_FIVE) {
+                || cam.zoom * factor < 0.5) {
             return;
         }
         cam.zoom = cam.zoom * factor;
