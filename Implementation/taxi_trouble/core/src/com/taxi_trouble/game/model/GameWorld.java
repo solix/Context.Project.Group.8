@@ -3,6 +3,7 @@ package com.taxi_trouble.game.model;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executor;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
@@ -54,6 +55,7 @@ public class GameWorld extends Game {
 	@Override
 	public final void create() {
 		System.out.println("RUNNING BETA 0.9");
+	
 		loadResources();
 		world = new World(new Vector2(0.0f, 0.0f), true);
 		map = new WorldMap(ResourceManager.mapFile, world);
