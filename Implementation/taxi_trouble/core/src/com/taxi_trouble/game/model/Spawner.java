@@ -110,7 +110,12 @@ public class Spawner {
         Character character = getRandomCharacter();
         Passenger pass = new Passenger(2, 2, character);
         pass.initializeBody(world, spawnPoint);
-        pass.setDestination(randomDestination(world));
+        Destination dest = randomDestination(world);
+        // If the distance is to close, choose another destination.
+        while (pass.getPosition().dst(dest.getPosition()) < 50) {
+            dest = randomDestination(world);
+        }
+        pass.setDestination(dest);
         // Add the new passenger to the list of active passengers
         passengers.add(pass);
         return pass;
