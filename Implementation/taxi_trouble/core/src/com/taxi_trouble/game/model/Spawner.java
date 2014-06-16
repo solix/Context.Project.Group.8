@@ -6,6 +6,7 @@ import static com.taxi_trouble.game.properties.ResourceManager.destinationSprite
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -31,6 +32,8 @@ public class Spawner {
 	private ConcurrentHashMap<Integer, PowerUp> powerups;
 	private List<PowerUpBehaviour> behaviours;
 	private AndroidMultiplayerInterface multiplayerInterface;
+	private ConcurrentLinkedQueue<PowerUp> insertionQueue;
+	private ConcurrentLinkedQueue<PowerUp> deletionQueue;
 
 	/**
 	 * Initializes a new Spawner which can store spawn points and spawn taxis,
@@ -44,6 +47,8 @@ public class Spawner {
 		passengers = new ConcurrentHashMap<Integer, Passenger>();
 		powerups = new ConcurrentHashMap<Integer, PowerUp>();
 		poweruppoints = new ArrayList<SpawnPoint>();
+		//insertionQueue = new ConcurrentLinkedQueue<E>();
+		deletionQueue = new ConcurrentLinkedQueue<PowerUp>();
 	}
 
 	/**
@@ -227,7 +232,7 @@ public class Spawner {
 		PowerUpBehaviour behaviour = behaviours.get(behaviourId);
 		PowerUp power = new PowerUp(spawnPoint, powerUpId, multiplayerInterface);
 		power.setBehaviour(behaviour);
-		power.initializeBody(world);
+		insertionQueue.offer(power);
 		powerups.put(powerUpId, power);
 		return power;
 	}
@@ -247,6 +252,7 @@ public class Spawner {
 	 */
 	public void despawnPowerup(PowerUp powerup) {
 		powerup.resetSpawnpoint();
+		deletionQueue.offer(powerup);
 		powerups.remove(powerup.getId());
 	}
 
@@ -327,5 +333,14 @@ public class Spawner {
 
 	public void setMultiplayerInterface(AndroidMultiplayerInterface i) {
 		multiplayerInterface = i;
+	}
+
+	public ConcurrentLinkedQueue<PowerUp> getDeletionQueue() {
+		return this.deletionQueue;
+		
+	}
+
+	public ConcurrentLinkedQueue<PowerUp> getInsertionQueue() {
+		return this.insertionQueue;
 	}
 }

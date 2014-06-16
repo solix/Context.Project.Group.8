@@ -222,4 +222,10 @@ public class PowerUp {
 	public void forceActivatePowerUp(Taxi taxi) {
 		this.behaviour.triggerEvent(taxi);
 	}
+	
+	 public void removeFromWorld(World world) {
+		 assert(!world.isLocked());
+	       // world.step(0, 0, 0);
+	        world.destroyBody(this.getBody());
+	    }
 }

@@ -5,6 +5,7 @@ import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_WIDTH;
 import static com.taxi_trouble.game.properties.ResourceManager.hudFont;
 
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -100,7 +101,26 @@ public abstract class ViewObserver implements Screen {
 		for (Entry<Integer, Team> e : taxigame.getTeams().entrySet()) {
 			e.getValue().getTaxi().update(Gdx.app.getGraphics().getDeltaTime());
 		}
-
+		
+		if(!taxigame.getWorld().isLocked()){
+			ConcurrentLinkedQueue<PowerUp> queue = taxigame.getMap().getSpawner().getInsertionQueue();
+			while(!queue.isEmpty()){
+				PowerUp power = queue.poll();
+				power.initializeBody(taxigame.getWorld());
+			
+				
+			}
+			queue = taxigame.getMap().getSpawner().getDeletionQueue();
+			while(!queue.isEmpty()){
+				PowerUp power = queue.poll();
+				power.removeFromWorld(taxigame.getWorld());
+				
+			}
+		}
+		else { 
+			System.out.println("world locked!! the deletion queue was not emptied!!!");
+		}
+ 
 		// Progress the physics of the game
 		taxigame.getWorld().step(Gdx.app.getGraphics().getDeltaTime(), 3,
 				3);
