@@ -1,21 +1,17 @@
 package com.taxi_trouble.game.screens;
 
-import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_HEIGHT;
-import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_WIDTH;
+import static com.taxi_trouble.game.properties.GameProperties.PIXELS_PER_METER;
 import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_HEIGHT;
 import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_WIDTH;
-import static com.taxi_trouble.game.properties.GameProperties.screenWidth;
 import static com.taxi_trouble.game.properties.GameProperties.screenHeight;
+import static com.taxi_trouble.game.properties.GameProperties.screenWidth;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.taxi_trouble.game.Acceleration;
-import com.taxi_trouble.game.SteerDirection;
 import com.taxi_trouble.game.input.NavigatorControls;
 import com.taxi_trouble.game.input.NavigatorControlsUI;
 import com.taxi_trouble.game.model.GameWorld;
@@ -23,22 +19,21 @@ import com.taxi_trouble.game.model.WorldMap;
 
 /**
  * Provides the view of the game for a navigator.
- *
+ * 
  * @author Computer Games Project Group 8
- *
+ * 
  */
 public class NavigatorScreen extends ViewObserver {
     private SpriteBatch spriteBatch;
     private Viewport viewport;
     private OrthographicCamera mapCamera;
-    private OrthographicCamera scoreCamera;
     private NavigatorControls mapControl;
     private NavigatorControlsUI powerUpControlsUI;
     private float scale = 4;
 
     /**
      * Constructor, creates the game screen.
-     *
+     * 
      * @param game
      */
 
@@ -65,23 +60,29 @@ public class NavigatorScreen extends ViewObserver {
 
         // Load the MapControls to enable navigating through the map.
         powerUpControlsUI = new NavigatorControlsUI();
-        mapControl = new NavigatorControls(mapCamera, this, powerUpControlsUI, this.team);
+        mapControl = new NavigatorControls(mapCamera, this, powerUpControlsUI,
+                this.team);
         Gdx.input.setInputProcessor(mapControl);
+
+        // center the camera at the position of its teams taxi.
+        mapCamera.position.set(ownTaxi.getTeam().getTaxi().getXPosition()
+                * PIXELS_PER_METER, ownTaxi.getTeam().getTaxi().getYPosition()
+                * PIXELS_PER_METER, 0);
     }
 
-	@Override
-	public void resume() {
-		spriteBatch = new SpriteBatch();
-	}
+    @Override
+    public void resume() {
+        spriteBatch = new SpriteBatch();
+    }
 
-	/**
-	 * This method is called every cycle to render the objects.
-	 */
-	@Override
-	public void render(float delta) {
-		// Specify the clear values for the color buffers and clear the buffers.
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
+    /**
+     * This method is called every cycle to render the objects.
+     */
+    @Override
+    public void render(float delta) {
+        // Specify the clear values for the color buffers and clear the buffers.
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
         // Update the mapCamera's view.
         mapCamera.update();
@@ -92,8 +93,8 @@ public class NavigatorScreen extends ViewObserver {
         cityMap.render(mapCamera);
         // Render the common game elements (taxis, passengers, etc.)
         super.render(delta);
-        
-        //Render the powerUp control interface.
+
+        // Render the powerUp control interface.
         spriteBatch.setProjectionMatrix(hudCamera.combined);
         this.powerUpControlsUI.render(spriteBatch, ownTaxi.getTeam());
     }
@@ -118,7 +119,6 @@ public class NavigatorScreen extends ViewObserver {
 
     }
 
-
     @Override
     public void dispose() {
         spriteBatch.dispose();
@@ -128,7 +128,7 @@ public class NavigatorScreen extends ViewObserver {
     /**
      * This method makes it that the camera doesn't go out of bounds from the
      * map.
-     *
+     * 
      * @param map
      *            Worldmap map is needed so that we can stay in bounds.
      */
@@ -156,7 +156,7 @@ public class NavigatorScreen extends ViewObserver {
 
     /**
      * This method changes the scale value.
-     *
+     * 
      * @param sc
      *            sc is the new scale to be set.
      */
@@ -177,7 +177,7 @@ public class NavigatorScreen extends ViewObserver {
 
     /**
      * This method returns the scale value.
-     *
+     * 
      * @return scale
      */
     public float getScale() {
@@ -186,7 +186,7 @@ public class NavigatorScreen extends ViewObserver {
 
     /**
      * Retrieves the map.
-     *
+     * 
      * @return map
      */
     public WorldMap getMap() {
