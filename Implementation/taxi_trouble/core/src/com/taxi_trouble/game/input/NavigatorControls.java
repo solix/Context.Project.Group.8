@@ -93,8 +93,10 @@ public class NavigatorControls implements InputProcessor {
 	}
 
 	private void checkPowerUpButtonPressed(int screenX, int screenY, int button) {
-		screenX = GameProperties.translateScreenX(screenX);
-		screenY = GameProperties.translateScreenY(screenY);
+		screenX = GameProperties.translateScreenX(screenX,
+				GameProperties.BUTTON_CAM_WIDTH);
+		screenY = GameProperties.translateScreenY(screenY,
+				GameProperties.BUTTON_CAM_WIDTH);
 
 		if (this.powerUpControlsUI.buttonPressed(screenX, screenY, button)) {
 			team.usePowerUp();

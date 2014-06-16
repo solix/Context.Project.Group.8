@@ -42,8 +42,8 @@ public final class GameProperties {
 	 *            x-coordinate of the screen
 	 * @return x-coordinate of the virtual screen
 	 */
-	public static int translateScreenX(int screenX) {
-		return (int) (screenX * ((float) BUTTON_CAM_WIDTH / screenWidth));
+	public static int translateScreenX(int screenX, int virtual) {
+		return (int) (screenX * ((float) virtual / screenWidth));
 	}
 
 	/**
@@ -54,9 +54,9 @@ public final class GameProperties {
 	 *            y-coordinate of the screen
 	 * @return y-coordinate of the virtual screen
 	 */
-	public static int translateScreenY(int screenY) {
-		int translated = (int) (screenY * ((float) GameProperties.BUTTON_CAM_HEIGHT / GameProperties.screenHeight));
-		int flipped = (int) (GameProperties.BUTTON_CAM_HEIGHT - translated);
+	public static int translateScreenY(int screenY, int virtual) {
+		int translated = (int) (screenY * ((float) virtual / GameProperties.screenHeight));
+		int flipped = (int) (virtual - translated);
 		return flipped;
 	}
 

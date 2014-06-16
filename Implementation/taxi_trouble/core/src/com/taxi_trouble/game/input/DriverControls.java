@@ -35,8 +35,10 @@ public class DriverControls extends InputAdapter {
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer,
 			int mouseButton) {
-		screenX = GameProperties.translateScreenX(screenX);
-		screenY = GameProperties.translateScreenY(screenY);
+		screenX = GameProperties.translateScreenX(screenX,
+				GameProperties.BUTTON_CAM_WIDTH);
+		screenY = GameProperties.translateScreenY(screenY,
+				GameProperties.BUTTON_CAM_HEIGHT);
 
 		for (VirtualButton button : controlsUI.getButtons().values()) {
 			if (button.touchDown(screenX, screenY, mouseButton)) {

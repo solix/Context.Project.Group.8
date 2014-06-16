@@ -27,8 +27,10 @@ public class MenuControl extends InputAdapter {
 	 */
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int b) {
-		screenX = GameProperties.translateScreenX(screenX);
-		screenY = GameProperties.translateScreenY(screenY);
+		screenX = GameProperties.translateScreenX(screenX,
+				GameProperties.UI_WIDTH);
+		screenY = GameProperties.translateScreenY(screenY,
+				GameProperties.UI_HEIGHT);
 
 		Entry<String, UIElement> entry = getTouchedElement(screenX, screenY);
 		if (entry == null) {
@@ -49,8 +51,10 @@ public class MenuControl extends InputAdapter {
 	 */
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		screenX = GameProperties.translateScreenX(screenX);
-		screenY = GameProperties.translateScreenY(screenY);
+		screenX = GameProperties.translateScreenX(screenX,
+				GameProperties.UI_WIDTH);
+		screenY = GameProperties.translateScreenY(screenY,
+				GameProperties.UI_HEIGHT);
 
 		Entry<String, UIElement> entry = getTouchedElement(screenX, screenY);
 		if (entry == null) {

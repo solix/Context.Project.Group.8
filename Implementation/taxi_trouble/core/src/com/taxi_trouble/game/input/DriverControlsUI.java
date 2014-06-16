@@ -30,14 +30,14 @@ public class DriverControlsUI {
 		this.active = new HashMap<Integer, Action>();
 
 		buttons.put("throttle", new VirtualButton(new Rectangle(
-				GameProperties.BUTTON_CAM_WIDTH - 110, 10, 100, 120),
+				GameProperties.BUTTON_CAM_WIDTH - 110, 10, 100, 200),
 				throttleSprite, Action.ACCELERATE));
 
 		buttons.put("brake", new VirtualButton(new Rectangle(
-				GameProperties.BUTTON_CAM_WIDTH - 210, 10, 100, 120),
+				GameProperties.BUTTON_CAM_WIDTH - 260, 10, 150, 100),
 				brakeSprite, Action.BRAKE));
 
-		buttons.put("dpad", new VirtualDPad(new Rectangle(10, 10, 184, 80),
+		buttons.put("dpad", new VirtualDPad(new Rectangle(10, 10, 200, 100),
 				dPadSprite, Action.DPAD_DEFAULT));
 	}
 
