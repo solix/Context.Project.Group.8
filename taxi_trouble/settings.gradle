@@ -1,2 +1,0 @@
-rootProject.name = 'Taxi Trouble'
-include 'desktop', 'android', 'ios', 'html', 'core'

@@ -237,4 +237,15 @@ public abstract class Entity {
     public Sprite getSprite() {
         return this.sprite;
     }
+
+    /**Removes the body of the entity from the specified world.
+     *
+     * @param world : the world from which
+     */
+    public void removeBodyFromWorld(World world) {
+        assert (this.getBody() != null);
+        if(!world.isLocked()) {
+            world.destroyBody(getBody());
+        }
+    }
 }

@@ -19,6 +19,7 @@ import com.taxi_trouble.game.model.entities.powerups.SpeedBehaviour;
  *
  */
 public final class GameProperties {
+
 	public static int PIXELS_PER_METER = getPPM();
 	public static int VIRTUAL_WIDTH = 480;
 	public static int VIRTUAL_HEIGHT = 320;
@@ -29,6 +30,7 @@ public final class GameProperties {
 
 	private GameProperties() {
 	}
+
 
 	/**Retrieves the pixels-per-meter ratio of the game.
 	 * 
@@ -80,8 +82,34 @@ public final class GameProperties {
         behaviours.add(new SpeedBehaviour(getSpeedAnimation()));
         behaviours.add(new InvincibilityBehaviour(getInvincibleAnimation()));
         behaviours.add(new IncreaseTimeBehaviour(getTimerAnimation()));
-		return behaviours;
+        return behaviours;
     }
+
+	/**
+	 * Translates an x-coordinate of the screen to an x-coordinate of the
+	 * virtual screen.
+	 * 
+	 * @param screenX
+	 *            x-coordinate of the screen
+	 * @return x-coordinate of the virtual screen
+	 */
+	public static int translateScreenX(int screenX, int virtual) {
+		return (int) (screenX * ((float) virtual / getScreenWidth()));
+	}
+
+	/**
+	 * Translates an y-coordinate of the screen to an y-coordinate of the
+	 * virtual screen.
+	 * 
+	 * @param screenY
+	 *            y-coordinate of the screen
+	 * @return y-coordinate of the virtual screen
+	 */
+	public static int translateScreenY(int screenY, int virtual) {
+		int translated = (int) (screenY * ((float) virtual / getScreenHeight()));
+		int flipped = (int) (virtual - translated);
+		return flipped;
+	}
 
     /**
      * Retrieves the animation for the invincibility power-up.

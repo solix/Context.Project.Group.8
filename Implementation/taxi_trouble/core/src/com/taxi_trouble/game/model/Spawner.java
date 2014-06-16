@@ -4,12 +4,15 @@ import static com.taxi_trouble.game.properties.GameProperties.getPowerUpBehaviou
 import static com.taxi_trouble.game.properties.ResourceManager.destinationSprite;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.model.entities.Destination;
+import com.taxi_trouble.game.model.entities.Entity;
 import com.taxi_trouble.game.model.entities.Passenger;
 import com.taxi_trouble.game.model.entities.Taxi;
 import com.taxi_trouble.game.model.entities.powerups.PowerUp;
@@ -34,6 +37,8 @@ public class Spawner {
 	private ConcurrentHashMap<Integer, PowerUp> powerups;
 	private List<PowerUpBehaviour> behaviours;
 	private AndroidMultiplayerInterface multiplayerInterface;
+	private ConcurrentLinkedQueue<Entity> insertionQueue;
+	private ConcurrentLinkedQueue<Entity> deletionQueue;
 
 	/**
 	 * Initializes a new Spawner which can store spawn points and spawn taxis,
@@ -47,6 +52,8 @@ public class Spawner {
 		passengers = new ConcurrentHashMap<Integer, Passenger>();
 		powerups = new ConcurrentHashMap<Integer, PowerUp>();
 		poweruppoints = new ArrayList<SpawnPoint>();
+		//insertionQueue = new ConcurrentLinkedQueue<E>();
+		deletionQueue = new ConcurrentLinkedQueue<Entity>();
 	}
 
 	/**
@@ -239,7 +246,7 @@ public class Spawner {
 		PowerUpBehaviour behaviour = behaviours.get(behaviourId);
 		PowerUp power = new PowerUp(spawnPoint, powerUpId, multiplayerInterface);
 		power.setBehaviour(behaviour);
-		power.initializeBody(world);
+		insertionQueue.offer(power);
 		powerups.put(powerUpId, power);
 		return power;
 	}
@@ -259,7 +266,16 @@ public class Spawner {
 	 */
 	public void despawnPowerup(PowerUp powerup) {
 		powerup.resetSpawnpoint();
+		scheduleBodyRemoval(powerup);
 		powerups.remove(powerup.getId());
+	}
+
+	/**Schedules the body of the passed entity for removal.
+	 * 
+	 * @param entity
+	 */
+	private void scheduleBodyRemoval(Entity entity) {
+	    deletionQueue.offer(entity);
 	}
 
 	/**
@@ -344,5 +360,25 @@ public class Spawner {
 
 	public void setMultiplayerInterface(AndroidMultiplayerInterface i) {
 		multiplayerInterface = i;
+	}
+
+	public ConcurrentLinkedQueue<Entity> getDeletionQueue() {
+		return this.deletionQueue;
+		
+	}
+
+	public ConcurrentLinkedQueue<Entity> getInsertionQueue() {
+		return this.insertionQueue;
+	}
+
+	/**Removes the scheduled bodies to be removed from the specified world.
+	 * 
+	 * @param world
+	 */
+	public void removeDespawnedEntityBodies(World world) {
+	    Iterator<Entity> bodiesToRemove = deletionQueue.iterator();
+	    while(bodiesToRemove.hasNext()) {
+	        bodiesToRemove.next().removeBodyFromWorld(world);
+	    }
 	}
 }

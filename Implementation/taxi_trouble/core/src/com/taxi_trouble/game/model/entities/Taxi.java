@@ -27,29 +27,30 @@ import com.taxi_trouble.game.sound.TaxiJukebox;
  * A controllable taxi which can be steered and for which certain properties
  * hold. A Taxi has a width, length, maximum steering angle, maximum speed,
  * power, box2d body, sprite and a set of wheels.
- *
+ * 
  * @author Computer Games Project Group 8
- *
+ * 
  */
-public class Taxi extends Entity {
-	private float maxSteerAngle;
-	private float maxSpeed;
-	private float power;
-	private float wheelAngle;
-	private List<Wheel> wheels;
-	private SteerDirection steer;
-	private Acceleration acceleration;
-	private Passenger passenger;
-	private Team team;
-	private boolean invincibility;
-	private float oldX;
-	private float oldY;
-	private float oldAngle;
-	private boolean hasMoved;
+public class Taxi extends Entity{
+    private float maxSteerAngle;
+    private float maxSpeed;
+    private float originalSpeed;
+    private float power;
+    private float wheelAngle;
+    private List<Wheel> wheels;
+    private SteerDirection steer;
+    private Acceleration acceleration;
+    private Passenger passenger;
+    private Team team;
+    private boolean invincibility;
+    private float oldX;
+    private float oldY;
+    private float oldAngle;
+    private boolean hasMoved;
 
     /**
      * Initializes a new Taxi which can be controlled by a player.
-     *
+     * 
      * @param width
      *            : the width of the taxi
      * @param length
@@ -66,6 +67,7 @@ public class Taxi extends Entity {
         super(width, length);
         this.maxSteerAngle = maxSteerAngle;
         this.maxSpeed = maxSpeed;
+        this.originalSpeed = maxSpeed;
         this.power = power;
         this.wheels = new ArrayList<Wheel>();
         this.wheelAngle = 0;
@@ -78,7 +80,7 @@ public class Taxi extends Entity {
     /**
      * Creates a body for this taxi in a world on a given position and placed
      * under a given angle(radian).
-     *
+     * 
      * @param world
      *            : the world used to create the Body
      * @param position
@@ -92,7 +94,7 @@ public class Taxi extends Entity {
         bodyDef.position.set(position);
         bodyDef.angle = angle * MathUtils.degreesToRadians;
         this.setBody(world.createBody(bodyDef));
-        this.initFixture();
+        this.createFixture();
         this.initializeWheels(world);
     }
 
@@ -100,13 +102,13 @@ public class Taxi extends Entity {
      * Creates a fixture for the body of this taxi.
      * 
      */
-    private void initFixture() {
+    private void createFixture() {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.density = 1.0f;
         fixtureDef.friction = 0.6f;
         fixtureDef.restitution = 0.4f;
         PolygonShape carShape = new PolygonShape();
-        carShape.setAsBox(getWidth() / 2, getLength() / 2);
+        carShape.setAsBox(this.getWidth() / 2, this.getLength() / 2);
         fixtureDef.shape = carShape;
         this.getBody().createFixture(fixtureDef);
     }
@@ -220,6 +222,10 @@ public class Taxi extends Entity {
         velocity = new Vector2(velocity.x * ((speed * 1000.0f) / 3600.0f),
                 velocity.y * ((speed * 1000.0f) / 3600.0f));
         this.getBody().setLinearVelocity(velocity);
+    }
+
+    public float getOriginalSpeed() {
+        return originalSpeed;
     }
 
     /**
@@ -404,7 +410,7 @@ public class Taxi extends Entity {
 
     /**
      * Picks up a passenger and places it into this taxi.
-     *
+     * 
      * @param passenger
      *            : the passenger to pickup
      */
@@ -414,16 +420,17 @@ public class Taxi extends Entity {
         if (!this.pickedUpPassenger() && !passenger.isTransported()) {
             this.passenger = passenger;
             this.passenger.setTransporter(this);
-			this.passenger.setUpDropOffTimer();
+            this.passenger.setUpDropOffTimer();
             this.triggerInvincibility(5);
-			 TaxiJukebox.playSound("yoohoo");
+            TaxiJukebox.playSound("yoohoo");
             return true;
         }
         return false;
     }
 
-    /**Triggers invincibility for this taxi for a short period of five seconds.
-     *
+    /**
+     * Triggers invincibility for this taxi for a short period of five seconds.
+     * 
      */
     public void triggerInvincibility(int time) {
         this.invincibility = true;
@@ -436,63 +443,64 @@ public class Taxi extends Entity {
         }, time);
     }
 
-    /**Disable invincibility of this taxi, i.e. another
-     * taxi can steal a passenger from this taxi.
-     *
+    /**
+     * Disable invincibility of this taxi, i.e. another taxi can steal a
+     * passenger from this taxi.
+     * 
      */
     private void turnOffInvincibility() {
         this.invincibility = false;
     }
 
-  
     /**
      * Drop off the passenger, i.e. get it out of the taxi.
-     *
+     * 
      * @param destination
      * @param map
-     *
+     * 
      */
     public void dropOffPassenger(Destination destination, WorldMap map) {
-            passenger.deliverAtDestination(map, destination);
-            this.team.addScore(this.passenger.remainingDropOffTime());
-            TaxiJukebox.playSound("dropoff");
-            this.losePassenger();
-        
+        passenger.deliverAtDestination(map, destination);
+        this.team.addScore(this.passenger.remainingDropOffTime());
+        TaxiJukebox.playSound("dropoff");
+        this.losePassenger();
+
     }
-    
-    public boolean dropOffDetected(Destination destination, WorldMap map){
-    		 if (pickedUpPassenger()
-    	                && this.passenger.getDestination().equals(destination)) {
-    			 return true;
-    	}
-    	return false;
+
+    public boolean dropOffDetected(Destination destination, WorldMap map) {
+        if (pickedUpPassenger()
+                && this.passenger.getDestination().equals(destination)) {
+            return true;
+        }
+        return false;
     }
-    
+
     /**
      * synchronizes the binding between a taxi and passenger
+     * 
      * @param passenger
      */
-    public void syncPassenger(Passenger passenger){
-    	
-    	passenger.setUpDropOffTimer();
-		if(getPassenger() != passenger){
-			if(getPassenger() != null){
-    			getPassenger().cancelTransport();
-			}
-    		this.passenger = passenger;
-		}
-   	
-    	if (passenger.getTransporter() != this){
-    		if (passenger.getTransporter() != null){
-    			passenger.getTransporter().losePassenger();    			
-    		}
-    		passenger.setTransporter(this);
-    	}
+    public void syncPassenger(Passenger passenger) {
+
+        passenger.setUpDropOffTimer();
+        if (getPassenger() != passenger) {
+            if (getPassenger() != null) {
+                getPassenger().cancelTransport();
+            }
+            this.passenger = passenger;
+        }
+
+        if (passenger.getTransporter() != this) {
+            if (passenger.getTransporter() != null) {
+                passenger.getTransporter().losePassenger();
+            }
+            passenger.setTransporter(this);
+        }
     }
 
     /**
      * Updates the taxi's steer angle and acceleration.
-     *
+     * 
      * @param deltaTime
      */
     public void update(float deltaTime) {
@@ -502,7 +510,7 @@ public class Taxi extends Entity {
 
     /**
      * Updates the direction in which the taxi's wheels should be pointed.
-     *
+     * 
      * @param deltaTime
      *            : difference in time in which the wheel angle updates
      */
@@ -530,7 +538,7 @@ public class Taxi extends Entity {
 
     /**
      * Updates the angle of the wheels.
-     *
+     * 
      */
     private void updateRevolvingWheelsAngle() {
         for (Wheel wheel : this.getRevolvingWheels()) {
@@ -540,7 +548,7 @@ public class Taxi extends Entity {
 
     /**
      * Updates the acceleration of the taxi.
-     *
+     * 
      * @param deltaTime
      */
     private void updateAcceleration(float deltaTime) {
@@ -578,7 +586,7 @@ public class Taxi extends Entity {
 
     /**
      * Applies the force specified by a vector to the wheels of the taxi.
-     *
+     * 
      * @param forceVector
      */
     private void updatePoweredWheelsForce(Vector2 forceVector) {
@@ -591,31 +599,36 @@ public class Taxi extends Entity {
         }
     }
 
-	/**
-	 * Render the sprites of the taxi using a given SpriteBatch.
-	 * 
-	 * @param spriteBatch
-	 */
-	public void render(SpriteBatch spriteBatch) {
-		setMoved();
-		for (Wheel wheel : getWheels()) {
-			wheel.render(spriteBatch);
-		}
-		spriteBatch.begin();
-		getSprite().setPosition(getXPosition() * PIXELS_PER_METER,
-				getYPosition() * PIXELS_PER_METER);
-		getSprite().setRotation(getAngle() * MathUtils.radiansToDegrees);
-		getSprite().draw(spriteBatch);
-		spriteBatch.end();
-	}
-	
-	/**Let this taxi steal the passenger (if any) from the other specified taxi.
-     *
-     * @param taxi : the taxi from which the passenger is stolen
-	 * @return 
+    /**
+     * Render the sprites of the taxi using a given SpriteBatch.
+     * 
+     * @param spriteBatch
+     */
+    public void render(SpriteBatch spriteBatch) {
+        setMoved();
+
+        for (Wheel wheel : getWheels()) {
+            wheel.render(spriteBatch);
+        }
+
+        spriteBatch.begin();
+        getSprite().setPosition(getXPosition() * PIXELS_PER_METER,
+                getYPosition() * PIXELS_PER_METER);
+        getSprite().setRotation(getAngle() * MathUtils.radiansToDegrees);
+        getSprite().draw(spriteBatch);
+        spriteBatch.end();
+
+    }
+
+    /**
+     * Let this taxi steal the passenger (if any) from the other specified taxi.
+     * 
+     * @param taxi
+     *            : the taxi from which the passenger is stolen
+     * @return
      */
     public boolean stealPassenger(Taxi taxi) {
-    	if (taxi.pickedUpPassenger() && !this.pickedUpPassenger()
+        if (taxi.pickedUpPassenger() && !this.pickedUpPassenger()
                 && !taxi.isInvincible()) {
             Passenger pas = taxi.getPassenger();
             taxi.losePassenger();
@@ -626,96 +639,102 @@ public class Taxi extends Entity {
 
     }
 
-    /**Retrieve whether the taxi is invincible, i.e. whether a passenger can be
+    /**
+     * Retrieve whether the taxi is invincible, i.e. whether a passenger can be
      * stolen from this taxi or not.
-     *
+     * 
      * @return invincibility
      */
     private boolean isInvincible() {
         return this.invincibility;
     }
 
-    /**Make the taxi lose its passenger.
-     *
+    /**
+     * Make the taxi lose its passenger.
+     * 
      */
     private void losePassenger() {
         this.getPassenger().cancelTransport();
         this.passenger = null;
     }
 
-	private void setMoved() {
-		hasMoved = false;
-		if (Math.abs(oldX - getXPosition()) > 0.25 || Math.abs(oldY - getYPosition()) > 0.25
-				|| Math.abs(oldAngle - getAngle()) >0.2)
-		{
-			hasMoved = true;
-			updateOldLocation();
-		}
-	}
+    private void setMoved() {
+        hasMoved = false;
+        if (Math.abs(oldX - getXPosition()) > 0.25
+                || Math.abs(oldY - getYPosition()) > 0.25
+                || Math.abs(oldAngle - getAngle()) > 0.2) {
+            hasMoved = true;
+            updateOldLocation();
+        }
+    }
 
-	private void updateOldLocation() {
-		oldX = getXPosition();
-		oldY = getYPosition();
-		oldAngle = getAngle();
-	}
+    private void updateOldLocation() {
+        oldX = getXPosition();
+        oldY = getYPosition();
+        oldAngle = getAngle();
+    }
 
+    public boolean hasMoved() {
+        return hasMoved;
+    }
 
-	public boolean hasMoved() {
-		return hasMoved;
-	}
-	
-	/**
-	 * Makes the taxi pickup a power-up which can be activated by the navigator
-	 * of the team.
-	 * 
-	 * @param powerUp
-	 *            : the power-up to pick up
-	 */
-	public void pickUpPowerUp(PowerUp powerUp, WorldMap map) {
-		Spawner spawner = map.getSpawner();
-		spawner.despawnPowerup(powerUp);
-		this.team.setPowerUp(powerUp);
-		powerUp.setTaken(true);
-
-	}
-    
-    /**Activates a given power-up for this taxi. The effects
-     * of the powerup are defined by its behaviour.
+    /**
+     * Makes the taxi pickup a power-up which can be activated by the navigator
+     * of the team.
      * 
-     * @param powerUp : the power-up that should be activated
+     * @param powerUp
+     *            : the power-up to pick up
+     */
+    public void pickUpPowerUp(PowerUp powerUp, WorldMap map) {
+        Spawner spawner = map.getSpawner();
+        spawner.despawnPowerup(powerUp);
+        this.team.setPowerUp(powerUp);
+        powerUp.setTaken(true);
+    }
+
+    public boolean powerUpAvailable(PowerUp powerUp, WorldMap map) {
+        Spawner spawner = map.getSpawner();
+        if (spawner.powerUpIsAvailable(powerUp)) {
+            pickUpPowerUp(powerUp, map);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Activates a given power-up for this taxi. The effects of the powerup are
+     * defined by its behaviour.
+     * 
+     * @param powerUp
+     *            : the power-up that should be activated
      */
     public void activatePowerup(PowerUp powerUp) {
         powerUp.activatePowerUp(this);
     }
-    
-    public String networkMessage(){
-    	
-    	int teamId = getTeam().getTeamId();
-    	float x = getXPosition();
-    	float y = getYPosition();
-    	float orientation = getBody().getAngle();
-    	float xSpeed = getBody().getLinearVelocity().x;
-    	float ySpeed = getBody().getLinearVelocity().y;
-    	int acceleration = getAccelerate().ordinal();
-    	int steerDirection = getSteer().ordinal();
-    	return "TAXI " + " " + teamId + " " + x + " " + y + " " + orientation + " " 
-    			+ xSpeed + " " + ySpeed + " " + acceleration + " " + steerDirection + " ";
+
+    public String networkMessage() {
+
+        int teamId = getTeam().getTeamId();
+        float x = getXPosition();
+        float y = getYPosition();
+        float orientation = getBody().getAngle();
+        float xSpeed = getBody().getLinearVelocity().x;
+        float ySpeed = getBody().getLinearVelocity().y;
+        int acceleration = getAccelerate().ordinal();
+        int steerDirection = getSteer().ordinal();
+        return "TAXI " + " " + teamId + " " + x + " " + y + " " + orientation
+                + " " + xSpeed + " " + ySpeed + " " + acceleration + " "
+                + steerDirection + " ";
     }
 
+    public void setInfo(float x, float y, float angle, float xSpeed,
+            float ySpeed, int acceleration, int steerDirection) {
 
+        getBody().setTransform(x, y, angle);
+        getBody().setLinearVelocity(xSpeed, ySpeed);
+        setAccelerate(Acceleration.values[acceleration]);
+        setSteer(SteerDirection.values[steerDirection]);
 
-    public void setInfo(float x, float y, float angle, float xSpeed, float ySpeed,
-    		int acceleration, int steerDirection) 
-    {
-    	
-    	getBody().setTransform(x, y, angle);
-    	getBody().setLinearVelocity(xSpeed, ySpeed);
-    	setAccelerate(Acceleration.values[acceleration]);
-    	setSteer(SteerDirection.values[steerDirection]);
-    	
-    	
     }
 
-
-	
 }

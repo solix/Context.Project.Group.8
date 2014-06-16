@@ -1,11 +1,10 @@
 package com.taxi_trouble.game.input;
 
-import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_HEIGHT;
 import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_WIDTH;
 import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_HEIGHT;
 import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_WIDTH;
-import static com.taxi_trouble.game.properties.GameProperties.getScreenHeight;
-import static com.taxi_trouble.game.properties.GameProperties.getScreenWidth;
+import static com.taxi_trouble.game.properties.GameProperties.translateScreenX;
+import static com.taxi_trouble.game.properties.GameProperties.translateScreenY;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -16,16 +15,22 @@ import com.taxi_trouble.game.model.team.Team;
 import com.taxi_trouble.game.screens.NavigatorScreen;
 
 /**
- * This is the controller class for MapScreen.
- *
+ * This is the controller class for the NavigatorScreen.
+ * 
  * @author Computer Games Project Group 8
- *
+ * 
+ */
+/**
+ * This is the controller class for MapScreen.
+ * 
+ * @author Computer Games Project Group 8
+ * 
  */
 public class NavigatorControls implements InputProcessor {
 
     private NavigatorControlsUI powerUpControlsUI;
     private Team team;
-    
+
     private OrthographicCamera mapCamera;
     private int old_x;
     private int old_y;
@@ -39,11 +44,11 @@ public class NavigatorControls implements InputProcessor {
 
     /**
      * Constructor method for MapControlsUI.
-     *
+     * 
      * @param cam
      * @param mapscreen
      */
-    public NavigatorControls(OrthographicCamera cam, NavigatorScreen mapscreen, 
+    public NavigatorControls(OrthographicCamera cam, NavigatorScreen mapscreen,
             NavigatorControlsUI powerUpControlsUI, Team team) {
         this.mapCamera = cam;
         this.mapscreen = mapscreen;
@@ -91,14 +96,13 @@ public class NavigatorControls implements InputProcessor {
             mapCamera.position.set(0, 0, 0);
         }
         checkPowerUpButtonPressed(screenX, screenY, button);
-        
+
         return true;
     }
 
     private void checkPowerUpButtonPressed(int screenX, int screenY, int button) {
-        screenX = (int) (screenX * ((float) BUTTON_CAM_WIDTH / getScreenWidth()));
-        screenY = (int) (screenY * ((float) BUTTON_CAM_HEIGHT / getScreenHeight()));
-        screenY = (int) (BUTTON_CAM_HEIGHT - screenY);
+        screenX = translateScreenX(screenX, BUTTON_CAM_WIDTH);
+        screenY = translateScreenY(screenY, BUTTON_CAM_WIDTH);
 
         if (this.powerUpControlsUI.buttonPressed(screenX, screenY, button)) {
             team.usePowerUp();
@@ -190,9 +194,10 @@ public class NavigatorControls implements InputProcessor {
         return (float) Math.sqrt(x + y);
     }
 
+    //TODO: Refactor this code!
     /**
      * This method alters the camera.zoom value to zoom in and out of the map.
-     *
+     * 
      * @param cam
      *            The camera to be zoomed.
      * @param factor
@@ -206,7 +211,6 @@ public class NavigatorControls implements InputProcessor {
         int mapPixelHeight = mapscreen.getMap().getHeight();
         int mapPixelWidth = mapscreen.getMap().getWidth();
 
-
         // If the distance between the 2 finger hasn't changed then do nothing.
         if (dif == 0) {
             return;
@@ -219,15 +223,14 @@ public class NavigatorControls implements InputProcessor {
         // If after the zoom * factor camera.zoom < 0.5 or > 1.5 then do
         // nothing.
         if (cam.zoom * factor > ONE_POINT_FIVE
-        		|| (
-        				(mapCamera.position.x < VIRTUAL_WIDTH * mapscreen.getScale() / 2
-        				|| mapCamera.position.x >= mapPixelWidth - VIRTUAL_WIDTH * mapscreen.getScale() / 2
-        				|| mapCamera.position.y < VIRTUAL_HEIGHT * mapscreen.getScale() / 2
-        				|| mapCamera.position.y >= mapPixelHeight - VIRTUAL_HEIGHT * mapscreen.getScale() / 2
-        				)
-        				&& factor > 1
-        			) 
-                || cam.zoom * factor < ZERO_POINT_FIVE ) {
+                || ((mapCamera.position.x < VIRTUAL_WIDTH
+                        * mapscreen.getScale() / 2
+                        || mapCamera.position.x >= mapPixelWidth
+                                - VIRTUAL_WIDTH * mapscreen.getScale() / 2
+                        || mapCamera.position.y < VIRTUAL_HEIGHT
+                                * mapscreen.getScale() / 2 || mapCamera.position.y >= mapPixelHeight
+                        - VIRTUAL_HEIGHT * mapscreen.getScale() / 2) && factor > 1)
+                || cam.zoom * factor < ZERO_POINT_FIVE) {
             return;
         }
         cam.zoom = cam.zoom * factor;
