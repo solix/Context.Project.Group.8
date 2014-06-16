@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.taxi_trouble.game.Character;
 import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**
@@ -34,7 +33,7 @@ public final class ResourceManager {
 	public static Sprite speedBoostButtonSprite;
 	public static Sprite increaseTimeButtonSprite;
 	public static TiledMap mapFile;
-	public static List<Character> charList;
+	public static List<Sprite> charList;
     public static BitmapFont hudFont;
 	public static Sprite menuBgSprite;
 	public static Sprite menuPlaySprite;
@@ -98,15 +97,11 @@ public final class ResourceManager {
 	 * 
 	 */
 	public static void loadCharSprites() {
-		charList = new ArrayList<Character>();
+		charList = new ArrayList<Sprite>();
 		for (int i = 1; i < 4; i++) {
-			Sprite standing = new Sprite(new Texture(
+			Sprite charSprite = new Sprite(new Texture(
 					"sprites/characters/character-" + i + "-standing.png"));
-			Sprite walking1 = new Sprite(new Texture(
-					"sprites/characters/character-" + i + "-walk1.png"));
-			Sprite walking2 = new Sprite(new Texture(
-					"sprites/characters/character-" + i + "-walk2.png"));
-			charList.add(new Character(standing, walking1, walking2));
+			charList.add(charSprite);
 		}
 	}
 
@@ -115,7 +110,7 @@ public final class ResourceManager {
 	 * 
 	 * @return character
 	 */
-	public static Character getCharacter(int i) {
+	public static Sprite getCharacter(int i) {
 		return charList.get(i);
 	}
 
@@ -170,9 +165,9 @@ public final class ResourceManager {
 	 * 
 	 * @return character
 	 */
-	public static Character getRandomCharacter() {
+	public static Sprite getRandomCharacter() {
 		int i = (int) (Math.abs(Math.random() * charList.size()));
-		return charList.get(i);
+		return getCharacter(i);
 	}
 
 	public static int getRandomCharacterId() {

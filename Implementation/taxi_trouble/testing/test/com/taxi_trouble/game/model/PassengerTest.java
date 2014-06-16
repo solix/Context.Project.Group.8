@@ -1,8 +1,11 @@
 package com.taxi_trouble.game.model;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
@@ -12,8 +15,6 @@ import static org.mockito.Mockito.when;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -23,7 +24,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.taxi_trouble.game.Character;
+import com.taxi_trouble.game.model.entities.Destination;
+import com.taxi_trouble.game.model.entities.Passenger;
+import com.taxi_trouble.game.model.entities.Taxi;
 
 
 /**This class tests the functionality of the Passenger class.

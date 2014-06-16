@@ -9,8 +9,8 @@ import static com.taxi_trouble.game.properties.GameProperties.screenWidth;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.WorldMap;
+import com.taxi_trouble.game.model.entities.Taxi;
 
 /**Orthographic camera following a taxi in the game.
  * 

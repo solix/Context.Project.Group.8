@@ -1,4 +1,4 @@
-package com.taxi_trouble.game.model;
+package com.taxi_trouble.game.model.entities;
 
 import static com.taxi_trouble.game.properties.GameProperties.PIXELS_PER_METER;
 
@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.JointDef;
@@ -21,25 +20,32 @@ import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
  * @author Computer Games Project Group 8
  *
  */
-public class Wheel {
+public class Wheel extends Entity {
 	private Taxi taxi;
-	private float width;
-	private float length;
 	private boolean revolving;
 	private boolean powered;
-	private Body wheelBody;
 
-	public Wheel(World world, Taxi taxi, float posX, float posY, float width,
+	/**Initializes a new Wheel for a Taxi in a world at a given position and
+	 * with given size. A wheel can be revolving and/or powered.
+	 * 
+	 * @param world : the world into which this wheel is placed
+	 * @param taxi : the taxi to which this wheel belongs
+	 * @param position : position of the wheel relative to the taxi
+	 * @param width : width of the wheel
+	 * @param length : length of the wheel
+	 * @param revolving : boolean indicating whether the wheel is revolving
+	 * @param powered : boolean indicating whether the wheel is powered
+	 */
+	public Wheel(World world, Taxi taxi, Vector2 position, float width,
 			float length, boolean revolving, boolean powered) {
+	    super(width, length);
 		this.taxi = taxi;
-		this.width = width;
-		this.length = length;
 		this.revolving = revolving;
 		this.powered = powered;
-		this.createBody(world, new Vector2(posX, posY));
+		initializeBody(world, position);
 	}
 
-	/**
+    /**
 	 * Creates the body of this wheel.
 	 *
 	 * @param world
@@ -47,12 +53,12 @@ public class Wheel {
 	 * @param position
 	 *            : the (relative) position to the taxi
 	 */
-	public void createBody(World world, Vector2 position) {
+	public void initializeBody(World world, Vector2 position) {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyDef.BodyType.DynamicBody;
 		bodyDef.position.set(taxi.getBody().getWorldPoint(position));
 		bodyDef.angle = taxi.getBody().getAngle();
-		this.wheelBody = world.createBody(bodyDef);
+		setBody(world.createBody(bodyDef));
 		this.createFixture();
 		this.createJoint(world);
 	}
@@ -64,11 +70,9 @@ public class Wheel {
 	private void createFixture() {
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.density = 1.0f;
-		// Indicate that the wheel does not participate in collision
-		// calculations
 		fixtureDef.isSensor = true;
 		PolygonShape wheelShape = new PolygonShape();
-		wheelShape.setAsBox(this.width / 2, this.length / 2);
+		wheelShape.setAsBox(getWidth() / 2, getHeight() / 2);
 		fixtureDef.shape = wheelShape;
 		this.getBody().createFixture(fixtureDef);
 		wheelShape.dispose();
@@ -83,7 +87,7 @@ public class Wheel {
 	 */
 	private void createJoint(World world) {
 	    JointDef jointdef = null;
-		if (this.getRevolving()) {
+		if (isRevolving()) {
 			jointdef = createRevolvingWheelJoint();
 		} else {
 		    jointdef = createNonRevolvingWheelJoint();
@@ -121,7 +125,7 @@ public class Wheel {
 	 *
 	 * @return revolving
 	 */
-	public boolean getRevolving() {
+	public boolean isRevolving() {
 		return this.revolving;
 	}
 
@@ -130,39 +134,8 @@ public class Wheel {
 	 *
 	 * @return powered
 	 */
-	public boolean getPowered() {
+	public boolean isPowered() {
 		return this.powered;
-	}
-
-	/**
-	 * Sets the sprite of the wheel to a given sprite.
-	 *
-	 * @param sprite
-	 *            : sprite of the wheel
-	 */
-	public void setSprite(Sprite sprite) {
-		sprite.setSize(this.width, this.length);
-		sprite.setOrigin(sprite.getWidth() / 2, sprite.getHeight() / 2);
-		this.getBody().setUserData(sprite);
-	}
-
-	/**
-	 * Retrieves the box2d body of this wheel.
-	 *
-	 * @return
-	 */
-	public Body getBody() {
-		return this.wheelBody;
-	}
-
-	/**
-	 * Changes the body of the wheel to a given body.
-	 *
-	 * @param body
-	 *            : the new body of the wheel
-	 */
-	public void setBody(Body body) {
-		this.wheelBody = body;
 	}
 
 	/**
@@ -171,6 +144,7 @@ public class Wheel {
 	 * @param angle
 	 *            : angle of the wheel relative to the taxi
 	 */
+	@Override
 	public void setAngle(float angle) {
 		this.getBody().setTransform(getBody().getPosition(),
 				this.taxi.getBody().getAngle() + (float) Math.toRadians(angle));
@@ -225,10 +199,10 @@ public class Wheel {
 
 	public void render(SpriteBatch spriteBatch) {
 		spriteBatch.begin();
-		Sprite sprite = (Sprite) wheelBody.getUserData();
-		sprite.setPosition(wheelBody.getPosition().x * PIXELS_PER_METER,
-				wheelBody.getPosition().y * PIXELS_PER_METER);
-		sprite.setRotation(wheelBody.getAngle() * MathUtils.radiansToDegrees);
+		Sprite sprite = getSprite();
+		sprite.setPosition(getXPosition() * PIXELS_PER_METER,
+				getYPosition() * PIXELS_PER_METER);
+		sprite.setRotation(getAngle() * MathUtils.radiansToDegrees);
 		sprite.setScale(PIXELS_PER_METER);
 		sprite.draw(spriteBatch);
 		spriteBatch.end();

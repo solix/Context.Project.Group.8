@@ -12,7 +12,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.taxi_trouble.game.model.powerups.PowerUp;
+import com.taxi_trouble.game.model.entities.powerups.PowerUp;
 import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
 
 /**This class tests the functionality of the PowerUp class.

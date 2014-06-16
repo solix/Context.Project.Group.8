@@ -3,7 +3,7 @@ package com.taxi_trouble.game.input;
 import com.badlogic.gdx.InputProcessor;
 import com.taxi_trouble.game.Acceleration;
 import com.taxi_trouble.game.SteerDirection;
-import com.taxi_trouble.game.model.Taxi;
+import com.taxi_trouble.game.model.entities.Taxi;
 import com.taxi_trouble.game.properties.GameProperties;
 import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.sound.TaxiJukebox;

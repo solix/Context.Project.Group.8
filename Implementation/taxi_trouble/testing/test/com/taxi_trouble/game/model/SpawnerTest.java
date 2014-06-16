@@ -3,8 +3,8 @@ package com.taxi_trouble.game.model;
 import static com.taxi_trouble.game.properties.ResourceManager.charList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +17,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-import com.taxi_trouble.game.Character;
-import com.taxi_trouble.game.model.powerups.PowerUpBehaviour;
+import com.taxi_trouble.game.model.entities.Destination;
+import com.taxi_trouble.game.model.entities.Passenger;
+import com.taxi_trouble.game.model.entities.powerups.PowerUpBehaviour;
 
 /**This class tests the functionality of the Spawner class.
 *
@@ -55,7 +56,6 @@ public class SpawnerTest {
     @Before
     public void setup() {
         spawner = spy(new Spawner());
-        charList = new ArrayList<Character>();
         vector2 = new Vector2();
         when(spawnpoint.getPosition()).thenReturn(vector2);
     }

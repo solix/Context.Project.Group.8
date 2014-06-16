@@ -1,4 +1,4 @@
-package com.taxi_trouble.game.model;
+package com.taxi_trouble.game.model.entities;
 
 import static com.taxi_trouble.game.properties.GameProperties.PIXELS_PER_METER;
 
@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -18,7 +17,9 @@ import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.taxi_trouble.game.Acceleration;
 import com.taxi_trouble.game.SteerDirection;
-import com.taxi_trouble.game.model.powerups.PowerUp;
+import com.taxi_trouble.game.model.Spawner;
+import com.taxi_trouble.game.model.WorldMap;
+import com.taxi_trouble.game.model.entities.powerups.PowerUp;
 import com.taxi_trouble.game.model.team.Team;
 import com.taxi_trouble.game.sound.TaxiJukebox;
 
@@ -30,15 +31,11 @@ import com.taxi_trouble.game.sound.TaxiJukebox;
  * @author Computer Games Project Group 8
  *
  */
-public class Taxi {
-	private float width;
-	private float length;
+public class Taxi extends Entity {
 	private float maxSteerAngle;
 	private float maxSpeed;
 	private float power;
 	private float wheelAngle;
-	private Body taxiBody;
-	private Sprite taxiSprite;
 	private List<Wheel> wheels;
 	private SteerDirection steer;
 	private Acceleration acceleration;
@@ -66,8 +63,7 @@ public class Taxi {
      */
     public Taxi(float width, float length, float maxSteerAngle, float maxSpeed,
             float power) {
-        this.width = width;
-        this.length = length;
+        super(width, length);
         this.maxSteerAngle = maxSteerAngle;
         this.maxSpeed = maxSpeed;
         this.power = power;
@@ -96,7 +92,7 @@ public class Taxi {
         bodyDef.position.set(position);
         bodyDef.angle = angle * MathUtils.degreesToRadians;
         this.setBody(world.createBody(bodyDef));
-        this.createFixture();
+        this.initFixture();
         this.initializeWheels(world);
     }
 
@@ -104,35 +100,15 @@ public class Taxi {
      * Creates a fixture for the body of this taxi.
      * 
      */
-    private void createFixture() {
+    private void initFixture() {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.density = 1.0f;
         fixtureDef.friction = 0.6f;
         fixtureDef.restitution = 0.4f;
         PolygonShape carShape = new PolygonShape();
-        carShape.setAsBox(this.getWidth() / 2, this.getLength() / 2);
+        carShape.setAsBox(getWidth() / 2, getLength() / 2);
         fixtureDef.shape = carShape;
         this.getBody().createFixture(fixtureDef);
-    }
-
-    /**
-     * Retrieves the body of the taxi.
-     * 
-     * @return taxiBody : body of the taxi
-     */
-    public Body getBody() {
-        return this.taxiBody;
-    }
-
-    /**
-     * Changes the body of the taxi to a given body.
-     * 
-     * @param body
-     *            : the new body of the taxi
-     */
-    public void setBody(Body body) {
-        this.taxiBody = body;
-        taxiBody.setUserData(this);
     }
 
     /**
@@ -142,23 +118,14 @@ public class Taxi {
      *            : world used to create the bodies of the taxi wheels
      */
     private void initializeWheels(World world) {
-        this.wheels.add(new Wheel(world, this, -1f, -1.4f, 0.4f, 0.6f, true,
-                true)); // top left
-        this.wheels.add(new Wheel(world, this, 1f, -1.4f, 0.4f, 0.6f, true,
-                true)); // top right
-        this.wheels.add(new Wheel(world, this, -1f, 1.2f, 0.4f, 0.6f, false,
-                false)); // back left
-        this.wheels.add(new Wheel(world, this, 1f, 1.2f, 0.4f, 0.6f, false,
-                false)); // back right
-    }
-
-    /**
-     * Retrieves the width of the taxi.
-     * 
-     * @return width : the width of the taxi
-     */
-    public float getWidth() {
-        return this.width;
+        this.wheels.add(new Wheel(world, this, new Vector2(-1f, -1.4f),
+                0.4f, 0.6f, true, true)); // top left
+        this.wheels.add(new Wheel(world, this, new Vector2(1f, -1.4f),
+                0.4f, 0.6f, true, true)); // top right
+        this.wheels.add(new Wheel(world, this, new Vector2(-1f, 1.2f),
+                0.4f, 0.6f, false, false)); // back left
+        this.wheels.add(new Wheel(world, this, new Vector2(1f, 1.2f),
+                0.4f, 0.6f, false, false)); // back right
     }
 
     /**
@@ -167,7 +134,7 @@ public class Taxi {
      * @return length : the length of the taxi
      */
     public float getLength() {
-        return this.length;
+        return this.getHeight();
     }
 
     /**
@@ -300,16 +267,13 @@ public class Taxi {
     /**
      * Changes the sprite of the taxi and the wheels for the given sprites.
      * 
-     * @param taxisprite
+     * @param taxiSprite
      *            : the sprite to be set as the taxi's sprite
      * @param wheelsprite
      *            : the sprite to be set as wheel's sprite
      */
-    public void setSprite(Sprite taxisprite, Sprite wheelsprite) {
-        taxisprite.setSize(this.getWidth(), this.getLength());
-        taxisprite.setOrigin(this.getWidth() / 2, this.getLength() / 2);
-        taxisprite.setScale(PIXELS_PER_METER);
-        this.taxiSprite = taxisprite;
+    public void setSprite(Sprite taxiSprite, Sprite wheelsprite) {
+        setSprite(taxiSprite);
         setWheelSprite(wheelsprite);
     }
 
@@ -342,7 +306,7 @@ public class Taxi {
     public List<Wheel> getRevolvingWheels() {
         List<Wheel> revolvingWheels = new ArrayList<Wheel>();
         for (Wheel wheel : this.getWheels()) {
-            if (wheel.getRevolving()) {
+            if (wheel.isRevolving()) {
                 revolvingWheels.add(wheel);
             }
         }
@@ -357,21 +321,11 @@ public class Taxi {
     public List<Wheel> getPoweredWheels() {
         List<Wheel> poweredWheels = new ArrayList<Wheel>();
         for (Wheel wheel : this.getWheels()) {
-            if (wheel.getPowered()) {
+            if (wheel.isPowered()) {
                 poweredWheels.add(wheel);
             }
         }
         return poweredWheels;
-    }
-
-    /**
-     * Retrieves the current angle under which the taxi stands on the map.
-     * 
-     * @return angle
-     */
-    public float getAngle() {
-        assert (this.getBody() != null);
-        return this.taxiBody.getAngle();
     }
 
     /**
@@ -644,20 +598,15 @@ public class Taxi {
 	 */
 	public void render(SpriteBatch spriteBatch) {
 		setMoved();
-
 		for (Wheel wheel : getWheels()) {
 			wheel.render(spriteBatch);
 		}
-
 		spriteBatch.begin();
-		taxiSprite.setPosition(taxiBody.getPosition().x * PIXELS_PER_METER,
-				taxiBody.getPosition().y * PIXELS_PER_METER);
-		taxiSprite
-				.setRotation(taxiBody.getAngle() * MathUtils.radiansToDegrees);
-		taxiSprite.draw(spriteBatch);
+		getSprite().setPosition(getXPosition() * PIXELS_PER_METER,
+				getYPosition() * PIXELS_PER_METER);
+		getSprite().setRotation(getAngle() * MathUtils.radiansToDegrees);
+		getSprite().draw(spriteBatch);
 		spriteBatch.end();
-
-		
 	}
 	
 	/**Let this taxi steal the passenger (if any) from the other specified taxi.
@@ -697,7 +646,7 @@ public class Taxi {
 	private void setMoved() {
 		hasMoved = false;
 		if (Math.abs(oldX - getXPosition()) > 0.25 || Math.abs(oldY - getYPosition()) > 0.25
-				|| Math.abs(oldAngle - taxiBody.getAngle()) >0.2)
+				|| Math.abs(oldAngle - getAngle()) >0.2)
 		{
 			hasMoved = true;
 			updateOldLocation();
@@ -707,7 +656,7 @@ public class Taxi {
 	private void updateOldLocation() {
 		oldX = getXPosition();
 		oldY = getYPosition();
-		oldAngle = taxiBody.getAngle();
+		oldAngle = getAngle();
 	}
 
 
@@ -730,19 +679,6 @@ public class Taxi {
 
 	}
     
-    public boolean powerUpAvailable(PowerUp powerUp, WorldMap map){
-    	Spawner spawner = map.getSpawner();
-       if(spawner.powerUpIsAvailable(powerUp)){
-    	   pickUpPowerUp(powerUp, map);
-    	   return true;
-       }
-       return false;
-    }
-    
-    
-    
-    
-
     /**Activates a given power-up for this taxi. The effects
      * of the powerup are defined by its behaviour.
      * 

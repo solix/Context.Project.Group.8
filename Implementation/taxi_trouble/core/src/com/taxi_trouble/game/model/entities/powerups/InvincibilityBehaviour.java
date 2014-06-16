@@ -1,11 +1,11 @@
-package com.taxi_trouble.game.model.powerups;
+package com.taxi_trouble.game.model.entities.powerups;
 
 import static com.taxi_trouble.game.properties.ResourceManager.invincibilityButtonSprite;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.taxi_trouble.game.model.Taxi;
+import com.taxi_trouble.game.model.entities.Taxi;
 
 /**
  * This behaviour defines the behaviour for invincibility.

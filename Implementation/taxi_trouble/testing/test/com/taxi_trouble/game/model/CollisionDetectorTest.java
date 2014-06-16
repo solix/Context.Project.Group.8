@@ -10,6 +10,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import com.taxi_trouble.game.model.entities.Destination;
+import com.taxi_trouble.game.model.entities.Passenger;
+import com.taxi_trouble.game.model.entities.Taxi;
 import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
 
 /**This class tests the functionality of the Passenger class.

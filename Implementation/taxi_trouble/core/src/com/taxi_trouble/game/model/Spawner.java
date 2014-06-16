@@ -9,8 +9,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.taxi_trouble.game.model.powerups.PowerUp;
-import com.taxi_trouble.game.model.powerups.PowerUpBehaviour;
+import com.taxi_trouble.game.model.entities.Destination;
+import com.taxi_trouble.game.model.entities.Passenger;
+import com.taxi_trouble.game.model.entities.Taxi;
+import com.taxi_trouble.game.model.entities.powerups.PowerUp;
+import com.taxi_trouble.game.model.entities.powerups.PowerUpBehaviour;
 import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
 import com.taxi_trouble.game.properties.ResourceManager;
 
@@ -87,7 +90,12 @@ public class Spawner {
 		destinationpoints.add(spawnPoint);
 	}
 
-	public void addPowerup(SpawnPoint spawnPoint) {
+	/**
+	 * Add a new power-up spawn point.
+	 * 
+	 * @param spawnPoint
+	 */
+	public void addPowerupSpawnPoint(SpawnPoint spawnPoint) {
 		poweruppoints.add(spawnPoint);
 
 	}
@@ -124,16 +132,20 @@ public class Spawner {
 	 * 
 	 * @param world
 	 *            : the world into which the passenger should be spawned
+	 * @param spawnId
+	 *            : the id of the spawnpoint
+	 * @param passengerId
+	 *            : the id of the new passenger
+	 * @param destinationId
+	 *            : the id of the destination of the passenger
 	 * @return the spawned passenger
 	 */
 	public Passenger spawnPassenger(World world, int spawnId,
 			int destinationId, int charId, int passengerId) {
 		assert (!passengers.containsKey(passengerId));
 		SpawnPoint spawnPoint = passengerspawnpoints.get(spawnId);
-		Passenger pass = new Passenger(2, 2,
-				ResourceManager.getCharacter(charId), passengerId);
+		Passenger pass = new Passenger(2, 2, passengerId);
 		pass.initializeBody(world, spawnPoint);
-
 		pass.setDestination(destination(world, destinationId));
 		// Add the new passenger to the list of active passengers
 		passengers.put(passengerId, pass);
@@ -306,6 +318,11 @@ public class Spawner {
 		return destinationpoints;
 	}
 
+	/**Finds the next available id for a new passenger to spawn in a hashmap.
+	 * 
+	 * @param map
+	 * @return
+	 */
 	private <T> int getNextId(ConcurrentHashMap<Integer, T> map) {
 		int res = 0;
 		while (map.containsKey(res)) {

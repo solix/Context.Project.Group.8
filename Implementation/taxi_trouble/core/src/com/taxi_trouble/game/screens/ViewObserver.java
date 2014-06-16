@@ -13,22 +13,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.taxi_trouble.game.model.CountDownTimer;
 import com.taxi_trouble.game.model.GameWorld;
-import com.taxi_trouble.game.model.Passenger;
-import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.WorldMap;
-import com.taxi_trouble.game.model.powerups.PowerUp;
+import com.taxi_trouble.game.model.entities.Passenger;
+import com.taxi_trouble.game.model.entities.Taxi;
+import com.taxi_trouble.game.model.entities.powerups.PowerUp;
 import com.taxi_trouble.game.model.team.Team;
-import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.screens.hud.EndGameHUD;
 import com.taxi_trouble.game.screens.hud.HUDComponent;
 import com.taxi_trouble.game.screens.hud.HeadUpDisplay;
 import com.taxi_trouble.game.screens.hud.ScoreHUD;
 import com.taxi_trouble.game.screens.hud.TeamHUD;
 import com.taxi_trouble.game.screens.hud.TimerHUD;
-
-import static com.taxi_trouble.game.properties.ResourceManager.hudFont;
-import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_HEIGHT;
-import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_WIDTH;
 
 /**
  * Basic class for extending independent screen of the game.
@@ -126,7 +121,7 @@ public abstract class ViewObserver implements Screen {
         }
 
         for (PowerUp pow : cityMap.getSpawner().getActivePowerUps().values()) {
-        	if (!pow.getTaken()){
+        	if (!pow.isTaken()){
         		pow.render(getSpriteBatch());
         	}
         }

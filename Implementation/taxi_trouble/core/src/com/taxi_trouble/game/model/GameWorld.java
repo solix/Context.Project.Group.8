@@ -7,7 +7,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.taxi_trouble.game.model.powerups.PowerUp;
+import com.taxi_trouble.game.model.entities.Passenger;
+import com.taxi_trouble.game.model.entities.Taxi;
+import com.taxi_trouble.game.model.entities.powerups.PowerUp;
 import com.taxi_trouble.game.model.team.Team;
 import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
 import com.taxi_trouble.game.multiplayer.SetupInterface;
@@ -227,7 +229,6 @@ public class GameWorld extends Game {
 	public void setMultiPlayerInterface(AndroidMultiplayerInterface i) {
 		multiplayerInterface = i;
 		collisionDetector.setMultiPlayerInterface(i);
-		map.setMultiplayerInterface(i);
 		multiplayerIntitialized = true;
 	}
 
