@@ -5,7 +5,7 @@ import java.util.HashMap;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.taxi_trouble.game.model.Taxi;
+import com.taxi_trouble.game.model.entities.Taxi;
 
 /**
  * <h1>TaxiJukebox</h1> In this class all the SoundFx of the game will be

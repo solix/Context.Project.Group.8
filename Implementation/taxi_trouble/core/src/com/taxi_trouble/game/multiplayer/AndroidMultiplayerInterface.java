@@ -1,8 +1,8 @@
 package com.taxi_trouble.game.multiplayer;
 
-import com.taxi_trouble.game.model.Passenger;
-import com.taxi_trouble.game.model.Taxi;
-import com.taxi_trouble.game.model.powerups.PowerUp;
+import com.taxi_trouble.game.model.entities.Passenger;
+import com.taxi_trouble.game.model.entities.Taxi;
+import com.taxi_trouble.game.model.entities.powerups.PowerUp;
 import com.taxi_trouble.game.model.team.Team;
 
 public interface AndroidMultiplayerInterface {

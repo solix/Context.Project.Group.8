@@ -14,7 +14,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
+import com.taxi_trouble.game.model.entities.SolidBox;
 
 /**
  * The map for the world in which a game can take place and its objects.
@@ -27,7 +27,6 @@ public class WorldMap {
 	private OrthogonalTiledMapRenderer renderer;
 	private World world;
 	private Spawner spawner;
-	private AndroidMultiplayerInterface multiplayerInterface;
 
 	/**
 	 * Initializes a new WorldMap for a specified world using the specified
@@ -45,11 +44,6 @@ public class WorldMap {
 		this.spawner = new Spawner();
 		this.spawner.setAvailablePowerUpBehaviours();
 		this.loadMapObjects();
-	}
-
-	public void setMultiplayerInterface(AndroidMultiplayerInterface i) {
-		this.multiplayerInterface = i;
-		spawner.setMultiplayerInterface(i);
 	}
 
 	/**
@@ -156,7 +150,7 @@ public class WorldMap {
 				getAngle(obj));
 		spawn.setHeight(getHeight(obj));
 		spawn.setWidth(getWidth(obj));
-		spawner.addPowerup(spawn);
+		spawner.addPowerupSpawnPoint(spawn);
 
 	}
 

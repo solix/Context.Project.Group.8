@@ -4,9 +4,11 @@ import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.taxi_trouble.game.model.powerups.PowerUp;
+import com.taxi_trouble.game.model.entities.Destination;
+import com.taxi_trouble.game.model.entities.Passenger;
+import com.taxi_trouble.game.model.entities.Taxi;
+import com.taxi_trouble.game.model.entities.powerups.PowerUp;
 import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
-import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**
@@ -82,7 +84,7 @@ public class CollisionDetector implements ContactListener {
      */
     private void taxiAtPowerUp(Taxi taxi, PowerUp powerUp) {
     	if (networkInterface.isHost()){
-    		if(taxi.powerUpAvailable(powerUp, map)){
+    		if(map.getSpawner().powerUpIsAvailable(powerUp)){
     			networkInterface.powerUpMessage(taxi, powerUp);
     		}
     	}

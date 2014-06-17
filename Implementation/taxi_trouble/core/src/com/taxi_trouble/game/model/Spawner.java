@@ -4,14 +4,19 @@ import static com.taxi_trouble.game.properties.GameProperties.getPowerUpBehaviou
 import static com.taxi_trouble.game.properties.ResourceManager.destinationSprite;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.taxi_trouble.game.model.powerups.PowerUp;
-import com.taxi_trouble.game.model.powerups.PowerUpBehaviour;
+import com.taxi_trouble.game.model.entities.Destination;
+import com.taxi_trouble.game.model.entities.Entity;
+import com.taxi_trouble.game.model.entities.Passenger;
+import com.taxi_trouble.game.model.entities.Taxi;
+import com.taxi_trouble.game.model.entities.powerups.PowerUp;
+import com.taxi_trouble.game.model.entities.powerups.PowerUpBehaviour;
 import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
 import com.taxi_trouble.game.properties.ResourceManager;
 
@@ -32,8 +37,8 @@ public class Spawner {
 	private ConcurrentHashMap<Integer, PowerUp> powerups;
 	private List<PowerUpBehaviour> behaviours;
 	private AndroidMultiplayerInterface multiplayerInterface;
-	private ConcurrentLinkedQueue<PowerUp> insertionQueue;
-	private ConcurrentLinkedQueue<PowerUp> deletionQueue;
+	private ConcurrentLinkedQueue<Entity> insertionQueue;
+	private ConcurrentLinkedQueue<Entity> deletionQueue;
 
 	/**
 	 * Initializes a new Spawner which can store spawn points and spawn taxis,
@@ -48,7 +53,7 @@ public class Spawner {
 		powerups = new ConcurrentHashMap<Integer, PowerUp>();
 		poweruppoints = new ArrayList<SpawnPoint>();
 		//insertionQueue = new ConcurrentLinkedQueue<E>();
-		deletionQueue = new ConcurrentLinkedQueue<PowerUp>();
+		deletionQueue = new ConcurrentLinkedQueue<Entity>();
 	}
 
 	/**
@@ -92,7 +97,12 @@ public class Spawner {
 		destinationpoints.add(spawnPoint);
 	}
 
-	public void addPowerup(SpawnPoint spawnPoint) {
+	/**
+	 * Add a new power-up spawn point.
+	 * 
+	 * @param spawnPoint
+	 */
+	public void addPowerupSpawnPoint(SpawnPoint spawnPoint) {
 		poweruppoints.add(spawnPoint);
 
 	}
@@ -129,16 +139,20 @@ public class Spawner {
 	 * 
 	 * @param world
 	 *            : the world into which the passenger should be spawned
+	 * @param spawnId
+	 *            : the id of the spawnpoint
+	 * @param passengerId
+	 *            : the id of the new passenger
+	 * @param destinationId
+	 *            : the id of the destination of the passenger
 	 * @return the spawned passenger
 	 */
 	public Passenger spawnPassenger(World world, int spawnId,
 			int destinationId, int charId, int passengerId) {
 		assert (!passengers.containsKey(passengerId));
 		SpawnPoint spawnPoint = passengerspawnpoints.get(spawnId);
-		Passenger pass = new Passenger(2, 2,
-				ResourceManager.getCharacter(charId), passengerId);
+		Passenger pass = new Passenger(2, 2, passengerId);
 		pass.initializeBody(world, spawnPoint);
-
 		pass.setDestination(destination(world, destinationId));
 		// Add the new passenger to the list of active passengers
 		passengers.put(passengerId, pass);
@@ -252,8 +266,16 @@ public class Spawner {
 	 */
 	public void despawnPowerup(PowerUp powerup) {
 		powerup.resetSpawnpoint();
-		deletionQueue.offer(powerup);
+		scheduleBodyRemoval(powerup);
 		powerups.remove(powerup.getId());
+	}
+
+	/**Schedules the body of the passed entity for removal.
+	 * 
+	 * @param entity
+	 */
+	private void scheduleBodyRemoval(Entity entity) {
+	    deletionQueue.offer(entity);
 	}
 
 	/**
@@ -312,6 +334,11 @@ public class Spawner {
 		return destinationpoints;
 	}
 
+	/**Finds the next available id for a new passenger to spawn in a hashmap.
+	 * 
+	 * @param map
+	 * @return
+	 */
 	private <T> int getNextId(ConcurrentHashMap<Integer, T> map) {
 		int res = 0;
 		while (map.containsKey(res)) {
@@ -335,12 +362,23 @@ public class Spawner {
 		multiplayerInterface = i;
 	}
 
-	public ConcurrentLinkedQueue<PowerUp> getDeletionQueue() {
+	public ConcurrentLinkedQueue<Entity> getDeletionQueue() {
 		return this.deletionQueue;
 		
 	}
 
-	public ConcurrentLinkedQueue<PowerUp> getInsertionQueue() {
+	public ConcurrentLinkedQueue<Entity> getInsertionQueue() {
 		return this.insertionQueue;
+	}
+
+	/**Removes the scheduled bodies to be removed from the specified world.
+	 * 
+	 * @param world
+	 */
+	public void removeDespawnedEntityBodies(World world) {
+	    Iterator<Entity> bodiesToRemove = deletionQueue.iterator();
+	    while(bodiesToRemove.hasNext()) {
+	        bodiesToRemove.next().removeBodyFromWorld(world);
+	    }
 	}
 }

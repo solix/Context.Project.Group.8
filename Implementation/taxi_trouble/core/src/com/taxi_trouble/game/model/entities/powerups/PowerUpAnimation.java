@@ -1,4 +1,4 @@
-package com.taxi_trouble.game.model.powerups;
+package com.taxi_trouble.game.model.entities.powerups;
 
 import static com.taxi_trouble.game.properties.GameProperties.PIXELS_PER_METER;
 

@@ -1,12 +1,15 @@
 package com.taxi_trouble.game.input;
 
+import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_HEIGHT;
+import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_WIDTH;
+import static com.taxi_trouble.game.properties.GameProperties.translateScreenX;
+import static com.taxi_trouble.game.properties.GameProperties.translateScreenY;
+
 import com.badlogic.gdx.InputAdapter;
 import com.taxi_trouble.game.Acceleration;
 import com.taxi_trouble.game.SteerDirection;
-import com.taxi_trouble.game.model.Taxi;
-import com.taxi_trouble.game.properties.GameProperties;
+import com.taxi_trouble.game.model.entities.Taxi;
 import com.taxi_trouble.game.properties.ResourceManager;
-import com.taxi_trouble.game.sound.TaxiJukebox;
 
 /**
  * InputProcessor for controlling the taxi using the virtual buttons.
@@ -35,10 +38,8 @@ public class DriverControls extends InputAdapter {
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer,
 			int mouseButton) {
-		screenX = GameProperties.translateScreenX(screenX,
-				GameProperties.BUTTON_CAM_WIDTH);
-		screenY = GameProperties.translateScreenY(screenY,
-				GameProperties.BUTTON_CAM_HEIGHT);
+		screenX = translateScreenX(screenX, BUTTON_CAM_WIDTH);
+		screenY = translateScreenY(screenY, BUTTON_CAM_HEIGHT);
 
 		for (VirtualButton button : controlsUI.getButtons().values()) {
 			if (button.touchDown(screenX, screenY, mouseButton)) {
@@ -85,7 +86,6 @@ public class DriverControls extends InputAdapter {
 		controlsUI.setInactive(pointer);
 		if (controlsUI.steering() && !controlsUI.driving()) {
 			taxi.setAccelerate(Acceleration.ACC_NONE);
-			TaxiJukebox.stopSound("EngineOn");
 			return true;
 		}
 		if (!controlsUI.steering() && controlsUI.driving()) {

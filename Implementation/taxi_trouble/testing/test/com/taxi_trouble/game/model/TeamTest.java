@@ -1,6 +1,7 @@
 package com.taxi_trouble.game.model;
 
-import com.taxi_trouble.game.model.powerups.PowerUp;
+import com.taxi_trouble.game.model.entities.Taxi;
+import com.taxi_trouble.game.model.entities.powerups.PowerUp;
 import com.taxi_trouble.game.model.team.BlueTeamTheme;
 import com.taxi_trouble.game.model.team.GreenTeamTheme;
 import com.taxi_trouble.game.model.team.RedTeamTheme;

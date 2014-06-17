@@ -3,12 +3,13 @@ package com.taxi_trouble.game.model;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Executor;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.taxi_trouble.game.model.powerups.PowerUp;
+import com.taxi_trouble.game.model.entities.Passenger;
+import com.taxi_trouble.game.model.entities.Taxi;
+import com.taxi_trouble.game.model.entities.powerups.PowerUp;
 import com.taxi_trouble.game.model.team.Team;
 import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
 import com.taxi_trouble.game.multiplayer.SetupInterface;
@@ -19,7 +20,6 @@ import com.taxi_trouble.game.screens.NavigatorScreen;
 
 /**
  * Provides the main model for all the elements of a game that is played.
- * (Please note: implementation will change when implementing multiplayer)
  * 
  * @author Computer Games Project Group 8
  * 
@@ -27,7 +27,6 @@ import com.taxi_trouble.game.screens.NavigatorScreen;
 public class GameWorld extends Game {
 	private World world;
 	private WorldMap map;
-	// Temporary: single team (may change when implementing multiplayer)
 	private Team ownTeam;
 	private CountDownTimer timer;
 	private AndroidMultiplayerInterface multiplayerInterface;
@@ -35,7 +34,7 @@ public class GameWorld extends Game {
 	private NavigatorScreen navigatorScreen;
 	private MenuScreen menuScreen;
 	private SetupInterface setupInterface;
-	private boolean driver;
+	private boolean driver;                //TODO: rework these kind of attributes!
 	private Map<Integer, Team> teams;
 	private boolean host = false;
 	private CollisionDetector collisionDetector;
@@ -88,14 +87,13 @@ public class GameWorld extends Game {
         ResourceManager.loadMap();
         ResourceManager.loadSprites();
         ResourceManager.loadFonts();
-       // ResourceManager.loadFx();
+        ResourceManager.loadFx();
     }
 
 	@Override
 	public final void render() {
 		super.render();
 		// Spawn a new passenger if there are less than #taxis-1.
-		// TODO: Instead of '3' adapt to #taxis-1 in the game.
 		if (host && multiplayerIntitialized) {
 			ConcurrentHashMap<Integer, Passenger> passengers = map.getSpawner()
 					.getActivePassengers();
@@ -229,11 +227,10 @@ public class GameWorld extends Game {
 	public void setMultiPlayerInterface(AndroidMultiplayerInterface i) {
 		multiplayerInterface = i;
 		collisionDetector.setMultiPlayerInterface(i);
-		map.setMultiplayerInterface(i);
 		multiplayerIntitialized = true;
 	}
 
- /**Retrieves the game countdown-timer.
+	/**Retrieves the game countdown-timer.
      * 
      * @return timer
      */
@@ -241,16 +238,20 @@ public class GameWorld extends Game {
         return this.timer;
     }
 
-public Team getWinner() {
-	Team team = null;
-	int highscore = -1;
-	for (Team t: teams.values()){
-		if (t.getScore() > highscore){
-			team = t;
-			highscore = t.getScore();
-		}
-	}
-	return team;
-}
+    /**Retrieves the winning team of a game.
+     * 
+     * @return winner
+     */
+    public Team getWinner() {
+        Team team = null;
+        int highscore = -1;
+        for (Team t : teams.values()){
+            if (t.getScore() > highscore) {
+                team = t;
+                highscore = t.getScore();
+            }
+        }
+        return team;
+    }
 }
 

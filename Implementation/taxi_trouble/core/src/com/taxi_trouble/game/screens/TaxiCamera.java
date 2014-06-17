@@ -3,14 +3,14 @@ package com.taxi_trouble.game.screens;
 import static com.taxi_trouble.game.properties.GameProperties.PIXELS_PER_METER;
 import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_HEIGHT;
 import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_WIDTH;
-import static com.taxi_trouble.game.properties.GameProperties.screenHeight;
-import static com.taxi_trouble.game.properties.GameProperties.screenWidth;
+import static com.taxi_trouble.game.properties.GameProperties.getScreenHeight;
+import static com.taxi_trouble.game.properties.GameProperties.getScreenWidth;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.taxi_trouble.game.model.Taxi;
 import com.taxi_trouble.game.model.WorldMap;
+import com.taxi_trouble.game.model.entities.Taxi;
 
 /**Orthographic camera following a taxi in the game.
  * 
@@ -23,7 +23,7 @@ public class TaxiCamera extends OrthographicCamera {
 
     public TaxiCamera(Taxi taxi) {
         this.taxi = taxi;
-        this.setToOrtho(false, screenWidth, screenHeight);
+        this.setToOrtho(false, getScreenWidth(), getScreenHeight());
         this.viewport = new StretchViewport(VIRTUAL_WIDTH,
                 VIRTUAL_HEIGHT, this);
     }

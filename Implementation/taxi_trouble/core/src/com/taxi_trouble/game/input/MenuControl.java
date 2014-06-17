@@ -1,11 +1,15 @@
 package com.taxi_trouble.game.input;
 
+import static com.taxi_trouble.game.properties.GameProperties.UI_HEIGHT;
+import static com.taxi_trouble.game.properties.GameProperties.UI_WIDTH;
+import static com.taxi_trouble.game.properties.GameProperties.translateScreenX;
+import static com.taxi_trouble.game.properties.GameProperties.translateScreenY;
+
 import java.util.Map;
 import java.util.Map.Entry;
 
 import com.badlogic.gdx.InputAdapter;
 import com.taxi_trouble.game.multiplayer.SetupInterface;
-import com.taxi_trouble.game.properties.GameProperties;
 import com.taxi_trouble.game.ui.UIButton;
 import com.taxi_trouble.game.ui.UIElement;
 
@@ -27,10 +31,8 @@ public class MenuControl extends InputAdapter {
 	 */
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int b) {
-		screenX = GameProperties.translateScreenX(screenX,
-				GameProperties.UI_WIDTH);
-		screenY = GameProperties.translateScreenY(screenY,
-				GameProperties.UI_HEIGHT);
+		screenX = translateScreenX(screenX, UI_WIDTH);
+		screenY = translateScreenY(screenY, UI_HEIGHT);
 
 		Entry<String, UIElement> entry = getTouchedElement(screenX, screenY);
 		if (entry == null) {
@@ -51,10 +53,8 @@ public class MenuControl extends InputAdapter {
 	 */
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		screenX = GameProperties.translateScreenX(screenX,
-				GameProperties.UI_WIDTH);
-		screenY = GameProperties.translateScreenY(screenY,
-				GameProperties.UI_HEIGHT);
+		screenX = translateScreenX(screenX, UI_WIDTH);
+		screenY = translateScreenY(screenY, UI_HEIGHT);
 
 		Entry<String, UIElement> entry = getTouchedElement(screenX, screenY);
 		if (entry == null) {

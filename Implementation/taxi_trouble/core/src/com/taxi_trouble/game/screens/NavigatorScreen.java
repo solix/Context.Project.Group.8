@@ -3,8 +3,8 @@ package com.taxi_trouble.game.screens;
 import static com.taxi_trouble.game.properties.GameProperties.PIXELS_PER_METER;
 import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_HEIGHT;
 import static com.taxi_trouble.game.properties.GameProperties.VIRTUAL_WIDTH;
-import static com.taxi_trouble.game.properties.GameProperties.screenHeight;
-import static com.taxi_trouble.game.properties.GameProperties.screenWidth;
+import static com.taxi_trouble.game.properties.GameProperties.getScreenHeight;
+import static com.taxi_trouble.game.properties.GameProperties.getScreenWidth;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
@@ -54,7 +54,7 @@ public class NavigatorScreen extends ViewObserver {
 
         // Initialize the camera for the navigator view.
         this.mapCamera = new OrthographicCamera();
-        mapCamera.setToOrtho(false, screenWidth, screenHeight);
+        mapCamera.setToOrtho(false, getScreenWidth(), getScreenHeight());
         this.viewport = new StretchViewport(VIRTUAL_WIDTH * scale,
                 VIRTUAL_HEIGHT * scale, mapCamera);
 

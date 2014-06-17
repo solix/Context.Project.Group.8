@@ -1,14 +1,10 @@
 package com.taxi_trouble.game.screens;
 
-import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_HEIGHT;
-import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_WIDTH;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.taxi_trouble.game.input.DriverControlsUI;
 import com.taxi_trouble.game.input.DriverControls;
+import com.taxi_trouble.game.input.DriverControlsUI;
 import com.taxi_trouble.game.model.GameWorld;
 /**
  * Provides the view of the game for the driver of a taxi.
