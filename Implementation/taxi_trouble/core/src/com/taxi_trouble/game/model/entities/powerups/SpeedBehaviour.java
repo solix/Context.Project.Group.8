@@ -1,6 +1,6 @@
 package com.taxi_trouble.game.model.entities.powerups;
 
-import static com.taxi_trouble.game.properties.ResourceManager.speedBoostButtonSprite;
+import static com.taxi_trouble.game.properties.ResourceManager.getSprite;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -62,7 +62,7 @@ public class SpeedBehaviour implements PowerUpBehaviour {
 
 	@Override
 	public Sprite getActivationButtonSprite() {
-		return speedBoostButtonSprite;
+		return getSprite("speedBoostButtonSprite");
 	}
 
 	@Override

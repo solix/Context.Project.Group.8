@@ -1,6 +1,6 @@
 package com.taxi_trouble.game.input;
 
-import static com.taxi_trouble.game.properties.ResourceManager.noPowerUpButtonSprite;
+import static com.taxi_trouble.game.properties.ResourceManager.getSprite;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -23,7 +23,7 @@ public class NavigatorControlsUI {
     public NavigatorControlsUI() {
         this.activatePowerUpButton = new VirtualButton(new Rectangle(
                 GameProperties.BUTTON_CAM_WIDTH - 140, 20, 120, 120),
-                noPowerUpButtonSprite,
+                getSprite("noPowerUpButtonSprite"),
                 Action.ACTIVATE_POWERUP);
     }
     

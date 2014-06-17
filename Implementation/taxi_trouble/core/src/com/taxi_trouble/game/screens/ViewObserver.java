@@ -2,9 +2,7 @@ package com.taxi_trouble.game.screens;
 
 import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_HEIGHT;
 import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_WIDTH;
-import static com.taxi_trouble.game.properties.ResourceManager.hudFont;
-
-import java.util.concurrent.ConcurrentLinkedQueue;
+import static com.taxi_trouble.game.properties.ResourceManager.getHudFont;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -14,7 +12,6 @@ import com.badlogic.gdx.utils.Timer.Task;
 import com.taxi_trouble.game.model.CountDownTimer;
 import com.taxi_trouble.game.model.GameWorld;
 import com.taxi_trouble.game.model.WorldMap;
-import com.taxi_trouble.game.model.entities.Entity;
 import com.taxi_trouble.game.model.entities.Passenger;
 import com.taxi_trouble.game.model.entities.Taxi;
 import com.taxi_trouble.game.model.entities.powerups.PowerUp;
@@ -153,7 +150,7 @@ public abstract class ViewObserver implements Screen {
      * with all components.
      */
     private void initializeHUD() {
-        this.hud = new HeadUpDisplay(hudFont, team);
+        this.hud = new HeadUpDisplay(getHudFont(), team);
         this.hud.add(new TeamHUD("Team", 10, 470));
         this.hud.add(new ScoreHUD("Score:", 10, 440));
         this.hud.add(new TimerHUD("Time:", 680, 470, taxigame.getTimer()));

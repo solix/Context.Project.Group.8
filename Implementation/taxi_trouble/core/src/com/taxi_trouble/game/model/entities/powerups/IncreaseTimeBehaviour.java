@@ -1,6 +1,6 @@
 package com.taxi_trouble.game.model.entities.powerups;
 
-import static com.taxi_trouble.game.properties.ResourceManager.increaseTimeButtonSprite;
+import static com.taxi_trouble.game.properties.ResourceManager.getSprite;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -42,10 +42,7 @@ public class IncreaseTimeBehaviour implements PowerUpBehaviour {
 
     @Override
     public Sprite getActivationButtonSprite() {
-        /*
-         * This should be replaced by it's own buttonSprite.
-         */
-        return increaseTimeButtonSprite;
+        return getSprite("increaseTimeButtonSprite");
     }
 
 	@Override

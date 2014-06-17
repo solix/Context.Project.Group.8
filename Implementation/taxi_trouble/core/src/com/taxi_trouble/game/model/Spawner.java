@@ -1,10 +1,9 @@
 package com.taxi_trouble.game.model;
 
 import static com.taxi_trouble.game.properties.GameProperties.getPowerUpBehaviours;
-import static com.taxi_trouble.game.properties.ResourceManager.destinationSprite;
+import static com.taxi_trouble.game.properties.ResourceManager.getSprite;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -198,7 +197,7 @@ public class Spawner {
 				spawnPoint.getHeight());
 		dest.initializeBody(world, new Vector2(spawnPoint.getXPosition(),
 				spawnPoint.getYPosition()));
-		dest.setSprite(destinationSprite);
+		dest.setSprite(getSprite("destinationSprite"));
 		return dest;
 	}
 

@@ -618,7 +618,6 @@ public class Taxi extends Entity{
         getSprite().setScale(PIXELS_PER_METER);
         getSprite().draw(spriteBatch);
         spriteBatch.end();
-
     }
 
     /**

@@ -1,5 +1,8 @@
 package com.taxi_trouble.game.model;
 
+import static com.taxi_trouble.game.properties.ResourceManager.getTiledMap;
+import static com.taxi_trouble.game.properties.ResourceManager.loadResources;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,7 +16,6 @@ import com.taxi_trouble.game.model.entities.powerups.PowerUp;
 import com.taxi_trouble.game.model.team.Team;
 import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
 import com.taxi_trouble.game.multiplayer.SetupInterface;
-import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.screens.DriverScreen;
 import com.taxi_trouble.game.screens.MenuScreen;
 import com.taxi_trouble.game.screens.NavigatorScreen;
@@ -25,213 +27,203 @@ import com.taxi_trouble.game.screens.NavigatorScreen;
  * 
  */
 public class GameWorld extends Game {
-	private World world;
-	private WorldMap map;
-	private Team ownTeam;
-	private CountDownTimer timer;
-	private AndroidMultiplayerInterface multiplayerInterface;
-	private DriverScreen driverScreen;
-	private NavigatorScreen navigatorScreen;
-	private MenuScreen menuScreen;
-	private SetupInterface setupInterface;
-	private boolean driver;                //TODO: rework these kind of attributes!
-	private Map<Integer, Team> teams;
-	private boolean host = false;
-	private CollisionDetector collisionDetector;
-	private boolean multiplayerIntitialized;
+    private World world;
+    private WorldMap map;
+    private Team ownTeam;
+    private CountDownTimer timer;
+    private AndroidMultiplayerInterface multiplayerInterface;
+    private DriverScreen driverScreen;
+    private NavigatorScreen navigatorScreen;
+    private MenuScreen menuScreen;
+    private SetupInterface setupInterface;
+    private boolean driver; // TODO: rework these kind of attributes!
+    private Map<Integer, Team> teams;
+    private boolean host = false;
+    private CollisionDetector collisionDetector;
+    private boolean multiplayerIntitialized;
 
-	public GameWorld(SetupInterface setupInterface) {
-		this.setupInterface = setupInterface;
-		// this.setupInterface.login();
-		this.teams = new HashMap<Integer, Team>();
-		multiplayerIntitialized = false;
-	}
-
-	/**
-	 * Called when the game world is first created.
-	 * 
-	 */
-	@Override
-	public final void create() {
-		System.out.println("RUNNING BETA 0.9");
-	
-		loadResources();
-		world = new World(new Vector2(0.0f, 0.0f), true);
-		map = new WorldMap(ResourceManager.mapFile, world);
-		collisionDetector = new CollisionDetector(map);
-		world.setContactListener(collisionDetector);
-		System.out.println("gameworld created!!!");
-
-		driverScreen = new DriverScreen(this);
-		navigatorScreen = new NavigatorScreen(this);
-		timer = new CountDownTimer(300);
-		menuScreen = new MenuScreen(setupInterface);
-		setScreen(menuScreen);
-	}
-
-	@Override
-	public void resume() {
-		loadResources();
-	}
-	
-	 public final void startGame() {
-		 System.out.println("timer started");
-        timer.startTimer();
+    public GameWorld(SetupInterface setupInterface) {
+        this.setupInterface = setupInterface;
+        this.teams = new HashMap<Integer, Team>();
+        multiplayerIntitialized = false;
     }
 
     /**
-     * Loads the game resources.
+     * Called when the game world is first created.
      * 
      */
-    public void loadResources() {
-        ResourceManager.loadMap();
-        ResourceManager.loadSprites();
-        ResourceManager.loadFonts();
-        ResourceManager.loadFx();
+    @Override
+    public final void create() {
+        loadResources();
+        world = new World(new Vector2(0.0f, 0.0f), true);
+        map = new WorldMap(getTiledMap(), world);
+        collisionDetector = new CollisionDetector(map);
+        world.setContactListener(collisionDetector);
+        System.out.println("gameworld created!!!");
+
+        driverScreen = new DriverScreen(this);
+        navigatorScreen = new NavigatorScreen(this);
+        timer = new CountDownTimer(300);
+        menuScreen = new MenuScreen(setupInterface);
+        setScreen(menuScreen);
     }
 
-	@Override
-	public final void render() {
-		super.render();
-		// Spawn a new passenger if there are less than #taxis-1.
-		if (host && multiplayerIntitialized) {
-			ConcurrentHashMap<Integer, Passenger> passengers = map.getSpawner()
-					.getActivePassengers();
-			if (passengers.size() < 3) {
-				map.getSpawner().spawnPassenger(world);
-			}
+    @Override
+    public void resume() {
+        loadResources();
+    }
 
-			ConcurrentHashMap<Integer, PowerUp> powerups = map.getSpawner()
-					.getActivePowerUps();
-			if (powerups.size() < 3) {
-				map.getSpawner().spawnPowerUp(world);
-			}
-		}
-	}
+    @Override
+    public final void render() {
+        super.render();
+        // Spawn a new passenger if there are less than #taxis-1.
+        if (host && multiplayerIntitialized) {
+            ConcurrentHashMap<Integer, Passenger> passengers = map.getSpawner()
+                    .getActivePassengers();
+            if (passengers.size() < 3) {
+                map.getSpawner().spawnPassenger(world);
+            }
 
-	public void setDriver(boolean driver) {
-		System.out.println("setDriver called, driver = " + driver);
-		this.driver = driver;
-	}
+            ConcurrentHashMap<Integer, PowerUp> powerups = map.getSpawner()
+                    .getActivePowerUps();
+            if (powerups.size() < 3) {
+                map.getSpawner().spawnPowerUp(world);
+            }
+        }
+    }
 
-	public void setScreen() {
-		System.out.println("setscreen called, driver = " + driver);
-		if (driver) {
-			setScreen(driverScreen);
-		} else {
-			setScreen(navigatorScreen);
-		}
-		startGame();
-	}
+    public final void startGame() {
+        timer.startTimer();
+        setScreen();
+    }
 
-	public void returnToMenu() {
-		setScreen(menuScreen);
-	}
+    // TODO: Include this in starting the game
+    public void setDriver(boolean driver) {
+        System.out.println("setDriver called, driver = " + driver);
+        this.driver = driver;
+    }
 
-	/**
-	 * Retrieves the game world map.
-	 * 
-	 * @return map
-	 */
-	public final WorldMap getMap() {
-		return this.map;
-	}
+    /**
+     * Sets the assigned view. The assigned view of a player will
+     * be either the DriverScreen or NavigatorScreen.
+     */
+    public void setScreen() {
+        System.out.println("setscreen called, driver = " + driver);
+        if (driver) {
+            setScreen(driverScreen);
+        } else {
+            setScreen(navigatorScreen);
+        }
+    }
 
-	/**
-	 * Retrieves the single team.
-	 * 
-	 * @return team
-	 */
-	public final Team getTeam() {
-		return this.ownTeam;
-	}
+    public void returnToMenu() {
+        setScreen(menuScreen);
+    }
 
-	/**
-	 * Retrieves the world in which the game is played.
-	 * 
-	 * @return world
-	 */
-	public final World getWorld() {
-		return this.world;
-	}
+    /**
+     * Retrieves the game world map.
+     * 
+     * @return map
+     */
+    public final WorldMap getMap() {
+        return this.map;
+    }
 
-	/**
-	 * Retrieves the passengers that are currently in the game.
-	 * 
-	 * @return passengers
-	 */
-	public final ConcurrentHashMap<Integer, Passenger> getPassengers() {
-		return this.map.getSpawner().getActivePassengers();
-	}
+    /**
+     * Retrieves the single team.
+     * 
+     * @return team
+     */
+    public final Team getTeam() {
+        return this.ownTeam;
+    }
 
-	public void setTeams(int teamId, int totalTeams) {
-		for (int i = 0; i < totalTeams; i++) {
-			Team team =  new Team(i, map.getSpawner().spawnTaxi(world, i));
+    /**
+     * Retrieves the world in which the game is played.
+     * 
+     * @return world
+     */
+    public final World getWorld() {
+        return this.world;
+    }
 
-			if (i == teamId) {
-				this.ownTeam = team;
-				System.out.println("ownteam!");
-			}
-				
-			teams.put(i, team);
-			
+    /**
+     * Retrieves the passengers that are currently in the game.
+     * 
+     * @return passengers
+     */
+    public final ConcurrentHashMap<Integer, Passenger> getPassengers() {
+        return this.map.getSpawner().getActivePassengers();
+    }
 
-		}
-		System.out.println(ownTeam.toString());
-		System.out.println(teams.toString());
-	}
+    public void setTeams(int teamId, int totalTeams) {
+        for (int i = 0; i < totalTeams; i++) {
+            Team team = new Team(i, map.getSpawner().spawnTaxi(world, i));
 
-	public Map<Integer, Team> getTeams() {
-		return teams;
-	}
+            if (i == teamId) {
+                this.ownTeam = team;
+                System.out.println("ownteam!");
+            }
 
-	public AndroidMultiplayerInterface getMultiplayerInterface() {
-		return multiplayerInterface;
-	}
+            teams.put(i, team);
 
-	public void setMultiplayerInterface(
-			AndroidMultiplayerInterface multiplayerInterface) {
-		this.multiplayerInterface = multiplayerInterface;
-	}
+        }
+        System.out.println(ownTeam.toString());
+        System.out.println(teams.toString());
+    }
 
-	public void setHost(boolean host) {
-		this.host = host;
-		this.multiplayerInterface.setHost(host);
-	}
+    public Map<Integer, Team> getTeams() {
+        return teams;
+    }
 
-	public Passenger getPassengerById(int id) {
-		return map.getSpawner().getActivePassengers().get(id);
-	}
+    public AndroidMultiplayerInterface getMultiplayerInterface() {
+        return multiplayerInterface;
+    }
 
-	public Taxi getTaxiById(int id) {
-		return getTeamById(id).getTaxi();
-	}
+    public void setMultiplayerInterface(
+            AndroidMultiplayerInterface multiplayerInterface) {
+        this.multiplayerInterface = multiplayerInterface;
+    }
 
-	public Team getTeamById(int id) {
-		return getTeams().get(id);
-	}
+    public void setHost(boolean host) {
+        this.host = host;
+        this.multiplayerInterface.setHost(host);
+    }
 
-	
-	public PowerUp getPowerUpById(int id){
-		PowerUp result = map.getSpawner().getActivePowerUps().get(id);
-		if (result == null){
-			System.out.println("DESYNC DETECTED: POWERUP #" +id + " NOT FOUND");
-		}
-		return result;
-	}
-	
-	public final ConcurrentHashMap<Integer,PowerUp> getPowerUps() {
+    public Passenger getPassengerById(int id) {
+        return map.getSpawner().getActivePassengers().get(id);
+    }
+
+    public Taxi getTaxiById(int id) {
+        return getTeamById(id).getTaxi();
+    }
+
+    public Team getTeamById(int id) {
+        return getTeams().get(id);
+    }
+
+    public PowerUp getPowerUpById(int id) {
+        PowerUp result = map.getSpawner().getActivePowerUps().get(id);
+        if (result == null) {
+            System.out
+                    .println("DESYNC DETECTED: POWERUP #" + id + " NOT FOUND");
+        }
+        return result;
+    }
+
+    public final ConcurrentHashMap<Integer, PowerUp> getPowerUps() {
         return this.map.getSpawner().getActivePowerUps();
     }
 
-	public void setMultiPlayerInterface(AndroidMultiplayerInterface i) {
-		multiplayerInterface = i;
-		collisionDetector.setMultiPlayerInterface(i);
-		map.setMultiPlayerInterface(i);
-		multiplayerIntitialized = true;
-	}
+    public void setMultiPlayerInterface(AndroidMultiplayerInterface i) {
+        multiplayerInterface = i;
+        collisionDetector.setMultiPlayerInterface(i);
+        map.setMultiPlayerInterface(i);
+        multiplayerIntitialized = true;
+    }
 
-	/**Retrieves the game countdown-timer.
+    /**
+     * Retrieves the game countdown-timer.
      * 
      * @return timer
      */
@@ -239,14 +231,15 @@ public class GameWorld extends Game {
         return this.timer;
     }
 
-    /**Retrieves the winning team of a game.
+    /**
+     * Retrieves the winning team of a game.
      * 
      * @return winner
      */
     public Team getWinner() {
         Team team = null;
         int highscore = -1;
-        for (Team t : teams.values()){
+        for (Team t : teams.values()) {
             if (t.getScore() > highscore) {
                 team = t;
                 highscore = t.getScore();
@@ -255,4 +248,3 @@ public class GameWorld extends Game {
         return team;
     }
 }
-
