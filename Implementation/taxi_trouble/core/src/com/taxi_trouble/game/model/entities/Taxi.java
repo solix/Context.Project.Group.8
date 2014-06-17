@@ -615,6 +615,7 @@ public class Taxi extends Entity{
         getSprite().setPosition(getXPosition() * PIXELS_PER_METER,
                 getYPosition() * PIXELS_PER_METER);
         getSprite().setRotation(getAngle() * MathUtils.radiansToDegrees);
+        getSprite().setScale(PIXELS_PER_METER);
         getSprite().draw(spriteBatch);
         spriteBatch.end();
 

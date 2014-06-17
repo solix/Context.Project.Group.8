@@ -203,7 +203,7 @@ public class Wheel extends Entity {
 		sprite.setPosition(getXPosition() * PIXELS_PER_METER,
 				getYPosition() * PIXELS_PER_METER);
 		sprite.setRotation(getAngle() * MathUtils.radiansToDegrees);
-		sprite.setScale(PIXELS_PER_METER);
+		getSprite().setScale(PIXELS_PER_METER);
 		sprite.draw(spriteBatch);
 		spriteBatch.end();
 	};

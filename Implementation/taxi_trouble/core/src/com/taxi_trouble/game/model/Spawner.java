@@ -52,7 +52,7 @@ public class Spawner {
 		passengers = new ConcurrentHashMap<Integer, Passenger>();
 		powerups = new ConcurrentHashMap<Integer, PowerUp>();
 		poweruppoints = new ArrayList<SpawnPoint>();
-		//insertionQueue = new ConcurrentLinkedQueue<E>();
+		insertionQueue = new ConcurrentLinkedQueue<Entity>();
 		deletionQueue = new ConcurrentLinkedQueue<Entity>();
 	}
 
@@ -151,8 +151,9 @@ public class Spawner {
 			int destinationId, int charId, int passengerId) {
 		assert (!passengers.containsKey(passengerId));
 		SpawnPoint spawnPoint = passengerspawnpoints.get(spawnId);
-		Passenger pass = new Passenger(2, 2, passengerId);
-		pass.initializeBody(world, spawnPoint);
+		Passenger pass = new Passenger(spawnPoint, passengerId);
+		insertionQueue.offer(pass);
+	    pass.setSprite(ResourceManager.getCharacter(charId));
 		pass.setDestination(destination(world, destinationId));
 		// Add the new passenger to the list of active passengers
 		passengers.put(passengerId, pass);
@@ -376,9 +377,16 @@ public class Spawner {
 	 * @param world
 	 */
 	public void removeDespawnedEntityBodies(World world) {
-	    Iterator<Entity> bodiesToRemove = deletionQueue.iterator();
-	    while(bodiesToRemove.hasNext()) {
-	        bodiesToRemove.next().removeBodyFromWorld(world);
+	    while(!deletionQueue.isEmpty()) {
+	        deletionQueue.poll().removeBodyFromWorld(world);
 	    }
+	}
+
+	public void addEntityBodies(World world){
+	    System.out.println("adding entities!");
+	    while(!insertionQueue.isEmpty()){
+	        insertionQueue.poll().addBodyToWorld(world);
+	    }
+	    System.out.println("done adding entities");
 	}
 }

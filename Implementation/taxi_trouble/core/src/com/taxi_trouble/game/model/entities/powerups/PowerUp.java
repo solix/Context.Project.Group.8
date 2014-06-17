@@ -92,7 +92,9 @@ public class PowerUp extends Entity {
      * @param spriteBatch
      */
     public void render(SpriteBatch spriteBatch) {
-        this.behaviour.render(spriteBatch, getPosition());
+        if (this.getBody() != null) {
+            this.behaviour.render(spriteBatch, getPosition());
+        }
     }
 
     /**Sets whether the power-up is taken.
@@ -119,5 +121,10 @@ public class PowerUp extends Entity {
 	 */
 	public void forceActivatePowerUp(Taxi taxi) {
 		this.behaviour.triggerEvent(taxi);
+	}
+
+	@Override
+	public void addBodyToWorld(World world) {
+	    this.initializeBody(world);
 	}
 }

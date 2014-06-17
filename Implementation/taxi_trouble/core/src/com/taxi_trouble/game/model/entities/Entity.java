@@ -9,6 +9,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import static com.taxi_trouble.game.properties.GameProperties.PIXELS_PER_METER;
+
 /**An entity that can be placed in the game world.
  * 
  * @author Computer Games Project Group 8
@@ -226,8 +228,9 @@ public abstract class Entity {
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
         this.sprite.setSize(width, height);
-        this.sprite.setOrigin(this.getXPosition() / 2,
-                this.getYPosition() / 2);
+        this.sprite.setOrigin(this.getWidth() / 2,
+                this.getHeight() / 2);
+        this.sprite.setScale(PIXELS_PER_METER);
     }
 
     /**Retrieves the sprite of the entity.
@@ -247,5 +250,8 @@ public abstract class Entity {
         if(!world.isLocked()) {
             world.destroyBody(getBody());
         }
+    }
+
+    public void addBodyToWorld(World world) {
     }
 }

@@ -85,6 +85,7 @@ public class CollisionDetector implements ContactListener {
     private void taxiAtPowerUp(Taxi taxi, PowerUp powerUp) {
     	if (networkInterface.isHost()){
     		if(map.getSpawner().powerUpIsAvailable(powerUp)){
+    		    taxi.pickUpPowerUp(powerUp, map);
     			networkInterface.powerUpMessage(taxi, powerUp);
     		}
     	}

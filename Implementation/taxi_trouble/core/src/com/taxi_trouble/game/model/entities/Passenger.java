@@ -35,8 +35,9 @@ public class Passenger extends Entity {
      * @param id
      *            : the identifier of the passenger
      */
-    public Passenger(float width, float height, int id) {
-        super(id, width, height);
+    public Passenger(SpawnPoint point, int id) {
+        super(id, point.getWidth(), point.getHeight());
+        this.spawnPoint = point;
     }
 
     /**
@@ -47,10 +48,9 @@ public class Passenger extends Entity {
      * @param spawnPoint
      *            : the spawnPoint of the passenger
      */
-    public void initializeBody(World world, SpawnPoint spawnPoint) {
+    public void initializeBody(World world) {
         initializeBody(world, spawnPoint.getPosition(), spawnPoint.getAngle(), 
                 BodyType.StaticBody, true, true);
-        this.spawnPoint = spawnPoint;
     }
 
     /**
@@ -206,17 +206,25 @@ public class Passenger extends Entity {
      * @param spriteBatch
      */
     public void render(SpriteBatch spriteBatch) {
-        if (this.isTransported()) {
-            setPosition(transporter.getPosition());
-            setAngle(transporter.getAngle());
+        if(this.getBody() != null){
+            if (this.isTransported()) {
+                setPosition(transporter.getPosition());
+                setAngle(transporter.getAngle());
+            }
+            spriteBatch.begin();
+            getSprite().setPosition(this.getXPosition() * PIXELS_PER_METER,
+                    this.getYPosition() * PIXELS_PER_METER);
+            getSprite().setRotation(this.getBody().getAngle());
+            //getSprite().setScale(PIXELS_PER_METER);
+            getSprite().draw(spriteBatch);
+            spriteBatch.end();
         }
-        spriteBatch.begin();
-        getSprite().setPosition(this.getXPosition() * PIXELS_PER_METER,
-                this.getYPosition() * PIXELS_PER_METER);
-        getSprite().setRotation(this.getBody().getAngle()
-                * MathUtils.radiansToDegrees);
-        getSprite().setScale(PIXELS_PER_METER);
-        getSprite().draw(spriteBatch);
-        spriteBatch.end();
-    }
+   }
+
+   @Override
+   public void addBodyToWorld(World world){
+       this.initializeBody(world);
+   }
+    
+    
 }

@@ -227,6 +227,7 @@ public class GameWorld extends Game {
 	public void setMultiPlayerInterface(AndroidMultiplayerInterface i) {
 		multiplayerInterface = i;
 		collisionDetector.setMultiPlayerInterface(i);
+		map.setMultiPlayerInterface(i);
 		multiplayerIntitialized = true;
 	}
 

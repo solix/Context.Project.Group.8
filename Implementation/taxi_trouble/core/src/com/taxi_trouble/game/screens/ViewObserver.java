@@ -94,11 +94,7 @@ public abstract class ViewObserver implements Screen {
 	public void render(float delta) {
 	    //TODO: Refactor this code!
 		if(!taxigame.getWorld().isLocked()){
-			ConcurrentLinkedQueue<Entity> queue = taxigame.getMap().getSpawner().getInsertionQueue();
-			while(!queue.isEmpty()){
-				PowerUp power = (PowerUp) queue.poll();
-				power.initializeBody(taxigame.getWorld());
-			}
+			taxigame.getMap().getSpawner().addEntityBodies(taxigame.getWorld());
 		}
 		else { 
 			System.out.println("world locked!! the deletion queue was not emptied!!!");

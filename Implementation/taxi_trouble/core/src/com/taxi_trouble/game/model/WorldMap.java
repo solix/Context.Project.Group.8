@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.taxi_trouble.game.model.entities.SolidBox;
+import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
 
 /**
  * The map for the world in which a game can take place and its objects.
@@ -275,4 +276,8 @@ public class WorldMap {
 	public World getWorld() {
 		return this.world;
 	}
+
+    public void setMultiPlayerInterface(AndroidMultiplayerInterface i) {
+        spawner.setMultiplayerInterface(i);
+    }
 }
