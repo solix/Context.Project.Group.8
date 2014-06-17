@@ -63,11 +63,11 @@ public class PassengerTest {
     */
    @Before
    public void initPassenger() {
-       passenger = new Passenger(2, 2, 1);
+	   spawnPoint = new SpawnPoint(0, 1, 0);
+       passenger = new Passenger(spawnPoint, 1);
        world = new World(new Vector2(0, 0), false);
-       spawnPoint = new SpawnPoint(0, 1, 0);
        spawnPoint.setActive(true);
-       passenger.initializeBody(world, spawnPoint);
+       passenger.initializeBody(world);
        passenger.setDestination(destination);
 
        when(map.getSpawner()).thenReturn(spawner);
