@@ -49,7 +49,8 @@ public class Passenger extends Entity {
      *            : the spawnPoint of the passenger
      */
     public void initializeBody(World world) {
-        initializeBody(world, spawnPoint.getPosition(), spawnPoint.getAngle(), 
+        initializeBody(world, spawnPoint.getPosition(), 
+                spawnPoint.getAngle() * MathUtils.degreesToRadians, 
                 BodyType.StaticBody, true, true);
     }
 
@@ -210,12 +211,12 @@ public class Passenger extends Entity {
             if (this.isTransported()) {
                 setPosition(transporter.getPosition());
                 setAngle(transporter.getAngle());
+                System.out.println(this.getAngle());
             }
             spriteBatch.begin();
-            getSprite().setPosition(this.getXPosition() * PIXELS_PER_METER,
-                    this.getYPosition() * PIXELS_PER_METER);
-            getSprite().setRotation(this.getBody().getAngle());
-            //getSprite().setScale(PIXELS_PER_METER);
+            getSprite().setPosition(getXPosition() * PIXELS_PER_METER,
+                    getYPosition() * PIXELS_PER_METER);
+            getSprite().setRotation(getBody().getAngle() * MathUtils.radiansToDegrees);
             getSprite().draw(spriteBatch);
             spriteBatch.end();
         }
@@ -225,6 +226,4 @@ public class Passenger extends Entity {
    public void addBodyToWorld(World world){
        this.initializeBody(world);
    }
-    
-    
 }

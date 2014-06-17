@@ -383,10 +383,8 @@ public class Spawner {
 	}
 
 	public void addEntityBodies(World world){
-	    System.out.println("adding entities!");
 	    while(!insertionQueue.isEmpty()){
 	        insertionQueue.poll().addBodyToWorld(world);
 	    }
-	    System.out.println("done adding entities");
 	}
 }
