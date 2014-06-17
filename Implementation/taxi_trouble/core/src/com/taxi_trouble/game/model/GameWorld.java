@@ -3,9 +3,9 @@ package com.taxi_trouble.game.model;
 import static com.taxi_trouble.game.properties.ResourceManager.getTiledMap;
 import static com.taxi_trouble.game.properties.ResourceManager.loadResources;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
@@ -27,7 +27,6 @@ import com.taxi_trouble.game.screens.NavigatorScreen;
  * 
  */
 public class GameWorld extends Game {
-    private World world;
     private WorldMap map;
     private Team ownTeam;
     private CountDownTimer timer;
@@ -55,7 +54,7 @@ public class GameWorld extends Game {
     @Override
     public final void create() {
         loadResources();
-        world = new World(new Vector2(0.0f, 0.0f), true);
+        World world = new World(new Vector2(0.0f, 0.0f), true);
         map = new WorldMap(getTiledMap(), world);
         collisionDetector = new CollisionDetector(map);
         world.setContactListener(collisionDetector);
@@ -76,18 +75,16 @@ public class GameWorld extends Game {
     @Override
     public final void render() {
         super.render();
-        // Spawn a new passenger if there are less than #taxis-1.
+        // Spawn a new passenger/power-up if there are less than #taxis-1.
         if (host && multiplayerIntitialized) {
-            ConcurrentHashMap<Integer, Passenger> passengers = map.getSpawner()
-                    .getActivePassengers();
-            if (passengers.size() < 3) {
-                map.getSpawner().spawnPassenger(world);
+            Collection<Passenger> passengers = getPassengers();
+            if (passengers.size() < teams.size() || passengers.size() == 0) {
+                map.getSpawner().spawnPassenger(getWorld());
             }
 
-            ConcurrentHashMap<Integer, PowerUp> powerups = map.getSpawner()
-                    .getActivePowerUps();
-            if (powerups.size() < 3) {
-                map.getSpawner().spawnPowerUp(world);
+            Collection<PowerUp> powerups = getPowerUps();
+            if (powerups.size() < teams.size() || powerups.size() == 0) {
+                map.getSpawner().spawnPowerUp(getWorld());
             }
         }
     }
@@ -97,15 +94,14 @@ public class GameWorld extends Game {
         setScreen();
     }
 
-    // TODO: Include this in starting the game
     public void setDriver(boolean driver) {
         System.out.println("setDriver called, driver = " + driver);
         this.driver = driver;
     }
 
     /**
-     * Sets the assigned view. The assigned view of a player will
-     * be either the DriverScreen or NavigatorScreen.
+     * Sets the assigned view. The assigned view of a player will be either the
+     * DriverScreen or NavigatorScreen.
      */
     public void setScreen() {
         System.out.println("setscreen called, driver = " + driver);
@@ -125,8 +121,16 @@ public class GameWorld extends Game {
      * 
      * @return map
      */
-    public final WorldMap getMap() {
+    public WorldMap getMap() {
         return this.map;
+    }
+
+    /**Retrieves the spawner that is used to spawn entities.
+     * 
+     * @return spawner
+     */
+    public final Spawner getSpawner() {
+        return this.map.getSpawner();
     }
 
     /**
@@ -144,7 +148,7 @@ public class GameWorld extends Game {
      * @return world
      */
     public final World getWorld() {
-        return this.world;
+        return this.map.getWorld();
     }
 
     /**
@@ -152,13 +156,13 @@ public class GameWorld extends Game {
      * 
      * @return passengers
      */
-    public final ConcurrentHashMap<Integer, Passenger> getPassengers() {
-        return this.map.getSpawner().getActivePassengers();
+    public final Collection<Passenger> getPassengers() {
+        return this.map.getSpawner().getActivePassengers().values();
     }
 
     public void setTeams(int teamId, int totalTeams) {
         for (int i = 0; i < totalTeams; i++) {
-            Team team = new Team(i, map.getSpawner().spawnTaxi(world, i));
+            Team team = new Team(i, map.getSpawner().spawnTaxi(getWorld(), i));
 
             if (i == teamId) {
                 this.ownTeam = team;
@@ -211,8 +215,8 @@ public class GameWorld extends Game {
         return result;
     }
 
-    public final ConcurrentHashMap<Integer, PowerUp> getPowerUps() {
-        return this.map.getSpawner().getActivePowerUps();
+    public final Collection<PowerUp> getPowerUps() {
+        return this.map.getSpawner().getActivePowerUps().values();
     }
 
     public void setMultiPlayerInterface(AndroidMultiplayerInterface i) {
