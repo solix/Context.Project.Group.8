@@ -1,7 +1,6 @@
 package com.taxi_trouble.game.model.team;
 
-import static com.taxi_trouble.game.properties.ResourceManager.noPowerUpButtonSprite;
-import static com.taxi_trouble.game.properties.ResourceManager.wheelSprite;
+import static com.taxi_trouble.game.properties.ResourceManager.getSprite;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.taxi_trouble.game.model.entities.Taxi;
@@ -48,7 +47,7 @@ public class Team {
             case 2: this.teamTheme = new GreenTeamTheme(); break;
             default: this.teamTheme = new RedTeamTheme(); break;
         }
-        taxi.setSprite(teamTheme.getTaxiSprite(), wheelSprite);
+        taxi.setSprite(teamTheme.getTaxiSprite(), getSprite("wheelSprite"));
     }
 
 	/**
@@ -158,7 +157,7 @@ public class Team {
 		if (hasPowerUp()) {
 			return this.powerUp.getBehaviour().getActivationButtonSprite();
 		}
-		return noPowerUpButtonSprite;
+		return getSprite("noPowerUpButtonSprite");
 	}
 
 	public void setTeamId(int teamId) {

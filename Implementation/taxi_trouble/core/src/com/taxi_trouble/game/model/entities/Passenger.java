@@ -211,7 +211,6 @@ public class Passenger extends Entity {
             if (this.isTransported()) {
                 setPosition(transporter.getPosition());
                 setAngle(transporter.getAngle());
-                System.out.println(this.getAngle());
             }
             spriteBatch.begin();
             getSprite().setPosition(getXPosition() * PIXELS_PER_METER,

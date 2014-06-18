@@ -1,8 +1,11 @@
 package com.taxi_trouble.game.model;
 
+import static com.taxi_trouble.game.properties.ResourceManager.getTiledMap;
+import static com.taxi_trouble.game.properties.ResourceManager.loadResources;
+
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
@@ -13,7 +16,6 @@ import com.taxi_trouble.game.model.entities.powerups.PowerUp;
 import com.taxi_trouble.game.model.team.Team;
 import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
 import com.taxi_trouble.game.multiplayer.SetupInterface;
-import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.screens.DriverScreen;
 import com.taxi_trouble.game.screens.MenuScreen;
 import com.taxi_trouble.game.screens.NavigatorScreen;
@@ -25,213 +27,207 @@ import com.taxi_trouble.game.screens.NavigatorScreen;
  * 
  */
 public class GameWorld extends Game {
-	private World world;
-	private WorldMap map;
-	private Team ownTeam;
-	private CountDownTimer timer;
-	private AndroidMultiplayerInterface multiplayerInterface;
-	private DriverScreen driverScreen;
-	private NavigatorScreen navigatorScreen;
-	private MenuScreen menuScreen;
-	private SetupInterface setupInterface;
-	private boolean driver;                //TODO: rework these kind of attributes!
-	private Map<Integer, Team> teams;
-	private boolean host = false;
-	private CollisionDetector collisionDetector;
-	private boolean multiplayerIntitialized;
+    private WorldMap map;
+    private Team ownTeam;
+    private CountDownTimer timer;
+    private AndroidMultiplayerInterface multiplayerInterface;
+    private DriverScreen driverScreen;
+    private NavigatorScreen navigatorScreen;
+    private MenuScreen menuScreen;
+    private SetupInterface setupInterface;
+    private boolean driver; // TODO: rework these kind of attributes!
+    private Map<Integer, Team> teams;
+    private boolean host = false;
+    private CollisionDetector collisionDetector;
+    private boolean multiplayerIntitialized;
 
-	public GameWorld(SetupInterface setupInterface) {
-		this.setupInterface = setupInterface;
-		// this.setupInterface.login();
-		this.teams = new HashMap<Integer, Team>();
-		multiplayerIntitialized = false;
-	}
-
-	/**
-	 * Called when the game world is first created.
-	 * 
-	 */
-	@Override
-	public final void create() {
-		System.out.println("RUNNING BETA 0.9");
-	
-		loadResources();
-		world = new World(new Vector2(0.0f, 0.0f), true);
-		map = new WorldMap(ResourceManager.mapFile, world);
-		collisionDetector = new CollisionDetector(map);
-		world.setContactListener(collisionDetector);
-		System.out.println("gameworld created!!!");
-
-		driverScreen = new DriverScreen(this);
-		navigatorScreen = new NavigatorScreen(this);
-		timer = new CountDownTimer(300);
-		menuScreen = new MenuScreen(setupInterface);
-		setScreen(menuScreen);
-	}
-
-	@Override
-	public void resume() {
-		loadResources();
-	}
-	
-	 public final void startGame() {
-		 System.out.println("timer started");
-        timer.startTimer();
+    public GameWorld(SetupInterface setupInterface) {
+        this.setupInterface = setupInterface;
+        this.teams = new HashMap<Integer, Team>();
+        multiplayerIntitialized = false;
     }
 
     /**
-     * Loads the game resources.
+     * Called when the game world is first created.
      * 
      */
-    public void loadResources() {
-        ResourceManager.loadMap();
-        ResourceManager.loadSprites();
-        ResourceManager.loadFonts();
-        ResourceManager.loadFx();
+    @Override
+    public final void create() {
+        loadResources();
+        World world = new World(new Vector2(0.0f, 0.0f), true);
+        map = new WorldMap(getTiledMap(), world);
+        collisionDetector = new CollisionDetector(map);
+        world.setContactListener(collisionDetector);
+        System.out.println("gameworld created!!!");
+
+        driverScreen = new DriverScreen(this);
+        navigatorScreen = new NavigatorScreen(this);
+        timer = new CountDownTimer(300);
+        menuScreen = new MenuScreen(setupInterface);
+        setScreen(menuScreen);
     }
 
-	@Override
-	public final void render() {
-		super.render();
-		// Spawn a new passenger if there are less than #taxis-1.
-		if (host && multiplayerIntitialized) {
-			ConcurrentHashMap<Integer, Passenger> passengers = map.getSpawner()
-					.getActivePassengers();
-			if (passengers.size() < 3) {
-				map.getSpawner().spawnPassenger(world);
-			}
-
-			ConcurrentHashMap<Integer, PowerUp> powerups = map.getSpawner()
-					.getActivePowerUps();
-			if (powerups.size() < 3) {
-				map.getSpawner().spawnPowerUp(world);
-			}
-		}
-	}
-
-	public void setDriver(boolean driver) {
-		System.out.println("setDriver called, driver = " + driver);
-		this.driver = driver;
-	}
-
-	public void setScreen() {
-		System.out.println("setscreen called, driver = " + driver);
-		if (driver) {
-			setScreen(driverScreen);
-		} else {
-			setScreen(navigatorScreen);
-		}
-		startGame();
-	}
-
-	public void returnToMenu() {
-		setScreen(menuScreen);
-	}
-
-	/**
-	 * Retrieves the game world map.
-	 * 
-	 * @return map
-	 */
-	public final WorldMap getMap() {
-		return this.map;
-	}
-
-	/**
-	 * Retrieves the single team.
-	 * 
-	 * @return team
-	 */
-	public final Team getTeam() {
-		return this.ownTeam;
-	}
-
-	/**
-	 * Retrieves the world in which the game is played.
-	 * 
-	 * @return world
-	 */
-	public final World getWorld() {
-		return this.world;
-	}
-
-	/**
-	 * Retrieves the passengers that are currently in the game.
-	 * 
-	 * @return passengers
-	 */
-	public final ConcurrentHashMap<Integer, Passenger> getPassengers() {
-		return this.map.getSpawner().getActivePassengers();
-	}
-
-	public void setTeams(int teamId, int totalTeams) {
-		for (int i = 0; i < totalTeams; i++) {
-			Team team =  new Team(i, map.getSpawner().spawnTaxi(world, i));
-
-			if (i == teamId) {
-				this.ownTeam = team;
-				System.out.println("ownteam!");
-			}
-				
-			teams.put(i, team);
-			
-
-		}
-		System.out.println(ownTeam.toString());
-		System.out.println(teams.toString());
-	}
-
-	public Map<Integer, Team> getTeams() {
-		return teams;
-	}
-
-	public AndroidMultiplayerInterface getMultiplayerInterface() {
-		return multiplayerInterface;
-	}
-
-	public void setMultiplayerInterface(
-			AndroidMultiplayerInterface multiplayerInterface) {
-		this.multiplayerInterface = multiplayerInterface;
-	}
-
-	public void setHost(boolean host) {
-		this.host = host;
-		this.multiplayerInterface.setHost(host);
-	}
-
-	public Passenger getPassengerById(int id) {
-		return map.getSpawner().getActivePassengers().get(id);
-	}
-
-	public Taxi getTaxiById(int id) {
-		return getTeamById(id).getTaxi();
-	}
-
-	public Team getTeamById(int id) {
-		return getTeams().get(id);
-	}
-
-	
-	public PowerUp getPowerUpById(int id){
-		PowerUp result = map.getSpawner().getActivePowerUps().get(id);
-		if (result == null){
-			System.out.println("DESYNC DETECTED: POWERUP #" +id + " NOT FOUND");
-		}
-		return result;
-	}
-	
-	public final ConcurrentHashMap<Integer,PowerUp> getPowerUps() {
-        return this.map.getSpawner().getActivePowerUps();
+    @Override
+    public void resume() {
+        loadResources();
     }
 
-	public void setMultiPlayerInterface(AndroidMultiplayerInterface i) {
-		multiplayerInterface = i;
-		collisionDetector.setMultiPlayerInterface(i);
-		map.setMultiPlayerInterface(i);
-		multiplayerIntitialized = true;
-	}
+    @Override
+    public final void render() {
+        super.render();
+        // Spawn a new passenger/power-up if there are less than #taxis-1.
+        if (host && multiplayerIntitialized) {
+            Collection<Passenger> passengers = getPassengers();
+            if (passengers.size() < teams.size() || passengers.size() == 0) {
+                map.getSpawner().spawnPassenger(getWorld());
+            }
 
-	/**Retrieves the game countdown-timer.
+            Collection<PowerUp> powerups = getPowerUps();
+            if (powerups.size() < teams.size() || powerups.size() == 0) {
+                map.getSpawner().spawnPowerUp(getWorld());
+            }
+        }
+    }
+
+    public final void startGame() {
+        timer.startTimer();
+        setScreen();
+    }
+
+    public void setDriver(boolean driver) {
+        System.out.println("setDriver called, driver = " + driver);
+        this.driver = driver;
+    }
+
+    /**
+     * Sets the assigned view. The assigned view of a player will be either the
+     * DriverScreen or NavigatorScreen.
+     */
+    public void setScreen() {
+        System.out.println("setscreen called, driver = " + driver);
+        if (driver) {
+            setScreen(driverScreen);
+        } else {
+            setScreen(navigatorScreen);
+        }
+    }
+
+    public void returnToMenu() {
+        setScreen(menuScreen);
+    }
+
+    /**
+     * Retrieves the game world map.
+     * 
+     * @return map
+     */
+    public WorldMap getMap() {
+        return this.map;
+    }
+
+    /**Retrieves the spawner that is used to spawn entities.
+     * 
+     * @return spawner
+     */
+    public final Spawner getSpawner() {
+        return this.map.getSpawner();
+    }
+
+    /**
+     * Retrieves the single team.
+     * 
+     * @return team
+     */
+    public final Team getTeam() {
+        return this.ownTeam;
+    }
+
+    /**
+     * Retrieves the world in which the game is played.
+     * 
+     * @return world
+     */
+    public final World getWorld() {
+        return this.map.getWorld();
+    }
+
+    /**
+     * Retrieves the passengers that are currently in the game.
+     * 
+     * @return passengers
+     */
+    public final Collection<Passenger> getPassengers() {
+        return this.map.getSpawner().getActivePassengers().values();
+    }
+
+    public void setTeams(int teamId, int totalTeams) {
+        for (int i = 0; i < totalTeams; i++) {
+            Team team = new Team(i, map.getSpawner().spawnTaxi(getWorld(), i));
+
+            if (i == teamId) {
+                this.ownTeam = team;
+                System.out.println("ownteam!");
+            }
+
+            teams.put(i, team);
+
+        }
+        System.out.println(ownTeam.toString());
+        System.out.println(teams.toString());
+    }
+
+    public Map<Integer, Team> getTeams() {
+        return teams;
+    }
+
+    public AndroidMultiplayerInterface getMultiplayerInterface() {
+        return multiplayerInterface;
+    }
+
+    public void setMultiplayerInterface(
+            AndroidMultiplayerInterface multiplayerInterface) {
+        this.multiplayerInterface = multiplayerInterface;
+    }
+
+    public void setHost(boolean host) {
+        this.host = host;
+        this.multiplayerInterface.setHost(host);
+    }
+
+    public Passenger getPassengerById(int id) {
+        return map.getSpawner().getActivePassengers().get(id);
+    }
+
+    public Taxi getTaxiById(int id) {
+        return getTeamById(id).getTaxi();
+    }
+
+    public Team getTeamById(int id) {
+        return getTeams().get(id);
+    }
+
+    public PowerUp getPowerUpById(int id) {
+        PowerUp result = map.getSpawner().getActivePowerUps().get(id);
+        if (result == null) {
+            System.out
+                    .println("DESYNC DETECTED: POWERUP #" + id + " NOT FOUND");
+        }
+        return result;
+    }
+
+    public final Collection<PowerUp> getPowerUps() {
+        return this.map.getSpawner().getActivePowerUps().values();
+    }
+
+    public void setMultiPlayerInterface(AndroidMultiplayerInterface i) {
+        multiplayerInterface = i;
+        collisionDetector.setMultiPlayerInterface(i);
+        map.setMultiPlayerInterface(i);
+        multiplayerIntitialized = true;
+    }
+
+    /**
+     * Retrieves the game countdown-timer.
      * 
      * @return timer
      */
@@ -239,14 +235,15 @@ public class GameWorld extends Game {
         return this.timer;
     }
 
-    /**Retrieves the winning team of a game.
+    /**
+     * Retrieves the winning team of a game.
      * 
      * @return winner
      */
     public Team getWinner() {
         Team team = null;
         int highscore = -1;
-        for (Team t : teams.values()){
+        for (Team t : teams.values()) {
             if (t.getScore() > highscore) {
                 team = t;
                 highscore = t.getScore();
@@ -255,4 +252,3 @@ public class GameWorld extends Game {
         return team;
     }
 }
-

@@ -6,7 +6,6 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Looper;
 import android.util.Log;
 import android.view.WindowManager;
 
@@ -71,7 +70,7 @@ public class AndroidLauncher extends AndroidApplication implements
 		if (request == RC_WAITING_ROOM) {
 			if (response == RESULT_OK) {
 				Log.d("MULTI", "game started trough activityResult");
-				gameWorld.setScreen();
+				gameWorld.startGame();
 				System.out.println("teamID = "
 						+ gameWorld.getTeam().getTeamId());
 			}
@@ -117,32 +116,6 @@ public class AndroidLauncher extends AndroidApplication implements
 					.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
 		}
-		// if (request == RC_WAITING_ROOM) {
-		// if (response == RESULT_OK) {
-		// gameWorld.setScreen();
-		// } else if (response == RESULT_CANCELED) {
-		// // Waiting room was dismissed with the back button. The meaning
-		// // of this
-		// // action is up to the game. You may choose to leave the room
-		// // and cancel the
-		// // match, or do something else like minimize the waiting room
-		// // and
-		// // continue to connect in the background.
-		//
-		// // in this example, we take the simple approach and just leave
-		// // the room:
-		// Games.RealTimeMultiplayer.leave(aHelper.getApiClient(), null,
-		// roomId);
-		// getWindow().clearFlags(
-		// WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-		// } else if (response == GamesActivityResultCodes.RESULT_LEFT_ROOM) {
-		// // player wants to leave the room.
-		// Games.RealTimeMultiplayer.leave(aHelper.getApiClient(), null,
-		// roomId);
-		// getWindow().clearFlags(
-		// WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-		// }
-		// }
 	}
 
 	public void onSignInFailed() {
@@ -151,7 +124,6 @@ public class AndroidLauncher extends AndroidApplication implements
 
 	public void onSignInSucceeded() {
 		System.out.println("sign in succeeded");
-		// startQuickGame();
 		startGame();
 	}
 
@@ -185,31 +157,6 @@ public class AndroidLauncher extends AndroidApplication implements
 
 	public boolean getSignedIn() {
 		return aHelper.isSignedIn();
-	}
-
-	private void startQuickGame() {
-		// auto-match criteria to invite one random automatch opponent.
-		// You can also specify more opponents (up to 3).
-
-		Bundle am = RoomConfig.createAutoMatchCriteria(1, 7, 0);
-
-
-		// build the room config:
-		RoomConfig.Builder roomConfigBuilder = makeBasicRoomConfigBuilder();
-		roomConfigBuilder.setAutoMatchCriteria(am);
-		RoomConfig roomConfig = roomConfigBuilder.build();
-
-		// create room:
-		Games.RealTimeMultiplayer.create(aHelper.getApiClient(), roomConfig);
-
-		// prevent screen from sleeping during handshake
-		runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				getWindow().addFlags(
-						WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-			}
-		});
 	}
 
 	private void startGame() {

@@ -3,7 +3,7 @@ package com.taxi_trouble.game.model.team;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-import static com.taxi_trouble.game.properties.ResourceManager.yellowTaxiSprite;
+import static com.taxi_trouble.game.properties.ResourceManager.getSprite;
 
 /**YellowTeamTheme defines the theme for the yellow team.
  * 
@@ -29,7 +29,7 @@ public class YellowTeamTheme implements TeamTheme {
      */
     @Override
     public Sprite getTaxiSprite() {
-        return yellowTaxiSprite;
+        return getSprite("yellowTaxiSprite");
     }
 
 }

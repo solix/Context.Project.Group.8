@@ -2,9 +2,7 @@ package com.taxi_trouble.game.screens;
 
 import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_HEIGHT;
 import static com.taxi_trouble.game.properties.GameProperties.BUTTON_CAM_WIDTH;
-import static com.taxi_trouble.game.properties.ResourceManager.hudFont;
-
-import java.util.concurrent.ConcurrentLinkedQueue;
+import static com.taxi_trouble.game.properties.ResourceManager.getHudFont;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -14,7 +12,6 @@ import com.badlogic.gdx.utils.Timer.Task;
 import com.taxi_trouble.game.model.CountDownTimer;
 import com.taxi_trouble.game.model.GameWorld;
 import com.taxi_trouble.game.model.WorldMap;
-import com.taxi_trouble.game.model.entities.Entity;
 import com.taxi_trouble.game.model.entities.Passenger;
 import com.taxi_trouble.game.model.entities.Taxi;
 import com.taxi_trouble.game.model.entities.powerups.PowerUp;
@@ -32,14 +29,13 @@ import com.taxi_trouble.game.screens.hud.TimerHUD;
  * @author Computer Games Project Group 8
  */
 public abstract class ViewObserver implements Screen {
-	protected final GameWorld taxigame;
-	protected Team team;
-	protected Taxi ownTaxi;
-	protected WorldMap cityMap;
+    protected final GameWorld taxigame;
+    protected Team team;
+    protected Taxi ownTaxi;
+    protected WorldMap cityMap;
     protected OrthographicCamera hudCamera;
     protected HeadUpDisplay hud;
     protected TimerHUD dropOffTimerHUD;
-	
 
     /**
      * Constructor for creating game Screen.
@@ -50,32 +46,32 @@ public abstract class ViewObserver implements Screen {
         this.taxigame = taxiGame;
     }
 
-	/**
-	 * Called when the screen is set as current screen.
-	 * 
-	 */
-	@Override
-	public void show() {
-		this.team = taxigame.getTeam();
-		this.ownTaxi = taxigame.getTeam().getTaxi();
-		this.cityMap = taxigame.getMap();
+    /**
+     * Called when the screen is set as current screen.
+     * 
+     */
+    @Override
+    public void show() {
+        this.team = taxigame.getTeam();
+        this.ownTaxi = taxigame.getTeam().getTaxi();
+        this.cityMap = taxigame.getMap();
         this.hudCamera = new OrthographicCamera();
-        this.hudCamera.setToOrtho(false, BUTTON_CAM_WIDTH,
-                BUTTON_CAM_HEIGHT);
+        this.hudCamera.setToOrtho(false, BUTTON_CAM_WIDTH, BUTTON_CAM_HEIGHT);
         this.initializeHUD();
         taxigame.getTimer().setEndCountDownEvent(new Task() {
             @Override
             public void run() {
-            	if (taxigame.getMultiplayerInterface().isHost()){
-            		Team winner = taxigame.getWinner();
-            		taxigame.getMultiplayerInterface().sendEndMessage(winner);
-            		showEndResultsBoard(winner);
-            	}
+                if (taxigame.getMultiplayerInterface().isHost()) {
+                    Team winner = taxigame.getWinner();
+                    taxigame.getMultiplayerInterface().sendEndMessage(winner);
+                    showEndResultsBoard(winner);
+                }
             }
         });
     }
 
-    /**Displays the winner of the game at the end.
+    /**
+     * Displays the winner of the game at the end.
      * 
      */
     public void showEndResultsBoard(Team winner) {
@@ -84,53 +80,46 @@ public abstract class ViewObserver implements Screen {
         this.hud.add(endGameHud);
     }
 
-	/**
-	 * Update the world and draw the sprites of the world.
-	 * 
-	 * @param delta
-	 *            delta to be rendered.
-	 */
-	@Override
-	public void render(float delta) {
-	    //TODO: Refactor this code!
-		if(!taxigame.getWorld().isLocked()){
-			taxigame.getMap().getSpawner().addEntityBodies(taxigame.getWorld());
-		}
-		else { 
-			System.out.println("world locked!! the deletion queue was not emptied!!!");
-		}
-		taxigame.getMap().getSpawner().removeDespawnedEntityBodies(taxigame.getWorld());
- 
-		// Progress the physics of the game
-		taxigame.getWorld().step(Gdx.app.getGraphics().getDeltaTime(), 3,
-				3);
+    /**
+     * Update the world and draw the sprites of the world.
+     * 
+     * @param delta
+     *            delta to be rendered.
+     */
+    @Override
+    public void render(float delta) {
+        //Initializes new and removes old entity bodies into/from the world
+        taxigame.getSpawner().updateEntityBodies(taxigame.getWorld());
 
-	    // Update the taxi movement for all taxis and render their sprites
+        // Progress the physics of the game
+        taxigame.getWorld().step(Gdx.app.getGraphics().getDeltaTime(), 3, 3);
+
+        // Update the taxi movement for all taxis and render their sprites
         for (Team team : taxigame.getTeams().values()) {
             Taxi taxi = team.getTaxi();
             taxi.update(Gdx.app.getGraphics().getDeltaTime());
             taxi.render(getSpriteBatch());
         }
 
-		// Render the passengers into the game
-		for (Passenger pass : taxigame.getPassengers().values()) {
-			pass.render(getSpriteBatch());
-		}
-		
-		// Show the destination for a taxi picking up the corresponding
-		// passenger
-		if (ownTaxi.pickedUpPassenger()) {
-			ownTaxi.getPassenger().getDestination().render(getSpriteBatch());
+        // Render the passengers into the game
+        for (Passenger pass : taxigame.getPassengers()) {
+            pass.render(getSpriteBatch());
+        }
+
+        // Show the destination for a taxi picking up the corresponding
+        // passenger
+        if (ownTaxi.pickedUpPassenger()) {
+            ownTaxi.getPassenger().getDestination().render(getSpriteBatch());
             showDropOffTimer(ownTaxi.getPassenger().getDropOffTimer());
-		}
-        else {
+        } else {
             hideDropOffTimer();
         }
 
-        for (PowerUp pow : cityMap.getSpawner().getActivePowerUps().values()) {
-        	if (!pow.isTaken()){
-        		pow.render(getSpriteBatch());
-        	}
+        //Render the power-ups into the game
+        for (PowerUp pow : taxigame.getPowerUps()) {
+            if (!pow.isTaken()) {
+                pow.render(getSpriteBatch());
+            }
         }
         getSpriteBatch().setProjectionMatrix(hudCamera.combined);
         this.hud.render(getSpriteBatch());
@@ -138,8 +127,8 @@ public abstract class ViewObserver implements Screen {
 
     private void showDropOffTimer(CountDownTimer dropOffTimer) {
         if (!this.hud.contains(dropOffTimerHUD)) {
-            dropOffTimerHUD = new TimerHUD("Drop-off time-limit:", 300, 100, 
-                dropOffTimer);
+            dropOffTimerHUD = new TimerHUD("Drop-off time-limit:", 250, 100,
+                    dropOffTimer);
             this.hud.add(dropOffTimerHUD);
         }
     }
@@ -149,11 +138,11 @@ public abstract class ViewObserver implements Screen {
     }
 
     /**
-     * Initializes the HUD that should be displayed on screen together
-     * with all components.
+     * Initializes the HUD that should be displayed on screen together with all
+     * components.
      */
     private void initializeHUD() {
-        this.hud = new HeadUpDisplay(hudFont, team);
+        this.hud = new HeadUpDisplay(getHudFont(), team);
         this.hud.add(new TeamHUD("Team", 10, 470));
         this.hud.add(new ScoreHUD("Score:", 10, 440));
         this.hud.add(new TimerHUD("Time:", 680, 470, taxigame.getTimer()));

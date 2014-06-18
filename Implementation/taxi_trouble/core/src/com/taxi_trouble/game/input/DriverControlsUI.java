@@ -1,8 +1,6 @@
 package com.taxi_trouble.game.input;
 
-import static com.taxi_trouble.game.properties.ResourceManager.brakeSprite;
-import static com.taxi_trouble.game.properties.ResourceManager.dPadSprite;
-import static com.taxi_trouble.game.properties.ResourceManager.throttleSprite;
+import static com.taxi_trouble.game.properties.ResourceManager.getSprite;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,14 +29,14 @@ public class DriverControlsUI {
 
 		buttons.put("throttle", new VirtualButton(new Rectangle(
 				GameProperties.BUTTON_CAM_WIDTH - 110, 10, 100, 200),
-				throttleSprite, Action.ACCELERATE));
+				getSprite("throttleSprite"), Action.ACCELERATE));
 
 		buttons.put("brake", new VirtualButton(new Rectangle(
 				GameProperties.BUTTON_CAM_WIDTH - 260, 10, 150, 100),
-				brakeSprite, Action.BRAKE));
+				getSprite("brakeSprite"), Action.BRAKE));
 
 		buttons.put("dpad", new VirtualDPad(new Rectangle(10, 10, 200, 100),
-				dPadSprite, Action.DPAD_DEFAULT));
+		        getSprite("dPadSprite"), Action.DPAD_DEFAULT));
 	}
 
 	/**
