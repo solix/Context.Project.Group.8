@@ -712,6 +712,13 @@ public class Taxi extends Entity{
         powerUp.activatePowerUp(this);
     }
 
+    
+    /**
+     * Generates a String to be send over the network to inform
+     * other client of the current state of the taxi.
+     * 
+     * @return: A String to be send over the network.
+     */
     public String networkMessage() {
 
         int teamId = getTeam().getTeamId();
@@ -727,6 +734,18 @@ public class Taxi extends Entity{
                 + steerDirection + " ";
     }
 
+    
+    /**
+     * Updates the state of the taxi.
+     * 
+     * @param x: The x-coordinate of the location of the taxi.
+     * @param y: The y-coordinate of the location of the taxi.
+     * @param angle: The orientation of the taxi.
+     * @param xSpeed: The x component of the taxi's speed.
+     * @param ySpeed: The y component of the taxi's speed
+     * @param acceleration: The acceleration state of the taxi.
+     * @param steerDirection: The steerDirection state of the taxi.
+     */
     public void setInfo(float x, float y, float angle, float xSpeed,
             float ySpeed, int acceleration, int steerDirection) {
 
