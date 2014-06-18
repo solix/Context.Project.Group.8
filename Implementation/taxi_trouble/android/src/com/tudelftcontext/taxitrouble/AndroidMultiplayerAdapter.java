@@ -33,7 +33,6 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 	@Override
 	public void sendCarLocation(String message) {
 		if (roomId != null) {
-			// reliableBroadcast(message);
 			Games.RealTimeMultiplayer.sendUnreliableMessageToOthers(apiClient,
 					message.getBytes(), roomId);
 		}
