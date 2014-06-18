@@ -1,0 +1,87 @@
+\documentclass{article}
+\usepackage{xcolor}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{caption}
+\usepackage{verbatim}
+\usepackage{amssymb}
+\usepackage{amsmath,amsthm}
+\usepackage{amsfonts}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{qtree}
+\usepackage{tikz}
+\usepackage{bm}
+\usepackage{frame,color}
+\usepackage{datetime}
+\usepackage{etoolbox}
+\usepackage{emerald}
+\usepackage[T1]{fontenc}
+\usepackage{bookmark}
+\usepackage{multirow}
+\makeatletter
+\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+\makeatother
+\definecolor{shadecolor}{rgb}{184,184,184}
+\usetikzlibrary{calc,positioning}
+\usetikzlibrary{arrows,automata}
+\renewcommand{\familydefault}{\sfdefault}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%TITLE PAGE%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}
+    \begin{minipage}[H]{0.33\textwidth}
+		\vspace{0.3cm}
+		\includegraphics[scale=0.8]{images/TUDelftLogo.eps}
+	\end{minipage}
+	\begin{minipage}[H]{0.33\textwidth}
+		\begin{center}
+			\ECFJD{Context Project Group 8}
+		\end{center}
+		\begin{center}
+			\includegraphics[scale=0.8]{images/Lg.eps}	
+		
+		\end{center}
+	\end{minipage}
+	\begin{minipage}[H]{0.33\textwidth}
+			\begin{flushright}
+				\small{Rob van Bekkum \qquad 4210816}\\
+				\small{Thijs Brands \qquad 4247132}\\
+				\small{Soheil Jahanshahi \qquad 4127617}\\
+				\small{Aidan Mauricio \qquad 4195175}\\
+				\small{Joost van Oorschot \qquad  4220471}
+			\end{flushright}
+	\end{minipage}
+\end{figure}
+
+\begin{minipage}[H]{\textwidth}
+\vspace{0.3cm}
+		\begin{center}
+		  \vspace{0.3cm}
+		  \Huge{\textbf{Video Script}}\\
+	      \vspace{0.3cm}	
+   		  \vspace{0.7cm}	
+		\end{center}
+\end{minipage}
+For submission to the CHI Play competition, we will create a video showcasing our video game Taxi Trouble. The video will consist of screen-captured gameplay.\\\\
+The video will start by stating that we are a team of students and that we have set out to create a game to collectively entertain a large group of people.\\\\
+Following the introduction, the video will show the main gameplay elements for the driver:
+\begin{itemize}
+\item Pick up a passenger
+\item Race to deliver a passenger on time
+\end{itemize}
+Then, the video will show the importance of the navigator with the following gameplay elements:
+\begin{itemize}
+\item Help your driver navigate around the large city
+\item Plan out an optimal route for your driver
+\item Activate power-ups
+\end{itemize}
+After this, the video will showcase the competitive team gameplay:
+\begin{itemize}
+\item Play against other teams
+\item Steal passengers in order to win
+\end{itemize}
+\end{document}
