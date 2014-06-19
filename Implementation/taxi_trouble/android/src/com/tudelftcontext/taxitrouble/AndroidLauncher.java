@@ -50,6 +50,9 @@ public class AndroidLauncher extends AndroidApplication implements
 		aHelper = new GameHelper(this, GameHelper.CLIENT_GAMES);
 		doSetup = true;
 		AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
+		for(int i = 0; i < 1000; i++) {
+		    System.out.println("WE AR LOGGING IN BLABLABLABLABLABLA TESTTEST");
+		}
 		login();
 		gameWorld = new GameWorld(this, multiplayerInterface);
 		messageAdapter = new MessageAdapter(gameWorld);
@@ -165,8 +168,7 @@ public class AndroidLauncher extends AndroidApplication implements
 				}
 			});
 		} catch (final Exception ex) {
-			Toast.makeText(getApplicationContext(), "Unable to logout.",
-					Toast.LENGTH_SHORT).show();
+		    showToast("Unable to logout.");
 		}
 	}
 
@@ -181,9 +183,23 @@ public class AndroidLauncher extends AndroidApplication implements
 					aHelper.getApiClient(), 1, 7);
 			startActivityForResult(intent, RC_SELECT_PLAYERS);
 		} else {
-			Toast.makeText(getApplicationContext(),
-					"Please wait to be signed in.", Toast.LENGTH_SHORT).show();
+		    showToast("Please wait to be signed in.");
+		    login();
 		}
+	}
+
+	/**Displays a toast on screen with a specified message.
+	 * 
+	 * @param message : the message to displayed on the toast
+	 */
+	public void showToast(final String message) {
+	    runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(),
+                        message, Toast.LENGTH_SHORT).show();
+            }
+        });
 	}
 
 	private RoomConfig.Builder makeBasicRoomConfigBuilder() {
@@ -384,7 +400,13 @@ public class AndroidLauncher extends AndroidApplication implements
 
 	@Override
 	public void showLeaderBoard() {
-		startActivityForResult(Games.Leaderboards.getLeaderboardIntent(
+	    if (isSignedIn()) {
+	        startActivityForResult(Games.Leaderboards.getLeaderboardIntent(
 				aHelper.getApiClient(), LEADERBOARD_ID), RC_LEADERBOARD);
+	    }
+	    else {
+	        showToast("Please wait to be signed in.");
+            login();
+	    }
 	}
 }
