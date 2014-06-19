@@ -31,7 +31,7 @@ import com.taxi_trouble.game.sound.TaxiJukebox;
  * @author Computer Games Project Group 8
  * 
  */
-public class Taxi extends Entity{
+public class Taxi extends Entity {
     private float maxSteerAngle;
     private float maxSpeed;
     private float originalSpeed;
@@ -43,10 +43,6 @@ public class Taxi extends Entity{
     private Passenger passenger;
     private Team team;
     private boolean invincibility;
-    private float oldX;
-    private float oldY;
-    private float oldAngle;
-    private boolean hasMoved;
 
     /**
      * Initializes a new Taxi which can be controlled by a player.
@@ -74,7 +70,6 @@ public class Taxi extends Entity{
         this.steer = SteerDirection.STEER_NONE;
         this.acceleration = Acceleration.ACC_NONE;
         this.invincibility = false;
-
     }
 
     /**
@@ -120,14 +115,14 @@ public class Taxi extends Entity{
      *            : world used to create the bodies of the taxi wheels
      */
     private void initializeWheels(World world) {
-        this.wheels.add(new Wheel(world, this, new Vector2(-1f, -1.4f),
-                0.4f, 0.6f, true, true)); // top left
-        this.wheels.add(new Wheel(world, this, new Vector2(1f, -1.4f),
-                0.4f, 0.6f, true, true)); // top right
-        this.wheels.add(new Wheel(world, this, new Vector2(-1f, 1.2f),
-                0.4f, 0.6f, false, false)); // back left
-        this.wheels.add(new Wheel(world, this, new Vector2(1f, 1.2f),
-                0.4f, 0.6f, false, false)); // back right
+        this.wheels.add(new Wheel(world, this, new Vector2(-1f, -1.4f), 0.4f,
+                0.6f, true, true)); // top left
+        this.wheels.add(new Wheel(world, this, new Vector2(1f, -1.4f), 0.4f,
+                0.6f, true, true)); // top right
+        this.wheels.add(new Wheel(world, this, new Vector2(-1f, 1.2f), 0.4f,
+                0.6f, false, false)); // back left
+        this.wheels.add(new Wheel(world, this, new Vector2(1f, 1.2f), 0.4f,
+                0.6f, false, false)); // back right
     }
 
     /**
@@ -467,6 +462,15 @@ public class Taxi extends Entity{
 
     }
 
+    /**
+     * Checks if a drop-off has been detected at a certain drop-off.
+     * 
+     * @param destination
+     *            : The drop-off that is checked.
+     * @param map
+     *            : The map of the gameWorld.
+     * @return true if the drop off is detected, false otherwise.
+     */
     public boolean dropOffDetected(Destination destination, WorldMap map) {
         if (pickedUpPassenger()
                 && this.passenger.getDestination().equals(destination)) {
@@ -605,7 +609,6 @@ public class Taxi extends Entity{
      * @param spriteBatch
      */
     public void render(SpriteBatch spriteBatch) {
-        setMoved();
 
         for (Wheel wheel : getWheels()) {
             wheel.render(spriteBatch);
@@ -658,26 +661,6 @@ public class Taxi extends Entity{
         this.passenger = null;
     }
 
-    private void setMoved() {
-        hasMoved = false;
-        if (Math.abs(oldX - getXPosition()) > 0.25
-                || Math.abs(oldY - getYPosition()) > 0.25
-                || Math.abs(oldAngle - getAngle()) > 0.2) {
-            hasMoved = true;
-            updateOldLocation();
-        }
-    }
-
-    private void updateOldLocation() {
-        oldX = getXPosition();
-        oldY = getYPosition();
-        oldAngle = getAngle();
-    }
-
-    public boolean hasMoved() {
-        return hasMoved;
-    }
-
     /**
      * Makes the taxi pickup a power-up which can be activated by the navigator
      * of the team.
@@ -692,15 +675,6 @@ public class Taxi extends Entity{
         powerUp.setTaken(true);
     }
 
-    public boolean powerUpAvailable(PowerUp powerUp, WorldMap map) {
-        Spawner spawner = map.getSpawner();
-        if (spawner.powerUpIsAvailable(powerUp)) {
-            pickUpPowerUp(powerUp, map);
-            return true;
-        }
-        return false;
-    }
-
     /**
      * Activates a given power-up for this taxi. The effects of the powerup are
      * defined by its behaviour.
@@ -712,10 +686,9 @@ public class Taxi extends Entity{
         powerUp.activatePowerUp(this);
     }
 
-    
     /**
-     * Generates a String to be send over the network to inform
-     * other client of the current state of the taxi.
+     * Generates a String to be send over the network to inform other client of
+     * the current state of the taxi.
      * 
      * @return: A String to be send over the network.
      */
@@ -734,26 +707,29 @@ public class Taxi extends Entity{
                 + steerDirection + " ";
     }
 
-    
     /**
      * Updates the state of the taxi.
      * 
-     * @param x: The x-coordinate of the location of the taxi.
-     * @param y: The y-coordinate of the location of the taxi.
-     * @param angle: The orientation of the taxi.
-     * @param xSpeed: The x component of the taxi's speed.
-     * @param ySpeed: The y component of the taxi's speed
-     * @param acceleration: The acceleration state of the taxi.
-     * @param steerDirection: The steerDirection state of the taxi.
+     * @param x
+     *            : The x-coordinate of the location of the taxi.
+     * @param y
+     *            : The y-coordinate of the location of the taxi.
+     * @param angle
+     *            : The orientation of the taxi.
+     * @param xSpeed
+     *            : The x component of the taxi's speed.
+     * @param ySpeed
+     *            : The y component of the taxi's speed
+     * @param acceleration
+     *            : The acceleration state of the taxi.
+     * @param steerDirection
+     *            : The steerDirection state of the taxi.
      */
-    public void setInfo(float x, float y, float angle, float xSpeed,
+    public void updateState(float x, float y, float angle, float xSpeed,
             float ySpeed, int acceleration, int steerDirection) {
-
         getBody().setTransform(x, y, angle);
         getBody().setLinearVelocity(xSpeed, ySpeed);
         setAccelerate(Acceleration.values[acceleration]);
         setSteer(SteerDirection.values[steerDirection]);
-
     }
-
 }

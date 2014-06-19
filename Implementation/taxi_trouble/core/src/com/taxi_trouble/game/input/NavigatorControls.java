@@ -191,7 +191,7 @@ public class NavigatorControls implements InputProcessor {
         return (float) Math.sqrt(x + y);
     }
 
-    //TODO: Refactor this code!
+    // TODO: Refactor this code!
     /**
      * This method alters the camera.zoom value to zoom in and out of the map.
      * 
@@ -219,19 +219,55 @@ public class NavigatorControls implements InputProcessor {
         }
         // If after the zoom * factor camera.zoom < 0.5 or > 1.5 then do
         // nothing.
-        if (cam.zoom * factor > 1.5
-                || ((mapCamera.position.x < VIRTUAL_WIDTH
-                        * mapscreen.getScale() / 2
-                        || mapCamera.position.x >= mapPixelWidth
-                                - VIRTUAL_WIDTH * mapscreen.getScale() / 2
-                        || mapCamera.position.y < VIRTUAL_HEIGHT
-                                * mapscreen.getScale() / 2 || mapCamera.position.y >= mapPixelHeight
-                        - VIRTUAL_HEIGHT * mapscreen.getScale() / 2) && factor > 1)
-                || cam.zoom * factor < 0.5) {
+        if (checkCamZoom(cam, factor) || checkMapCameraX(mapPixelWidth)
+                || checkMapCameraY(mapPixelHeight)) {
             return;
         }
         cam.zoom = cam.zoom * factor;
         ZOOM = cam.zoom;
         mapscreen.setScale(factor * mapscreen.getScale());
+    }
+
+    /**
+     * Checks whether cam.zoom * factor is < 0.5 or > 1.5.
+     * 
+     * @param cam
+     * @param factor
+     * @return
+     */
+    private boolean checkCamZoom(OrthographicCamera cam, float factor) {
+        return cam.zoom * factor > 1.5 || cam.zoom * factor < 0.5;
+    }
+
+    /**
+     * Checks whether mapCamera.position.x is < VIRTUAL_WIDTH * mapscreens scale
+     * / 2 OR whether mapCamera.position.x is >= maps width - VIRTUAL_WIDTH *
+     * mapscreens scale / 2
+     * 
+     * @param width
+     * @return
+     */
+    private boolean checkMapCameraX(int width) {
+        boolean res1 = mapCamera.position.x < VIRTUAL_WIDTH
+                * mapscreen.getScale() / 2;
+        boolean res2 = mapCamera.position.x >= width - VIRTUAL_WIDTH
+                * mapscreen.getScale() / 2;
+        return res1 || res2;
+    }
+
+    /**
+     * Checks whether mapCamera.position.y is < VIRTUAL_HEIGHT * mapscreens
+     * scale / 2 OR whether mapCamera.position.y is >= maps width -
+     * VIRTUAL_HEIGHT * mapscreens scale / 2
+     * 
+     * @param height
+     * @return
+     */
+    private boolean checkMapCameraY(int height) {
+        boolean res1 = mapCamera.position.y < VIRTUAL_HEIGHT
+                * mapscreen.getScale() / 2;
+        boolean res2 = mapCamera.position.y >= height - VIRTUAL_HEIGHT
+                * mapscreen.getScale() / 2;
+        return res1 || res2;
     }
 }

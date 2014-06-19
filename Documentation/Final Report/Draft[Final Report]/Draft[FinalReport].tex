@@ -1,4 +1,4 @@
-\documentclass[a4paper,landscape]{article}
+\documentclass{article}
 \usepackage{xcolor}
 \usepackage{fullpage}
 \usepackage{graphicx}
@@ -37,7 +37,7 @@
 \renewcommand{\familydefault}{\sfdefault}
 \setlength{\columnsep}{2cm}
 \begin{document}
-%\begin{landscape}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%TITLE PAGE%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -69,8 +69,17 @@
 			
 	\end{minipage}
 	\end{figure}
+
+\begin{minipage}[H]{\textwidth}
+\vspace{0.3cm}
+		\begin{center}
+		  \vspace{0.3cm}
+		  \Huge{\textbf{Final Report}}\\
+	      \vspace{0.3cm}	
+   		  \vspace{0.7cm}	
+		\end{center}
+\end{minipage}
 %%%%%%%%%%%%%%%%%%%%%%%%header ends here%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\maketitle	
 	\section{Introduction}
 	\input{./sections/1.Introduction.tex}
 	\section{Overview}
@@ -84,4 +93,4 @@
 	\section{Outlook}
 	\input{./sections/6.Outlook.tex}
 	
-	\end{document}
+\end{document}
