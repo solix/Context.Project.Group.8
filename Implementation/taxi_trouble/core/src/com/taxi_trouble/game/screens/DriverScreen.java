@@ -67,14 +67,14 @@ public class DriverScreen extends ViewObserver {
 		ownTaxi.update(Gdx.app.getGraphics().getDeltaTime());
 		cityMap.render(taxiCamera);
 
-        super.render(delta);
 
-        spriteBatch.setProjectionMatrix(hudCamera.combined);
-        controlsUI.render(spriteBatch);
 		if (System.currentTimeMillis() - lastCarUpdate > 50) {
 			taxigame.getMultiplayerInterface().sendCarLocation(ownTaxi.networkMessage());
 			lastCarUpdate = System.currentTimeMillis();
 		}
+		super.render(delta);
+		spriteBatch.setProjectionMatrix(hudCamera.combined);
+		controlsUI.render(spriteBatch);
 	}
 
 	@Override

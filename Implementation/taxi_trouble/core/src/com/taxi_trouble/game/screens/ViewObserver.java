@@ -66,6 +66,7 @@ public abstract class ViewObserver implements Screen {
 					Team winner = taxigame.getWinner();
 					taxigame.getMultiplayerInterface().sendEndMessage(winner);
 					showEndResultsBoard(winner);
+					taxigame.setActive(false);
 				}
 			}
 		});
@@ -89,6 +90,10 @@ public abstract class ViewObserver implements Screen {
 	 */
 	@Override
 	public void render(float delta) {
+		if (!taxigame.isActive()){
+			taxigame.reset();
+			return;
+		}
 		// Initializes new and removes old entity bodies into/from the world
 		taxigame.getSpawner().updateEntityBodies(taxigame.getWorld());
 

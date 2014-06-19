@@ -27,6 +27,11 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
     public void onRealTimeMessageReceived(String message) {
         Scanner sc = new Scanner(message);
         String flag = sc.next();
+        
+        if (!gameWorld.isActive() && !(flag.equals("SETUP"))){
+        	sc.close();
+        	return;
+        }
 
         if (flag.equals("TAXI")) {
             resolveTaxiMessage(sc);
@@ -45,12 +50,16 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
         } else if (flag.equals("SETUP")) {
             resolveSetupMessage(sc);
         } else if (flag.equals("END")) {
+        	System.out.println(message);
             resolveEndMessage(sc);
         }
         sc.close();
     }
 
-    private void resolveSetupMessage(Scanner sc) {
+ 
+
+	private void resolveSetupMessage(Scanner sc) {
+		gameWorld.setActive(true);
         boolean driver = sc.nextBoolean();
         int teamId = sc.nextInt();
         int totalTeams = sc.nextInt();
@@ -61,6 +70,8 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
     private void resolveEndMessage(Scanner sc) {
         Team winner = gameWorld.getTeamById(sc.nextInt());
         ((ViewObserver) gameWorld.getScreen()).showEndResultsBoard(winner);
+        gameWorld.setActive(false);
+        
     }
 
     private void resolveActivateMessage(Scanner sc) {

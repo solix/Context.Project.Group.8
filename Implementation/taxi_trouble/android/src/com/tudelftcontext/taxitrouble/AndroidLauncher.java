@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.GamesStatusCodes;
 import com.google.android.gms.games.multiplayer.Multiplayer;
@@ -165,7 +166,7 @@ public class AndroidLauncher extends AndroidApplication implements
 				}
 			});
 		} catch (final Exception ex) {
-		    showToast("Unable to logout.");
+			showToast("Unable to logout.");
 		}
 	}
 
@@ -174,7 +175,7 @@ public class AndroidLauncher extends AndroidApplication implements
 	}
 
 	public boolean isSigningIn() {
-	    return aHelper.isConnecting();
+		return aHelper.isConnecting();
 	}
 
 	@Override
@@ -183,24 +184,26 @@ public class AndroidLauncher extends AndroidApplication implements
 			Intent intent = Games.RealTimeMultiplayer.getSelectOpponentsIntent(
 					aHelper.getApiClient(), 1, 7);
 			startActivityForResult(intent, RC_SELECT_PLAYERS);
-		} else if(!isSigningIn()) {
-		    showToast("Please wait to be signed in and try again.");
-		    login();
+		} else if (!isSigningIn()) {
+			showToast("Please wait to be signed in and try again.");
+			login();
 		}
 	}
 
-	/**Displays a toast on screen with a specified message.
+	/**
+	 * Displays a toast on screen with a specified message.
 	 * 
-	 * @param message : the message to displayed on the toast
+	 * @param message
+	 *            : the message to displayed on the toast
 	 */
 	public void showToast(final String message) {
-	    runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(getApplicationContext(),
-                        message, Toast.LENGTH_SHORT).show();
-            }
-        });
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				Toast.makeText(getApplicationContext(), message,
+						Toast.LENGTH_SHORT).show();
+			}
+		});
 	}
 
 	private RoomConfig.Builder makeBasicRoomConfigBuilder() {
@@ -401,13 +404,21 @@ public class AndroidLauncher extends AndroidApplication implements
 
 	@Override
 	public void showLeaderBoard() {
-	    if (isSignedIn()) {
-	        startActivityForResult(Games.Leaderboards.getLeaderboardIntent(
-				aHelper.getApiClient(), LEADERBOARD_ID), RC_LEADERBOARD);
-	    }
-	    else if(!isSigningIn()) {
-	        showToast("Please wait to be signed in and try again.");
-            login();
-	    }
+		if (isSignedIn()) {
+			startActivityForResult(
+					Games.Leaderboards.getLeaderboardIntent(
+							aHelper.getApiClient(), LEADERBOARD_ID),
+					RC_LEADERBOARD);
+		} else if (!isSigningIn()) {
+			showToast("Please wait to be signed in and try again.");
+			login();
+		}
 	}
+
+	@Override
+	public void disconnect() {
+		Games.RealTimeMultiplayer.leave(aHelper.getApiClient(), this, roomId);
+		//getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+	}
+
 }
