@@ -50,9 +50,6 @@ public class AndroidLauncher extends AndroidApplication implements
 		aHelper = new GameHelper(this, GameHelper.CLIENT_GAMES);
 		doSetup = true;
 		AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
-		for(int i = 0; i < 1000; i++) {
-		    System.out.println("WE AR LOGGING IN BLABLABLABLABLABLA TESTTEST");
-		}
 		login();
 		gameWorld = new GameWorld(this, multiplayerInterface);
 		messageAdapter = new MessageAdapter(gameWorld);
@@ -176,14 +173,18 @@ public class AndroidLauncher extends AndroidApplication implements
 		return aHelper.isSignedIn();
 	}
 
+	public boolean isSigningIn() {
+	    return aHelper.isConnecting();
+	}
+
 	@Override
 	public void startGame() {
 		if (isSignedIn()) {
 			Intent intent = Games.RealTimeMultiplayer.getSelectOpponentsIntent(
 					aHelper.getApiClient(), 1, 7);
 			startActivityForResult(intent, RC_SELECT_PLAYERS);
-		} else {
-		    showToast("Please wait to be signed in.");
+		} else if(!isSigningIn()) {
+		    showToast("Please wait to be signed in and try again.");
 		    login();
 		}
 	}
@@ -404,8 +405,8 @@ public class AndroidLauncher extends AndroidApplication implements
 	        startActivityForResult(Games.Leaderboards.getLeaderboardIntent(
 				aHelper.getApiClient(), LEADERBOARD_ID), RC_LEADERBOARD);
 	    }
-	    else {
-	        showToast("Please wait to be signed in.");
+	    else if(!isSigningIn()) {
+	        showToast("Please wait to be signed in and try again.");
             login();
 	    }
 	}
