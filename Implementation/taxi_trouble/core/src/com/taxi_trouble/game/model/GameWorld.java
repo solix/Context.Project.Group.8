@@ -84,7 +84,7 @@ public class GameWorld extends Game {
 			}
 
 			Collection<PowerUp> powerups = getPowerUps();
-			if (powerups.size() < teams.size() || powerups.size() == 0) {
+			if (powerups.size() < 3) {
 				map.getSpawner().spawnPowerUp(getWorld());
 			}
 		}
