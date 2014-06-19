@@ -124,6 +124,20 @@ public class AndroidLauncher extends AndroidApplication implements
 
 	public void onSignInSucceeded() {
 		System.out.println("sign in succeeded");
+
+		if (aHelper.getInvitationId() != null) {
+			RoomConfig.Builder roomConfigBuilder = makeBasicRoomConfigBuilder();
+			roomConfigBuilder
+					.setInvitationIdToAccept(aHelper.getInvitationId());
+			Games.RealTimeMultiplayer.join(aHelper.getApiClient(),
+					roomConfigBuilder.build());
+
+			// prevent screen from sleeping during handshake
+			getWindow()
+					.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+			return;
+		}
+
 		startGame();
 	}
 
@@ -231,7 +245,6 @@ public class AndroidLauncher extends AndroidApplication implements
 			// display error
 			return;
 		}
-
 
 		Intent i = Games.RealTimeMultiplayer.getWaitingRoomIntent(
 				aHelper.getApiClient(), room, 2);
