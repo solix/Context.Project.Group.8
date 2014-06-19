@@ -19,6 +19,7 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 	private List<String> ids;
 	private boolean host = false;
 	private String hostId;
+	private final static String LEADERBOARD_ID = "CgkI1YWnl7kREAIQBg";
 
 	public AndroidMultiplayerAdapter(GoogleApiClient apiClient) {
 		this.apiClient = apiClient;
@@ -39,9 +40,8 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 	}
 
 	@Override
-	public void sendScore(int score) {
-		// TODO Auto-generated method stub
-
+	public void submitScore(int score) {
+		Games.Leaderboards.submitScore(apiClient, LEADERBOARD_ID, score);
 	}
 
 	/**

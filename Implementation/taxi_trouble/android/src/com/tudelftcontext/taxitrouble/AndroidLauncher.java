@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
@@ -40,6 +41,8 @@ public class AndroidLauncher extends AndroidApplication implements
 	// This can be any integer that's unique in your Activity.
 	private final static int RC_WAITING_ROOM = 10002;
 	private final static int RC_SELECT_PLAYERS = 10000;
+	private final static int RC_LEADERBOARD = 10003;
+	private final static String LEADERBOARD_ID = "CgkI1YWnl7kREAIQBg";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +50,8 @@ public class AndroidLauncher extends AndroidApplication implements
 		aHelper = new GameHelper(this, GameHelper.CLIENT_GAMES);
 		doSetup = true;
 		AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
-		gameWorld = new GameWorld(this);
+		login();
+		gameWorld = new GameWorld(this, multiplayerInterface);
 		messageAdapter = new MessageAdapter(gameWorld);
 		initialize(gameWorld, cfg);
 	}
@@ -137,11 +141,8 @@ public class AndroidLauncher extends AndroidApplication implements
 					.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 			return;
 		}
-
-		startGame();
 	}
 
-	@Override
 	public void login() {
 		if (doSetup) {
 			aHelper.setup(this);
@@ -151,7 +152,6 @@ public class AndroidLauncher extends AndroidApplication implements
 		aHelper.onStart(this);
 		multiplayerInterface = new AndroidMultiplayerAdapter(
 				aHelper.getApiClient());
-		gameWorld.setMultiPlayerInterface(multiplayerInterface);
 		aHelper.beginUserInitiatedSignIn();
 	}
 
@@ -165,18 +165,25 @@ public class AndroidLauncher extends AndroidApplication implements
 				}
 			});
 		} catch (final Exception ex) {
-
+			Toast.makeText(getApplicationContext(), "Unable to logout.",
+					Toast.LENGTH_SHORT).show();
 		}
 	}
 
-	public boolean getSignedIn() {
+	public boolean isSignedIn() {
 		return aHelper.isSignedIn();
 	}
 
-	private void startGame() {
-		Intent intent = Games.RealTimeMultiplayer.getSelectOpponentsIntent(
-				aHelper.getApiClient(), 1, 7);
-		startActivityForResult(intent, RC_SELECT_PLAYERS);
+	@Override
+	public void startGame() {
+		if (isSignedIn()) {
+			Intent intent = Games.RealTimeMultiplayer.getSelectOpponentsIntent(
+					aHelper.getApiClient(), 1, 7);
+			startActivityForResult(intent, RC_SELECT_PLAYERS);
+		} else {
+			Toast.makeText(getApplicationContext(),
+					"Please wait to be signed in.", Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	private RoomConfig.Builder makeBasicRoomConfigBuilder() {
@@ -373,5 +380,11 @@ public class AndroidLauncher extends AndroidApplication implements
 			getWindow().clearFlags(
 					WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		}
+	}
+
+	@Override
+	public void showLeaderBoard() {
+		startActivityForResult(Games.Leaderboards.getLeaderboardIntent(
+				aHelper.getApiClient(), LEADERBOARD_ID), RC_LEADERBOARD);
 	}
 }

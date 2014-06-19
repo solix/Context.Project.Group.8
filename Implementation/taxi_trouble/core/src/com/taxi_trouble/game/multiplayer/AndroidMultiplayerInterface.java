@@ -7,8 +7,6 @@ import com.taxi_trouble.game.model.team.Team;
 
 public interface AndroidMultiplayerInterface {
 
-	public void sendScore(int score);
-
 	/**
 	 * Sends data of the car to all other clients in the room.
 	 * 
@@ -85,4 +83,6 @@ public interface AndroidMultiplayerInterface {
 	 *            : the team that won the game.
 	 */
 	public void sendEndMessage(Team team);
+
+	public void submitScore(int score);
 }

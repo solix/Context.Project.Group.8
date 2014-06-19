@@ -38,10 +38,10 @@ public class MenuControl extends InputAdapter {
 		if (entry == null) {
 			return false;
 		} else if (entry.getKey().equals("play")) {
-			setupInterface.login();
+			setupInterface.startGame();
 			((UIButton) entry.getValue()).setActive(true);
 		} else if (entry.getKey().equals("board")) {
-			System.out.println("board");
+			setupInterface.showLeaderBoard();
 			((UIButton) entry.getValue()).setActive(true);
 		}
 
