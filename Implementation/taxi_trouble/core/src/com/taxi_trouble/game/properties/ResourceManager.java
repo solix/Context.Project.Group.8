@@ -28,6 +28,7 @@ public final class ResourceManager {
 
     static {
         spriteStore = new HashMap<String, Sprite>();
+        spriteSheetStore = new HashMap<String, Texture>();
     }
 
     private ResourceManager() {

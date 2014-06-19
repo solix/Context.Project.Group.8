@@ -12,5 +12,5 @@ public interface MultiplayerInterface {
 
 	public void createPassenger(float x, float y, int passengerId);
 
-	public void sendScore(int score);
+	public void submitScore(int score);
 }
