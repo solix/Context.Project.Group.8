@@ -17,9 +17,10 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 	private GoogleApiClient apiClient;
 	private String myId;
 	private List<String> ids;
-	private boolean host = false;
 	private String hostId;
 	private final static String LEADERBOARD_ID = "CgkI1YWnl7kREAIQBg";
+	private boolean isHost = false;
+	private boolean isDriver;
 
 	public AndroidMultiplayerAdapter(GoogleApiClient apiClient) {
 		this.apiClient = apiClient;
@@ -79,9 +80,6 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 				mySetupMessage = message;
 			}
 		}
-
-		// reliableBroadcast("TOTALTEAMS " + totalTeams, room);
-
 		return mySetupMessage;
 	}
 
@@ -111,7 +109,7 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 	}
 
 	/**
-	 * creates and sends a message with the state of a passenger.
+	 * Creates and sends a message with the state of a passenger.
 	 * 
 	 * @param taxi
 	 *            : The taxi that currently has the passenger.
@@ -133,25 +131,36 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 	 */
 	public void sendToHost(String message) {
 		byte[] messageBytes = message.getBytes();
-		if (!host)
+		if (!isHost()) {
 			Games.RealTimeMultiplayer.sendReliableMessage(apiClient, null,
 					messageBytes, roomId, hostId);
+		}
 	}
 
 	@Override
 	public void setHost(boolean host) {
-		this.host = host;
+		this.isHost = host;
 	}
 
 	/**
-	 * checks if this client is the host.
+	 * Retrieves whether this client is the host.
 	 * 
 	 * @return true is this client is the host, false otherwise.
 	 */
 	@Override
 	public boolean isHost() {
-		return host;
+		return isHost;
 	}
+
+    @Override
+    public void setDriver(boolean driver) {
+        this.isDriver = driver;
+    }
+
+    @Override
+    public boolean isDriver() {
+        return this.isDriver;
+    }
 
 	/**
 	 * Sets the ids of the clients connected to the room. These will be used to
@@ -244,5 +253,4 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
 	public void log(String message) {
 		System.out.println("BROADCASTED: " + message);
 	}
-
 }
