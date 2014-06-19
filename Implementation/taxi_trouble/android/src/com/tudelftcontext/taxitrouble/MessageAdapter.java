@@ -27,8 +27,6 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
     public void onRealTimeMessageReceived(String message) {
         Scanner sc = new Scanner(message);
         String flag = sc.next();
-        
-        System.out.println(message);
 
         if (flag.equals("TAXI")) {
             resolveTaxiMessage(sc);
@@ -48,7 +46,7 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
             resolveSetupMessage(sc);
         } else if (flag.equals("END")) {
             resolveEndMessage(sc);
-        } 
+        }
         sc.close();
     }
 
@@ -116,7 +114,8 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
         float ySpeed = Float.parseFloat(sc.next());
         int acceleration = sc.nextInt();
         int steerDirection = sc.nextInt();
-        taxi.updateState(x, y, angle, xSpeed, ySpeed, acceleration, steerDirection);
+        taxi.updateState(x, y, angle, xSpeed, ySpeed, acceleration,
+                steerDirection);
     }
 
     private void resolvePassengerMessage(Scanner sc) {
@@ -131,8 +130,8 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
         int destinationId = sc.nextInt();
         int charId = sc.nextInt();
         int passengerId = sc.nextInt();
-        spawner.spawnPassenger(gameWorld.getWorld(), spawnId,
-                destinationId, charId, passengerId);
+        spawner.spawnPassenger(gameWorld.getWorld(), spawnId, destinationId,
+                charId, passengerId);
     }
 
     private void resolveNewPowerUpMessage(Scanner sc) {

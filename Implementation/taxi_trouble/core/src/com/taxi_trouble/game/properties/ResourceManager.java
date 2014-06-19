@@ -21,6 +21,7 @@ import com.taxi_trouble.game.sound.TaxiJukebox;
  */
 public final class ResourceManager {
     private static Map<String, Sprite> spriteStore;
+    private static Map<String, Texture> spriteSheetStore;
     private static List<Sprite> characterSpriteList;
     private static TiledMap mapFile;
     private static BitmapFont hudFont;
@@ -38,6 +39,7 @@ public final class ResourceManager {
      */
     public static void loadResources() {
         loadSprites();
+        loadSpriteSheets();
         loadMap();
         loadFonts();
         loadFx();
@@ -56,6 +58,12 @@ public final class ResourceManager {
         loadSprite("sprites/destination.png", "destinationSprite");
     }
 
+    public static void loadSpriteSheets() {
+        loadSpriteSheet("sprites/powerups/speed-spritesheet.png", "speedSpriteSheet");
+        loadSpriteSheet("sprites/powerups/invincible-spritesheet.png", "invincibleSpriteSheet");
+        loadSpriteSheet("sprites/powerups/timer-spritesheet.png", "increaseTimeSpriteSheet");
+    }
+
     /**
      * Imports a sprite from specified path and store it with the
      * given identifier name.
@@ -72,14 +80,37 @@ public final class ResourceManager {
     }
 
     /**
+     * Imports a spritesheet from specified path and store it with
+     * the given identifier name.
+     * 
+     * @param path : path to the spritesheet resource
+     * @param name : String identifier of the spritesheet resource
+     */
+    public static void loadSpriteSheet(String path, String name) {
+        if(Gdx.files != null) {
+            Texture texture = new Texture(Gdx.files.internal(path));
+            spriteSheetStore.put(name, texture);
+        }
+    }
+
+    /**
      * Retrieves the sprite from the loaded sprite resources.
      *
      * @param name : String identifier of the sprite resource
      * @return sprite
      */
     public static Sprite getSprite(String name) {
-        Sprite sprite = spriteStore.get(name);
-        return sprite;
+        return spriteStore.get(name);
+    }
+
+    /**
+     * Retrieves the spriteSheet from the loaded spritesheet resources.
+     *
+     * @param name : String identifier of the spritesheet resource
+     * @return spritesheet texture
+     */
+    public static Texture getSpriteSheet(String name) {
+        return spriteSheetStore.get(name);
     }
 
     /**
