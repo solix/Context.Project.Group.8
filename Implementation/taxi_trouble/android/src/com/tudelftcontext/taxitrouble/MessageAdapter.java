@@ -116,7 +116,7 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
         float ySpeed = Float.parseFloat(sc.next());
         int acceleration = sc.nextInt();
         int steerDirection = sc.nextInt();
-        taxi.setInfo(x, y, angle, xSpeed, ySpeed, acceleration, steerDirection);
+        taxi.updateState(x, y, angle, xSpeed, ySpeed, acceleration, steerDirection);
     }
 
     private void resolvePassengerMessage(Scanner sc) {
