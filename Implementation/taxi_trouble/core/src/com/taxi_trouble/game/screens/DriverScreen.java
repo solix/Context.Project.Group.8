@@ -1,105 +1,117 @@
 package com.taxi_trouble.game.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL30;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.taxi_trouble.game.input.DriverControls;
 import com.taxi_trouble.game.input.DriverControlsUI;
 import com.taxi_trouble.game.model.GameWorld;
+
 /**
  * Provides the view of the game for the driver of a taxi.
- *
+ * 
  * @author Computer Games Project Group 8
- *
+ * 
  */
 public class DriverScreen extends ViewObserver {
-	private TaxiCamera taxiCamera;
-	private SpriteBatch spriteBatch;
+    private TaxiCamera taxiCamera;
+    private SpriteBatch spriteBatch;
     private DriverControls driverControl;
     private DriverControlsUI controlsUI;
     private double lastCarUpdate;
+    private boolean shown = false;
 
-	/**
-	 * Constructor, creates the Driver Screen.
-	 * 
-	 * @param game
-	 */
-	public DriverScreen(GameWorld game) {
-		super(game);
-		lastCarUpdate = System.currentTimeMillis();
-	}
+    /**
+     * Constructor, creates the Driver Screen.
+     * 
+     * @param game
+     */
+    public DriverScreen(GameWorld game) {
+        super(game);
+        lastCarUpdate = System.currentTimeMillis();
+    }
 
-	/**
-	 * Called when the Driver Screen is set as the current screen.
-	 * 
-	 */
-	@Override
-	public void show() {
-		super.show();
-		// Initialize the spriteBatch that should be used
-		spriteBatch = new SpriteBatch();
+    /**
+     * Called when the Driver Screen is set as the current screen.
+     * 
+     */
+    @Override
+    public void show() {
+        super.show();
 
         // Initialize the taxiCamera to follow the driver its taxi
-		this.taxiCamera = new TaxiCamera(ownTaxi);
+        this.taxiCamera = new TaxiCamera(ownTaxi);
 
-		// Load the UI for player input
+        // Load the UI for player input
         this.controlsUI = new DriverControlsUI();
-		this.driverControl = new DriverControls(ownTaxi, controlsUI);
-		Gdx.input.setInputProcessor(driverControl);
-	}
+        this.driverControl = new DriverControls(ownTaxi, controlsUI);
+        Gdx.input.setInputProcessor(driverControl);
+    }
 
-	@Override
-	public void resume() {
-		spriteBatch = new SpriteBatch();
-	}
+    @Override
+    public void resume() {
+        shown = false;
+    }
 
-	@Override
-	public void render(float delta) {
-		// Specify the clear values for the color buffers and clear the buffers
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
+    @Override
+    public void render(float delta) {
+        checkSpriteBatchInitialization();
 
-		// Update the taxiCamera's view
-		taxiCamera.update(cityMap);
+        // Specify the clear values for the color buffers and clear the buffers
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		// Tell the camera to update its matrices.
-		spriteBatch.setProjectionMatrix(taxiCamera.combined);
-		ownTaxi.update(Gdx.app.getGraphics().getDeltaTime());
-		cityMap.render(taxiCamera);
+        // Update the taxiCamera's view
+        taxiCamera.update(cityMap);
 
+        // Tell the camera to update its matrices.
+        spriteBatch.setProjectionMatrix(taxiCamera.combined);
+        ownTaxi.update(Gdx.app.getGraphics().getDeltaTime());
+        cityMap.render(taxiCamera);
+
+        if (System.currentTimeMillis() - lastCarUpdate > 50) {
+            taxigame.getMultiplayerInterface().sendCarLocation(
+                    ownTaxi.networkMessage());
+            lastCarUpdate = System.currentTimeMillis();
+        }
         super.render(delta);
-
         spriteBatch.setProjectionMatrix(hudCamera.combined);
         controlsUI.render(spriteBatch);
-		if (System.currentTimeMillis() - lastCarUpdate > 50) {
-			taxigame.getMultiplayerInterface().sendCarLocation(ownTaxi.networkMessage());
-			lastCarUpdate = System.currentTimeMillis();
-		}
-	}
+    }
 
-	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
-	}
+    @Override
+    public void hide() {
+        // TODO Auto-generated method stub
+    }
 
-	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
-	}
+    @Override
+    public void pause() {
+        // TODO Auto-generated method stub
+    }
 
-	@Override
-	public void dispose() {
-		spriteBatch.dispose();
-	}
+    @Override
+    public void dispose() {
+        spriteBatch.dispose();
+    }
 
-	@Override
-	public void resize(int width, int height) {
-		taxiCamera.updateViewPort(width, height);
-	}
+    @Override
+    public void resize(int width, int height) {
+        taxiCamera.updateViewPort(width, height);
+    }
 
-	@Override
-	public SpriteBatch getSpriteBatch() {
-		return this.spriteBatch;
-	}
+    @Override
+    public SpriteBatch getSpriteBatch() {
+        return this.spriteBatch;
+    }
 
+    /**
+     * Initializes the spritebatch in the first render
+     * when the GL-context is ready.
+     */
+    private void checkSpriteBatchInitialization() {
+        if(!shown) {
+            this.spriteBatch = new SpriteBatch();
+            shown = true;
+        }
+    }
 }

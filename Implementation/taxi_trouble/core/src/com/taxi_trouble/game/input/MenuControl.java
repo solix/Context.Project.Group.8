@@ -42,7 +42,6 @@ public class MenuControl extends InputAdapter {
 		} else if (entry.getKey().equals("board")) {
 			((UIButton) entry.getValue()).setActive(true);
 		}
-
 		return true;
 	}
 
@@ -65,7 +64,6 @@ public class MenuControl extends InputAdapter {
 			((UIButton) entry.getValue()).setActive(false);
 			setupInterface.showLeaderBoard();
 		}
-
 		return true;
 	}
 
@@ -82,7 +80,6 @@ public class MenuControl extends InputAdapter {
 				}
 			}
 		}
-
 		return null;
 	}
 }

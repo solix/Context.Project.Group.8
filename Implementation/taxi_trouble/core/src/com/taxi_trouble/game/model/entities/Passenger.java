@@ -106,10 +106,6 @@ public class Passenger extends Entity {
             removePassengerFromWorld(map.getWorld());
             cancelTransport();
         }
-        else{
-        	System.out.println("POSSIBLE DESYNC: TRIED TO DROP OF PASSENGER AT WRONG DESTINATION");
-        }
-        
     }
 
     /**

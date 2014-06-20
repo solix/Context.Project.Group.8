@@ -6,4 +6,6 @@ public interface SetupInterface {
 	public void logout();
 
 	public void showLeaderBoard();
+
+	public void leave();
 }
