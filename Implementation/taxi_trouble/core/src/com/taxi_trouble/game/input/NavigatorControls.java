@@ -22,6 +22,7 @@ import com.taxi_trouble.game.screens.NavigatorScreen;
  */
 public class NavigatorControls implements InputProcessor {
 
+    private NavigatorScreen mapscreen;
     private NavigatorControlsUI powerUpControlsUI;
     private Team team;
 
@@ -29,9 +30,8 @@ public class NavigatorControls implements InputProcessor {
     private int old_x;
     private int old_y;
     private float last_dist;
-    private NavigatorScreen mapscreen;
     private float old_factor = 1;
-    private float ZOOM = 1;
+    private float zoom = 1;
 
     /**
      * Constructor method for MapControlsUI.
@@ -64,28 +64,46 @@ public class NavigatorControls implements InputProcessor {
 
     /**
      * This method is called every time the screen is touched.
+     * 
      */
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         // If the index of the touch is 0 then initialize/ modify the value of
         // old_x and old_y.
         if (pointer == 0) {
-            old_x = screenX;
-            old_y = screenY;
+            updatePreviousPointerPosition(screenX, screenY);
         }
         // If there are 2 touches then initialize/ modify last_dist.
         if (Gdx.input.isTouched(1) && Gdx.input.isTouched(0)) {
-            Vector2 pointA = new Vector2(Gdx.input.getX(0), Gdx.input.getY(0));
-            Vector2 pointB = new Vector2(Gdx.input.getX(1), Gdx.input.getY(1));
-            last_dist = pyth(pointA, pointB);
-
+            updateLastDistance();
         }
+        // Update the position of the mapCamera
         if (Gdx.input.isTouched(1) && !Gdx.input.isTouched(0)) {
             mapCamera.position.set(0, 0, 0);
         }
         checkPowerUpButtonPressed(screenX, screenY, button);
 
         return true;
+    }
+
+    /**
+     * Updates the last touched position, i.e. the last pointer position.
+     * 
+     * @param screenX
+     * @param screenY
+     */
+    private void updatePreviousPointerPosition(int screenX, int screenY) {
+        old_x = screenX;
+        old_y = screenY;
+    }
+
+    /**
+     * Updates the last distance for two simultaneous touches.
+     */
+    private void updateLastDistance() {
+        Vector2 pointA = new Vector2(Gdx.input.getX(0), Gdx.input.getY(0));
+        Vector2 pointB = new Vector2(Gdx.input.getX(1), Gdx.input.getY(1));
+        last_dist = pointA.dst(pointB);
     }
 
     private void checkPowerUpButtonPressed(int screenX, int screenY, int button) {
@@ -128,25 +146,14 @@ public class NavigatorControls implements InputProcessor {
     public boolean touchDragged(int x, int y, int pointer) {
         // If the pointer == 0 then scroll through the map.
         if (Gdx.input.isTouched(0) && pointer == 0) {
-            // Calculate the difference between the old and the new coordinate *
-            // ZOOM for scaling purposes.
-            float deltaX = (old_x - x) * -1 * ZOOM;
-            float deltaY = (old_y - y) * ZOOM;
-            // Get the coordinates of the new position for the camera.
-            Vector3 newCamPos = mapCamera.position.sub(deltaX, deltaY, 0);
-            // Set the camera position to the new position.
-            mapCamera.position.set(newCamPos);
-            // Replace the old x and y coordinates.
-            old_x = x;
-            old_y = y;
+            scrollOver(x, y);
             return true;
-            // Else if 2 fingers are touching we start scaling/zooming through
-            // the map.
+        // Else if 2 fingers are touching we start scaling/zooming through the map
         } else if (Gdx.input.isTouched(1) && Gdx.input.isTouched(0)) {
             Vector2 pointA = new Vector2(Gdx.input.getX(0), Gdx.input.getY(0));
             Vector2 pointB = new Vector2(Gdx.input.getX(1), Gdx.input.getY(1));
             // Calculate the distance between the 2 touches.
-            float dist = pyth(pointA, pointB);
+            float dist = pointA.dst(pointB);
             // Calculate the factor between the old touch and the new touch.
             float factor = last_dist / dist;
             last_dist = dist;
@@ -154,28 +161,27 @@ public class NavigatorControls implements InputProcessor {
             zoom(mapCamera, factor);
             old_factor = factor;
             return true;
-        } else {
-            return false;
         }
-
+        return false;
     }
 
-    /**
-     * This method returns the distance between 2 points on the map using the
-     * pythagoras method.
-     * 
-     * @param v1
-     *            This is the first vector provided.
-     * @param v2
-     *            This is the second vector provided.
-     * @return
+    /**Scrolls the mapCamera view respective to the given touchpositions.
+     *
+     * @param x
+     * @param y
      */
-    public float pyth(Vector2 v1, Vector2 v2) {
-        float x = Math.abs(v1.x - v2.x);
-        float y = Math.abs(v1.y - v2.y);
-        x = x * x;
-        y = y * y;
-        return (float) Math.sqrt(x + y);
+    private void scrollOver(int x, int y) {
+        // Calculate the difference between the old and the new coordinate *
+        // ZOOM for scaling purposes.
+        float deltaX = (old_x - x) * -1 * zoom;
+        float deltaY = (old_y - y) * zoom;
+        // Get the coordinates of the new position for the camera.
+        Vector3 newCamPos = mapCamera.position.sub(deltaX, deltaY, 0);
+        // Set the camera position to the new position.
+        mapCamera.position.set(newCamPos);
+        // Replace the old x and y coordinates.
+        old_x = x;
+        old_y = y;
     }
 
     /**
@@ -210,7 +216,7 @@ public class NavigatorControls implements InputProcessor {
             return;
         }
         cam.zoom = cam.zoom * factor;
-        ZOOM = cam.zoom;
+        zoom = cam.zoom;
         mapscreen.setScale(factor * mapscreen.getScale());
     }
 
