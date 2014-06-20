@@ -1,5 +1,10 @@
 package com.taxi_trouble.game.multiplayer;
 
+/**Interface that is used for frequent multiplayer-communication.
+ * 
+ * @author Computer Games Project Group 8
+ *
+ */
 public interface MultiplayerInterface {
 
 	public void login();

@@ -252,6 +252,10 @@ public abstract class Entity {
         }
     }
 
+    /**Adds the body to the specified world.
+     *
+     * @param world
+     */
     public void addBodyToWorld(World world) {
     }
 }

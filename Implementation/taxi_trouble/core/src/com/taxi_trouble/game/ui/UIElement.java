@@ -4,6 +4,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
+/**The most basic building block of the menu UI.
+ * 
+ * @author Computer Games Project Group 8
+ *
+ */
 public class UIElement {
 	protected Rectangle body;
 	protected Sprite sprite;

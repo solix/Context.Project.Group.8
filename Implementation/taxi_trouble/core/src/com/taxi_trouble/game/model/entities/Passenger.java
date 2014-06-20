@@ -28,10 +28,8 @@ public class Passenger extends Entity {
     /**
      * Initializes a new passenger.
      * 
-     * @param width
-     *            : the width of the passenger
-     * @param height
-     *            : the height of the passenger
+     * @param point
+     *            : the spawnpoint of the passenger
      * @param id
      *            : the identifier of the passenger
      */

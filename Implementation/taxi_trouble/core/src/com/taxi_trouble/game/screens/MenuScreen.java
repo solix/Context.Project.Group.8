@@ -18,6 +18,12 @@ import com.taxi_trouble.game.multiplayer.SetupInterface;
 import com.taxi_trouble.game.ui.UIButton;
 import com.taxi_trouble.game.ui.UIElement;
 
+/**
+ * Screen for the main menu of the game.
+ * 
+ * @author Computer Games Project Group 8
+ * 
+ */
 public class MenuScreen implements Screen {
     private Map<String, UIElement> elements;
     private SpriteBatch spriteBatch;
@@ -69,14 +75,10 @@ public class MenuScreen implements Screen {
 
     @Override
     public void hide() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void pause() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override

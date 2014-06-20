@@ -21,6 +21,10 @@ public class TaxiCamera extends OrthographicCamera {
     private Viewport viewport;
     private Taxi taxi;
 
+    /**Initializes a new taxi camera following the specified taxi.
+     * 
+     * @param taxi
+     */
     public TaxiCamera(Taxi taxi) {
         this.taxi = taxi;
         this.setToOrtho(false, getScreenWidth(), getScreenHeight());
@@ -28,13 +32,17 @@ public class TaxiCamera extends OrthographicCamera {
                 VIRTUAL_HEIGHT, this);
     }
 
+    /**Updates the camera to follow the taxi.
+     *
+     * @param map
+     */
     public void update(WorldMap map) {
         this.followtaxi();
         this.stayInBounds(map);
         super.update();
     }
 
-    public void followtaxi() {
+    private void followtaxi() {
         this.position.set(taxi.getXPosition() * PIXELS_PER_METER,
                 taxi.getYPosition() * PIXELS_PER_METER, 0);
     }
@@ -44,7 +52,7 @@ public class TaxiCamera extends OrthographicCamera {
      * outside it.
      *
      */
-    public void stayInBounds(WorldMap map) {
+    private void stayInBounds(WorldMap map) {
         int mapPixelHeight = map.getHeight();
         int mapPixelWidth = map.getWidth();
 

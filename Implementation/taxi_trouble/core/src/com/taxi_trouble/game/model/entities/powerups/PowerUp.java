@@ -25,7 +25,9 @@ public class PowerUp extends Entity {
     /**
      * Creates a new PowerUp at the location of a spawnPoint.
      * 
-     * @param point
+     * @param point : spawnpoint of the power-up
+     * @param id : identifier of the power-up
+     * @param networkInterface
      */
     public PowerUp(SpawnPoint point, int id, AndroidMultiplayerInterface networkInterface) {
         super(id, point.getWidth(), point.getHeight());

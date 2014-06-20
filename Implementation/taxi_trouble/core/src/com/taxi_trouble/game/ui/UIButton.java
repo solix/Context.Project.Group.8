@@ -4,6 +4,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
+/**A button in the menu user interface.
+ * 
+ * @author Computer Games Project Group 8
+ *
+ */
 public class UIButton extends UIElement {
 	private Sprite activeSprite;
 	private boolean active;
