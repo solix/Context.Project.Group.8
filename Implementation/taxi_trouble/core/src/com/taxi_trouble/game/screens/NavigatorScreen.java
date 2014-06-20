@@ -30,6 +30,7 @@ public class NavigatorScreen extends ViewObserver {
     private NavigatorControls mapControl;
     private NavigatorControlsUI powerUpControlsUI;
     private float scale = 4;
+    private boolean shown = false;
 
     /**
      * Constructor, creates the game screen.
@@ -48,9 +49,6 @@ public class NavigatorScreen extends ViewObserver {
     @Override
     public void show() {
         super.show();
-
-        // Initialize the sprite batch that should be used.
-        spriteBatch = new SpriteBatch();
 
         // Initialize the camera for the navigator view.
         this.mapCamera = new OrthographicCamera();
@@ -80,6 +78,8 @@ public class NavigatorScreen extends ViewObserver {
      */
     @Override
     public void render(float delta) {
+        checkSpriteBatchInitialization();
+
         // Specify the clear values for the color buffers and clear the buffers.
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
@@ -198,4 +198,14 @@ public class NavigatorScreen extends ViewObserver {
         return this.spriteBatch;
     }
 
+    /**
+     * Initializes the spritebatch in the first render when the GL-context is
+     * ready.
+     */
+    private void checkSpriteBatchInitialization() {
+        if (!shown ) {
+            this.spriteBatch = new SpriteBatch();
+            shown = true;
+        }
+    }
 }

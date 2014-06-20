@@ -280,7 +280,7 @@ public class GameWorld extends Game {
 		System.out.println("resetting gameworld!!!");
 		setScreen(menuScreen);
 		setHost(false);
-		setupInterface.disconnect();
+		setupInterface.leave();
 		driverScreen = new DriverScreen(this);
 		navigatorScreen = new NavigatorScreen(this);
 		getSpawner().getActivePassengers().clear();

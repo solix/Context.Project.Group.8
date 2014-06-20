@@ -7,5 +7,5 @@ public interface SetupInterface {
 
 	public void showLeaderBoard();
 
-	public void disconnect();
+	public void leave();
 }
