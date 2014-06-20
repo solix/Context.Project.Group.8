@@ -12,6 +12,12 @@ import com.taxi_trouble.game.model.entities.powerups.PowerUp;
 import com.taxi_trouble.game.model.team.Team;
 import com.taxi_trouble.game.screens.ViewObserver;
 
+/**
+ * Receives incoming messages and processes them.
+ * 
+ * @author Computer Games Project Group 8
+ * 
+ */
 public class MessageAdapter implements RealTimeMessageReceivedListener {
     private GameWorld gameWorld;
 
@@ -27,13 +33,6 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
     public void onRealTimeMessageReceived(String message) {
         Scanner sc = new Scanner(message);
         String flag = sc.next();
-
-        if (!gameWorld.isActive() && !(flag.equals("SETUP"))) {
-            // System.out.println("REJECTING " + message);
-            sc.close();
-            return;
-        } else
-        // System.out.println("ACCEPTED " + flag);
 
         if (flag.equals("TAXI")) {
             resolveTaxiMessage(sc);
@@ -52,14 +51,12 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
         } else if (flag.equals("SETUP")) {
             resolveSetupMessage(sc);
         } else if (flag.equals("END")) {
-            System.out.println(message);
             resolveEndMessage(sc);
         }
         sc.close();
     }
 
     private void resolveSetupMessage(Scanner sc) {
-        gameWorld.setActive(true);
         boolean driver = sc.nextBoolean();
         int teamId = sc.nextInt();
         int totalTeams = sc.nextInt();
@@ -70,9 +67,6 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
     private void resolveEndMessage(Scanner sc) {
         Team winner = gameWorld.getTeamById(sc.nextInt());
         ((ViewObserver) gameWorld.getScreen()).showEndResultsBoard(winner);
-        gameWorld.setActive(false);
-        gameWorld.scheduleReset();
-
     }
 
     private void resolveActivateMessage(Scanner sc) {

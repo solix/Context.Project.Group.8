@@ -31,5 +31,4 @@ public class RedTeamTheme implements TeamTheme {
     public Sprite getTaxiSprite() {
         return getSprite("redTaxiSprite");
     }
-
 }

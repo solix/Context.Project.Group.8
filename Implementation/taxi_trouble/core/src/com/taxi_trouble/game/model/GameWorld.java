@@ -10,8 +10,6 @@ import java.util.Map;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Timer;
-import com.badlogic.gdx.utils.Timer.Task;
 import com.taxi_trouble.game.model.entities.Passenger;
 import com.taxi_trouble.game.model.entities.Taxi;
 import com.taxi_trouble.game.model.entities.powerups.PowerUp;
@@ -38,7 +36,6 @@ public class GameWorld extends Game {
     private NavigatorScreen navigatorScreen;
     private MenuScreen menuScreen;
     private CountDownTimer timer;
-    private boolean isActive;
 
     /**
      * Initializes a new game world in which a game can be played.
@@ -66,8 +63,7 @@ public class GameWorld extends Game {
         world.setContactListener(collisionDetector);
         collisionDetector.setMultiPlayerInterface(multiplayerInterface);
         map.setMultiPlayerInterface(multiplayerInterface);
-        timer = new CountDownTimer(10);
-        setActive(false);
+        timer = new CountDownTimer(300);
 
         driverScreen = new DriverScreen(this);
         navigatorScreen = new NavigatorScreen(this);
@@ -276,46 +272,5 @@ public class GameWorld extends Game {
             }
         }
         return team;
-    }
-
-    /**
-     * Schedules to reset the game.
-     */
-    public void scheduleReset() {
-        Timer.schedule(new Task() {
-            @Override
-            public void run() {
-                reset();
-            }
-        }, 5);
-    }
-
-    /**
-     * Resets the game.
-     */
-    public void reset() {
-        System.out.println("resetting gameworld!!!");
-        setScreen(menuScreen);
-        setHost(false);
-        setupInterface.leave();
-        driverScreen = new DriverScreen(this);
-        navigatorScreen = new NavigatorScreen(this);
-        getSpawner().getActivePassengers().clear();
-        getSpawner().getActivePowerUps().clear();
-        for (Team team : getTeams().values()) {
-            team.getTaxi().removeBodyFromWorld(getWorld());
-        }
-        this.teams.clear();
-        timer = new CountDownTimer(10);
-        System.out.println("resetting done!");
-
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean isActive) {
-        this.isActive = isActive;
     }
 }

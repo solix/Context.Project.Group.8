@@ -12,6 +12,12 @@ import com.taxi_trouble.game.model.entities.powerups.PowerUp;
 import com.taxi_trouble.game.model.team.Team;
 import com.taxi_trouble.game.multiplayer.AndroidMultiplayerInterface;
 
+/**
+ * Sends messages to other players/clients in the game.
+ *
+ * @author Computer Games Project Group 8
+ *
+ */
 public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
     private String roomId;
     private GoogleApiClient apiClient;
@@ -54,16 +60,12 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
      * @return
      */
     public String setTeams(Room room) {
-        System.out.println("setup message send to: " + room.getRoomId());
-        System.out.println("Actual roomId = " + roomId);
-
         Collections.sort(ids);
         boolean role;
         String mySetupMessage = "MessageCreationError";
         int teamId;
         int totalTeams = (int) Math.ceil(room.getParticipantIds().size() / 2);
         for (int i = 0; i < ids.size(); i++) {
-            System.out.println(ids.get(i));
             teamId = (int) Math.floor(i / 2.0);
             if (i % 2 == 0) {
                 // role = "DRIVER";
@@ -102,8 +104,6 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
      */
     @Override
     public void reliableBroadcast(String message) {
-        log(message);
-        System.out.println(roomId);
         byte[] messageBytes = message.getBytes();
         for (String id : ids) {
             System.out.println(id);
@@ -215,7 +215,6 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
         String message = "POWERUP " + taxi.getTeam().getTeamId() + " "
                 + powerUp.getId();
         reliableBroadcast(message);
-
     }
 
     /**
@@ -228,8 +227,6 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
      */
     @Override
     public void activateMessage(Team team, PowerUp powerUp) {
-        System.out.println("activateMessage called!");
-
         String message = "ACTIVATE " + team.getTeamId() + " "
                 + powerUp.getBehaviour().getId();
         reliableBroadcast(message);
@@ -246,16 +243,5 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
     public void sendEndMessage(Team team) {
         String message = "END " + team.getTeamId();
         reliableBroadcast(message);
-
-    }
-
-    /**
-     * An internal function used to log broadcasted messages.
-     * 
-     * @param message
-     *            : the message that should be logged.
-     */
-    public void log(String message) {
-        System.out.println("BROADCASTED: " + message);
     }
 }

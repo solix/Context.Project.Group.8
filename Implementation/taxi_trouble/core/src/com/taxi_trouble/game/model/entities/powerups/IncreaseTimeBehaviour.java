@@ -7,6 +7,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.taxi_trouble.game.model.entities.Taxi;
 
+/**
+ * Defines the behaviour for the powerup increasing drop-off time.
+ * 
+ * @author Computer Games Project Group 8
+ *
+ */
 public class IncreaseTimeBehaviour implements PowerUpBehaviour {
 
     private PowerUpAnimation powerAnim;

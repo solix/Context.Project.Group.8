@@ -6,7 +6,6 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -24,6 +23,12 @@ import com.google.example.games.basegameutils.GameHelper.GameHelperListener;
 import com.taxi_trouble.game.model.GameWorld;
 import com.taxi_trouble.game.multiplayer.SetupInterface;
 
+/**
+ * Launches the game for android devices and takes care of room management.
+ * 
+ * @author Computer Games Project Group 8
+ * 
+ */
 public class AndroidLauncher extends AndroidApplication implements
         GameHelperListener, SetupInterface, RoomUpdateListener,
         RoomStatusUpdateListener {
@@ -36,7 +41,7 @@ public class AndroidLauncher extends AndroidApplication implements
     private AndroidMultiplayerAdapter multiplayerInterface;
     private MessageAdapter messageAdapter;
     private boolean doSetup;
-    // arbitrary request code for the waiting room UI.
+    // Arbitrary request code for the waiting room UI.
     // This can be any integer that's unique in your Activity.
     private final static int RC_WAITING_ROOM = 10002;
     private final static int RC_SELECT_PLAYERS = 10000;
@@ -80,10 +85,7 @@ public class AndroidLauncher extends AndroidApplication implements
         aHelper.onActivityResult(request, response, data);
         if (request == RC_WAITING_ROOM) {
             if (response == RESULT_OK) {
-                Log.d("MULTI", "game started trough activityResult");
                 gameWorld.startGame();
-                System.out.println("teamID = "
-                        + gameWorld.getTeam().getTeamId());
             }
         }
 
@@ -94,7 +96,6 @@ public class AndroidLauncher extends AndroidApplication implements
             }
 
             // get the invitee list
-            Bundle extras = data.getExtras();
             final ArrayList<String> invitees = data
                     .getStringArrayListExtra(Games.EXTRA_PLAYER_IDS);
 
@@ -134,6 +135,7 @@ public class AndroidLauncher extends AndroidApplication implements
         showToast("Signing in failed. Please try again.");
     }
 
+    @Override
     public void onSignInSucceeded() {
         showToast("Signed in.");
 
@@ -151,6 +153,9 @@ public class AndroidLauncher extends AndroidApplication implements
         }
     }
 
+    /**
+     * Logs the player in to the Google Play Services.
+     */
     public void login() {
         if (doSetup) {
             aHelper.setup(this);
@@ -177,10 +182,20 @@ public class AndroidLauncher extends AndroidApplication implements
         }
     }
 
+    /**
+     * Retrieves whether the player is signed in.
+     * 
+     * @return true if the player is signed in, false otherwise.
+     */
     public boolean isSignedIn() {
         return aHelper.isSignedIn();
     }
 
+    /**
+     * Retrieves whether the player is signing in.
+     * 
+     * @return true if the player is signing in, false otherwise.
+     */
     public boolean isSigningIn() {
         return aHelper.isConnecting();
     }
@@ -305,10 +320,14 @@ public class AndroidLauncher extends AndroidApplication implements
         if (iAmHost) {
             messageAdapter.onRealTimeMessageReceived(multiplayerInterface
                     .setTeams(room));
-            System.out.println("done setting teams");
         }
     }
 
+    /**
+     * Assigns the host for the room.
+     * 
+     * @param room
+     */
     private void setHost(Room room) {
         List<String> ids = room.getParticipantIds();
         Collections.sort(ids);

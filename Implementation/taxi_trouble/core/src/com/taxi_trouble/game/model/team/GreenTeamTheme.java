@@ -31,5 +31,4 @@ public class GreenTeamTheme implements TeamTheme {
     public Sprite getTaxiSprite() {
         return getSprite("greenTaxiSprite");
     }
-
 }
