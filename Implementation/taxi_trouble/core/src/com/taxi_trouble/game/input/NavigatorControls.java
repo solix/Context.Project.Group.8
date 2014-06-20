@@ -20,12 +20,6 @@ import com.taxi_trouble.game.screens.NavigatorScreen;
  * @author Computer Games Project Group 8
  * 
  */
-/**
- * This is the controller class for MapScreen.
- * 
- * @author Computer Games Project Group 8
- * 
- */
 public class NavigatorControls implements InputProcessor {
 
     private NavigatorControlsUI powerUpControlsUI;
@@ -55,19 +49,16 @@ public class NavigatorControls implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean keyUp(int keycode) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean keyTyped(char character) {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -103,25 +94,21 @@ public class NavigatorControls implements InputProcessor {
 
         if (this.powerUpControlsUI.buttonPressed(screenX, screenY, button)) {
             team.usePowerUp();
-
         }
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean scrolled(int amount) {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -191,7 +178,6 @@ public class NavigatorControls implements InputProcessor {
         return (float) Math.sqrt(x + y);
     }
 
-    // TODO: Refactor this code!
     /**
      * This method alters the camera.zoom value to zoom in and out of the map.
      * 

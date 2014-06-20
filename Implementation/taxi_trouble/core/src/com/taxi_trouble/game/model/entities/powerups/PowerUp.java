@@ -34,6 +34,12 @@ public class PowerUp extends Entity {
         this.taken = false;
     }
 
+    /**
+     * Creates a new PowerUp that is not present in the physical world, but held
+     * by a team instead.
+     * 
+     * @param networkinterface
+     */
     public PowerUp(AndroidMultiplayerInterface networkinterface){
         super(0, 0);
         this.taken = true;

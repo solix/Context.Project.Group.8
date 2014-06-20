@@ -12,6 +12,12 @@ import com.taxi_trouble.game.model.entities.powerups.PowerUp;
 import com.taxi_trouble.game.model.team.Team;
 import com.taxi_trouble.game.screens.ViewObserver;
 
+/**
+ * Receives incoming messages and processes them.
+ * 
+ * @author Computer Games Project Group 8
+ * 
+ */
 public class MessageAdapter implements RealTimeMessageReceivedListener {
     private GameWorld gameWorld;
 

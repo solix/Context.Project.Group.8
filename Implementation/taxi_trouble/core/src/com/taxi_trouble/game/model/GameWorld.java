@@ -22,9 +22,9 @@ import com.taxi_trouble.game.screens.NavigatorScreen;
 
 /**
  * Provides the main model for all the elements of a game that is played.
- *
+ * 
  * @author Computer Games Project Group 8
- *
+ * 
  */
 public class GameWorld extends Game {
     private WorldMap map;
@@ -37,8 +37,9 @@ public class GameWorld extends Game {
     private MenuScreen menuScreen;
     private CountDownTimer timer;
 
-    /**Initializes a new game world in which a game can be played.
-     *
+    /**
+     * Initializes a new game world in which a game can be played.
+     * 
      * @param setupInterface
      * @param multiplayerInterface
      */
@@ -51,7 +52,7 @@ public class GameWorld extends Game {
 
     /**
      * Called when the game world is first created.
-     *
+     * 
      */
     @Override
     public final void create() {
@@ -93,16 +94,16 @@ public class GameWorld extends Game {
     }
 
     /**
-     * Starts the game by starting the timer and switching 
-     * to the right screen.
+     * Starts the game by starting the timer and switching to the right screen.
      */
     public final void startGame() {
         timer.startTimer();
         setScreen();
     }
 
-    /**Sets whether the player is a driver or not.
-     *
+    /**
+     * Sets whether the player is a driver or not.
+     * 
      * @param driver
      *            : boolean indicating whether the player is a driver
      */
@@ -110,8 +111,9 @@ public class GameWorld extends Game {
         multiplayerInterface.setDriver(driver);
     }
 
-    /**Retrieves whether the player is a driver.
-     *
+    /**
+     * Retrieves whether the player is a driver.
+     * 
      * @return true if the player is a driver, false otherwise (a navigator)
      */
     public boolean isDriver() {
@@ -139,7 +141,7 @@ public class GameWorld extends Game {
 
     /**
      * Retrieves the game world map.
-     *
+     * 
      * @return map
      */
     public WorldMap getMap() {
@@ -148,7 +150,7 @@ public class GameWorld extends Game {
 
     /**
      * Retrieves the spawner that is used to spawn entities.
-     *
+     * 
      * @return spawner
      */
     public final Spawner getSpawner() {
@@ -157,7 +159,7 @@ public class GameWorld extends Game {
 
     /**
      * Retrieves the single team.
-     *
+     * 
      * @return team
      */
     public final Team getTeam() {
@@ -166,7 +168,7 @@ public class GameWorld extends Game {
 
     /**
      * Retrieves the world in which the game is played.
-     *
+     * 
      * @return world
      */
     public final World getWorld() {
@@ -175,7 +177,7 @@ public class GameWorld extends Game {
 
     /**
      * Retrieves the passengers that are currently in the game.
-     *
+     * 
      * @return passengers
      */
     public final Collection<Passenger> getPassengers() {
@@ -184,7 +186,7 @@ public class GameWorld extends Game {
 
     /**
      * Sets up the teams that join the game.
-     *
+     * 
      * @param teamId
      *            : the own team identifier
      * @param totalTeams
@@ -202,7 +204,7 @@ public class GameWorld extends Game {
 
     /**
      * Retrieves all teams that have joined the team.
-     *
+     * 
      * @return teams
      */
     public Map<Integer, Team> getTeams() {
@@ -237,8 +239,9 @@ public class GameWorld extends Game {
         return getSpawner().getActivePowerUps().get(id);
     }
 
-    /**Retrieves all currently available power-ups.
-     *
+    /**
+     * Retrieves all currently available power-ups.
+     * 
      * @return power-ups
      */
     public final Collection<PowerUp> getPowerUps() {
@@ -247,7 +250,7 @@ public class GameWorld extends Game {
 
     /**
      * Retrieves the game countdown-timer.
-     *
+     * 
      * @return timer
      */
     public final CountDownTimer getTimer() {
@@ -256,7 +259,7 @@ public class GameWorld extends Game {
 
     /**
      * Retrieves the winning team of a game.
-     *
+     * 
      * @return winner
      */
     public Team getWinner() {
