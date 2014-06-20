@@ -725,11 +725,21 @@ public class Taxi extends Entity {
      * @param steerDirection
      *            : The steerDirection state of the taxi.
      */
-    public void updateState(float x, float y, float angle, float xSpeed,
-            float ySpeed, int acceleration, int steerDirection) {
-        getBody().setTransform(x, y, angle);
-        getBody().setLinearVelocity(xSpeed, ySpeed);
+    // public void updateState(float x, float y, float angle, float xSpeed,
+    // float ySpeed, int acceleration, int steerDirection) {
+    // getBody().setTransform(x, y, angle);
+    // getBody().setLinearVelocity(xSpeed, ySpeed);
+    // setAccelerate(Acceleration.values[acceleration]);
+    // setSteer(SteerDirection.values[steerDirection]);
+    // }
+
+    public void updateMovementState(int acceleration, int steerDirection) {
         setAccelerate(Acceleration.values[acceleration]);
         setSteer(SteerDirection.values[steerDirection]);
+    }
+
+    public void updatePositionState(Vector2 position, Vector2 speed, float angle) {
+        getBody().setTransform(position.x, position.y, angle);
+        getBody().setLinearVelocity(speed.x, speed.y);
     }
 }
