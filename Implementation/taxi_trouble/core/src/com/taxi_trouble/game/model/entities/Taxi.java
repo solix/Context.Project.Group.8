@@ -708,28 +708,30 @@ public class Taxi extends Entity {
     }
 
     /**
-     * Updates the state of the taxi.
+     * Updates the acceleration and steerDirection state of the taxi
      * 
-     * @param x
-     *            : The x-coordinate of the location of the taxi.
-     * @param y
-     *            : The y-coordinate of the location of the taxi.
-     * @param angle
-     *            : The orientation of the taxi.
-     * @param xSpeed
-     *            : The x component of the taxi's speed.
-     * @param ySpeed
-     *            : The y component of the taxi's speed
      * @param acceleration
      *            : The acceleration state of the taxi.
      * @param steerDirection
      *            : The steerDirection state of the taxi.
      */
-    public void updateState(float x, float y, float angle, float xSpeed,
-            float ySpeed, int acceleration, int steerDirection) {
-        getBody().setTransform(x, y, angle);
-        getBody().setLinearVelocity(xSpeed, ySpeed);
+    public void updateMovementState(int acceleration, int steerDirection) {
         setAccelerate(Acceleration.values[acceleration]);
         setSteer(SteerDirection.values[steerDirection]);
+    }
+
+    /**
+     * Updates the position, angle and speed state of the taxi.
+     * 
+     * @param position
+     *            : The x and y coordinate of the taxi.
+     * @param speed
+     *            : The x and y component of the taxi's speed.
+     * @param angle
+     *            : The orientation of the taxi.
+     */
+    public void updatePositionState(Vector2 position, Vector2 speed, float angle) {
+        getBody().setTransform(position.x, position.y, angle);
+        getBody().setLinearVelocity(speed.x, speed.y);
     }
 }

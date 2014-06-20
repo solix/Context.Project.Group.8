@@ -2,6 +2,7 @@ package com.tudelftcontext.taxitrouble;
 
 import java.util.Scanner;
 
+import com.badlogic.gdx.math.Vector2;
 import com.google.android.gms.games.multiplayer.realtime.RealTimeMessage;
 import com.google.android.gms.games.multiplayer.realtime.RealTimeMessageReceivedListener;
 import com.taxi_trouble.game.model.GameWorld;
@@ -120,8 +121,10 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
         float ySpeed = Float.parseFloat(sc.next());
         int acceleration = sc.nextInt();
         int steerDirection = sc.nextInt();
-        taxi.updateState(x, y, angle, xSpeed, ySpeed, acceleration,
-                steerDirection);
+        Vector2 position = new Vector2(x, y);
+        Vector2 speed = new Vector2(xSpeed, ySpeed);
+        taxi.updatePositionState(position, speed, angle);
+        taxi.updateMovementState(acceleration, steerDirection);
     }
 
     private void resolvePassengerMessage(Scanner sc) {
