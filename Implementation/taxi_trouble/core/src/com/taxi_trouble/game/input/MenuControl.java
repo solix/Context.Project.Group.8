@@ -38,10 +38,8 @@ public class MenuControl extends InputAdapter {
 		if (entry == null) {
 			return false;
 		} else if (entry.getKey().equals("play")) {
-			setupInterface.startGame();
 			((UIButton) entry.getValue()).setActive(true);
 		} else if (entry.getKey().equals("board")) {
-			setupInterface.showLeaderBoard();
 			((UIButton) entry.getValue()).setActive(true);
 		}
 
@@ -61,9 +59,11 @@ public class MenuControl extends InputAdapter {
 			return false;
 		} else if (entry.getKey().equals("play")) {
 			((UIButton) entry.getValue()).setActive(false);
+			setupInterface.startGame();
 		} else if (entry.getKey().equals("board")) {
 			System.out.println("board");
 			((UIButton) entry.getValue()).setActive(false);
+			setupInterface.showLeaderBoard();
 		}
 
 		return true;
