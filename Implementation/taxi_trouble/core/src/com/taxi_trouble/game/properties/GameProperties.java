@@ -1,17 +1,16 @@
 package com.taxi_trouble.game.properties;
 
+import static com.taxi_trouble.game.properties.ResourceManager.getSpriteSheet;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.taxi_trouble.game.model.entities.powerups.IncreaseTimeBehaviour;
 import com.taxi_trouble.game.model.entities.powerups.InvincibilityBehaviour;
 import com.taxi_trouble.game.model.entities.powerups.PowerUpAnimation;
 import com.taxi_trouble.game.model.entities.powerups.PowerUpBehaviour;
 import com.taxi_trouble.game.model.entities.powerups.SpeedBehaviour;
-
-import static com.taxi_trouble.game.properties.ResourceManager.getSpriteSheet;
 
 /**
  * Utility class defining properties of the game as the screenwidth and -height
