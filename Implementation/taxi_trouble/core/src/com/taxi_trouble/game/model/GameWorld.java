@@ -64,7 +64,7 @@ public class GameWorld extends Game {
 		world.setContactListener(collisionDetector);
 		collisionDetector.setMultiPlayerInterface(multiplayerInterface);
 		map.setMultiPlayerInterface(multiplayerInterface);
-		timer = new CountDownTimer(10);
+		timer = new CountDownTimer(300);
 		setActive(false);
 
 		driverScreen = new DriverScreen(this);
@@ -289,7 +289,7 @@ public class GameWorld extends Game {
 			team.getTaxi().removeBodyFromWorld(getWorld());
 		}
 		this.teams.clear();
-		timer = new CountDownTimer(10);
+		timer = new CountDownTimer(300);
 		System.out.println("resetting done!");
 
 	}
