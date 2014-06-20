@@ -8,7 +8,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.taxi_trouble.game.model.CountDownTimer;
 import com.taxi_trouble.game.model.GameWorld;
@@ -37,7 +36,6 @@ public abstract class ViewObserver implements Screen {
     protected OrthographicCamera hudCamera;
     protected HeadUpDisplay hud;
     protected TimerHUD dropOffTimerHUD;
-    private boolean alreadyResetted = false;
 
     /**
      * Constructor for creating game Screen.
@@ -69,6 +67,7 @@ public abstract class ViewObserver implements Screen {
                     taxigame.getMultiplayerInterface().sendEndMessage(winner);
                     showEndResultsBoard(winner);
                     taxigame.setActive(false);
+                    taxigame.scheduleReset();
                 }
             }
         });
@@ -92,7 +91,6 @@ public abstract class ViewObserver implements Screen {
      */
     @Override
     public void render(float delta) {
-        checkReset();
         // Initializes new and removes old entity bodies into/from the world
         taxigame.getSpawner().updateEntityBodies(taxigame.getWorld());
 
@@ -159,20 +157,5 @@ public abstract class ViewObserver implements Screen {
      * @return spriteBatch
      */
     public abstract SpriteBatch getSpriteBatch();
-
-    /**
-     * Checks whether the game is active and reset it.
-     */
-    private void checkReset() {
-        if (!taxigame.isActive() && !alreadyResetted) {
-            alreadyResetted = true;
-            Timer.schedule(new Task() {
-                @Override
-                public void run() {
-                    taxigame.reset();
-                }
-            }, 5);
-        }
-    }
 
 }
