@@ -80,7 +80,6 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
             if (!ids.get(i).equals(myId)) {
                 Games.RealTimeMultiplayer.sendReliableMessage(apiClient, null,
                         message.getBytes(), room.getRoomId(), ids.get(i));
-
             } else {
                 mySetupMessage = message;
             }
@@ -96,6 +95,10 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
         this.roomId = roomId;
     }
 
+    public String getRoomId() {
+        return this.roomId;
+    }
+
     /**
      * Sends a reliableMessage to all other clients in the room.
      * 
@@ -106,7 +109,6 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
     public void reliableBroadcast(String message) {
         byte[] messageBytes = message.getBytes();
         for (String id : ids) {
-            System.out.println(id);
             if (!id.equals(myId))
                 Games.RealTimeMultiplayer.sendReliableMessage(apiClient, null,
                         messageBytes, roomId, id);

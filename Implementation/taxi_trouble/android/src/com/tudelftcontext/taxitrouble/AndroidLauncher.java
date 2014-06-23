@@ -37,7 +37,6 @@ public class AndroidLauncher extends AndroidApplication implements
     private boolean iAmHost = false;
     private String myId;
     private GameWorld gameWorld;
-    private String roomId;
     private AndroidMultiplayerAdapter multiplayerInterface;
     private MessageAdapter messageAdapter;
     private boolean doSetup;
@@ -61,22 +60,11 @@ public class AndroidLauncher extends AndroidApplication implements
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
         if (!doSetup && !aHelper.getApiClient().isConnected()) {
             aHelper.getApiClient().connect();
         }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        aHelper.onStop();
     }
 
     @Override
@@ -159,7 +147,6 @@ public class AndroidLauncher extends AndroidApplication implements
     public void login() {
         if (doSetup) {
             aHelper.setup(this);
-            System.out.println("started AL login");
             doSetup = false;
         }
         aHelper.onStart(this);
@@ -240,15 +227,13 @@ public class AndroidLauncher extends AndroidApplication implements
     public void onConnectedToRoom(Room room) {
         myId = room.getParticipantId(Games.Players.getCurrentPlayerId(aHelper
                 .getApiClient()));
-        roomId = room.getRoomId();
-
         multiplayerInterface.setMyId(myId);
-        multiplayerInterface.setRoomId(roomId);
     }
 
     @Override
     public void onDisconnectedFromRoom(Room arg0) {
         showToast("You are disconnected from the room.");
+        gameWorld.returnToMenu();
     }
 
     @Override
@@ -290,11 +275,12 @@ public class AndroidLauncher extends AndroidApplication implements
     @Override
     public void onLeftRoom(int arg0, String arg1) {
         showToast("You left the room.");
+        multiplayerInterface.setRoomId(null);
     }
 
     @Override
     public void onRoomCreated(int statusCode, Room room) {
-        System.out.println("room created!!!!");
+        multiplayerInterface.setRoomId(room.getRoomId());
         if (statusCode != GamesStatusCodes.STATUS_OK) {
             // display error
             return;
@@ -308,18 +294,18 @@ public class AndroidLauncher extends AndroidApplication implements
 
     @Override
     public void onRoomConnected(int statusCode, Room room) {
-        System.out.println("room connected!!");
+        multiplayerInterface.setRoomId(room.getRoomId());
         if (statusCode != GamesStatusCodes.STATUS_OK) {
             // let screen go to sleep
             getWindow().clearFlags(
                     WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             showToast("Could not connect to room.");
         }
-
         setHost(room);
         if (iAmHost) {
             messageAdapter.onRealTimeMessageReceived(multiplayerInterface
                     .setTeams(room));
+            multiplayerInterface.reliableBroadcast("THIS IS RELIABLE");
         }
     }
 
@@ -371,6 +357,13 @@ public class AndroidLauncher extends AndroidApplication implements
 
     @Override
     public void leave() {
-        Games.RealTimeMultiplayer.leave(aHelper.getApiClient(), this, roomId);
+        Games.RealTimeMultiplayer.leave(aHelper.getApiClient(), 
+                this, multiplayerInterface.getRoomId());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        aHelper.onStop();
     }
 }
