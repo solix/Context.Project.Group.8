@@ -2,6 +2,7 @@ package com.tudelftcontext.taxitrouble;
 
 import java.util.Scanner;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.google.android.gms.games.multiplayer.realtime.RealTimeMessage;
 import com.google.android.gms.games.multiplayer.realtime.RealTimeMessageReceivedListener;
@@ -71,84 +72,149 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
     }
 
     private void resolveActivateMessage(Scanner sc) {
-        int teamId = sc.nextInt();
-        int behaviourId = sc.nextInt();
-        Team team = gameWorld.getTeams().get(teamId);
-        if (!team.hasPowerUp()
-                || team.getPowerUp().getBehaviour().getId() != behaviourId) {
-            System.out
-                    .println("UNOBTAINED POWERUP ACTIVATED!! --> RESYNCING AND ACTIVATING!!");
-            PowerUp powerUp = gameWorld.getMap().getSpawner()
-                    .spawnPowerUp(behaviourId, gameWorld.getWorld());
-            team.setPowerUp(powerUp);
-        }
-        team.forcePowerUpUse();
+        final int teamId = sc.nextInt();
+        final int behaviourId = sc.nextInt();
+        final Team team = gameWorld.getTeams().get(teamId);
+        Gdx.app.postRunnable(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				if (!team.hasPowerUp()
+						|| team.getPowerUp().getBehaviour().getId() != behaviourId) {
+					System.out
+					.println("UNOBTAINED POWERUP ACTIVATED!! --> RESYNCING AND ACTIVATING!!");
+					PowerUp powerUp = gameWorld.getMap().getSpawner()
+							.spawnPowerUp(behaviourId, gameWorld.getWorld());
+					team.setPowerUp(powerUp);
+				}
+				team.forcePowerUpUse();
+				
+			}
+        	
+        });
     }
 
     private void resolvePowerUpMessage(Scanner sc) {
         int taxiId = sc.nextInt();
         int powerUpId = sc.nextInt();
-        Taxi taxi = gameWorld.getTaxiById(taxiId);
-        PowerUp powerUp = gameWorld.getPowerUpById(powerUpId);
-        taxi.pickUpPowerUp(powerUp, gameWorld.getMap());
+        final Taxi taxi = gameWorld.getTaxiById(taxiId);
+        final PowerUp powerUp = gameWorld.getPowerUpById(powerUpId);
+        Gdx.app.postRunnable(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				taxi.pickUpPowerUp(powerUp, gameWorld.getMap());
+				
+			}
+        	
+        });
     }
 
     private void resolvePassengerDrop(Scanner sc) {
-        Taxi taxi = gameWorld.getTaxiById(sc.nextInt());
-        Passenger passenger = gameWorld.getPassengerById(sc.nextInt());
-        if (taxi.getPassenger() == passenger
-                && passenger.getTransporter() == taxi) {
-            // if the taxi-pair is real on this client, do the drop off.
-            taxi.dropOffPassenger(passenger.getDestination(),
-                    gameWorld.getMap());
-        } else {
-            // if somehow this taxi-pair is not real on this client, sync it,
-            // then do the drop off.
-            taxi.syncPassenger(passenger);
-            taxi.dropOffPassenger(passenger.getDestination(),
-                    gameWorld.getMap());
-        }
+        final Taxi taxi = gameWorld.getTaxiById(sc.nextInt());
+        final Passenger passenger = gameWorld.getPassengerById(sc.nextInt());
+        
+        Gdx.app.postRunnable(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				if (taxi.getPassenger() == passenger
+						&& passenger.getTransporter() == taxi) {
+					// if the taxi-pair is real on this client, do the drop off.
+					taxi.dropOffPassenger(passenger.getDestination(),
+							gameWorld.getMap());
+				} else {
+					// if somehow this taxi-pair is not real on this client, sync it,
+					// then do the drop off.
+					taxi.syncPassenger(passenger);
+					taxi.dropOffPassenger(passenger.getDestination(),
+							gameWorld.getMap());
+				}
+				
+			}
+        	
+        });
 
     }
 
     private void resolveTaxiMessage(Scanner sc) {
         int id = sc.nextInt();
-        Taxi taxi = gameWorld.getTeams().get(id).getTaxi();
+        final Taxi taxi = gameWorld.getTeams().get(id).getTaxi();
         float x = Float.parseFloat(sc.next());
         float y = Float.parseFloat(sc.next());
-        float angle = Float.parseFloat(sc.next());
+        final float angle = Float.parseFloat(sc.next());
         float xSpeed = Float.parseFloat(sc.next());
         float ySpeed = Float.parseFloat(sc.next());
-        int acceleration = sc.nextInt();
-        int steerDirection = sc.nextInt();
-        Vector2 position = new Vector2(x, y);
-        Vector2 speed = new Vector2(xSpeed, ySpeed);
-        taxi.updatePositionState(position, speed, angle);
-        taxi.updateMovementState(acceleration, steerDirection);
+        final int acceleration = sc.nextInt();
+        final int steerDirection = sc.nextInt();
+        final Vector2 position = new Vector2(x, y);
+        final Vector2 speed = new Vector2(xSpeed, ySpeed);
+        Gdx.app.postRunnable(new Runnable() {
+
+			@Override
+			public void run() {
+				taxi.updatePositionState(position, speed, angle);
+				taxi.updateMovementState(acceleration, steerDirection);
+				
+			}
+        	
+        });
     }
 
     private void resolvePassengerMessage(Scanner sc) {
-        Taxi taxi = gameWorld.getTaxiById(sc.nextInt());
-        Passenger passenger = gameWorld.getPassengerById(sc.nextInt());
-        taxi.syncPassenger(passenger);
+        final Taxi taxi = gameWorld.getTaxiById(sc.nextInt());
+        final Passenger passenger = gameWorld.getPassengerById(sc.nextInt());
+        
+        Gdx.app.postRunnable(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+				taxi.syncPassenger(passenger);
+			}
+        	
+        });
     }
 
     private void resolveNewPassengerMessage(Scanner sc) {
-        Spawner spawner = gameWorld.getMap().getSpawner();
-        int spawnId = sc.nextInt();
-        int destinationId = sc.nextInt();
-        int charId = sc.nextInt();
-        int passengerId = sc.nextInt();
-        spawner.spawnPassenger(gameWorld.getWorld(), spawnId, destinationId,
-                charId, passengerId);
+        final Spawner spawner = gameWorld.getMap().getSpawner();
+        final int spawnId = sc.nextInt();
+        final int destinationId = sc.nextInt();
+        final int charId = sc.nextInt();
+        final int passengerId = sc.nextInt();
+        Gdx.app.postRunnable(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				spawner.spawnPassenger(gameWorld.getWorld(), spawnId, destinationId,
+						charId, passengerId);
+				
+			}
+        	
+        });
     }
 
     private void resolveNewPowerUpMessage(Scanner sc) {
-        Spawner spawner = gameWorld.getMap().getSpawner();
-        int spawnId = sc.nextInt();
-        int behaviourId = sc.nextInt();
-        int powerUpId = sc.nextInt();
-        spawner.spawnPowerUp(spawnId, behaviourId, powerUpId,
-                gameWorld.getWorld());
+        final Spawner spawner = gameWorld.getMap().getSpawner();
+        final int spawnId = sc.nextInt();
+        final int behaviourId = sc.nextInt();
+        final int powerUpId = sc.nextInt();
+        
+        Gdx.app.postRunnable(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				spawner.spawnPowerUp(spawnId, behaviourId, powerUpId,
+						gameWorld.getWorld());
+				
+			}
+        	
+        });
     }
 }
