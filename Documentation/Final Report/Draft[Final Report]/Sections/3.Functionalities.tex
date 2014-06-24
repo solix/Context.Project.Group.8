@@ -1,54 +1,70 @@
+In this section the important functionalities and key features that are developed for game prototype will be explained, each functionaly is important part of the game and make user to experience an intresting and entertaining game, these are as follows:
+
+\subsection*{Visual Aspect} % (fold)
+\label{sub:visual_aspect}
+Visual styles relates to how game appears to the player. It focuses on the appearance of the main game world and components used to enhance the game for the player. They are explained in this section:
 \begin{itemize}
-	\item Driver and Navigator Screen
-	\begin{itemize}
-		\item \textbf{Driver screen} has myopic 2d view of the map where it makes driver's sight limited such that it is impossible to win the game without cooperation.There are touchscreen controls that is used by driver to control the taxi's acceleration and direction.   
-		\item \textbf{Navigator Screen} has the 2d zoom-able screen in top view and Navigator gets the whole map overview. There is a power-up button where is controlled by Navigator and can be activated at the right moment by him/her.
-	\end{itemize}
+		\item Driver's screen has myopic 2d view of the map where it makes driver's sight limited such that it is impossible to win the game without cooperation.There are touchscreen controls that is used by driver to control the taxi's acceleration and direction. Driver can see on this screen several entities that are in the game to interact with as well as non-interaction objects.   
+		\item Navigator's Screen has the 2d zoom-able screen in top view and Navigator gets the whole map overview. There is a power-up button where is controlled by Navigator and can be activated at the right moment by him/her.
+		\item Game Head Up Display\\
+		It represents following items on the screen: 
+			\begin{itemize}
+				\item displays team : is a textual representation of team ID. 
+				\item score : achieved score of each team 
+				\item time left in the game : count down timer indication time left for taxi to drop passenger at his/her destination.
+			\end{itemize}	
+		\item Menu Screen\\
+			This is the main screen whenever you launch the game on your android device, features in this screen is listed here:
+			\begin{itemize}
+				\item Play button: when play button is pressed the player is guided to the lobby room, from there player either can find random people or invite their friends from Google+. From there user will chose number of participants team to play with. 
+				\item Leader-board: player can view the top scorers of all participants in the game.
+			\end{itemize}	
+\end{itemize}
+
+\subsection*{Game Model}
+	Game model is the main component of the game, These components are designed and developed in order to influence the game state while events is triggered by user and they are as follows:
+
+\begin{itemize}
+	
 	\item Teams 
-	\begin{itemize}
-		\item  Teams is made of two participants where each will takes a role in the game; Either as an driver or Navigator. After all the required teams(from 2-4 teams) are created the game begins.
-	\end{itemize}	
+		\begin{itemize}
+			\item  Teams is made of two participants where each will takes a role in the game; Either as an driver or Navigator. After all the required teams(from 2-4 teams) are created the game begins.
+		\end{itemize}	
 	\item Taxi
-	\begin{itemize}
-		\item Taxi is a solid object , it has wheels that controls steering and acceleration which is controlled by driver.
-		\item When two taxis collide with each other, collision is detected and natural reflection of the taxi body upon collision is performed.  
-	\end{itemize}	
+		\begin{itemize}
+			\item Taxi is a solid object , it has wheels that controls steering and acceleration which is controlled by driver.
+			\item When two taxis collide with each other, collision is detected and natural reflection of the taxi body upon collision is performed.  
+		\end{itemize}	
 	\item Passenger
-	\begin{itemize}
-		\item Passenger is an entity where are spawned in random locations in the map.
-		\item There are different looks of a passenger(girl, boy, man) 
-		\item each passenger is spawned in random location ready to be picked up by taxi.
-		\item passengers can be stolen by other taxi while on their way to destination.
-		\item Destination is assigned to each passenger which is dropped off by taxi in the game.
-		\item when passenger is picked up by taxi, drop off timer is started and in order to achieve score taxi need to drop passenger off before drop off timer ends.
-	\end{itemize}	
+		\begin{itemize}
+			\item Passenger is an entity where are spawned in random locations in the map.
+			\item There are different looks of a passenger(girl, boy, man) 
+			\item each passenger is spawned in random location ready to be picked up by taxi.
+			\item passengers can be stolen by other taxi while on their way to destination.
+			\item Destination is assigned to each passenger which is dropped off by taxi in the game.
+			\item when passenger is picked up by taxi, drop off timer is started and in order to achieve score taxi need to drop passenger off before drop off timer ends.
+		\end{itemize}	
 	\item Power-ups
-	\begin{itemize}
-		\item There are three types of power-ups(invincibility, speed boost, increase drop off timer)
-		\item Invincibility power up is made when taxi wants to protect the passenger from getting stolen.
-		\item Speed boost when activated will increase the acceleration of taxi from  10 second
-		\item Increase drop off powerup will extra 10 second to the time that needs to be dropped off by passenger   
-	\end{itemize}	
-	\item Game Head Up Display
-	\begin{itemize}
-		\item displays team : textual representation of team numbers 
-		\item score : achieved score 
-		\item time left in the game : count down timer indication time left for taxi to drop passenger at his/her destination
-	\end{itemize}	
-	\item Sound effects
-	\begin{itemize}
-		\item Sound effect is activated at the time when events such as taxi collision, passenger pickup/drop off/stealing happens. 
-	\end{itemize}	
-	\item Menu Screen
-	\begin{itemize}
-		\item Play button: when play button is pushed the player is guided to the room, from there player either can find random people or invite their friends from Google+ to team up with friends. 
-		\item Leaderboard: player can view the top scores of all participants so far, friend’s scores is shown highlighted.
-	\end{itemize}	
+		\begin{itemize}
+			\item There are three types of power-ups(invincibility, speed boost, increase drop off timer)
+			\item Invincibility power up is made when taxi wants to protect the passenger from getting stolen.
+			\item Speed boost when activated will increase the acceleration of taxi from  10 second
+			\item Increase drop off powerup will extra 10 second to the time that needs to be dropped off by passenger   
+		\end{itemize}	
+\end{itemize}
+
+\subsection*{Sound}
+	SoundFX is an integral part of the any game. Good sound effect is create an impact on user gaming experience. They are designed to absorb the player in to the virtual game world, making the game more entertaining and satisfying and get a good overall feel of the game when events occuring at the time of game play. Sound effect is activated at the time when events such as taxi collision, passenger pickup/drop off and stealing of the passenger happens. 
+
+
+\subsection*{Multiplayer}
+One of the primary requirement design of multi-player for this game is to maintain a consistent and develop a shared sense of the virtual space among some numbers of player. The architecture that is chosen is peer to peer(p2p) architectures where necessary messages will be broad-casted by each player.
+\begin{itemize}
 	\item Multiplayer
-	\begin{itemize}
-		\item Multiplayer is formed via invitation of other participants 
-		\item player can set the preferred number of other players to play with the boudary is from 2 to 4 teams 
-		\item team score is submitted on the leader-board when the game ends.
-		\item all teams are concurrently updated on the events that are happening inside the game environment.
-	\end{itemize}	
+		\begin{itemize}
+			\item Multiplayer is formed via invitation of other participants 
+			\item player can set the preferred number of other players to play with the boundary is from 2 to 4 teams 
+			\item team score is submitted on the leader-board when the game ends.
+			\item all teams are concurrently updated on the events that are happening inside the game environment.
+		\end{itemize}	
 \end{itemize}
