@@ -2,22 +2,34 @@ After delivering a product that satisfies our expectations and our end user's ne
 
 \subsection*{Bugs}
 A bug is a flaw in the software. The two bugs that are present in Taxi Trouble are namely:
-\begin{itemize}
+\begin{enumerate}
 \item When the Host of the game locks his phone or minimizes the game all messages stop getting through meaning that the features of the game won't work until the host resumes the game again.
 \item If you want to restart the game to play again you need to completely kill the app or the game will not start correctly anymore.
-\end{itemize} 
-Solving these bugs will greatly increase the quality and the playability of the game.
+\end{enumerate} 
+Solving these bugs will greatly increase the quality and the playability of the game. A few strategies to solve these bugs are: 
+\begin{enumerate}
+\item Implementing a pause function. When someone lowers or locks his phone the game should pause. Pausing is not always the answer here. If someone locks his phone or lowers the game they might have had to leave, so implementing a leave function is also viable. But if the host leaves the game then a function should be implemented to switch hosts otherwise no messages will be getting through and the game stops working.
+\item A viable strategy for this is implementing a restart function that returns you to the start menu of the game or to the lobby. 
+\end{enumerate}
 
 \subsection*{Features}
 Implementing a new feature's difficulty depends on the structure of your software and how much the developer understands this structure. That being said a new developer that can understand the structure of Taxi Trouble will have no problem implementing a few of the features mentioned below. A few ideas of features that we had are:
-\begin{itemize}
+\begin{enumerate}
 \item Choosing who you want to be in team with. Right now the game has an auto pick feature which randomly assigns people in a team.
-\item Adding more collidble objects e.g. traffic, walking pedestrians, cones, etc. Adding more collidables to the map will increase the challenge of the game and the focus a player has to the game.
+\item Adding more collidable objects e.g. traffic, walking pedestrians, cones, etc. Adding more collidables to the map will increase the challenge of the game and the focus a player has to the game.
 \item Cops. Adding this feature will make the game more immersive and realistic.
 \item Health for the taxi. Colliding with objects will decrease the health of the taxi. When the taxi's health is decreased there can be a lot of side-effects e.g. the taxi's speed gets decreased, turning radius is increased, etc.
 \item More powerups. A few new powerups that can be implemented are e.g. increasing the health of the taxi, slowing down other taxis, calling cops on other taxis, etc.
-\end{itemize}
-Adding these new feature will increase the experience a user has with the game and will ultimately make it more fun and challenging to play.
+\end{enumerate}
+Adding these new feature will increase the experience a user has with the game and will ultimately make it more fun and challenging to play. A few ways to implement these features are:
+\begin{enumerate}	
+\item Implement a choose a team function which puts you in a lobby where a user can switch between teams.
+\item Collidables can be fixed on the map or their spawnpoints can be defined on the map. After that you need to define a collision detector for them. If you want to add traffic one must add some kind of agent that can control the traffic so that they don't collide in any objects and stay on the streets. For walking pedestrians one can extend the passenger class and add a walking animition for this. The same counts here for pedestrians as for traffic. The pedestrians may not collide with other objects and they have to stay off the streets.
+\item A viable strategy to implement walking pedestrians is extending the Passenger class and adding a new collision detection to it and adding a walking animition to the passenger. They must also have some kind of intelligence to not walk into other objects or onto the middle of the streets.
+\item Just like implementing traffic, one must define an agent to control the cops so that they can chase after the taxi.
+\item Everytime a taxi collides with an objects a function must be called to decrease the taxi's health.
+\item Powerups were implemented using the strategy pattern, so implementing these is just applying the PowerupBehaviour to the new powerup and adding its new features.
+\end{enumerate}
 
 
 
