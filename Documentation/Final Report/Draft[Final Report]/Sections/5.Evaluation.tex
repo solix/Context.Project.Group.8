@@ -1,16 +1,114 @@
-What we would like to include in this section is:
-\begin{enumerate}
-	\item Table with overall evaluation results from user tests.
-	\item Evaluation of individual functional modules (with more specific feedback we got from the users):
-	\begin{enumerate}
-		\item \textbf{Driver controls} 
-		\item \textbf{Navigator controls}
-		\item \textbf{Picking up and dropping of passengers}
-		\item \textbf{Stealing passengers}
-		\item \textbf{Power-ups}
-		\item \textbf{Game Head Up Display}
-		\item \textbf{Sound effects}
-		\item \textbf{Menu Screen}
-		\item \textbf{Multiplayer implementation}
-	\end{enumerate}
-\end{enumerate}
+\subsection{User evaluation}{
+\begin{center}
+\begin{tabular}{| l | r |}
+	\hline
+	Aspect & Average score (1 to 5) \\ \hline
+	Fun & 4.25 \\ \hline
+	Understandability  & 3.42 \\ \hline
+	Visual presentation & 4\\ \hline
+\end{tabular}
+\end{center} 
+
+The table above shows the average score we got from users for three of our most important aspects of the game. From the table it becomes apparent that the understandability  of the game leaves something to be desired. Users did not know what to do at the start of the game. Some started driving, but both driver and navigator didn't know where they should drive to. After a short period of time we stepped in to explain how the game works to those who were truly  lost. Many users suggested making a short tutorial for new players. Unfortunately this tutorial has not made the current release of the game.\\
+
+As soon as users understood how to play the game, drivers and navigators started to communicate and a lot of laughter was to be heard. We are very pleased with the score we obtained from our users for the fun aspect of the game. Most users were pleased with the overall visual presentation of our game. We were happy to hear this, as a significant amount of work went in creating the world of Taxi Trouble.
+
+\subsection{Evaluation of individual functional modules}
+
+We will now give a brief evaluation on our functional modules. It should be noted that some subcomponents have been left out of the description of the modules and their components. This is for the sake of overview.
+
+\subsubsection{GUIs}
+
+Our game has two main graphical user interfaces, one for the driver and one for the navigator. The GUIs consist of the following components:\\
+
+\begin{tabular}{| l | l |} 
+\hline
+\textbf{ViewObserver} & Takes care of basic rendering functionality for both GUIs.\\ \hline
+\textbf{DriverScreen} & Takes care of special rendering functionality for the driver GUI.\\ \hline
+\textbf{DriverControlsUI} & Provides the input buttons needed for the DriverScreen.\\ \hline
+\textbf{DriverControls} & Provides functionality for the buttons of the DriverControlsUI. \\ \hline
+\textbf{NavigatorScreen} & Takes care of special rendering functionality for the navigator GUI. \\ \hline
+\textbf{NavigatorControlsUI} & Provides the input buttons needed for the NavigatorScreen. \\ \hline
+\textbf{NavigatorControls} & Provides functionality for the buttons of the NavigatorControlsUI. \\ \hline
+\end{tabular}\\ \\ \\
+This module consists of the view and controller components of our MVC architecture. The DriverScreen and NavigatorScreen are both extensions of the abstract ViewObserver. They use their respective Controllers and ControllerUIs to enable the user to give inputs to the game's model.  The game's model is in turn used by the ViewObserver to render the game. \\
+
+During user tests it became clear that the navigator's GUI was intuitive to use for almost all users. However, the driver's GUI had varying results. While most users were able to use the GUI as intended, a significant amount did not have the hand-eye coordination that is required. A probable cause suggested by the results of our interviews is that the users that had difficulties using the GUI rarely played games in general.
+
+
+
+\subsubsection{Entities}
+
+All physical objects in the game world are subclasses of the abstract Entity class. Entities can interact with each other when colliding with each other. The detection of collisions is a task of the Management module. Our game has the following Entities:\\
+
+\begin{tabular}{| l | l |} 
+\hline
+\textbf{Taxi} & A taxi that is controlled by the driver of a team. \\ \hline
+\textbf{Passenger} & A passenger that can be picked up by a taxi. \\ \hline
+\textbf{Destination} & A destination that at which a passenger has to be dropped off by A taxi. \\ \hline 
+\textbf{PowerUp} & A power-up that can be picked up by a taxi. \\ \hline
+\textbf{SolidBox} & A solid object no taxis can drive through. This is used to create walls for example. \\ \hline
+\end{tabular}\\ \\ 
+
+During user tests almost every user was able to recognize and understand all entities  in the game. Power-ups were an exception to this rule. Users that played games on a regular basis were often quick to recognize and use power-ups. However, most users that didn't game on a regular basis  completely missed the presence of power-ups. Most of these users noticed the power-ups after playing for 3-4 minutes. This is also something that can be helped by having a tutorial in the game. Once users picked up a power-up most of them were able to understand what it would do on activation, which made it easy for them to activate the power-up at the right moment.  Interaction with and between other entities was experienced as logical and self-explanatory.
+
+
+\subsubsection{Game and Entity management}
+
+The entities in the game are managed by a set of specialized classes:\\
+
+\begin{tabular}{| l | l |} 
+\hline
+\textbf{Spawner} & Responsible for creating and removing entities. \\ \hline
+\textbf{CollisionDetector}& Responsible for invoking interaction between colliding entities, if any. \\ \hline
+\textbf{GameWorld} & Notifies the Spawner when a new entity is needed. \\ \hline
+\end{tabular}\\ \\
+
+This module combined with the Entities module make up the model part of our MVC architecture. The GameWorld is the backbone of the game's management. It starts the correct GUI and controls the spawning behavior of the Spawner. The CollisionDetector manages the interaction between colliding entities. This interaction often results in the removal of one of the colliding entities. This is done by telling the Spawner to despawn an entity from the world. 
+
+
+%\subsubsection*{Power-ups}
+
+
+
+%notes: most people seem to miss the powerups completely when playing for the first time.
+
+
+
+
+
+\subsubsection{Multiplayer implementation}
+The multiplayer implementation enables the game to actually be played with other people. The implementation exists of the following classes:\\
+
+\begin{tabular}{| l | l |} 
+\hline
+\textbf{AndroidLauncher} & Used to create and manage multiplayer connections. \\ \hline
+\textbf{AndroidMultiplayerAdapter} & Used to send information to other clients playing the game. \\ \hline
+\textbf{MessageAdapter} & Handles incoming messages and alters the game world accordingly. \\ \hline
+\end{tabular}  \\ \\
+
+The AndroidLauncher invokes methods from the Google Play Services Library to connect players to each other. Once a connection with all clients is established, one client will be assigned the role of "host". The host will act as a central authority during the game. Clients are only allowed to send the state of their own car and the activation of acquired power-ups. All other events (e.g. picking up a passenger or power-up) can only be sent by the host. This basically means that the state of the host's game is the true state of the game. Clients will alter their game's state to match that of the host's game. \\
+\\
+During user tests it became clear that the multiplayer implementation does have a shortcoming. While the latency of the game is generally within playable limits, it sometimes tends to have a brief moment of increased latency, a so called "lagspike". Lagspikes are extremely annoying to the user because it makes the game feel unresponsive for a short duration. This can cause the user to lose (part of) the game while they should have won. Lagspikes are mostly caused by unstable internet connections. We have tried some techniques to reduce the impact of lagspikes (e.g. client-side prediction) but these proved insufficient.
+
+\subsection{Failure analysis}
+
+During the project, we encountered a number of critical failures that we have fixed. We will discuss some of these in the upcoming section. Some lesser failures are still unsolved and will be described in section 5.3.2. \\
+
+\subsubsection{Encountered problems}
+
+
+One of the most problematic failures we encountered seemed to crash the game at random moments in the game. Upon looking for a stack trace, the only error message found was a single line indicating a segmentation violation. After some research and experimenting, we found the cause of this failure. When adding or removing entities to the game world while the game world was performing a physics step, the engine of our game would try to access memory outside the process's address space. We still do not know why the engine does this, but we suspect that the engine's developer made a mistake when porting it from C to Java. We made sure that the game will always wait until it is done with its physics step before entities are added or removed. \\
+
+An even more problematic failure caused the game not to crash, but to freeze. Because the game did not crash, the debugger did not show us any useful information. Because of the freezing of the game, we hypothesized that the failure was due to a deadlock. We searched the LibGDX community and found conformation for our hypothesis.  Because our MessageAdapter, operated by the thread responsible for network events, executed methods in the LibGDX game world, that should only be accessed by the LibGDX game thread, a deadlock could occur when both threads tried to perform certain operations. The solution for this failure was to, instead of executing the method,  let the MessageAdapter pass a method call as a runnable to the LibGDX game thread. After applying these changes the failure has not occurred again.
+
+\subsubsection{Unsolved failures}
+
+A few problems that cause our game to fail are still unsolved. An example is the lagspike problem described in section 5.2.4. Although this is not a critical failure, the game can become unplayable when many lagspikes occur during the game. \\
+
+A more important failure sometimes happens when pressing the play button in the main menu more than once, without giving the game time to load. This can cause the network connection of the game to fail at the start of the game. We don't think this issue is really hard to solve (disabling the button once it has been pressed will probably do wonders) but we found this bug to have a relatively low priority when compared to other problems, such as the ones described in the previous section. \\
+
+The most important failure of our game is the lack of anti-cheat measures. The game does not contain any way to validate messages from other clients and the messages are also unencrypted. If someone were to implement a "hacked" client, he could most likely influence the game by sending messages that are beneficial to him, or crash the game by flooding the network with messages. Google Play Services offers some form of security by only allowing applications signed by our digital key to connect to their services, but we doubt this will be enough to keep really eager hackers out. \\ 
+
+
+
