@@ -18,24 +18,19 @@ The visual aspect of the game relates to how the game appears to the players. It
 
 \textbf{The main menu }is the first interactive screen shown after starting the game. It provides two buttons: a play button and a leaderboard button. The player can start the game by pressing play. The player can view the top scores of the current day or week, or the all-time top scores by pressing the leaderboard button.\\
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% THIS SECTION NEEDS TO BE REWRITTEN%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \subsection*{Game model}
-	The game model is the main aspect of the game. It contains instances designed and developed to influence the game state while events are triggered by the user. Here are some of the most important game models explained.
+	The game model lies at the heart of the design of the game. The model consists of all entities that populate the game. In this section we will give an overview of the most important entities that make up Taxi Trouble's model.
 
-\begin{itemize}
-	
-	\item \textbf{Teams }are made of two participants where each will takes a distinct role in the game; Either as a driver or navigator.
-	\item \textbf{Taxi} is a solid object, It consists of wheels that is controlling the steering and acceleration. When two taxis collide with each other, collision is detected and natural reflection of the taxi body upon collision is performed.  	
-	\item \textbf{Passenger} are spawned in random locations on the map. They are meant to be picked up by the driver and to be dropped off by the teams to their destinations. Whenever a passenger is dropped off to his/her destination, a new passenger is then re-spawned in a random location on the map. Passengers can also be stolen by other taxi while they are on their way to destination. When a passenger is picked up by the taxi driver, the driver needs to drop off passenger before the drop off timer is ended.
-			
-	\item \textbf{Power-ups } of are three types. Invincibility, speed boost, increase drop off timer.`Invincibility' is made when taxi wants to protect the passenger from getting stolen. `Speed boost' is there to increase the acceleration of the taxi vehicle for 10 seconds . `Increase drop off' will extra 10 second to the time that needs to be dropped off by passenger.\\
-	These power ups can be picked up on the map by taxi driver and can be activated by the navigator during the game play.   
-\end{itemize}	
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{description}
+	\item[Taxi] \hfill \\
+	 The taxi entity is the most important entity in the game, as one would guess by Taxi Trouble's name. A taxi contains a body and wheels, which are separate entities on their own. Each taxi also has a team assigned to it. Furthermore, the taxi entity contains a set of properties such as the passenger that is in the taxi and its current speed, maximum speed, angle, and acceleration.
+	\item[Team] \hfill \\
+	A team is made of a driver and a navigator. Each team has a corresponding taxi and the team contains the state that the team is in. The state of the team is made up of the team score, whether the team owns a power-up and the appearance of the team.
+	\item[Passenger] \hfill \\
+	Passengers are spawned in random locations on the map. They are meant to be picked up by the driver and to be dropped off at their destinations before a timer runs out. Whenever a passenger is dropped off to his destination, a new passenger is spawned at a random location on the map. Passengers can be stolen by other taxi while they are on their way to their destination.		
+	\item[Power-ups] \hfill \\
+	Power-ups are randomly spawned on the map and they give a driver a temporal gameplay advantage. The driver can pick up a power-up, after which the navigator has to activate the power-up. There are three types of power-ups, which are invincibility, a speed boost, and an increase for the drop off timer. The invincibility power-up prevents a taxi against passenger stealing. The speed boost power-up increases a taxi's speed for ten seconds. Lastly, the timer increasing power-up grants an extra ten seconds of drop-off time to a taxi.
+\end{description}	
 
 \subsection*{Sound}
 	Having good sound effects can create a positive impact on user's experience. Sound effects are designed to immerse the player into the virtual game world, making the game more entertaining and satisfying.\\
