@@ -1,25 +1,29 @@
-In this section the important functionalities and key features that are developed for Taxi Trouble game  will be explained, each functionally is an important part of the game and make user to experience an interesting and entertaining game. Functionalities are classified under four categories: visual aspect, game model, sound and multiplayer. 
+In this section the important functionalities and key features that are developed for Taxi Trouble  will be explained. Each functionally is an important part of the game and enhances the experience of the user. Functionalities are classified under four categories: the visual aspect, the game model, the sound and the multiplayer. 
 
 \subsection*{Visual Aspect} % (fold)
 \label{sub:visual_aspect}
-The visual aspect of the game relates to how game appears to the players. It focuses on the appearance of the main game world and the components that are used to enhance the game for the player. \\
+The visual aspect of the game relates to how the game appears to the players. It focuses on the appearance of the main game world and the components that are used to enhance the game for the player. \\
 
-\textbf{The driver's screen }has an myopic 2D view of the map. It makes the driver's sight on map limited so that it makes it impossible to win the game without navigator's cooperation. There are touchscreen controls that is used by driver to control the taxi's acceleration and steering angle.\\   
+\textbf{The driver's screen }has an myopic 2D view of the map. It makes the driver's sight on the map limited so that it makes it impossible to win the game without the navigator's cooperation. There are touchscreen controls that can be used by the driver to control the taxi's acceleration and steering angle.\\   
 
-\textbf{The navigator's Screen }has the 2D zoom-able screen in top view. The player who play as navigator gets the whole map overview in order to navigate the taxi driver. There is a button provided on this screen for navigator. This is  meant for navigator to release the power ups that is picked by driver whenever he thinks is necessary during the game play.\\
+\textbf{The navigator's screen }has a 2D top-down view of the map. The navigator can zoom and pan to explore the game world.  The navigator can use his overview of the game to guide the taxi driver. There is a button provided on the navigator's screen, which can be used to activate power-ups that are picked up by the driver.\\
 
-\textbf{Game Head Up Display }is the method by which information is visually relayed to the player as part of a game's user interface.  The following informations are represented textually:
+\textbf{The head-up display }is part of the graphical user interface. It is used to show information to the player during gameplay.  The following information is represented textually:
 			\begin{itemize}
-				\item displays team number that indicates in which team the player of the game belongs. 
-				\item scoreboard that represents score achieved by a team. 
-				\item remaining time left for the game to end.  
-				\item remaining time left for the driver to drop the passenger to his/her destination. 
+				\item The team number, which indicates to which team the player belongs. 
+				\item A scoreboard that represents the score achieved by the team. 
+				\item The time left until the game ends.  
+				\item The time remaining for the driver to drop  off a passenger to his/her destination. 
 			\end{itemize}	
 
-\textbf{ Main Menu }is the first interactive screen shown after starting up the game. It provides access to two options: Play option and Leader board option. The player can commence the game by pressing play option and can view the leaderboard achievements by choosing the leaderboard option.\\
+\textbf{The main menu }is the first interactive screen shown after starting the game. It provides two buttons: a play button and a leaderboard button. The player can start the game by pressing play. The player can view the top scores of the current day or week, or the all-time top scores by pressing the leaderboard button.\\
 
-\subsection*{Game Model}
-	Game model is the main aspect of the game. These models are designed and developed in order to influence the game state while events are triggered by user. Here are some of the most important game models explained.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% THIS SECTION NEEDS TO BE REWRITTEN%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Game model}
+	The game model is the main aspect of the game. It contains instances designed and developed to influence the game state while events are triggered by the user. Here are some of the most important game models explained.
 
 \begin{itemize}
 	
@@ -31,11 +35,13 @@ The visual aspect of the game relates to how game appears to the players. It foc
 	These power ups can be picked up on the map by taxi driver and can be activated by the navigator during the game play.   
 \end{itemize}	
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection*{Sound}
-	Having a good sound effect will create an impact on user's gaming experience. sound effects are designed somehow to absorb the player in to the virtual game world, making the game more entertaining and satisfying and get a good overall feel of the game when events occurring at the time of game play.\\
-	In the game sound effects are designed for when events such as collision of taxis, passenger pick up and drop off, power up pick up and power up activation and passenger stealing happens.
+	Having good sound effects can create a positive impact on user's experience. Sound effects are designed to immerse the player into the virtual game world, making the game more entertaining and satisfying.\\
+	In the game, sound effects are used when certain events take place. These events are car collision, passenger pick up and drop off, power up pick up and activation, and passenger stealing.
 
 
 \subsection*{Multiplayer}
-One of the primary requirements for the design of multiplayer is to develop a shared sense of virtual space among certain number of players. The architecture that is chosen is the peer to peer(p2p) architecture where necessary messages are broadcasted by each player.\\
-Multiplayer is formed via invitation of other participants. The player can set the preferred number of participants to play with. The game can be played between 2 to 4 teams. Every Team's score is then submitted on the leaderboard when the game ends and all teams are concurrently updated on the events that are happening inside the game environment.
+One of the primary requirements for the design of a multiplayer game is to develop a sense of shared space among the players. The architecture that is chosen is the peer to peer(p2p) architecture. \\
+A multiplayer game can be started by inviting friends or choosing to be joined with random players. Once enough players have joined a game room, the game will commence. The game can be played with four, six our eight players. During the game, the illusion of a shared space is maintained through network messages which are being broadcasted between players. These messages contain information about the game model and tell the receiving client to update its own model accordingly.
