@@ -5,10 +5,10 @@ Our network architecture makes use of the Google Play Services (GPS)  API. This 
     Event & Sent by &  Client-side & notes\\
 	  &	        & prediction  & \\ \hline
     Car movement & Client &Yes  & Car movement is send by the client driving the car. \\ \hline
-    Passenger pickup / dropoff / stealing  & Server & Yes & To prevent passengers being assigned to other taxi's at the same time, only the server can send these events \\ \hline
-   Powerup pickup & Server & Yes & To prevent Powerups being assigned to different teams at the same time, only the server can send this event. \\ \hline
+    Passenger pickup / dropoff / stealing  & Server & Yes & To prevent passengers being assigned to other taxis at the same time, only the server can send these events \\ \hline
+   Powerup pickup & Server & Yes & To prevent power-ups being assigned to different teams at the same time, only the server can send this event. \\ \hline
  Powerup usage & Client & If needed  & We will implement client-side prediction and server reconciliation for powerups that are in need of this. \\ \hline
-Create passenger / powerup & Server & no & New instances can only be spawned by the server, the clients should not try to predict this, as most spawning is random. \\ \hline
+Create passenger / powerup & Server & No & New instances can only be spawned by the server, the clients should not try to predict this, as most spawning is random. \\ \hline
     \end{tabular}
 \end{center}
 
