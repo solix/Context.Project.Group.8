@@ -19,16 +19,16 @@
 \usepackage{datetime}
 \usepackage{etoolbox}
 \usepackage{emerald}
-\usepackage{multicol}
 \usepackage[T1]{fontenc}
 \usepackage[UKenglish]{babel}
+\usepackage{bookmark}
 
-\title{<Title Goes Here>}
-\date{}
+
+\title{Taxi Trouble : Final Report}
+\date{\today}
 \author{}
-\makeatletter
+
 \patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
-\makeatother
 \definecolor{shadecolor}{rgb}{184,184,184}
 \lstset{language=Matlab,
         frame = single,
@@ -55,28 +55,29 @@
 		\end{center}			 	
 		\end{minipage}
 		\begin{minipage}[H]{0.425\textwidth}
-			\begin{flushright}
-				\small{Rob van Bekkum \qquad rvanbekkum\qquad 4210816}\\
-				\small{Thijs Brands \qquad tlmbrands\qquad 4247132}\\
-				\small{Soheil Jahanshahi \qquad sjahanshahi\qquad 4127617}\\
-				\small{Aidan Mauricio \qquad amauricio\qquad 4195175}\\
+			\begin{flushleft}
+				\small{Rob van Bekkum \qquad rvanbekkum\qquad \quad  4210816}\\
+				\small{Thijs Brands \qquad \qquad tlmbrands\qquad \quad \quad 4247132}\\
+				\small{Soheil Jahanshahi \qquad sjahanshahi\quad  \qquad \thinspace 4127617}\\
+				\small{Aidan Mauricio  \qquad \quad  amauricio\qquad \quad \quad \thinspace 4195175}\\
 				\small{Joost van Oorschot\qquad jjevanoorschot\qquad  4220471}\\
 				\vspace{0.2cm}
-				\small{\textbf{Date:} \today}
-		\end{flushright}
+		\end{flushleft}
 	\end{minipage} 
 	\end{figure}
+\maketitle
 
 \begin{center}
 	\begin{center}
-			\includegraphics[height=3cm]{images/tt.png}	
+			\includegraphics[height=5cm,width=150mm]{images/tt.png}	
 	\end{center}
 \end{center}
-\begin{minipage}[H]{\textwidth}
-		\begin{center}
-		  \Huge{\textbf{Final Report}}\\	
-		\end{center}
-\end{minipage}
+
+%\begin{minipage}[H]{\textwidth}
+\newpage
+\tableofcontents
+\newpage		
+%\end{minipage}
 %%%%%%%%%%%%%%%%%%%%%%%%header ends here%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\section{Introduction}
 	\input{./sections/1.Introduction.tex}
