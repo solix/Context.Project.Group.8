@@ -5,6 +5,7 @@ import static com.taxi_trouble.game.properties.ResourceManager.getSprite;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -422,5 +423,26 @@ public class Spawner {
 	public void updateEntityBodies(World world) {
 		addEntityBodies(world);
 		removeDespawnedEntityBodies(world);
+	}
+	
+	/**
+	 * Removes all entities that have been created by this spawner.
+	 * Should only be used by restart method.
+	 */
+	public void despawnAll() {
+		
+		//despawn all passengers.
+		for( Passenger passenger: this.passengers.values()){
+			despawnPassenger(passenger);
+		}
+		
+		//despawn all powerUps.
+		for( PowerUp powerUp : this.powerups.values()){
+			despawnPowerup(powerUp);
+		}
+		
+		
+		
+		
 	}
 }

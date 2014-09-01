@@ -301,6 +301,8 @@ public class AndroidLauncher extends AndroidApplication implements
                     WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             showToast("Could not connect to room.");
         }
+        
+        //To enable restarting, this should be done somewhere else, or a room has to be created every new game (not preferable)
         setHost(room);
         if (iAmHost) {
             messageAdapter.onRealTimeMessageReceived(multiplayerInterface

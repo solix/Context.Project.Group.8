@@ -63,9 +63,12 @@ public abstract class ViewObserver implements Screen {
             public void run() {
                 taxigame.getMultiplayerInterface().submitScore(team.getScore());
                 if (taxigame.getMultiplayerInterface().isHost()) {
-                    Team winner = taxigame.getWinner();
+                    /*Team winner = taxigame.getWinner();
                     taxigame.getMultiplayerInterface().sendEndMessage(winner);
-                    showEndResultsBoard(winner);
+                    showEndResultsBoard(winner);*/
+                	
+                	//@TODO: 1. Send restart message. 2. Restart local game
+                	taxigame.restart();
                 }
             }
         });

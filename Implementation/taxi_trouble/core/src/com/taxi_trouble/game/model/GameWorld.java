@@ -30,6 +30,7 @@ public class GameWorld extends Game {
     private WorldMap map;
     private Team ownTeam;
     private Map<Integer, Team> teams;
+    private Map<Integer, Team> lastTeams; //lastTeams will be a copy of teams at the start of the game.
     private AndroidMultiplayerInterface multiplayerInterface;
     private SetupInterface setupInterface;
     private DriverScreen driverScreen;
@@ -63,7 +64,7 @@ public class GameWorld extends Game {
         world.setContactListener(collisionDetector);
         collisionDetector.setMultiPlayerInterface(multiplayerInterface);
         map.setMultiPlayerInterface(multiplayerInterface);
-        timer = new CountDownTimer(300);
+        timer = new CountDownTimer(15); //for testing purposes, should be reverted back to 300.
 
         driverScreen = new DriverScreen(this);
         navigatorScreen = new NavigatorScreen(this);
@@ -200,6 +201,7 @@ public class GameWorld extends Game {
             }
             teams.put(i, team);
         }
+        this.lastTeams = this.teams; //last teams can be used to reset the game to the start.
     }
 
     /**
@@ -273,4 +275,13 @@ public class GameWorld extends Game {
         }
         return team;
     }
+    
+    /**
+     * Restarts the game by despawning all entities in the gameWorld.
+     */
+	public void restart() {
+		this.map.getSpawner().despawnAll();
+		this.teams = this.lastTeams;
+		
+	}
 }
