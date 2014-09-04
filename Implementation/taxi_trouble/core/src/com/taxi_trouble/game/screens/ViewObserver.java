@@ -58,20 +58,7 @@ public abstract class ViewObserver implements Screen {
         this.hudCamera = new OrthographicCamera();
         this.hudCamera.setToOrtho(false, BUTTON_CAM_WIDTH, BUTTON_CAM_HEIGHT);
         this.initializeHUD();
-        taxigame.getTimer().setEndCountDownEvent(new Task() {
-            @Override
-            public void run() {
-                taxigame.getMultiplayerInterface().submitScore(team.getScore());
-                if (taxigame.getMultiplayerInterface().isHost()) {
-                    /*Team winner = taxigame.getWinner();
-                    taxigame.getMultiplayerInterface().sendEndMessage(winner);
-                    showEndResultsBoard(winner);*/
-                	
-                	//@TODO: 1. Send restart message. 2. Restart local game
-                	taxigame.restart();
-                }
-            }
-        });
+
     }
 
     /**

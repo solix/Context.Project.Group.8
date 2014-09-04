@@ -167,4 +167,12 @@ public class Team {
 	public String toString() {
 		return "<Team teamId=" + teamId + ">";
 	}
+
+	/**
+	 * Resets the team to initial state.
+	 */
+	public void reset() {
+		this.score = 0;
+		this.powerUp = null;
+	}
 }

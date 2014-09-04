@@ -306,7 +306,7 @@ public class AndroidLauncher extends AndroidApplication implements
         setHost(room);
         if (iAmHost) {
             messageAdapter.onRealTimeMessageReceived(multiplayerInterface
-                    .setTeams(room));
+                    .setTeams(room)); //specifically this, this got to go
             multiplayerInterface.reliableBroadcast("THIS IS RELIABLE");
         }
     }

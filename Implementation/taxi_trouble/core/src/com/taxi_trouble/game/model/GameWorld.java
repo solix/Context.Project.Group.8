@@ -10,6 +10,7 @@ import java.util.Map;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Timer.Task;
 import com.taxi_trouble.game.model.entities.Passenger;
 import com.taxi_trouble.game.model.entities.Taxi;
 import com.taxi_trouble.game.model.entities.powerups.PowerUp;
@@ -19,6 +20,7 @@ import com.taxi_trouble.game.multiplayer.SetupInterface;
 import com.taxi_trouble.game.screens.DriverScreen;
 import com.taxi_trouble.game.screens.MenuScreen;
 import com.taxi_trouble.game.screens.NavigatorScreen;
+import com.taxi_trouble.game.screens.ViewObserver;
 
 /**
  * Provides the main model for all the elements of a game that is played.
@@ -30,7 +32,6 @@ public class GameWorld extends Game {
     private WorldMap map;
     private Team ownTeam;
     private Map<Integer, Team> teams;
-    private Map<Integer, Team> lastTeams; //lastTeams will be a copy of teams at the start of the game.
     private AndroidMultiplayerInterface multiplayerInterface;
     private SetupInterface setupInterface;
     private DriverScreen driverScreen;
@@ -64,7 +65,7 @@ public class GameWorld extends Game {
         world.setContactListener(collisionDetector);
         collisionDetector.setMultiPlayerInterface(multiplayerInterface);
         map.setMultiPlayerInterface(multiplayerInterface);
-        timer = new CountDownTimer(15); //for testing purposes, should be reverted back to 300.
+        this.resetTimer(10); //for testing purposes, should be reverted back to 300.
 
         driverScreen = new DriverScreen(this);
         navigatorScreen = new NavigatorScreen(this);
@@ -201,7 +202,6 @@ public class GameWorld extends Game {
             }
             teams.put(i, team);
         }
-        this.lastTeams = this.teams; //last teams can be used to reset the game to the start.
     }
 
     /**
@@ -280,8 +280,43 @@ public class GameWorld extends Game {
      * Restarts the game by despawning all entities in the gameWorld.
      */
 	public void restart() {
+		System.out.println("restarting!");
 		this.map.getSpawner().despawnAll();
-		this.teams = this.lastTeams;
+		System.out.println("despawned all npcs and powerups!");
+		this.setTeams(this.ownTeam.getTeamId(), this.teams.size());
+		System.out.println("teams have been reset!!");
+		System.out.println("driverScreen reset!");
+		this.resetTimer(15);
+		System.out.println("time has been reset!");
+		driverScreen = new DriverScreen(this);
+		this.setScreen();
+		this.timer.startTimer();
 		
+	}
+	
+	public void resetTimer(int time){
+		this.timer= new CountDownTimer(time);
+		this.timer.setEndCountDownEvent(new Task() {
+            @Override
+            public void run() {
+                getMultiplayerInterface().submitScore(ownTeam.getScore());
+                if (getMultiplayerInterface().isHost()) {
+                   /* Team winner = getWinner();
+                    getMultiplayerInterface().sendEndMessage(winner);
+                   getActiveScreen().showEndResultsBoard(winner);*/
+                	//@TODO: 1. Send restart message. 2. Restart local game
+                	restart();
+                }
+            }
+        });
+	}
+	
+	public ViewObserver getActiveScreen(){
+		if (this.isDriver()){
+			return this.driverScreen;
+		}
+		else {
+			return this.navigatorScreen;
+		}
 	}
 }
