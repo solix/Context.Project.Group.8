@@ -215,7 +215,7 @@ public class Spawner {
 		// Pick a taxi spawn point as location to spawn a taxi.
 		SpawnPoint spawnPoint = taxispawnpoints.get(pointId);
 		spawnPoint.setActive(true);
-		// Initialize the new Taxi spawned at the randomly chosen location
+		// Initialize the new Taxi spawned at the randomly chosen location //random??
 		Taxi taxi = new Taxi(2, 4, 20, 60, 60);
 		taxi.initializeBody(world, spawnPoint.getPosition(),
 				spawnPoint.getAngle());
@@ -444,5 +444,12 @@ public class Spawner {
 		
 		
 		
+	}
+	/*
+	 * Despawns the argument taxi properly.
+	 */
+	public void despawnTaxi(Taxi taxi) {
+		getTaxispawnpoints().get(taxi.getTeam().getTeamId()).setActive(false);
+		this.scheduleBodyRemoval(taxi);		
 	}
 }

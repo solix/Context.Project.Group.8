@@ -65,7 +65,7 @@ public class GameWorld extends Game {
         world.setContactListener(collisionDetector);
         collisionDetector.setMultiPlayerInterface(multiplayerInterface);
         map.setMultiPlayerInterface(multiplayerInterface);
-        this.resetTimer(10); //for testing purposes, should be reverted back to 300.
+        this.resetTimer(40); //for testing purposes, should be reverted back to 300.
 
         driverScreen = new DriverScreen(this);
         navigatorScreen = new NavigatorScreen(this);
@@ -281,14 +281,22 @@ public class GameWorld extends Game {
      */
 	public void restart() {
 		System.out.println("restarting!");
-		this.map.getSpawner().despawnAll();
-		System.out.println("despawned all npcs and powerups!");
+		
+		for( Team team : this.teams.values()){
+			this.map.getSpawner().despawnTaxi(team.getTaxi());
+		}
+		
 		this.setTeams(this.ownTeam.getTeamId(), this.teams.size());
 		System.out.println("teams have been reset!!");
-		System.out.println("driverScreen reset!");
-		this.resetTimer(15);
+		
+		this.map.getSpawner().despawnAll();
+		System.out.println("despawned all npcs and powerups!");
+		
+		this.resetTimer(30);
 		System.out.println("time has been reset!");
+
 		driverScreen = new DriverScreen(this);
+		System.out.println("driverScreen reset!");
 		this.setScreen();
 		this.timer.startTimer();
 		

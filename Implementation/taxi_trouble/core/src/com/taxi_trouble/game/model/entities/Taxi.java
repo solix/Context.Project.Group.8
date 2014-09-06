@@ -734,4 +734,8 @@ public class Taxi extends Entity {
         getBody().setTransform(position.x, position.y, angle);
         getBody().setLinearVelocity(speed.x, speed.y);
     }
+    
+    public String toString(){
+    	return networkMessage();
+    }
 }
