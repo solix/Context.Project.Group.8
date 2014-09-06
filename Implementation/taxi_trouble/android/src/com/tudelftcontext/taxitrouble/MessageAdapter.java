@@ -54,11 +54,26 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
             resolveSetupMessage(sc);
         } else if (flag.equals("END")) {
             resolveEndMessage(sc);
+        } else if (flag.equals("RESTART")){
+        	resolveRestartMessage();
         }
         sc.close();
     }
 
-    private void resolveSetupMessage(Scanner sc) {
+    private void resolveRestartMessage() {
+    	
+		Gdx.app.postRunnable(new Runnable() {
+			
+			@Override
+			public void run() {
+				getGameWorld().restartPhase2();
+				
+			}
+		});
+		
+	}
+
+	private void resolveSetupMessage(Scanner sc) {
         boolean driver = sc.nextBoolean();
         int teamId = sc.nextInt();
         int totalTeams = sc.nextInt();
@@ -69,6 +84,7 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
     private void resolveEndMessage(Scanner sc) {
         Team winner = gameWorld.getTeamById(sc.nextInt());
         ((ViewObserver) gameWorld.getScreen()).showEndResultsBoard(winner);
+        this.gameWorld.getNextGameTimer().startTimer();
     }
 
     private void resolveActivateMessage(Scanner sc) {
@@ -216,5 +232,9 @@ public class MessageAdapter implements RealTimeMessageReceivedListener {
 			}
         	
         });
+    }
+    
+    public GameWorld getGameWorld(){
+    	return this.gameWorld;
     }
 }

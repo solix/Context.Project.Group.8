@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.google.android.gms.games.Games;
@@ -73,7 +74,14 @@ public class AndroidLauncher extends AndroidApplication implements
         aHelper.onActivityResult(request, response, data);
         if (request == RC_WAITING_ROOM) {
             if (response == RESULT_OK) {
-                gameWorld.startGame();
+            	Gdx.app.postRunnable(new Runnable() {
+        			
+        			@Override
+        			public void run() {
+        				gameWorld.startGame();
+        				
+        			}
+        		});
             }
         }
 

@@ -113,4 +113,6 @@ public interface AndroidMultiplayerInterface {
      *            : the score to submit
      */
     public void submitScore(int score);
+
+	public void sendRestartMessage();
 }

@@ -246,4 +246,11 @@ public class AndroidMultiplayerAdapter implements AndroidMultiplayerInterface {
         String message = "END " + team.getTeamId();
         reliableBroadcast(message);
     }
+
+	@Override
+	public void sendRestartMessage() {
+		reliableBroadcast("RESTART");
+		
+		
+	}
 }

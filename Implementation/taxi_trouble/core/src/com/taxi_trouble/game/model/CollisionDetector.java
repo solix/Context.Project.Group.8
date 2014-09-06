@@ -62,13 +62,7 @@ public class CollisionDetector implements ContactListener {
 	 *            : the collidee into which another instance has moved
 	 */
 	public void taxiCollide(Object collider, Object collidee) {
-		System.out.println("collision:  " + collider.getClass().getName()
-				+ "collided with" + collidee.getClass().getName());
-
-		if (networkInterface.isHost())
-			System.out.println("I am host!");
-		else
-			System.out.println("I am not host");
+		
 		if (collidee instanceof Destination) {
 			taxiAtDestination((Taxi) collider, (Destination) collidee);
 		}

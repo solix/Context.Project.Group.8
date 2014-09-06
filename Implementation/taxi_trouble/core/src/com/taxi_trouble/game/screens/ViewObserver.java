@@ -68,6 +68,11 @@ public abstract class ViewObserver implements Screen {
     public void showEndResultsBoard(Team winner) {
         this.hud.removeAll();
         HUDComponent endGameHud = new EndGameHUD(winner, 340, 300);
+       
+        
+        HUDComponent nextGameInHud = new TimerHUD("Next game will start in", 250, 100,
+                this.taxigame.getNextGameTimer());
+        this.hud.add(nextGameInHud);
         this.hud.add(endGameHud);
     }
 
@@ -91,7 +96,7 @@ public abstract class ViewObserver implements Screen {
             taxi.update(Gdx.app.getGraphics().getDeltaTime());
             taxi.render(getSpriteBatch());
         }
-
+       
         // Render the passengers into the game
         for (Passenger pass : taxigame.getPassengers()) {
             pass.render(getSpriteBatch());
@@ -112,12 +117,14 @@ public abstract class ViewObserver implements Screen {
                 pow.render(getSpriteBatch());
             }
         }
+        
+        
         getSpriteBatch().setProjectionMatrix(hudCamera.combined);
         this.hud.render(getSpriteBatch());
     }
 
     private void showDropOffTimer(CountDownTimer dropOffTimer) {
-        if (!this.hud.contains(dropOffTimerHUD)) {
+        if (!this.hud.contains(dropOffTimerHUD) && this.taxigame.stillTime()) {
             dropOffTimerHUD = new TimerHUD("Drop-off time-limit:", 250, 100,
                     dropOffTimer);
             this.hud.add(dropOffTimerHUD);
