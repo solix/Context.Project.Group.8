@@ -41,7 +41,15 @@ public class MenuControl extends InputAdapter {
 			((UIButton) entry.getValue()).setActive(true);
 		} else if (entry.getKey().equals("board")) {
 			((UIButton) entry.getValue()).setActive(true);
-		}
+		} else if (entry.getKey().equals("tutorial")) {
+		    ((UIButton) entry.getValue()).setActive(true);
+		} else if (entry.getKey().equals("back")) {
+            ((UIButton) entry.getValue()).setActive(true);
+        } else if (entry.getKey().equals("next")) {
+            ((UIButton) entry.getValue()).setActive(true);
+        } else if (entry.getKey().equals("backToMenu")) {
+            ((UIButton) entry.getValue()).setActive(true);
+        }
 		return true;
 	}
 
@@ -60,10 +68,21 @@ public class MenuControl extends InputAdapter {
 			((UIButton) entry.getValue()).setActive(false);
 			setupInterface.startGame();
 		} else if (entry.getKey().equals("board")) {
-			System.out.println("board");
 			((UIButton) entry.getValue()).setActive(false);
 			setupInterface.showLeaderBoard();
-		}
+		} else if (entry.getKey().equals("tutorial")) {
+            ((UIButton) entry.getValue()).setActive(false);
+            setupInterface.showTutorial();
+        } else if (entry.getKey().equals("backToMenu")) {
+            ((UIButton) entry.getValue()).setActive(false);
+            setupInterface.showMenu();
+        } else if (entry.getKey().equals("next")) {
+            ((UIButton) entry.getValue()).setActive(false);
+            setupInterface.showNext();
+        } else if (entry.getKey().equals("back")) {
+            ((UIButton) entry.getValue()).setActive(false);
+            setupInterface.showPrevious();
+        }
 		return true;
 	}
 
