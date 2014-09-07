@@ -34,16 +34,16 @@ public class MenuScreen implements Screen {
         elements = new LinkedHashMap<String, UIElement>();
         elements.put("background", new UIElement(new Rectangle(0, 0, UI_WIDTH,
                 UI_HEIGHT), getSprite("menuBgSprite")));
-        elements.put("play", new UIButton(new Rectangle(UI_WIDTH / 2 - 220,
-                340, 441, 91), getSprite("menuPlaySprite"),
+        elements.put("play", new UIButton(new Rectangle(UI_WIDTH / 2 - 225,
+                345, 449, 99), getSprite("menuPlaySprite"),
                 getSprite("menuPlayActiveSprite")));
         elements.put("title", new UIElement(new Rectangle(UI_WIDTH / 2 - 425,
                 UI_HEIGHT - 250, 850, 250), getSprite("menuTitleSprite")));
-        elements.put("board", new UIButton(new Rectangle(UI_WIDTH / 2 - 220,
-                220, 441, 91), getSprite("menuBoardSprite"),
+        elements.put("board", new UIButton(new Rectangle(UI_WIDTH / 2 - 225,
+                225, 449, 99), getSprite("menuBoardSprite"),
                 getSprite("menuBoardActiveSprite")));
-        elements.put("tutorial", new UIButton(new Rectangle(UI_WIDTH / 2 - 220,
-                100, 441, 91), getSprite("menuTutorialSprite"), 
+        elements.put("tutorial", new UIButton(new Rectangle(UI_WIDTH / 2 - 225,
+                105, 449, 99), getSprite("menuTutorialSprite"), 
                 getSprite("menuTutorialActiveSprite")));
 
         menuControl = new MenuControl(elements, setupInterface);

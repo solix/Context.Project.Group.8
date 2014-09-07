@@ -52,8 +52,8 @@ public class TutorialScreen implements Screen {
         elements.put("back", new UIButton(new Rectangle(44,
                 UI_HEIGHT/2 - 100, 118, 138), getSprite("back"), 
                 getSprite("back")));
-        elements.put("backToMenu", new UIButton(new Rectangle(UI_WIDTH / 2 - 220,
-                0, 441, 91), getSprite("tutMenuSprite"), 
+        elements.put("backToMenu", new UIButton(new Rectangle(UI_WIDTH / 2 - 225,
+                -9, 449, 99), getSprite("tutMenuSprite"), 
                 getSprite("tutMenuActiveSprite")));
 
         menuControl = new MenuControl(elements, setupInterface);
