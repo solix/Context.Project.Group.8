@@ -13,4 +13,12 @@ public interface SetupInterface {
 	public void showLeaderBoard();
 
 	public void leave();
+
+    public void showTutorial();
+
+    public void showMenu();
+
+    public void showNext();
+
+    public void showPrevious();
 }

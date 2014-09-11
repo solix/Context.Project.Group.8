@@ -6,45 +6,55 @@ import static com.taxi_trouble.game.properties.ResourceManager.getSprite;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.taxi_trouble.game.input.MenuControl;
 import com.taxi_trouble.game.multiplayer.SetupInterface;
+import com.taxi_trouble.game.properties.ResourceManager;
 import com.taxi_trouble.game.ui.UIButton;
 import com.taxi_trouble.game.ui.UIElement;
 
 /**
- * Screen for the main menu of the game.
+ * Screen for the tutorial of the game.
  * 
  * @author Computer Games Project Group 8
  * 
  */
-public class MenuScreen implements Screen {
+public class TutorialScreen implements Screen {
+    private Map<Integer, UIElement> sheets;
     private Map<String, UIElement> elements;
     private SpriteBatch spriteBatch;
     private OrthographicCamera uiCamera;
     private MenuControl menuControl;
+    private Sprite[] tutorialSheets;
+    private int currSheet;
 
-    public MenuScreen(SetupInterface setupInterface) {
+    public TutorialScreen(SetupInterface setupInterface) {
         elements = new LinkedHashMap<String, UIElement>();
-        elements.put("background", new UIElement(new Rectangle(0, 0, UI_WIDTH,
-                UI_HEIGHT), getSprite("menuBgSprite")));
-        elements.put("play", new UIButton(new Rectangle(UI_WIDTH / 2 - 225,
-                345, 449, 99), getSprite("menuPlaySprite"),
-                getSprite("menuPlayActiveSprite")));
-        elements.put("title", new UIElement(new Rectangle(UI_WIDTH / 2 - 425,
-                UI_HEIGHT - 250, 850, 250), getSprite("menuTitleSprite")));
-        elements.put("board", new UIButton(new Rectangle(UI_WIDTH / 2 - 225,
-                225, 449, 99), getSprite("menuBoardSprite"),
-                getSprite("menuBoardActiveSprite")));
-        elements.put("tutorial", new UIButton(new Rectangle(UI_WIDTH / 2 - 225,
-                105, 449, 99), getSprite("menuTutorialSprite"), 
-                getSprite("menuTutorialActiveSprite")));
+        sheets = new LinkedHashMap<Integer, UIElement>();
+        tutorialSheets = ResourceManager.getTutorialSheets();
+        currSheet = 0;
+        for (int i = 0; i < 9; i++) {
+            System.out.println(i);
+            sheets.put(i, new UIElement(new Rectangle(0, 0, UI_WIDTH, UI_HEIGHT), getSprite("tut"+i)));
+        }
+        // TODO: Put back, next and menu button on this screen
+        elements.put("next", new UIButton(new Rectangle(1116,
+                UI_HEIGHT/2 - 100, 118, 138), getSprite("next"), 
+                getSprite("next")));
+        elements.put("back", new UIButton(new Rectangle(44,
+                UI_HEIGHT/2 - 100, 118, 138), getSprite("back"), 
+                getSprite("back")));
+        elements.put("backToMenu", new UIButton(new Rectangle(UI_WIDTH / 2 - 225,
+                -9, 449, 99), getSprite("tutMenuSprite"), 
+                getSprite("tutMenuActiveSprite")));
 
         menuControl = new MenuControl(elements, setupInterface);
     }
@@ -66,9 +76,13 @@ public class MenuScreen implements Screen {
         uiCamera.update();
 
         spriteBatch.setProjectionMatrix(uiCamera.combined);
-
-        for (UIElement element : elements.values()) {
-            element.render(spriteBatch);
+        
+        sheets.get(currSheet).render(spriteBatch);
+        for (Entry<String, UIElement> element : elements.entrySet()) {
+            if (!((element.getKey().equals("next") && currSheet >= tutorialSheets.length - 1) ||
+                    (element.getKey().equals("back")) && currSheet == 0)) {
+                element.getValue().render(spriteBatch);
+            }
         }
     }
 
@@ -92,5 +106,17 @@ public class MenuScreen implements Screen {
     @Override
     public void dispose() {
         spriteBatch.dispose();
+    }
+
+    public void getNext() {
+        if (currSheet + 1 < tutorialSheets.length) {
+            currSheet++;
+        }
+    }
+
+    public void getBack() {
+        if (currSheet - 1 >= 0) {
+            currSheet--;
+        }
     }
 }

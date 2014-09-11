@@ -21,6 +21,7 @@ import com.taxi_trouble.game.screens.DriverScreen;
 import com.taxi_trouble.game.screens.MenuScreen;
 import com.taxi_trouble.game.screens.NavigatorScreen;
 import com.taxi_trouble.game.screens.ViewObserver;
+import com.taxi_trouble.game.screens.TutorialScreen;
 
 /**
  * Provides the main model for all the elements of a game that is played.
@@ -37,6 +38,7 @@ public class GameWorld extends Game {
 	private DriverScreen driverScreen;
 	private NavigatorScreen navigatorScreen;
 	private MenuScreen menuScreen;
+    private TutorialScreen tutorialScreen;
 	private CountDownTimer timer;
 	private CountDownTimer nextGameTimer;
 
@@ -73,6 +75,7 @@ public class GameWorld extends Game {
 		navigatorScreen = new NavigatorScreen(this);
 		menuScreen = new MenuScreen(setupInterface);
 		setScreen(menuScreen);
+        tutorialScreen = new TutorialScreen(setupInterface);
 	}
 
 	@Override
@@ -278,6 +281,22 @@ public class GameWorld extends Game {
 		}
 		return team;
 	}
+
+ 	/**
+     * Brings the player to the tutorial-screen.
+     */
+    public void showTutorial() {
+        setScreen(tutorialScreen);
+    }
+
+    public void getNextTutorial() {
+        tutorialScreen.getNext();
+    }
+ 
+    public void getPreviousTutorial() {
+        tutorialScreen.getBack();
+    }
+
 
 	/**
 	 * Restarts the game by despawning all entities in the gameWorld.

@@ -56,6 +56,7 @@ public final class ResourceManager {
         loadPowerUpControlSprites();
         loadCharacterSprites();
         loadMenuSprites();
+        loadTutorialSprites();
         loadSprite("sprites/destination.png", "destinationSprite");
     }
 
@@ -123,7 +124,33 @@ public final class ResourceManager {
         loadSprite("sprites/menu-play-active.png", "menuPlayActiveSprite");
         loadSprite("sprites/menu-board.png", "menuBoardSprite");
         loadSprite("sprites/menu-board-active.png", "menuBoardActiveSprite");
+        loadSprite("sprites/menu-tutorial.png", "menuTutorialSprite");
+        loadSprite("sprites/menu-tutorial-active.png", "menuTutorialActiveSprite");
         loadSprite("sprites/menu-title.png", "menuTitleSprite");
+    }
+
+    public static void loadTutorialSprites() {
+        loadSprite("sprites/tutorial/tut-0.png", "tut0");
+        loadSprite("sprites/tutorial/tut-1.png", "tut1");
+        loadSprite("sprites/tutorial/tut-2.png", "tut2");
+        loadSprite("sprites/tutorial/tut-3.png", "tut3");
+        loadSprite("sprites/tutorial/tut-4.png", "tut4");
+        loadSprite("sprites/tutorial/tut-5.png", "tut5");
+        loadSprite("sprites/tutorial/tut-6.png", "tut6");
+        loadSprite("sprites/tutorial/tut-7.png", "tut7");
+        loadSprite("sprites/tutorial/tut-8.png", "tut8");
+        loadSprite("sprites/tutorial/next.png", "next");
+        loadSprite("sprites/tutorial/back.png", "back");
+        loadSprite("sprites/tutorial/menu.png", "tutMenuSprite");
+        loadSprite("sprites/tutorial/menu-active.png", "tutMenuActiveSprite");
+    }
+
+    public static Sprite[] getTutorialSheets() {
+        Sprite[] tutSheets = new Sprite[9];
+        for (int i = 0; i < 0; i++) {
+            tutSheets[i] = getSprite("tut" + i);
+        }
+        return tutSheets;
     }
 
     /**

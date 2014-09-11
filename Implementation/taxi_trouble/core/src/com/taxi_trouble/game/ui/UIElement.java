@@ -26,6 +26,10 @@ public class UIElement {
 		spriteBatch.end();
 	}
 
+	public void setSprite(Sprite sprite) {
+	    this.sprite = sprite;
+	}
+
 	@Override
 	public String toString() {
 		return body.x + ", " + body.y + ";" + body.width + "," + body.height

@@ -376,4 +376,24 @@ public class AndroidLauncher extends AndroidApplication implements
         super.onDestroy();
         aHelper.onStop();
     }
+
+    @Override
+    public void showTutorial() {
+        gameWorld.showTutorial();
+    }
+
+    @Override
+    public void showMenu() {
+        gameWorld.returnToMenu();
+    }
+
+    @Override
+    public void showNext() {
+        gameWorld.getNextTutorial();
+    }
+
+    @Override
+    public void showPrevious() {
+        gameWorld.getPreviousTutorial();
+    }
 }
